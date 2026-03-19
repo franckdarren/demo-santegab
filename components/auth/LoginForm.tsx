@@ -147,7 +147,7 @@ export function LoginForm() {
                   type="button"
                   onClick={() => {
                     setEmail(compte.email);
-                    setPassword("Demo@2026!");
+                    setPassword("password");
                   }}
                   className="text-left p-3 rounded-xl bg-white/5 hover:bg-cyan-500/10 border border-white/10 transition"
                 >
