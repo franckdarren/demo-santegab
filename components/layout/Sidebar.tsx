@@ -1,9 +1,9 @@
 // ============================================================
-// SIDEBAR — Navigation principale
+// SIDEBAR — Navigation principale (Shadcn Sidebar)
 //
-// Affiche les modules disponibles selon le rôle de l'utilisateur.
-// Certains modules sont désactivés (bientôt disponible) pour
-// montrer la vision produit sans les avoir développés.
+// Utilise le composant Sidebar de Shadcn qui gère :
+//   - Desktop : sidebar fixe à gauche
+//   - Mobile  : drawer qui s'ouvre/ferme avec un bouton
 // ============================================================
 
 "use client";
@@ -12,6 +12,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Role } from "@/app/generated/prisma/client";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from "@/components/ui/sidebar";
 import {
   LayoutDashboard,
   Users,
@@ -25,14 +37,11 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
-// Définition de chaque entrée de navigation
 type NavItem = {
   label: string;
   href: string;
   icon: React.ElementType;
-  // Rôles autorisés à voir ce module (null = tous)
   roles: Role[] | null;
-  // Si true → affiché mais non cliquable (bientôt disponible)
   comingSoon?: boolean;
 };
 
@@ -84,96 +93,126 @@ const navigation: NavItem[] = [
   },
 ];
 
-interface SidebarProps {
+interface AppSidebarProps {
   role: Role;
+  hospitalNom: string;
 }
 
-export function Sidebar({ role }: SidebarProps) {
+export function AppSidebar({ role, hospitalNom }: AppSidebarProps) {
   const pathname = usePathname();
 
-  // Filtre les items selon le rôle de l'utilisateur
   const visibleItems = navigation.filter(
     (item) => item.roles === null || item.roles.includes(role)
   );
 
+  // Sépare les items actifs des "bientôt disponible"
+  const activeItems = visibleItems.filter((i) => !i.comingSoon);
+  const comingSoonItems = visibleItems.filter((i) => i.comingSoon);
+
   return (
-    <aside className="w-64 bg-blue-950 flex flex-col h-full shrink-0">
-
-      {/* Logo SANTÉGAB */}
-      <div className="flex items-center gap-3 px-5 py-5 border-b border-blue-800">
-        <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
-          <span className="text-lg">🏥</span>
+    <Sidebar className="border-r-0">
+      {/* -------------------------------------------------- */}
+      {/* HEADER SIDEBAR — Logo SANTÉGAB                     */}
+      {/* -------------------------------------------------- */}
+      <SidebarHeader className="bg-blue-950 border-b border-blue-800">
+        <div className="flex items-center gap-3 px-2 py-3">
+          <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
+            <span className="text-lg">🏥</span>
+          </div>
+          <div>
+            <p className="text-white font-bold text-sm tracking-wide">
+              SANTÉGAB
+            </p>
+            <p className="text-blue-300 text-xs">Gestion Hospitalière</p>
+          </div>
         </div>
-        <div>
-          <p className="text-white font-bold text-sm tracking-wide">
-            SANTÉGAB
-          </p>
-          <p className="text-blue-300 text-xs">Gestion Hospitalière</p>
+      </SidebarHeader>
+
+      {/* -------------------------------------------------- */}
+      {/* CONTENU — Navigation                               */}
+      {/* -------------------------------------------------- */}
+      <SidebarContent className="bg-blue-950">
+
+        {/* Modules actifs */}
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-blue-400 text-xs uppercase tracking-widest px-4 mt-2">
+            Navigation
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {activeItems.map((item) => {
+                const Icon = item.icon;
+                const isActive =
+                  pathname === item.href ||
+                  (item.href !== "/dashboard" &&
+                    pathname.startsWith(item.href));
+
+                return (
+                  <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={isActive}
+                      className={cn(
+                        "text-blue-200 hover:text-white hover:bg-white/10",
+                        isActive && "bg-white/15 text-white font-medium"
+                      )}
+                    >
+                      <Link href={item.href}>
+                        <Icon className="h-4 w-4" />
+                        <span>{item.label}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* Modules bientôt disponibles */}
+        {comingSoonItems.length > 0 && (
+          <SidebarGroup>
+            <SidebarGroupLabel className="text-blue-400/50 text-xs uppercase tracking-widest px-4">
+              Bientôt disponible
+            </SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {comingSoonItems.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <SidebarMenuItem key={item.href}>
+                      <SidebarMenuButton
+                        disabled
+                        className="text-blue-400/40 cursor-not-allowed hover:bg-transparent hover:text-blue-400/40"
+                      >
+                        <Icon className="h-4 w-4" />
+                        <span className="flex-1">{item.label}</span>
+                        <Badge
+                          variant="outline"
+                          className="text-[10px] border-blue-700/50 text-blue-500/50 py-0 px-1.5 ml-auto"
+                        >
+                          Bientôt
+                        </Badge>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
+
+      </SidebarContent>
+
+      {/* -------------------------------------------------- */}
+      {/* FOOTER SIDEBAR — Hôpital actif                     */}
+      {/* -------------------------------------------------- */}
+      <SidebarFooter className="bg-blue-950 border-t border-blue-800">
+        <div className="flex items-center gap-2 px-4 py-3">
+          <Building2 className="h-3.5 w-3.5 text-blue-400 shrink-0" />
+          <span className="text-xs text-blue-400 truncate">{hospitalNom}</span>
         </div>
-      </div>
-
-      {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-        {visibleItems.map((item) => {
-          const Icon = item.icon;
-          const isActive = pathname === item.href ||
-            (item.href !== "/dashboard" && pathname.startsWith(item.href));
-
-          if (item.comingSoon) {
-            // Item désactivé — bientôt disponible
-            return (
-              <div
-                key={item.href}
-                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-blue-400/50 cursor-not-allowed"
-              >
-                <Icon className="h-4 w-4 shrink-0" />
-                <span className="text-sm flex-1">{item.label}</span>
-                <Badge
-                  variant="outline"
-                  className="text-[10px] border-blue-700 text-blue-500 py-0 px-1.5"
-                >
-                  Bientôt
-                </Badge>
-              </div>
-            );
-          }
-
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors text-sm",
-                isActive
-                  ? "bg-white/15 text-white font-medium"
-                  : "text-blue-200 hover:bg-white/8 hover:text-white"
-              )}
-            >
-              <Icon className="h-4 w-4 shrink-0" />
-              <span>{item.label}</span>
-            </Link>
-          );
-        })}
-      </nav>
-
-      {/* Bas de sidebar — Paramètres */}
-      <div className="px-3 py-4 border-t border-blue-800">
-        <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-blue-400/50 cursor-not-allowed">
-          <Settings className="h-4 w-4 shrink-0" />
-          <span className="text-sm flex-1">Paramètres</span>
-          <Badge
-            variant="outline"
-            className="text-[10px] border-blue-700 text-blue-500 py-0 px-1.5"
-          >
-            Bientôt
-          </Badge>
-        </div>
-        <div className="flex items-center gap-2 px-3 mt-3">
-          <Building2 className="h-3.5 w-3.5 text-blue-400" />
-          <span className="text-xs text-blue-400">Clinique El Rapha</span>
-        </div>
-      </div>
-
-    </aside>
+      </SidebarFooter>
+    </Sidebar>
   );
 }

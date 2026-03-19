@@ -1,13 +1,13 @@
 // ============================================================
-// LAYOUT DASHBOARD
+// LAYOUT DASHBOARD — Avec SidebarProvider Shadcn
 //
-// Layout principal de l'application après connexion.
-// Contient la sidebar et le header, partagés entre toutes
-// les pages du dashboard.
+// SidebarProvider gère l'état ouvert/fermé de la sidebar
+// automatiquement selon la taille d'écran.
 // ============================================================
 
-import { Sidebar } from "@/components/layout/Sidebar";
+import { AppSidebar } from "@/components/layout/Sidebar";
 import { Header } from "@/components/layout/Header";
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
@@ -17,29 +17,32 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Récupère l'utilisateur connecté via Supabase Auth
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (!user) redirect("/login");
 
-  // Récupère le profil complet depuis la base de données
   const utilisateur = await prisma.utilisateur.findFirst({
     where: { email: user.email! },
     include: { hospital: true },
   });
 
-  // Si l'utilisateur n'a pas de profil en base → déconnexion
   if (!utilisateur) redirect("/login");
 
   return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden">
-      {/* Sidebar fixe à gauche */}
-      <Sidebar role={utilisateur.role} />
+    // SidebarProvider gère l'état responsive de la sidebar
+    <SidebarProvider>
 
-      {/* Contenu principal */}
-      <div className="flex flex-col flex-1 overflow-hidden">
-        {/* Header en haut */}
+      {/* Sidebar — se transforme en drawer sur mobile */}
+      <AppSidebar
+        role={utilisateur.role}
+        hospitalNom={utilisateur.hospital.nom}
+      />
+
+      {/* Zone principale — s'adapte quand la sidebar s'ouvre/ferme */}
+      <SidebarInset className="bg-gray-50">
         <Header
           utilisateur={{
             nom: utilisateur.nom,
@@ -49,12 +52,11 @@ export default async function DashboardLayout({
           }}
           hospitalNom={utilisateur.hospital.nom}
         />
-
-        {/* Zone de contenu scrollable */}
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6">
           {children}
         </main>
-      </div>
-    </div>
+      </SidebarInset>
+
+    </SidebarProvider>
   );
 }
