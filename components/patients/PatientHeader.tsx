@@ -1,20 +1,25 @@
 // ============================================================
-// PATIENT HEADER — Avec boutons Modifier et Supprimer
+// PATIENT HEADER — Avec boutons Modifier, Supprimer
+// et Nouvelle Consultation fonctionnel
 // ============================================================
 
+"use client";
+
+import { useState } from "react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Phone, Calendar, Droplets, Shield,
-  ArrowLeft, Stethoscope, Pencil, Trash2,
+  ArrowLeft, Stethoscope,
 } from "lucide-react";
 import Link from "next/link";
 import { formatDate, getInitials } from "@/lib/utils";
 import { Sexe } from "@/app/generated/prisma/client";
 import { ModifierPatientDialog } from "./ModifierPatientDialog";
 import { SupprimerPatientDialog } from "./SupprimerPatientDialog";
+import { NouvelleConsultationDepuisPatient } from "./NouvelleConsultationDepuisPatient";
 
 interface PatientHeaderProps {
   patient: {
@@ -36,10 +41,18 @@ interface PatientHeaderProps {
     medecin_traitant: string | null;
   };
   hospitalId: string;
+  medecinConnecteId: string;
+  medecins: Array<{ id: string; nom: string; prenom: string }>;
 }
 
-export function PatientHeader({ patient, hospitalId }: PatientHeaderProps) {
+export function PatientHeader({
+  patient,
+  hospitalId,
+  medecinConnecteId,
+  medecins,
+}: PatientHeaderProps) {
   const nomComplet = `${patient.prenom} ${patient.nom}`;
+  const [dialogConsultation, setDialogConsultation] = useState(false);
 
   const age = patient.date_naissance
     ? Math.floor(
@@ -96,15 +109,16 @@ export function PatientHeader({ patient, hospitalId }: PatientHeaderProps) {
 
             {/* Actions */}
             <div className="flex gap-2 shrink-0 flex-wrap">
+              {/* Bouton Nouvelle consultation — ouvre le dialog */}
               <Button
+                type="button"
+                onClick={() => setDialogConsultation(true)}
                 className="bg-blue-700 hover:bg-blue-800 text-white text-sm"
-                disabled
               >
                 <Stethoscope className="h-4 w-4 mr-1.5" />
                 Nouvelle consultation
               </Button>
 
-              {/* Boutons modifier et supprimer — composants client */}
               <ModifierPatientDialog patient={patient} hospitalId={hospitalId} />
               <SupprimerPatientDialog
                 patientId={patient.id}
@@ -121,7 +135,9 @@ export function PatientHeader({ patient, hospitalId }: PatientHeaderProps) {
                 <Phone className="h-3.5 w-3.5 text-gray-400 shrink-0" />
                 <div>
                   <p className="text-xs text-gray-400">Téléphone</p>
-                  <p className="text-sm font-medium text-gray-700">{patient.telephone}</p>
+                  <p className="text-sm font-medium text-gray-700">
+                    {patient.telephone}
+                  </p>
                 </div>
               </div>
             )}
@@ -160,6 +176,7 @@ export function PatientHeader({ patient, hospitalId }: PatientHeaderProps) {
             )}
           </div>
 
+          {/* Allergies */}
           {patient.allergies && (
             <div className="mt-3 p-3 bg-orange-50 rounded-lg border border-orange-100">
               <p className="text-xs font-semibold text-orange-700 mb-0.5">
@@ -170,6 +187,21 @@ export function PatientHeader({ patient, hospitalId }: PatientHeaderProps) {
           )}
         </CardContent>
       </Card>
+
+      {/* Dialog nouvelle consultation — patient pré-sélectionné */}
+      <NouvelleConsultationDepuisPatient
+        open={dialogConsultation}
+        onOpenChange={setDialogConsultation}
+        hospitalId={hospitalId}
+        medecinConnecteId={medecinConnecteId}
+        medecins={medecins}
+        patient={{
+          id: patient.id,
+          nom: patient.nom,
+          prenom: patient.prenom,
+          numero_dossier: patient.numero_dossier,
+        }}
+      />
     </div>
   );
 }
