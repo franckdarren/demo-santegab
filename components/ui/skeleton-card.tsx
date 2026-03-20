@@ -53,7 +53,7 @@ export function SkeletonChart() {
         <Skeleton className="h-5 w-48" />
         <Skeleton className="h-3 w-32" />
       </div>
-      <Skeleton className="h-[220px] w-full rounded-lg" />
+      <Skeleton className="h-55 w-full rounded-lg" />
     </div>
   );
 }

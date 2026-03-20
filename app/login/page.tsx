@@ -7,12 +7,12 @@ import { Shield, Activity, Users } from "lucide-react";
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-950 via-slate-900 to-blue-900 flex relative overflow-hidden">
+    <div className="min-h-screen bg-linear-to-br from-blue-950 via-slate-900 to-blue-900 flex relative overflow-hidden">
 
       {/* Background glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-[28rem] h-[28rem] rounded-full bg-cyan-500/20 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-[28rem] h-[28rem] rounded-full bg-blue-700/20 blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-md h-112 rounded-full bg-cyan-500/20 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-md h-112 rounded-full bg-blue-700/20 blur-3xl" />
       </div>
 
       {/* -------------------------------------------------- */}

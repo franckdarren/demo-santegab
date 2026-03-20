@@ -129,7 +129,7 @@ export function FactureDetailDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="!max-w-2xl w-full p-0 overflow-hidden gap-0 [&>button:first-of-type]:hidden">
+      <DialogContent className="max-w-2xl! w-full p-0 overflow-hidden gap-0 [&>button:first-of-type]:hidden">
         <DialogTitle className="sr-only">Détail facture</DialogTitle>
 
         {succes ? (

@@ -1,7 +1,3 @@
-// ============================================================
-// NOUVELLE DEMANDE LABO — Dialog de création
-// ============================================================
-
 "use client";
 
 import { useState, useTransition } from "react";
@@ -13,21 +9,25 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Check, Loader2, AlertCircle, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { creerExamenLabo } from "@/app/dashboard/laboratory/actions";
-import { TypeExamenLabo } from "@/app/generated/prisma/client";
+import { creerExamenImagerie } from "@/app/dashboard/imaging/actions";
+import { TypeExamenImagerie } from "@/app/generated/prisma/client";
 
 const selectClass =
   "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring";
 
-const TYPES_EXAMEN: { value: TypeExamenLabo; label: string }[] = [
-  { value: "BILAN_SANGUIN",  label: "Bilan sanguin" },
-  { value: "BILAN_URINAIRE", label: "Bilan urinaire" },
-  { value: "BACTERIOLOGIE",  label: "Bactériologie" },
-  { value: "PARASITOLOGIE",  label: "Parasitologie" },
-  { value: "SEROLOGIE",      label: "Sérologie" },
-  { value: "BIOCHIMIE",      label: "Biochimie" },
-  { value: "HEMATOLOGIE",    label: "Hématologie" },
-  { value: "AUTRE",          label: "Autre" },
+const TYPES_EXAMEN: { value: TypeExamenImagerie; label: string }[] = [
+  { value: "RADIOGRAPHIE", label: "Radiographie" },
+  { value: "ECHOGRAPHIE",  label: "Échographie" },
+  { value: "SCANNER",      label: "Scanner" },
+  { value: "IRM",          label: "IRM" },
+  { value: "MAMMOGRAPHIE", label: "Mammographie" },
+  { value: "AUTRE",        label: "Autre" },
+];
+
+// Zones anatomiques courantes pour la démo
+const ZONES_ANATOMIQUES = [
+  "Thorax", "Abdomen", "Crâne", "Colonne vertébrale",
+  "Bassin", "Membres supérieurs", "Membres inférieurs", "Autre",
 ];
 
 interface Medecin {
@@ -45,7 +45,7 @@ interface PatientHospital {
   };
 }
 
-interface NouvelleDemandeLaboDialogProps {
+interface NouvelleDemandeImagerieDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   hospitalId: string;
@@ -64,14 +64,14 @@ function FieldError({ message }: { message?: string }) {
   );
 }
 
-export function NouvelleDemandeLaboDialog({
+export function NouvelleDemandeImagerieDialog({
   open,
   onOpenChange,
   hospitalId,
   medecinConnecteId,
   medecins,
   patients,
-}: NouvelleDemandeLaboDialogProps) {
+}: NouvelleDemandeImagerieDialogProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [succes, setSucces] = useState(false);
@@ -79,7 +79,8 @@ export function NouvelleDemandeLaboDialog({
 
   const [patientId, setPatientId] = useState("");
   const [medecinId, setMedecinId] = useState(medecinConnecteId);
-  const [typeExamen, setTypeExamen] = useState<TypeExamenLabo>("BILAN_SANGUIN");
+  const [typeExamen, setTypeExamen] = useState<TypeExamenImagerie>("RADIOGRAPHIE");
+  const [zoneAnatomique, setZoneAnatomique] = useState("");
   const [notes, setNotes] = useState("");
   const [urgence, setUrgence] = useState(false);
 
@@ -95,7 +96,8 @@ export function NouvelleDemandeLaboDialog({
     setSucces(false);
     setPatientId("");
     setMedecinId(medecinConnecteId);
-    setTypeExamen("BILAN_SANGUIN");
+    setTypeExamen("RADIOGRAPHIE");
+    setZoneAnatomique("");
     setNotes("");
     setUrgence(false);
     setErrors({});
@@ -107,10 +109,11 @@ export function NouvelleDemandeLaboDialog({
 
     startTransition(async () => {
       try {
-        await creerExamenLabo(hospitalId, {
+        await creerExamenImagerie(hospitalId, {
           patient_id: patientId,
           medecin_id: medecinId,
           type_examen: typeExamen,
+          zone_anatomique: zoneAnatomique || undefined,
           notes: notes || undefined,
           urgence,
         });
@@ -126,8 +129,8 @@ export function NouvelleDemandeLaboDialog({
 
   return (
     <Dialog open={open} onOpenChange={close}>
-      <DialogContent className="max-w-lg! w-full p-0 overflow-hidden gap-0">
-        <DialogTitle className="sr-only">Nouvelle demande d'examen</DialogTitle>
+      <DialogContent className="!max-w-lg w-full p-0 overflow-hidden gap-0">
+        <DialogTitle className="sr-only">Nouvelle demande d'imagerie</DialogTitle>
 
         {succes ? (
           <div className="flex flex-col items-center justify-center gap-4 p-12">
@@ -141,13 +144,12 @@ export function NouvelleDemandeLaboDialog({
         ) : (
           <div className="flex flex-col">
 
-            {/* Header */}
             <div className="px-6 py-4 border-b bg-gray-50">
               <h2 className="text-base font-semibold text-gray-900">
-                Nouvelle demande d'examen
+                Nouvelle demande d'imagerie
               </h2>
               <p className="text-xs text-gray-400 mt-0.5">
-                Laboratoire — Biologie médicale
+                Radiologie — Imagerie médicale
               </p>
             </div>
 
@@ -182,7 +184,7 @@ export function NouvelleDemandeLaboDialog({
                 <FieldError message={errors.patient} />
               </div>
 
-              {/* Médecin prescripteur */}
+              {/* Médecin */}
               <div className="space-y-1.5">
                 <Label>Médecin prescripteur <span className="text-red-500">*</span></Label>
                 <select
@@ -198,18 +200,33 @@ export function NouvelleDemandeLaboDialog({
                 </select>
               </div>
 
-              {/* Type d'examen */}
-              <div className="space-y-1.5">
-                <Label>Type d'examen <span className="text-red-500">*</span></Label>
-                <select
-                  value={typeExamen}
-                  onChange={(e) => setTypeExamen(e.target.value as TypeExamenLabo)}
-                  className={selectClass}
-                >
-                  {TYPES_EXAMEN.map((t) => (
-                    <option key={t.value} value={t.value}>{t.label}</option>
-                  ))}
-                </select>
+              {/* Type + Zone anatomique */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1.5">
+                  <Label>Type d'examen <span className="text-red-500">*</span></Label>
+                  <select
+                    value={typeExamen}
+                    onChange={(e) => setTypeExamen(e.target.value as TypeExamenImagerie)}
+                    className={selectClass}
+                  >
+                    {TYPES_EXAMEN.map((t) => (
+                      <option key={t.value} value={t.value}>{t.label}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="space-y-1.5">
+                  <Label>Zone anatomique</Label>
+                  <select
+                    value={zoneAnatomique}
+                    onChange={(e) => setZoneAnatomique(e.target.value)}
+                    className={selectClass}
+                  >
+                    <option value="">Sélectionner...</option>
+                    {ZONES_ANATOMIQUES.map((z) => (
+                      <option key={z} value={z}>{z}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               {/* Urgence */}
@@ -260,7 +277,6 @@ export function NouvelleDemandeLaboDialog({
               </div>
             </div>
 
-            {/* Footer */}
             <div className="flex justify-between items-center px-6 py-4 border-t bg-gray-50">
               <Button
                 type="button"

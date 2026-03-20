@@ -164,7 +164,7 @@ export function NouvelleFactureDialog({
 
   return (
     <Dialog open={open} onOpenChange={close}>
-      <DialogContent className="!max-w-3xl w-full p-0 overflow-hidden gap-0">
+      <DialogContent className="max-w-3xl! w-full p-0 overflow-hidden gap-0">
         <DialogTitle className="sr-only">Nouvelle facture</DialogTitle>
 
         {succes ? (
@@ -354,7 +354,7 @@ export function NouvelleFactureDialog({
                 <div className="space-y-2 flex-1">
                   {lignes.map((l, i) => (
                     <div key={i} className="flex justify-between text-xs">
-                      <span className="text-gray-600 truncate max-w-[100px]">
+                      <span className="text-gray-600 truncate max-w-25">
                         {l.description || `Ligne ${i + 1}`}
                       </span>
                       <span className="text-gray-800 font-medium shrink-0 ml-1">

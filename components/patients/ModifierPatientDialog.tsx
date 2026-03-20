@@ -150,7 +150,7 @@ export function ModifierPatientDialog({
       </Button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="!max-w-2xl w-full p-0 overflow-hidden gap-0">
+        <DialogContent className="max-w-2xl! w-full p-0 overflow-hidden gap-0">
           <DialogTitle className="sr-only">Modifier le patient</DialogTitle>
 
           {succes ? (

@@ -137,7 +137,7 @@ export function ConsultationDetailDialog({
           de Shadcn — on gère notre propre bouton de fermeture
           dans le header pour un meilleur contrôle du positionnement
           ============================================================ */}
-            <DialogContent className="!max-w-4xl w-full p-0 overflow-hidden gap-0 h-[85vh] flex flex-col [&>button:first-of-type]:hidden">
+            <DialogContent className="max-w-4xl! w-full p-0 overflow-hidden gap-0 h-[85vh] flex flex-col [&>button:first-of-type]:hidden">
                 <DialogTitle className="sr-only">Détail consultation</DialogTitle>
 
                 {succes ? (

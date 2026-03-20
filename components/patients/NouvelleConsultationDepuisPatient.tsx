@@ -147,7 +147,7 @@ export function NouvelleConsultationDepuisPatient({
 
     return (
         <Dialog open={open} onOpenChange={close}>
-            <DialogContent className="!max-w-2xl w-full p-0 overflow-hidden gap-0">
+            <DialogContent className="max-w-2xl! w-full p-0 overflow-hidden gap-0">
                 <DialogTitle className="sr-only">Nouvelle consultation</DialogTitle>
 
                 {succes ? (

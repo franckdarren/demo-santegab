@@ -36,6 +36,7 @@ import {
   Building2,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { ScanLine } from "lucide-react";
 
 type NavItem = {
   label: string;
@@ -77,6 +78,14 @@ const navigation: NavItem[] = [
     roles: ["ADMIN", "LABORANTIN", "MEDECIN"],
     comingSoon: false,
   },
+
+  { 
+    label: "Imagerie",    
+    href: "/dashboard/imaging",    
+    icon: ScanLine,     
+    roles: ["ADMIN", "RADIOLOGUE", "MEDECIN"],    
+    comingSoon: false },
+
   {
     label: "Pharmacie",
     href: "/dashboard/pharmacy",
