@@ -58,7 +58,9 @@ export const ModelName = {
   Consultation: 'Consultation',
   Prescription: 'Prescription',
   Facture: 'Facture',
-  LigneFacture: 'LigneFacture'
+  LigneFacture: 'LigneFacture',
+  ExamenLabo: 'ExamenLabo',
+  ExamenImagerie: 'ExamenImagerie'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -213,6 +215,49 @@ export const LigneFactureScalarFieldEnum = {
 } as const
 
 export type LigneFactureScalarFieldEnum = (typeof LigneFactureScalarFieldEnum)[keyof typeof LigneFactureScalarFieldEnum]
+
+
+export const ExamenLaboScalarFieldEnum = {
+  id: 'id',
+  hospital_id: 'hospital_id',
+  patient_id: 'patient_id',
+  medecin_id: 'medecin_id',
+  type_examen: 'type_examen',
+  statut: 'statut',
+  resultats: 'resultats',
+  fichier_url: 'fichier_url',
+  fichier_nom: 'fichier_nom',
+  valide_par: 'valide_par',
+  valide_le: 'valide_le',
+  notes: 'notes',
+  urgence: 'urgence',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ExamenLaboScalarFieldEnum = (typeof ExamenLaboScalarFieldEnum)[keyof typeof ExamenLaboScalarFieldEnum]
+
+
+export const ExamenImagerieScalarFieldEnum = {
+  id: 'id',
+  hospital_id: 'hospital_id',
+  patient_id: 'patient_id',
+  medecin_id: 'medecin_id',
+  type_examen: 'type_examen',
+  statut: 'statut',
+  resultats: 'resultats',
+  fichier_url: 'fichier_url',
+  fichier_nom: 'fichier_nom',
+  valide_par: 'valide_par',
+  valide_le: 'valide_le',
+  notes: 'notes',
+  urgence: 'urgence',
+  zone_anatomique: 'zone_anatomique',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ExamenImagerieScalarFieldEnum = (typeof ExamenImagerieScalarFieldEnum)[keyof typeof ExamenImagerieScalarFieldEnum]
 
 
 export const SortOrder = {

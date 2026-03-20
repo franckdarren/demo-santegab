@@ -240,6 +240,8 @@ export type UtilisateurWhereInput = {
   updated_at?: Prisma.DateTimeFilter<"Utilisateur"> | Date | string
   hospital?: Prisma.XOR<Prisma.HospitalScalarRelationFilter, Prisma.HospitalWhereInput>
   consultations?: Prisma.ConsultationListRelationFilter
+  examens_labo_prescrits?: Prisma.ExamenLaboListRelationFilter
+  examens_imagerie_prescrits?: Prisma.ExamenImagerieListRelationFilter
 }
 
 export type UtilisateurOrderByWithRelationInput = {
@@ -257,6 +259,8 @@ export type UtilisateurOrderByWithRelationInput = {
   updated_at?: Prisma.SortOrder
   hospital?: Prisma.HospitalOrderByWithRelationInput
   consultations?: Prisma.ConsultationOrderByRelationAggregateInput
+  examens_labo_prescrits?: Prisma.ExamenLaboOrderByRelationAggregateInput
+  examens_imagerie_prescrits?: Prisma.ExamenImagerieOrderByRelationAggregateInput
 }
 
 export type UtilisateurWhereUniqueInput = Prisma.AtLeast<{
@@ -277,6 +281,8 @@ export type UtilisateurWhereUniqueInput = Prisma.AtLeast<{
   updated_at?: Prisma.DateTimeFilter<"Utilisateur"> | Date | string
   hospital?: Prisma.XOR<Prisma.HospitalScalarRelationFilter, Prisma.HospitalWhereInput>
   consultations?: Prisma.ConsultationListRelationFilter
+  examens_labo_prescrits?: Prisma.ExamenLaboListRelationFilter
+  examens_imagerie_prescrits?: Prisma.ExamenImagerieListRelationFilter
 }, "id" | "supabase_uid" | "email">
 
 export type UtilisateurOrderByWithAggregationInput = {
@@ -329,6 +335,8 @@ export type UtilisateurCreateInput = {
   updated_at?: Date | string
   hospital: Prisma.HospitalCreateNestedOneWithoutUtilisateursInput
   consultations?: Prisma.ConsultationCreateNestedManyWithoutMedecinInput
+  examens_labo_prescrits?: Prisma.ExamenLaboCreateNestedManyWithoutMedecinInput
+  examens_imagerie_prescrits?: Prisma.ExamenImagerieCreateNestedManyWithoutMedecinInput
 }
 
 export type UtilisateurUncheckedCreateInput = {
@@ -345,6 +353,8 @@ export type UtilisateurUncheckedCreateInput = {
   created_at?: Date | string
   updated_at?: Date | string
   consultations?: Prisma.ConsultationUncheckedCreateNestedManyWithoutMedecinInput
+  examens_labo_prescrits?: Prisma.ExamenLaboUncheckedCreateNestedManyWithoutMedecinInput
+  examens_imagerie_prescrits?: Prisma.ExamenImagerieUncheckedCreateNestedManyWithoutMedecinInput
 }
 
 export type UtilisateurUpdateInput = {
@@ -361,6 +371,8 @@ export type UtilisateurUpdateInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hospital?: Prisma.HospitalUpdateOneRequiredWithoutUtilisateursNestedInput
   consultations?: Prisma.ConsultationUpdateManyWithoutMedecinNestedInput
+  examens_labo_prescrits?: Prisma.ExamenLaboUpdateManyWithoutMedecinNestedInput
+  examens_imagerie_prescrits?: Prisma.ExamenImagerieUpdateManyWithoutMedecinNestedInput
 }
 
 export type UtilisateurUncheckedUpdateInput = {
@@ -377,6 +389,8 @@ export type UtilisateurUncheckedUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   consultations?: Prisma.ConsultationUncheckedUpdateManyWithoutMedecinNestedInput
+  examens_labo_prescrits?: Prisma.ExamenLaboUncheckedUpdateManyWithoutMedecinNestedInput
+  examens_imagerie_prescrits?: Prisma.ExamenImagerieUncheckedUpdateManyWithoutMedecinNestedInput
 }
 
 export type UtilisateurCreateManyInput = {
@@ -543,6 +557,34 @@ export type UtilisateurUpdateOneRequiredWithoutConsultationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UtilisateurUpdateToOneWithWhereWithoutConsultationsInput, Prisma.UtilisateurUpdateWithoutConsultationsInput>, Prisma.UtilisateurUncheckedUpdateWithoutConsultationsInput>
 }
 
+export type UtilisateurCreateNestedOneWithoutExamens_labo_prescritsInput = {
+  create?: Prisma.XOR<Prisma.UtilisateurCreateWithoutExamens_labo_prescritsInput, Prisma.UtilisateurUncheckedCreateWithoutExamens_labo_prescritsInput>
+  connectOrCreate?: Prisma.UtilisateurCreateOrConnectWithoutExamens_labo_prescritsInput
+  connect?: Prisma.UtilisateurWhereUniqueInput
+}
+
+export type UtilisateurUpdateOneRequiredWithoutExamens_labo_prescritsNestedInput = {
+  create?: Prisma.XOR<Prisma.UtilisateurCreateWithoutExamens_labo_prescritsInput, Prisma.UtilisateurUncheckedCreateWithoutExamens_labo_prescritsInput>
+  connectOrCreate?: Prisma.UtilisateurCreateOrConnectWithoutExamens_labo_prescritsInput
+  upsert?: Prisma.UtilisateurUpsertWithoutExamens_labo_prescritsInput
+  connect?: Prisma.UtilisateurWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UtilisateurUpdateToOneWithWhereWithoutExamens_labo_prescritsInput, Prisma.UtilisateurUpdateWithoutExamens_labo_prescritsInput>, Prisma.UtilisateurUncheckedUpdateWithoutExamens_labo_prescritsInput>
+}
+
+export type UtilisateurCreateNestedOneWithoutExamens_imagerie_prescritsInput = {
+  create?: Prisma.XOR<Prisma.UtilisateurCreateWithoutExamens_imagerie_prescritsInput, Prisma.UtilisateurUncheckedCreateWithoutExamens_imagerie_prescritsInput>
+  connectOrCreate?: Prisma.UtilisateurCreateOrConnectWithoutExamens_imagerie_prescritsInput
+  connect?: Prisma.UtilisateurWhereUniqueInput
+}
+
+export type UtilisateurUpdateOneRequiredWithoutExamens_imagerie_prescritsNestedInput = {
+  create?: Prisma.XOR<Prisma.UtilisateurCreateWithoutExamens_imagerie_prescritsInput, Prisma.UtilisateurUncheckedCreateWithoutExamens_imagerie_prescritsInput>
+  connectOrCreate?: Prisma.UtilisateurCreateOrConnectWithoutExamens_imagerie_prescritsInput
+  upsert?: Prisma.UtilisateurUpsertWithoutExamens_imagerie_prescritsInput
+  connect?: Prisma.UtilisateurWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UtilisateurUpdateToOneWithWhereWithoutExamens_imagerie_prescritsInput, Prisma.UtilisateurUpdateWithoutExamens_imagerie_prescritsInput>, Prisma.UtilisateurUncheckedUpdateWithoutExamens_imagerie_prescritsInput>
+}
+
 export type UtilisateurCreateWithoutHospitalInput = {
   id?: string
   supabase_uid?: string | null
@@ -556,6 +598,8 @@ export type UtilisateurCreateWithoutHospitalInput = {
   created_at?: Date | string
   updated_at?: Date | string
   consultations?: Prisma.ConsultationCreateNestedManyWithoutMedecinInput
+  examens_labo_prescrits?: Prisma.ExamenLaboCreateNestedManyWithoutMedecinInput
+  examens_imagerie_prescrits?: Prisma.ExamenImagerieCreateNestedManyWithoutMedecinInput
 }
 
 export type UtilisateurUncheckedCreateWithoutHospitalInput = {
@@ -571,6 +615,8 @@ export type UtilisateurUncheckedCreateWithoutHospitalInput = {
   created_at?: Date | string
   updated_at?: Date | string
   consultations?: Prisma.ConsultationUncheckedCreateNestedManyWithoutMedecinInput
+  examens_labo_prescrits?: Prisma.ExamenLaboUncheckedCreateNestedManyWithoutMedecinInput
+  examens_imagerie_prescrits?: Prisma.ExamenImagerieUncheckedCreateNestedManyWithoutMedecinInput
 }
 
 export type UtilisateurCreateOrConnectWithoutHospitalInput = {
@@ -630,6 +676,8 @@ export type UtilisateurCreateWithoutConsultationsInput = {
   created_at?: Date | string
   updated_at?: Date | string
   hospital: Prisma.HospitalCreateNestedOneWithoutUtilisateursInput
+  examens_labo_prescrits?: Prisma.ExamenLaboCreateNestedManyWithoutMedecinInput
+  examens_imagerie_prescrits?: Prisma.ExamenImagerieCreateNestedManyWithoutMedecinInput
 }
 
 export type UtilisateurUncheckedCreateWithoutConsultationsInput = {
@@ -645,6 +693,8 @@ export type UtilisateurUncheckedCreateWithoutConsultationsInput = {
   avatar_url?: string | null
   created_at?: Date | string
   updated_at?: Date | string
+  examens_labo_prescrits?: Prisma.ExamenLaboUncheckedCreateNestedManyWithoutMedecinInput
+  examens_imagerie_prescrits?: Prisma.ExamenImagerieUncheckedCreateNestedManyWithoutMedecinInput
 }
 
 export type UtilisateurCreateOrConnectWithoutConsultationsInput = {
@@ -676,6 +726,8 @@ export type UtilisateurUpdateWithoutConsultationsInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hospital?: Prisma.HospitalUpdateOneRequiredWithoutUtilisateursNestedInput
+  examens_labo_prescrits?: Prisma.ExamenLaboUpdateManyWithoutMedecinNestedInput
+  examens_imagerie_prescrits?: Prisma.ExamenImagerieUpdateManyWithoutMedecinNestedInput
 }
 
 export type UtilisateurUncheckedUpdateWithoutConsultationsInput = {
@@ -691,6 +743,176 @@ export type UtilisateurUncheckedUpdateWithoutConsultationsInput = {
   avatar_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  examens_labo_prescrits?: Prisma.ExamenLaboUncheckedUpdateManyWithoutMedecinNestedInput
+  examens_imagerie_prescrits?: Prisma.ExamenImagerieUncheckedUpdateManyWithoutMedecinNestedInput
+}
+
+export type UtilisateurCreateWithoutExamens_labo_prescritsInput = {
+  id?: string
+  supabase_uid?: string | null
+  nom: string
+  prenom: string
+  email: string
+  telephone?: string | null
+  role?: $Enums.Role
+  est_actif?: boolean
+  avatar_url?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  hospital: Prisma.HospitalCreateNestedOneWithoutUtilisateursInput
+  consultations?: Prisma.ConsultationCreateNestedManyWithoutMedecinInput
+  examens_imagerie_prescrits?: Prisma.ExamenImagerieCreateNestedManyWithoutMedecinInput
+}
+
+export type UtilisateurUncheckedCreateWithoutExamens_labo_prescritsInput = {
+  id?: string
+  hospital_id: string
+  supabase_uid?: string | null
+  nom: string
+  prenom: string
+  email: string
+  telephone?: string | null
+  role?: $Enums.Role
+  est_actif?: boolean
+  avatar_url?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  consultations?: Prisma.ConsultationUncheckedCreateNestedManyWithoutMedecinInput
+  examens_imagerie_prescrits?: Prisma.ExamenImagerieUncheckedCreateNestedManyWithoutMedecinInput
+}
+
+export type UtilisateurCreateOrConnectWithoutExamens_labo_prescritsInput = {
+  where: Prisma.UtilisateurWhereUniqueInput
+  create: Prisma.XOR<Prisma.UtilisateurCreateWithoutExamens_labo_prescritsInput, Prisma.UtilisateurUncheckedCreateWithoutExamens_labo_prescritsInput>
+}
+
+export type UtilisateurUpsertWithoutExamens_labo_prescritsInput = {
+  update: Prisma.XOR<Prisma.UtilisateurUpdateWithoutExamens_labo_prescritsInput, Prisma.UtilisateurUncheckedUpdateWithoutExamens_labo_prescritsInput>
+  create: Prisma.XOR<Prisma.UtilisateurCreateWithoutExamens_labo_prescritsInput, Prisma.UtilisateurUncheckedCreateWithoutExamens_labo_prescritsInput>
+  where?: Prisma.UtilisateurWhereInput
+}
+
+export type UtilisateurUpdateToOneWithWhereWithoutExamens_labo_prescritsInput = {
+  where?: Prisma.UtilisateurWhereInput
+  data: Prisma.XOR<Prisma.UtilisateurUpdateWithoutExamens_labo_prescritsInput, Prisma.UtilisateurUncheckedUpdateWithoutExamens_labo_prescritsInput>
+}
+
+export type UtilisateurUpdateWithoutExamens_labo_prescritsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  supabase_uid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nom?: Prisma.StringFieldUpdateOperationsInput | string
+  prenom?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  telephone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  est_actif?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avatar_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  hospital?: Prisma.HospitalUpdateOneRequiredWithoutUtilisateursNestedInput
+  consultations?: Prisma.ConsultationUpdateManyWithoutMedecinNestedInput
+  examens_imagerie_prescrits?: Prisma.ExamenImagerieUpdateManyWithoutMedecinNestedInput
+}
+
+export type UtilisateurUncheckedUpdateWithoutExamens_labo_prescritsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  hospital_id?: Prisma.StringFieldUpdateOperationsInput | string
+  supabase_uid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nom?: Prisma.StringFieldUpdateOperationsInput | string
+  prenom?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  telephone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  est_actif?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avatar_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  consultations?: Prisma.ConsultationUncheckedUpdateManyWithoutMedecinNestedInput
+  examens_imagerie_prescrits?: Prisma.ExamenImagerieUncheckedUpdateManyWithoutMedecinNestedInput
+}
+
+export type UtilisateurCreateWithoutExamens_imagerie_prescritsInput = {
+  id?: string
+  supabase_uid?: string | null
+  nom: string
+  prenom: string
+  email: string
+  telephone?: string | null
+  role?: $Enums.Role
+  est_actif?: boolean
+  avatar_url?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  hospital: Prisma.HospitalCreateNestedOneWithoutUtilisateursInput
+  consultations?: Prisma.ConsultationCreateNestedManyWithoutMedecinInput
+  examens_labo_prescrits?: Prisma.ExamenLaboCreateNestedManyWithoutMedecinInput
+}
+
+export type UtilisateurUncheckedCreateWithoutExamens_imagerie_prescritsInput = {
+  id?: string
+  hospital_id: string
+  supabase_uid?: string | null
+  nom: string
+  prenom: string
+  email: string
+  telephone?: string | null
+  role?: $Enums.Role
+  est_actif?: boolean
+  avatar_url?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  consultations?: Prisma.ConsultationUncheckedCreateNestedManyWithoutMedecinInput
+  examens_labo_prescrits?: Prisma.ExamenLaboUncheckedCreateNestedManyWithoutMedecinInput
+}
+
+export type UtilisateurCreateOrConnectWithoutExamens_imagerie_prescritsInput = {
+  where: Prisma.UtilisateurWhereUniqueInput
+  create: Prisma.XOR<Prisma.UtilisateurCreateWithoutExamens_imagerie_prescritsInput, Prisma.UtilisateurUncheckedCreateWithoutExamens_imagerie_prescritsInput>
+}
+
+export type UtilisateurUpsertWithoutExamens_imagerie_prescritsInput = {
+  update: Prisma.XOR<Prisma.UtilisateurUpdateWithoutExamens_imagerie_prescritsInput, Prisma.UtilisateurUncheckedUpdateWithoutExamens_imagerie_prescritsInput>
+  create: Prisma.XOR<Prisma.UtilisateurCreateWithoutExamens_imagerie_prescritsInput, Prisma.UtilisateurUncheckedCreateWithoutExamens_imagerie_prescritsInput>
+  where?: Prisma.UtilisateurWhereInput
+}
+
+export type UtilisateurUpdateToOneWithWhereWithoutExamens_imagerie_prescritsInput = {
+  where?: Prisma.UtilisateurWhereInput
+  data: Prisma.XOR<Prisma.UtilisateurUpdateWithoutExamens_imagerie_prescritsInput, Prisma.UtilisateurUncheckedUpdateWithoutExamens_imagerie_prescritsInput>
+}
+
+export type UtilisateurUpdateWithoutExamens_imagerie_prescritsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  supabase_uid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nom?: Prisma.StringFieldUpdateOperationsInput | string
+  prenom?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  telephone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  est_actif?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avatar_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  hospital?: Prisma.HospitalUpdateOneRequiredWithoutUtilisateursNestedInput
+  consultations?: Prisma.ConsultationUpdateManyWithoutMedecinNestedInput
+  examens_labo_prescrits?: Prisma.ExamenLaboUpdateManyWithoutMedecinNestedInput
+}
+
+export type UtilisateurUncheckedUpdateWithoutExamens_imagerie_prescritsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  hospital_id?: Prisma.StringFieldUpdateOperationsInput | string
+  supabase_uid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nom?: Prisma.StringFieldUpdateOperationsInput | string
+  prenom?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  telephone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  est_actif?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avatar_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  consultations?: Prisma.ConsultationUncheckedUpdateManyWithoutMedecinNestedInput
+  examens_labo_prescrits?: Prisma.ExamenLaboUncheckedUpdateManyWithoutMedecinNestedInput
 }
 
 export type UtilisateurCreateManyHospitalInput = {
@@ -720,6 +942,8 @@ export type UtilisateurUpdateWithoutHospitalInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   consultations?: Prisma.ConsultationUpdateManyWithoutMedecinNestedInput
+  examens_labo_prescrits?: Prisma.ExamenLaboUpdateManyWithoutMedecinNestedInput
+  examens_imagerie_prescrits?: Prisma.ExamenImagerieUpdateManyWithoutMedecinNestedInput
 }
 
 export type UtilisateurUncheckedUpdateWithoutHospitalInput = {
@@ -735,6 +959,8 @@ export type UtilisateurUncheckedUpdateWithoutHospitalInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   consultations?: Prisma.ConsultationUncheckedUpdateManyWithoutMedecinNestedInput
+  examens_labo_prescrits?: Prisma.ExamenLaboUncheckedUpdateManyWithoutMedecinNestedInput
+  examens_imagerie_prescrits?: Prisma.ExamenImagerieUncheckedUpdateManyWithoutMedecinNestedInput
 }
 
 export type UtilisateurUncheckedUpdateManyWithoutHospitalInput = {
@@ -758,10 +984,14 @@ export type UtilisateurUncheckedUpdateManyWithoutHospitalInput = {
 
 export type UtilisateurCountOutputType = {
   consultations: number
+  examens_labo_prescrits: number
+  examens_imagerie_prescrits: number
 }
 
 export type UtilisateurCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   consultations?: boolean | UtilisateurCountOutputTypeCountConsultationsArgs
+  examens_labo_prescrits?: boolean | UtilisateurCountOutputTypeCountExamens_labo_prescritsArgs
+  examens_imagerie_prescrits?: boolean | UtilisateurCountOutputTypeCountExamens_imagerie_prescritsArgs
 }
 
 /**
@@ -781,6 +1011,20 @@ export type UtilisateurCountOutputTypeCountConsultationsArgs<ExtArgs extends run
   where?: Prisma.ConsultationWhereInput
 }
 
+/**
+ * UtilisateurCountOutputType without action
+ */
+export type UtilisateurCountOutputTypeCountExamens_labo_prescritsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ExamenLaboWhereInput
+}
+
+/**
+ * UtilisateurCountOutputType without action
+ */
+export type UtilisateurCountOutputTypeCountExamens_imagerie_prescritsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ExamenImagerieWhereInput
+}
+
 
 export type UtilisateurSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -797,6 +1041,8 @@ export type UtilisateurSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   updated_at?: boolean
   hospital?: boolean | Prisma.HospitalDefaultArgs<ExtArgs>
   consultations?: boolean | Prisma.Utilisateur$consultationsArgs<ExtArgs>
+  examens_labo_prescrits?: boolean | Prisma.Utilisateur$examens_labo_prescritsArgs<ExtArgs>
+  examens_imagerie_prescrits?: boolean | Prisma.Utilisateur$examens_imagerie_prescritsArgs<ExtArgs>
   _count?: boolean | Prisma.UtilisateurCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["utilisateur"]>
 
@@ -851,6 +1097,8 @@ export type UtilisateurOmit<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type UtilisateurInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   hospital?: boolean | Prisma.HospitalDefaultArgs<ExtArgs>
   consultations?: boolean | Prisma.Utilisateur$consultationsArgs<ExtArgs>
+  examens_labo_prescrits?: boolean | Prisma.Utilisateur$examens_labo_prescritsArgs<ExtArgs>
+  examens_imagerie_prescrits?: boolean | Prisma.Utilisateur$examens_imagerie_prescritsArgs<ExtArgs>
   _count?: boolean | Prisma.UtilisateurCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UtilisateurIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -865,6 +1113,8 @@ export type $UtilisateurPayload<ExtArgs extends runtime.Types.Extensions.Interna
   objects: {
     hospital: Prisma.$HospitalPayload<ExtArgs>
     consultations: Prisma.$ConsultationPayload<ExtArgs>[]
+    examens_labo_prescrits: Prisma.$ExamenLaboPayload<ExtArgs>[]
+    examens_imagerie_prescrits: Prisma.$ExamenImageriePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1275,6 +1525,8 @@ export interface Prisma__UtilisateurClient<T, Null = never, ExtArgs extends runt
   readonly [Symbol.toStringTag]: "PrismaPromise"
   hospital<T extends Prisma.HospitalDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.HospitalDefaultArgs<ExtArgs>>): Prisma.Prisma__HospitalClient<runtime.Types.Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   consultations<T extends Prisma.Utilisateur$consultationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Utilisateur$consultationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConsultationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  examens_labo_prescrits<T extends Prisma.Utilisateur$examens_labo_prescritsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Utilisateur$examens_labo_prescritsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExamenLaboPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  examens_imagerie_prescrits<T extends Prisma.Utilisateur$examens_imagerie_prescritsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Utilisateur$examens_imagerie_prescritsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExamenImageriePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1738,6 +1990,54 @@ export type Utilisateur$consultationsArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.ConsultationScalarFieldEnum | Prisma.ConsultationScalarFieldEnum[]
+}
+
+/**
+ * Utilisateur.examens_labo_prescrits
+ */
+export type Utilisateur$examens_labo_prescritsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ExamenLabo
+   */
+  select?: Prisma.ExamenLaboSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ExamenLabo
+   */
+  omit?: Prisma.ExamenLaboOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ExamenLaboInclude<ExtArgs> | null
+  where?: Prisma.ExamenLaboWhereInput
+  orderBy?: Prisma.ExamenLaboOrderByWithRelationInput | Prisma.ExamenLaboOrderByWithRelationInput[]
+  cursor?: Prisma.ExamenLaboWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExamenLaboScalarFieldEnum | Prisma.ExamenLaboScalarFieldEnum[]
+}
+
+/**
+ * Utilisateur.examens_imagerie_prescrits
+ */
+export type Utilisateur$examens_imagerie_prescritsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ExamenImagerie
+   */
+  select?: Prisma.ExamenImagerieSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ExamenImagerie
+   */
+  omit?: Prisma.ExamenImagerieOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ExamenImagerieInclude<ExtArgs> | null
+  where?: Prisma.ExamenImagerieWhereInput
+  orderBy?: Prisma.ExamenImagerieOrderByWithRelationInput | Prisma.ExamenImagerieOrderByWithRelationInput[]
+  cursor?: Prisma.ExamenImagerieWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExamenImagerieScalarFieldEnum | Prisma.ExamenImagerieScalarFieldEnum[]
 }
 
 /**

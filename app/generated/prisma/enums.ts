@@ -61,3 +61,40 @@ export const Sexe = {
 } as const
 
 export type Sexe = (typeof Sexe)[keyof typeof Sexe]
+
+
+export const StatutExamen = {
+  EN_ATTENTE: 'EN_ATTENTE',
+  EN_COURS: 'EN_COURS',
+  RESULTAT_SAISI: 'RESULTAT_SAISI',
+  VALIDE: 'VALIDE',
+  ANNULE: 'ANNULE'
+} as const
+
+export type StatutExamen = (typeof StatutExamen)[keyof typeof StatutExamen]
+
+
+export const TypeExamenLabo = {
+  BILAN_SANGUIN: 'BILAN_SANGUIN',
+  BILAN_URINAIRE: 'BILAN_URINAIRE',
+  BACTERIOLOGIE: 'BACTERIOLOGIE',
+  PARASITOLOGIE: 'PARASITOLOGIE',
+  SEROLOGIE: 'SEROLOGIE',
+  BIOCHIMIE: 'BIOCHIMIE',
+  HEMATOLOGIE: 'HEMATOLOGIE',
+  AUTRE: 'AUTRE'
+} as const
+
+export type TypeExamenLabo = (typeof TypeExamenLabo)[keyof typeof TypeExamenLabo]
+
+
+export const TypeExamenImagerie = {
+  RADIOGRAPHIE: 'RADIOGRAPHIE',
+  ECHOGRAPHIE: 'ECHOGRAPHIE',
+  SCANNER: 'SCANNER',
+  IRM: 'IRM',
+  MAMMOGRAPHIE: 'MAMMOGRAPHIE',
+  AUTRE: 'AUTRE'
+} as const
+
+export type TypeExamenImagerie = (typeof TypeExamenImagerie)[keyof typeof TypeExamenImagerie]

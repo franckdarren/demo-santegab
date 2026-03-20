@@ -1,10 +1,8 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../app/generated/prisma"
 }
 
@@ -12,114 +10,123 @@ datasource db {
   provider = "postgresql"
 }
 
-
-// ============================================================
-//
-// Modules couverts :
-//   - Hôpitaux (multi-tenant)
-//   - Utilisateurs + Rôles
-//   - Patients
-//   - Consultations + Prescriptions
-//   - Facturation + Assurances
-//
-// Convention : tous les IDs sont des UUID générés par la DB
-// ============================================================
-
-
 // ============================================================
 // ENUMS
 // ============================================================
 
-/// Rôles disponibles dans le système
 enum Role {
-  SUPER_ADMIN      // Accès total, cross-tenant
-  ADMIN            // Administrateur d'un établissement
-  MEDECIN          // Médecin — consultations, prescriptions
-  INFIRMIER        // Infirmier — soins, constantes
-  LABORANTIN       // Laboratoire — résultats examens
-  RADIOLOGUE       // Imagerie médicale
-  PHARMACIEN       // Pharmacie — stocks, délivrances
-  COMPTABLE        // Comptabilité — factures, rapports
-  ADMINISTRATIF    // Accueil — enregistrement patients
+  SUPER_ADMIN
+  ADMIN
+  MEDECIN
+  INFIRMIER
+  LABORANTIN
+  RADIOLOGUE
+  PHARMACIEN
+  COMPTABLE
+  ADMINISTRATIF
 }
 
-/// Statut d'une consultation
 enum StatutConsultation {
-  EN_ATTENTE       // Patient enregistré, pas encore vu
-  EN_COURS         // Consultation en cours
-  TERMINEE         // Consultation terminée
-  ANNULEE          // Consultation annulée
-}
-
-/// Statut d'une facture
-enum StatutFacture {
-  EN_ATTENTE       // Facture créée, pas encore payée
-  PARTIELLEMENT_PAYEE
-  PAYEE            // Paiement complet
+  EN_ATTENTE
+  EN_COURS
+  TERMINEE
   ANNULEE
 }
 
-/// Mode de paiement
+enum StatutFacture {
+  EN_ATTENTE
+  PARTIELLEMENT_PAYEE
+  PAYEE
+  ANNULEE
+}
+
 enum ModePaiement {
   ESPECES
   CARTE_BANCAIRE
-  MOBILE_MONEY     // Airtel Money, Moov Money
-  ASSURANCE        // Prise en charge assurance
+  MOBILE_MONEY
+  ASSURANCE
   CHEQUE
 }
 
-/// Sexe du patient
 enum Sexe {
   MASCULIN
   FEMININ
 }
 
+enum StatutExamen {
+  EN_ATTENTE
+  EN_COURS
+  RESULTAT_SAISI
+  VALIDE
+  ANNULE
+}
+
+enum TypeExamenLabo {
+  BILAN_SANGUIN
+  BILAN_URINAIRE
+  BACTERIOLOGIE
+  PARASITOLOGIE
+  SEROLOGIE
+  BIOCHIMIE
+  HEMATOLOGIE
+  AUTRE
+}
+
+enum TypeExamenImagerie {
+  RADIOGRAPHIE
+  ECHOGRAPHIE
+  SCANNER
+  IRM
+  MAMMOGRAPHIE
+  AUTRE
+}
+
 // ============================================================
 // TABLE : hospitals
-// Chaque ligne = un établissement de santé (un tenant)
 // ============================================================
 model Hospital {
-  id          String   @id @default(uuid())
-  nom         String                          // "Clinique El Rapha"
-  adresse     String?
-  ville       String?
-  telephone   String?
-  email       String?
-  logo_url    String?                         // URL logo dans Supabase Storage
-  est_actif   Boolean  @default(true)
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  id         String   @id @default(uuid())
+  nom        String
+  adresse    String?
+  ville      String?
+  telephone  String?
+  email      String?
+  logo_url   String?
+  est_actif  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  // Relations
-  utilisateurs Utilisateur[]
-  patients     PatientHospital[]
-  consultations Consultation[]
-  factures     Facture[]
+  utilisateurs     Utilisateur[]
+  patients         PatientHospital[]
+  consultations    Consultation[]
+  factures         Facture[]
+  examens_labo     ExamenLabo[]     @relation("HospitalExamensLabo")
+  examens_imagerie ExamenImagerie[] @relation("HospitalExamensImagerie")
 
   @@map("hospitals")
 }
 
 // ============================================================
 // TABLE : utilisateurs
-// Personnel soignant et administratif d'un établissement
 // ============================================================
 model Utilisateur {
-  id            String   @id @default(uuid())
-  hospital_id   String                        // Clé multi-tenant
-  supabase_uid  String?  @unique              // ID Supabase Auth
-  nom           String
-  prenom        String
-  email         String   @unique
-  telephone     String?
-  role          Role     @default(ADMINISTRATIF)
-  est_actif     Boolean  @default(true)
-  avatar_url    String?
-  created_at    DateTime @default(now())
-  updated_at    DateTime @updatedAt
+  id           String   @id @default(uuid())
+  hospital_id  String
+  supabase_uid String?  @unique
+  nom          String
+  prenom       String
+  email        String   @unique
+  telephone    String?
+  role         Role     @default(ADMINISTRATIF)
+  est_actif    Boolean  @default(true)
+  avatar_url   String?
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
 
-  // Relations
-  hospital      Hospital       @relation(fields: [hospital_id], references: [id])
-  consultations Consultation[] // Consultations créées par ce médecin
+  hospital                   Hospital         @relation(fields: [hospital_id], references: [id])
+  consultations              Consultation[]   @relation("MedecinConsultations")
+  examens_labo_prescrits     ExamenLabo[]     @relation("MedecinExamensLabo")
+  examens_imagerie_prescrits ExamenImagerie[] @relation("MedecinExamensImagerie")
 
   @@index([hospital_id])
   @@map("utilisateurs")
@@ -127,89 +134,78 @@ model Utilisateur {
 
 // ============================================================
 // TABLE : patients
-// Patient global — existe indépendamment des établissements.
-// Un même patient peut être suivi dans plusieurs cliniques.
 // ============================================================
 model Patient {
-  id               String    @id @default(uuid())
-  numero_dossier   String    @unique  // Ex: "PAT-2025-00042"
-  nom              String
-  prenom           String
-  date_naissance   DateTime?
-  sexe             Sexe?
-  telephone        String?
-  email            String?
-  adresse          String?
-  ville            String?
-  // Informations médicales de base
-  groupe_sanguin   String?              // "A+", "O-", etc.
-  allergies        String?              // Texte libre pour la démo
-  antecedents      String?              // Antécédents médicaux
-  created_at       DateTime  @default(now())
-  updated_at       DateTime  @updatedAt
+  id             String    @id @default(uuid())
+  numero_dossier String    @unique
+  nom            String
+  prenom         String
+  date_naissance DateTime?
+  sexe           Sexe?
+  telephone      String?
+  email          String?
+  adresse        String?
+  ville          String?
+  groupe_sanguin String?
+  allergies      String?
+  antecedents    String?
+  created_at     DateTime  @default(now())
+  updated_at     DateTime  @updatedAt
 
-  // Relations
   hospitalisations PatientHospital[]
-  consultations    Consultation[]
-  factures         Facture[]
+  consultations    Consultation[]    @relation("PatientConsultations")
+  factures         Facture[]         @relation("PatientFactures")
+  examens_labo     ExamenLabo[]      @relation("PatientExamensLabo")
+  examens_imagerie ExamenImagerie[]  @relation("PatientExamensImagerie")
 
   @@map("patients")
 }
 
 // ============================================================
-// TABLE : patient_hospitals  (table de jonction)
-// Lie un patient à un établissement + stocke l'assurance
-// associée dans CET établissement.
+// TABLE : patient_hospitals
 // ============================================================
 model PatientHospital {
-  id              String   @id @default(uuid())
-  patient_id      String
-  hospital_id     String
-  // Assurance dans cet établissement
-  assurance_nom   String?              // "CNAMGS", "ASCOMA", etc.
-  assurance_numero String?             // Numéro de carte
-  taux_couverture  Float?  @default(0) // Ex: 80 = 80% pris en charge
-  medecin_traitant String?             // Nom du médecin traitant
-  est_actif        Boolean @default(true)
+  id               String   @id @default(uuid())
+  patient_id       String
+  hospital_id      String
+  assurance_nom    String?
+  assurance_numero String?
+  taux_couverture  Float?   @default(0)
+  medecin_traitant String?
+  est_actif        Boolean  @default(true)
   created_at       DateTime @default(now())
 
-  // Relations
-  patient   Patient  @relation(fields: [patient_id], references: [id])
-  hospital  Hospital @relation(fields: [hospital_id], references: [id])
+  patient  Patient  @relation(fields: [patient_id], references: [id])
+  hospital Hospital @relation(fields: [hospital_id], references: [id])
 
-  @@unique([patient_id, hospital_id]) // Un patient une seule fois par hôpital
+  @@unique([patient_id, hospital_id])
   @@index([hospital_id])
   @@map("patient_hospitals")
 }
 
 // ============================================================
 // TABLE : consultations
-// Chaque visite médicale d'un patient chez un médecin
 // ============================================================
 model Consultation {
-  id              String             @id @default(uuid())
-  hospital_id     String                             // Multi-tenant
-  patient_id      String
-  medecin_id      String
-  statut          StatutConsultation @default(EN_ATTENTE)
-  // Contenu médical
-  motif           String?                            // Motif de consultation
-  diagnostic      String?                            // Diagnostic du médecin
-  notes           String?                            // Notes complémentaires
-  // Constantes vitales
-  poids_kg        Float?
-  taille_cm       Float?
-  tension         String?                            // "12/8"
-  temperature     Float?                             // En °C
-  // Horodatage
-  date_consultation DateTime @default(now())
-  created_at        DateTime @default(now())
-  updated_at        DateTime @updatedAt
+  id                String             @id @default(uuid())
+  hospital_id       String
+  patient_id        String
+  medecin_id        String
+  statut            StatutConsultation @default(EN_ATTENTE)
+  motif             String?
+  diagnostic        String?
+  notes             String?
+  poids_kg          Float?
+  taille_cm         Float?
+  tension           String?
+  temperature       Float?
+  date_consultation DateTime           @default(now())
+  created_at        DateTime           @default(now())
+  updated_at        DateTime           @updatedAt
 
-  // Relations
   hospital      Hospital       @relation(fields: [hospital_id], references: [id])
-  patient       Patient        @relation(fields: [patient_id], references: [id])
-  medecin       Utilisateur    @relation(fields: [medecin_id], references: [id])
+  patient       Patient        @relation("PatientConsultations", fields: [patient_id], references: [id])
+  medecin       Utilisateur    @relation("MedecinConsultations", fields: [medecin_id], references: [id])
   prescriptions Prescription[]
   facture       Facture?
 
@@ -220,19 +216,17 @@ model Consultation {
 
 // ============================================================
 // TABLE : prescriptions
-// Médicaments prescrits lors d'une consultation
 // ============================================================
 model Prescription {
   id              String   @id @default(uuid())
   consultation_id String
-  medicament      String               // "Paracétamol 500mg"
-  dosage          String?              // "1 comprimé"
-  frequence       String?              // "3 fois par jour"
-  duree           String?              // "7 jours"
-  instructions    String?              // "À prendre après les repas"
+  medicament      String
+  dosage          String?
+  frequence       String?
+  duree           String?
+  instructions    String?
   created_at      DateTime @default(now())
 
-  // Relations
   consultation Consultation @relation(fields: [consultation_id], references: [id])
 
   @@index([consultation_id])
@@ -241,31 +235,27 @@ model Prescription {
 
 // ============================================================
 // TABLE : factures
-// Facture générée après une consultation
 // ============================================================
 model Facture {
-  id              String         @id @default(uuid())
-  hospital_id     String                              // Multi-tenant
-  patient_id      String
-  consultation_id String?        @unique
-  numero_facture  String         @unique              // "FAC-2025-00089"
-  statut          StatutFacture  @default(EN_ATTENTE)
-  // Montants en XAF (Franc CFA)
-  montant_total   Float                               // Total brut
-  montant_assurance Float        @default(0)          // Part prise en charge
-  montant_patient   Float                             // Reste à payer
-  // Paiement
-  mode_paiement   ModePaiement?
-  date_paiement   DateTime?
-  notes           String?
-  created_at      DateTime       @default(now())
-  updated_at      DateTime       @updatedAt
+  id                String        @id @default(uuid())
+  hospital_id       String
+  patient_id        String
+  consultation_id   String?       @unique
+  numero_facture    String        @unique
+  statut            StatutFacture @default(EN_ATTENTE)
+  montant_total     Float
+  montant_assurance Float         @default(0)
+  montant_patient   Float
+  mode_paiement     ModePaiement?
+  date_paiement     DateTime?
+  notes             String?
+  created_at        DateTime      @default(now())
+  updated_at        DateTime      @updatedAt
 
-  // Relations
-  hospital      Hospital      @relation(fields: [hospital_id], references: [id])
-  patient       Patient       @relation(fields: [patient_id], references: [id])
-  consultation  Consultation? @relation(fields: [consultation_id], references: [id])
-  lignes        LigneFacture[]
+  hospital     Hospital      @relation(fields: [hospital_id], references: [id])
+  patient      Patient       @relation("PatientFactures", fields: [patient_id], references: [id])
+  consultation Consultation? @relation(fields: [consultation_id], references: [id])
+  lignes       LigneFacture[]
 
   @@index([hospital_id])
   @@index([patient_id])
@@ -274,20 +264,77 @@ model Facture {
 
 // ============================================================
 // TABLE : ligne_factures
-// Détail des actes facturés (consultation, examens, etc.)
 // ============================================================
 model LigneFacture {
-  id          String   @id @default(uuid())
-  facture_id  String
-  description String               // "Consultation générale"
-  quantite    Int      @default(1)
-  prix_unitaire Float             // En XAF
-  montant_total Float             // quantite * prix_unitaire
-  created_at  DateTime @default(now())
+  id            String   @id @default(uuid())
+  facture_id    String
+  description   String
+  quantite      Int      @default(1)
+  prix_unitaire Float
+  montant_total Float
+  created_at    DateTime @default(now())
 
-  // Relations
   facture Facture @relation(fields: [facture_id], references: [id])
 
   @@index([facture_id])
   @@map("ligne_factures")
+}
+
+// ============================================================
+// TABLE : examens_labo
+// ============================================================
+model ExamenLabo {
+  id          String         @id @default(uuid())
+  hospital_id String
+  patient_id  String
+  medecin_id  String
+  type_examen TypeExamenLabo
+  statut      StatutExamen   @default(EN_ATTENTE)
+  resultats   String?
+  fichier_url String?
+  fichier_nom String?
+  valide_par  String?
+  valide_le   DateTime?
+  notes       String?
+  urgence     Boolean        @default(false)
+  created_at  DateTime       @default(now())
+  updated_at  DateTime       @updatedAt
+
+  hospital Hospital    @relation("HospitalExamensLabo", fields: [hospital_id], references: [id])
+  patient  Patient     @relation("PatientExamensLabo", fields: [patient_id], references: [id])
+  medecin  Utilisateur @relation("MedecinExamensLabo", fields: [medecin_id], references: [id])
+
+  @@index([hospital_id])
+  @@index([patient_id])
+  @@map("examens_labo")
+}
+
+// ============================================================
+// TABLE : examens_imagerie
+// ============================================================
+model ExamenImagerie {
+  id              String             @id @default(uuid())
+  hospital_id     String
+  patient_id      String
+  medecin_id      String
+  type_examen     TypeExamenImagerie
+  statut          StatutExamen       @default(EN_ATTENTE)
+  resultats       String?
+  fichier_url     String?
+  fichier_nom     String?
+  valide_par      String?
+  valide_le       DateTime?
+  notes           String?
+  urgence         Boolean            @default(false)
+  zone_anatomique String?
+  created_at      DateTime           @default(now())
+  updated_at      DateTime           @updatedAt
+
+  hospital Hospital    @relation("HospitalExamensImagerie", fields: [hospital_id], references: [id])
+  patient  Patient     @relation("PatientExamensImagerie", fields: [patient_id], references: [id])
+  medecin  Utilisateur @relation("MedecinExamensImagerie", fields: [medecin_id], references: [id])
+
+  @@index([hospital_id])
+  @@index([patient_id])
+  @@map("examens_imagerie")
 }

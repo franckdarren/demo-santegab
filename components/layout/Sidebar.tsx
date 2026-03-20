@@ -75,7 +75,7 @@ const navigation: NavItem[] = [
     href: "/dashboard/laboratory",
     icon: FlaskConical,
     roles: ["ADMIN", "LABORANTIN", "MEDECIN"],
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     label: "Pharmacie",

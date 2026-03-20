@@ -391,7 +391,9 @@ export const ModelName = {
   Consultation: 'Consultation',
   Prescription: 'Prescription',
   Facture: 'Facture',
-  LigneFacture: 'LigneFacture'
+  LigneFacture: 'LigneFacture',
+  ExamenLabo: 'ExamenLabo',
+  ExamenImagerie: 'ExamenImagerie'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -407,7 +409,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "hospital" | "utilisateur" | "patient" | "patientHospital" | "consultation" | "prescription" | "facture" | "ligneFacture"
+    modelProps: "hospital" | "utilisateur" | "patient" | "patientHospital" | "consultation" | "prescription" | "facture" | "ligneFacture" | "examenLabo" | "examenImagerie"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1003,6 +1005,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ExamenLabo: {
+      payload: Prisma.$ExamenLaboPayload<ExtArgs>
+      fields: Prisma.ExamenLaboFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ExamenLaboFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenLaboPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ExamenLaboFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenLaboPayload>
+        }
+        findFirst: {
+          args: Prisma.ExamenLaboFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenLaboPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ExamenLaboFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenLaboPayload>
+        }
+        findMany: {
+          args: Prisma.ExamenLaboFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenLaboPayload>[]
+        }
+        create: {
+          args: Prisma.ExamenLaboCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenLaboPayload>
+        }
+        createMany: {
+          args: Prisma.ExamenLaboCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ExamenLaboCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenLaboPayload>[]
+        }
+        delete: {
+          args: Prisma.ExamenLaboDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenLaboPayload>
+        }
+        update: {
+          args: Prisma.ExamenLaboUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenLaboPayload>
+        }
+        deleteMany: {
+          args: Prisma.ExamenLaboDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ExamenLaboUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ExamenLaboUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenLaboPayload>[]
+        }
+        upsert: {
+          args: Prisma.ExamenLaboUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenLaboPayload>
+        }
+        aggregate: {
+          args: Prisma.ExamenLaboAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateExamenLabo>
+        }
+        groupBy: {
+          args: Prisma.ExamenLaboGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ExamenLaboGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ExamenLaboCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ExamenLaboCountAggregateOutputType> | number
+        }
+      }
+    }
+    ExamenImagerie: {
+      payload: Prisma.$ExamenImageriePayload<ExtArgs>
+      fields: Prisma.ExamenImagerieFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ExamenImagerieFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenImageriePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ExamenImagerieFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenImageriePayload>
+        }
+        findFirst: {
+          args: Prisma.ExamenImagerieFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenImageriePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ExamenImagerieFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenImageriePayload>
+        }
+        findMany: {
+          args: Prisma.ExamenImagerieFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenImageriePayload>[]
+        }
+        create: {
+          args: Prisma.ExamenImagerieCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenImageriePayload>
+        }
+        createMany: {
+          args: Prisma.ExamenImagerieCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ExamenImagerieCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenImageriePayload>[]
+        }
+        delete: {
+          args: Prisma.ExamenImagerieDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenImageriePayload>
+        }
+        update: {
+          args: Prisma.ExamenImagerieUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenImageriePayload>
+        }
+        deleteMany: {
+          args: Prisma.ExamenImagerieDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ExamenImagerieUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ExamenImagerieUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenImageriePayload>[]
+        }
+        upsert: {
+          args: Prisma.ExamenImagerieUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamenImageriePayload>
+        }
+        aggregate: {
+          args: Prisma.ExamenImagerieAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateExamenImagerie>
+        }
+        groupBy: {
+          args: Prisma.ExamenImagerieGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ExamenImagerieGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ExamenImagerieCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ExamenImagerieCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1180,6 +1330,49 @@ export const LigneFactureScalarFieldEnum = {
 export type LigneFactureScalarFieldEnum = (typeof LigneFactureScalarFieldEnum)[keyof typeof LigneFactureScalarFieldEnum]
 
 
+export const ExamenLaboScalarFieldEnum = {
+  id: 'id',
+  hospital_id: 'hospital_id',
+  patient_id: 'patient_id',
+  medecin_id: 'medecin_id',
+  type_examen: 'type_examen',
+  statut: 'statut',
+  resultats: 'resultats',
+  fichier_url: 'fichier_url',
+  fichier_nom: 'fichier_nom',
+  valide_par: 'valide_par',
+  valide_le: 'valide_le',
+  notes: 'notes',
+  urgence: 'urgence',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ExamenLaboScalarFieldEnum = (typeof ExamenLaboScalarFieldEnum)[keyof typeof ExamenLaboScalarFieldEnum]
+
+
+export const ExamenImagerieScalarFieldEnum = {
+  id: 'id',
+  hospital_id: 'hospital_id',
+  patient_id: 'patient_id',
+  medecin_id: 'medecin_id',
+  type_examen: 'type_examen',
+  statut: 'statut',
+  resultats: 'resultats',
+  fichier_url: 'fichier_url',
+  fichier_nom: 'fichier_nom',
+  valide_par: 'valide_par',
+  valide_le: 'valide_le',
+  notes: 'notes',
+  urgence: 'urgence',
+  zone_anatomique: 'zone_anatomique',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ExamenImagerieScalarFieldEnum = (typeof ExamenImagerieScalarFieldEnum)[keyof typeof ExamenImagerieScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1342,6 +1535,48 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
+
+/**
+ * Reference to a field of type 'TypeExamenLabo'
+ */
+export type EnumTypeExamenLaboFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TypeExamenLabo'>
+    
+
+
+/**
+ * Reference to a field of type 'TypeExamenLabo[]'
+ */
+export type ListEnumTypeExamenLaboFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TypeExamenLabo[]'>
+    
+
+
+/**
+ * Reference to a field of type 'StatutExamen'
+ */
+export type EnumStatutExamenFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatutExamen'>
+    
+
+
+/**
+ * Reference to a field of type 'StatutExamen[]'
+ */
+export type ListEnumStatutExamenFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatutExamen[]'>
+    
+
+
+/**
+ * Reference to a field of type 'TypeExamenImagerie'
+ */
+export type EnumTypeExamenImagerieFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TypeExamenImagerie'>
+    
+
+
+/**
+ * Reference to a field of type 'TypeExamenImagerie[]'
+ */
+export type ListEnumTypeExamenImagerieFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TypeExamenImagerie[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -1445,6 +1680,8 @@ export type GlobalOmitConfig = {
   prescription?: Prisma.PrescriptionOmit
   facture?: Prisma.FactureOmit
   ligneFacture?: Prisma.LigneFactureOmit
+  examenLabo?: Prisma.ExamenLaboOmit
+  examenImagerie?: Prisma.ExamenImagerieOmit
 }
 
 /* Types for Logging */

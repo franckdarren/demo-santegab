@@ -81,3 +81,13 @@ export type Facture = Prisma.FactureModel
  * 
  */
 export type LigneFacture = Prisma.LigneFactureModel
+/**
+ * Model ExamenLabo
+ * 
+ */
+export type ExamenLabo = Prisma.ExamenLaboModel
+/**
+ * Model ExamenImagerie
+ * 
+ */
+export type ExamenImagerie = Prisma.ExamenImagerieModel
