@@ -271,6 +271,36 @@ exports.Prisma.ExamenImagerieScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.ArticleStockScalarFieldEnum = {
+  id: 'id',
+  hospital_id: 'hospital_id',
+  nom: 'nom',
+  categorie: 'categorie',
+  description: 'description',
+  unite: 'unite',
+  quantite_stock: 'quantite_stock',
+  seuil_alerte: 'seuil_alerte',
+  prix_unitaire: 'prix_unitaire',
+  date_peremption: 'date_peremption',
+  code_article: 'code_article',
+  est_actif: 'est_actif',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.MouvementStockScalarFieldEnum = {
+  id: 'id',
+  hospital_id: 'hospital_id',
+  article_id: 'article_id',
+  type_mouvement: 'type_mouvement',
+  quantite: 'quantite',
+  quantite_avant: 'quantite_avant',
+  quantite_apres: 'quantite_apres',
+  motif: 'motif',
+  utilisateur_id: 'utilisateur_id',
+  created_at: 'created_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -352,6 +382,20 @@ exports.TypeExamenImagerie = exports.$Enums.TypeExamenImagerie = {
   AUTRE: 'AUTRE'
 };
 
+exports.CategorieArticle = exports.$Enums.CategorieArticle = {
+  MEDICAMENT: 'MEDICAMENT',
+  CONSOMMABLE: 'CONSOMMABLE',
+  EQUIPEMENT: 'EQUIPEMENT',
+  AUTRE: 'AUTRE'
+};
+
+exports.TypeMouvement = exports.$Enums.TypeMouvement = {
+  ENTREE: 'ENTREE',
+  SORTIE: 'SORTIE',
+  AJUSTEMENT: 'AJUSTEMENT',
+  PEREMPTION: 'PEREMPTION'
+};
+
 exports.Prisma.ModelName = {
   Hospital: 'Hospital',
   Utilisateur: 'Utilisateur',
@@ -362,7 +406,9 @@ exports.Prisma.ModelName = {
   Facture: 'Facture',
   LigneFacture: 'LigneFacture',
   ExamenLabo: 'ExamenLabo',
-  ExamenImagerie: 'ExamenImagerie'
+  ExamenImagerie: 'ExamenImagerie',
+  ArticleStock: 'ArticleStock',
+  MouvementStock: 'MouvementStock'
 };
 
 /**

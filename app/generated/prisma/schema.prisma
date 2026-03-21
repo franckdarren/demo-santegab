@@ -81,6 +81,20 @@ enum TypeExamenImagerie {
   AUTRE
 }
 
+enum CategorieArticle {
+  MEDICAMENT
+  CONSOMMABLE
+  EQUIPEMENT
+  AUTRE
+}
+
+enum TypeMouvement {
+  ENTREE
+  SORTIE
+  AJUSTEMENT
+  PEREMPTION
+}
+
 // ============================================================
 // TABLE : hospitals
 // ============================================================
@@ -102,6 +116,8 @@ model Hospital {
   factures         Facture[]
   examens_labo     ExamenLabo[]      @relation("HospitalExamensLabo")
   examens_imagerie ExamenImagerie[]  @relation("HospitalExamensImagerie")
+  articles_stock   ArticleStock[]    @relation("HospitalArticlesStock")
+  mouvements_stock MouvementStock[]  @relation("HospitalMouvementsStock")
 
   @@map("hospitals")
 }
@@ -337,4 +353,53 @@ model ExamenImagerie {
   @@index([hospital_id])
   @@index([patient_id])
   @@map("examens_imagerie")
+}
+
+// ============================================================
+// TABLE : articles_stock
+// ============================================================
+model ArticleStock {
+  id              String           @id @default(uuid())
+  hospital_id     String
+  nom             String
+  categorie       CategorieArticle @default(MEDICAMENT)
+  description     String?
+  unite           String           @default("comprimé")
+  quantite_stock  Int              @default(0)
+  seuil_alerte    Int              @default(10)
+  prix_unitaire   Float            @default(0)
+  date_peremption DateTime?
+  code_article    String?
+  est_actif       Boolean          @default(true)
+  created_at      DateTime         @default(now())
+  updated_at      DateTime         @updatedAt
+
+  hospital   Hospital         @relation("HospitalArticlesStock", fields: [hospital_id], references: [id])
+  mouvements MouvementStock[] @relation("ArticleMouvements")
+
+  @@index([hospital_id])
+  @@map("articles_stock")
+}
+
+// ============================================================
+// TABLE : mouvements_stock
+// ============================================================
+model MouvementStock {
+  id             String        @id @default(uuid())
+  hospital_id    String
+  article_id     String
+  type_mouvement TypeMouvement
+  quantite       Int
+  quantite_avant Int
+  quantite_apres Int
+  motif          String?
+  utilisateur_id String?
+  created_at     DateTime      @default(now())
+
+  hospital Hospital     @relation("HospitalMouvementsStock", fields: [hospital_id], references: [id])
+  article  ArticleStock @relation("ArticleMouvements", fields: [article_id], references: [id])
+
+  @@index([hospital_id])
+  @@index([article_id])
+  @@map("mouvements_stock")
 }

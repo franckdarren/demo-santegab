@@ -91,7 +91,7 @@ const navigation: NavItem[] = [
     href: "/dashboard/pharmacy",
     icon: Pill,
     roles: ["ADMIN", "PHARMACIEN"],
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     label: "Statistiques",

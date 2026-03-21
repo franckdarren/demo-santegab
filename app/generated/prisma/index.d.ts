@@ -63,6 +63,16 @@ export type ExamenLabo = $Result.DefaultSelection<Prisma.$ExamenLaboPayload>
  * 
  */
 export type ExamenImagerie = $Result.DefaultSelection<Prisma.$ExamenImageriePayload>
+/**
+ * Model ArticleStock
+ * 
+ */
+export type ArticleStock = $Result.DefaultSelection<Prisma.$ArticleStockPayload>
+/**
+ * Model MouvementStock
+ * 
+ */
+export type MouvementStock = $Result.DefaultSelection<Prisma.$MouvementStockPayload>
 
 /**
  * Enums
@@ -158,6 +168,26 @@ export const TypeExamenImagerie: {
 
 export type TypeExamenImagerie = (typeof TypeExamenImagerie)[keyof typeof TypeExamenImagerie]
 
+
+export const CategorieArticle: {
+  MEDICAMENT: 'MEDICAMENT',
+  CONSOMMABLE: 'CONSOMMABLE',
+  EQUIPEMENT: 'EQUIPEMENT',
+  AUTRE: 'AUTRE'
+};
+
+export type CategorieArticle = (typeof CategorieArticle)[keyof typeof CategorieArticle]
+
+
+export const TypeMouvement: {
+  ENTREE: 'ENTREE',
+  SORTIE: 'SORTIE',
+  AJUSTEMENT: 'AJUSTEMENT',
+  PEREMPTION: 'PEREMPTION'
+};
+
+export type TypeMouvement = (typeof TypeMouvement)[keyof typeof TypeMouvement]
+
 }
 
 export type Role = $Enums.Role
@@ -191,6 +221,14 @@ export const TypeExamenLabo: typeof $Enums.TypeExamenLabo
 export type TypeExamenImagerie = $Enums.TypeExamenImagerie
 
 export const TypeExamenImagerie: typeof $Enums.TypeExamenImagerie
+
+export type CategorieArticle = $Enums.CategorieArticle
+
+export const CategorieArticle: typeof $Enums.CategorieArticle
+
+export type TypeMouvement = $Enums.TypeMouvement
+
+export const TypeMouvement: typeof $Enums.TypeMouvement
 
 /**
  * ##  Prisma Client ʲˢ
@@ -412,6 +450,26 @@ export class PrismaClient<
     * ```
     */
   get examenImagerie(): Prisma.ExamenImagerieDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.articleStock`: Exposes CRUD operations for the **ArticleStock** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ArticleStocks
+    * const articleStocks = await prisma.articleStock.findMany()
+    * ```
+    */
+  get articleStock(): Prisma.ArticleStockDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.mouvementStock`: Exposes CRUD operations for the **MouvementStock** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MouvementStocks
+    * const mouvementStocks = await prisma.mouvementStock.findMany()
+    * ```
+    */
+  get mouvementStock(): Prisma.MouvementStockDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -855,7 +913,9 @@ export namespace Prisma {
     Facture: 'Facture',
     LigneFacture: 'LigneFacture',
     ExamenLabo: 'ExamenLabo',
-    ExamenImagerie: 'ExamenImagerie'
+    ExamenImagerie: 'ExamenImagerie',
+    ArticleStock: 'ArticleStock',
+    MouvementStock: 'MouvementStock'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -871,7 +931,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "hospital" | "utilisateur" | "patient" | "patientHospital" | "consultation" | "prescription" | "facture" | "ligneFacture" | "examenLabo" | "examenImagerie"
+      modelProps: "hospital" | "utilisateur" | "patient" | "patientHospital" | "consultation" | "prescription" | "facture" | "ligneFacture" | "examenLabo" | "examenImagerie" | "articleStock" | "mouvementStock"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1615,6 +1675,154 @@ export namespace Prisma {
           }
         }
       }
+      ArticleStock: {
+        payload: Prisma.$ArticleStockPayload<ExtArgs>
+        fields: Prisma.ArticleStockFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ArticleStockFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleStockPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ArticleStockFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleStockPayload>
+          }
+          findFirst: {
+            args: Prisma.ArticleStockFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleStockPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ArticleStockFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleStockPayload>
+          }
+          findMany: {
+            args: Prisma.ArticleStockFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleStockPayload>[]
+          }
+          create: {
+            args: Prisma.ArticleStockCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleStockPayload>
+          }
+          createMany: {
+            args: Prisma.ArticleStockCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ArticleStockCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleStockPayload>[]
+          }
+          delete: {
+            args: Prisma.ArticleStockDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleStockPayload>
+          }
+          update: {
+            args: Prisma.ArticleStockUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleStockPayload>
+          }
+          deleteMany: {
+            args: Prisma.ArticleStockDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ArticleStockUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ArticleStockUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleStockPayload>[]
+          }
+          upsert: {
+            args: Prisma.ArticleStockUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticleStockPayload>
+          }
+          aggregate: {
+            args: Prisma.ArticleStockAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateArticleStock>
+          }
+          groupBy: {
+            args: Prisma.ArticleStockGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ArticleStockGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ArticleStockCountArgs<ExtArgs>
+            result: $Utils.Optional<ArticleStockCountAggregateOutputType> | number
+          }
+        }
+      }
+      MouvementStock: {
+        payload: Prisma.$MouvementStockPayload<ExtArgs>
+        fields: Prisma.MouvementStockFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MouvementStockFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MouvementStockPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MouvementStockFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MouvementStockPayload>
+          }
+          findFirst: {
+            args: Prisma.MouvementStockFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MouvementStockPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MouvementStockFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MouvementStockPayload>
+          }
+          findMany: {
+            args: Prisma.MouvementStockFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MouvementStockPayload>[]
+          }
+          create: {
+            args: Prisma.MouvementStockCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MouvementStockPayload>
+          }
+          createMany: {
+            args: Prisma.MouvementStockCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MouvementStockCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MouvementStockPayload>[]
+          }
+          delete: {
+            args: Prisma.MouvementStockDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MouvementStockPayload>
+          }
+          update: {
+            args: Prisma.MouvementStockUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MouvementStockPayload>
+          }
+          deleteMany: {
+            args: Prisma.MouvementStockDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MouvementStockUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MouvementStockUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MouvementStockPayload>[]
+          }
+          upsert: {
+            args: Prisma.MouvementStockUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MouvementStockPayload>
+          }
+          aggregate: {
+            args: Prisma.MouvementStockAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMouvementStock>
+          }
+          groupBy: {
+            args: Prisma.MouvementStockGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MouvementStockGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MouvementStockCountArgs<ExtArgs>
+            result: $Utils.Optional<MouvementStockCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1733,6 +1941,8 @@ export namespace Prisma {
     ligneFacture?: LigneFactureOmit
     examenLabo?: ExamenLaboOmit
     examenImagerie?: ExamenImagerieOmit
+    articleStock?: ArticleStockOmit
+    mouvementStock?: MouvementStockOmit
   }
 
   /* Types for Logging */
@@ -1819,6 +2029,8 @@ export namespace Prisma {
     factures: number
     examens_labo: number
     examens_imagerie: number
+    articles_stock: number
+    mouvements_stock: number
   }
 
   export type HospitalCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1828,6 +2040,8 @@ export namespace Prisma {
     factures?: boolean | HospitalCountOutputTypeCountFacturesArgs
     examens_labo?: boolean | HospitalCountOutputTypeCountExamens_laboArgs
     examens_imagerie?: boolean | HospitalCountOutputTypeCountExamens_imagerieArgs
+    articles_stock?: boolean | HospitalCountOutputTypeCountArticles_stockArgs
+    mouvements_stock?: boolean | HospitalCountOutputTypeCountMouvements_stockArgs
   }
 
   // Custom InputTypes
@@ -1881,6 +2095,20 @@ export namespace Prisma {
    */
   export type HospitalCountOutputTypeCountExamens_imagerieArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ExamenImagerieWhereInput
+  }
+
+  /**
+   * HospitalCountOutputType without action
+   */
+  export type HospitalCountOutputTypeCountArticles_stockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ArticleStockWhereInput
+  }
+
+  /**
+   * HospitalCountOutputType without action
+   */
+  export type HospitalCountOutputTypeCountMouvements_stockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MouvementStockWhereInput
   }
 
 
@@ -2059,6 +2287,37 @@ export namespace Prisma {
    */
   export type FactureCountOutputTypeCountLignesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LigneFactureWhereInput
+  }
+
+
+  /**
+   * Count Type ArticleStockCountOutputType
+   */
+
+  export type ArticleStockCountOutputType = {
+    mouvements: number
+  }
+
+  export type ArticleStockCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mouvements?: boolean | ArticleStockCountOutputTypeCountMouvementsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ArticleStockCountOutputType without action
+   */
+  export type ArticleStockCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleStockCountOutputType
+     */
+    select?: ArticleStockCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ArticleStockCountOutputType without action
+   */
+  export type ArticleStockCountOutputTypeCountMouvementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MouvementStockWhereInput
   }
 
 
@@ -2276,6 +2535,8 @@ export namespace Prisma {
     factures?: boolean | Hospital$facturesArgs<ExtArgs>
     examens_labo?: boolean | Hospital$examens_laboArgs<ExtArgs>
     examens_imagerie?: boolean | Hospital$examens_imagerieArgs<ExtArgs>
+    articles_stock?: boolean | Hospital$articles_stockArgs<ExtArgs>
+    mouvements_stock?: boolean | Hospital$mouvements_stockArgs<ExtArgs>
     _count?: boolean | HospitalCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["hospital"]>
 
@@ -2326,6 +2587,8 @@ export namespace Prisma {
     factures?: boolean | Hospital$facturesArgs<ExtArgs>
     examens_labo?: boolean | Hospital$examens_laboArgs<ExtArgs>
     examens_imagerie?: boolean | Hospital$examens_imagerieArgs<ExtArgs>
+    articles_stock?: boolean | Hospital$articles_stockArgs<ExtArgs>
+    mouvements_stock?: boolean | Hospital$mouvements_stockArgs<ExtArgs>
     _count?: boolean | HospitalCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type HospitalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2340,6 +2603,8 @@ export namespace Prisma {
       factures: Prisma.$FacturePayload<ExtArgs>[]
       examens_labo: Prisma.$ExamenLaboPayload<ExtArgs>[]
       examens_imagerie: Prisma.$ExamenImageriePayload<ExtArgs>[]
+      articles_stock: Prisma.$ArticleStockPayload<ExtArgs>[]
+      mouvements_stock: Prisma.$MouvementStockPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2752,6 +3017,8 @@ export namespace Prisma {
     factures<T extends Hospital$facturesArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$facturesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacturePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     examens_labo<T extends Hospital$examens_laboArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$examens_laboArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenLaboPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     examens_imagerie<T extends Hospital$examens_imagerieArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$examens_imagerieArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenImageriePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    articles_stock<T extends Hospital$articles_stockArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$articles_stockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    mouvements_stock<T extends Hospital$mouvements_stockArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$mouvements_stockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MouvementStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3325,6 +3592,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ExamenImagerieScalarFieldEnum | ExamenImagerieScalarFieldEnum[]
+  }
+
+  /**
+   * Hospital.articles_stock
+   */
+  export type Hospital$articles_stockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleStock
+     */
+    select?: ArticleStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleStock
+     */
+    omit?: ArticleStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleStockInclude<ExtArgs> | null
+    where?: ArticleStockWhereInput
+    orderBy?: ArticleStockOrderByWithRelationInput | ArticleStockOrderByWithRelationInput[]
+    cursor?: ArticleStockWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ArticleStockScalarFieldEnum | ArticleStockScalarFieldEnum[]
+  }
+
+  /**
+   * Hospital.mouvements_stock
+   */
+  export type Hospital$mouvements_stockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MouvementStock
+     */
+    select?: MouvementStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MouvementStock
+     */
+    omit?: MouvementStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MouvementStockInclude<ExtArgs> | null
+    where?: MouvementStockWhereInput
+    orderBy?: MouvementStockOrderByWithRelationInput | MouvementStockOrderByWithRelationInput[]
+    cursor?: MouvementStockWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MouvementStockScalarFieldEnum | MouvementStockScalarFieldEnum[]
   }
 
   /**
@@ -14316,6 +14631,2436 @@ export namespace Prisma {
 
 
   /**
+   * Model ArticleStock
+   */
+
+  export type AggregateArticleStock = {
+    _count: ArticleStockCountAggregateOutputType | null
+    _avg: ArticleStockAvgAggregateOutputType | null
+    _sum: ArticleStockSumAggregateOutputType | null
+    _min: ArticleStockMinAggregateOutputType | null
+    _max: ArticleStockMaxAggregateOutputType | null
+  }
+
+  export type ArticleStockAvgAggregateOutputType = {
+    quantite_stock: number | null
+    seuil_alerte: number | null
+    prix_unitaire: number | null
+  }
+
+  export type ArticleStockSumAggregateOutputType = {
+    quantite_stock: number | null
+    seuil_alerte: number | null
+    prix_unitaire: number | null
+  }
+
+  export type ArticleStockMinAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    nom: string | null
+    categorie: $Enums.CategorieArticle | null
+    description: string | null
+    unite: string | null
+    quantite_stock: number | null
+    seuil_alerte: number | null
+    prix_unitaire: number | null
+    date_peremption: Date | null
+    code_article: string | null
+    est_actif: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ArticleStockMaxAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    nom: string | null
+    categorie: $Enums.CategorieArticle | null
+    description: string | null
+    unite: string | null
+    quantite_stock: number | null
+    seuil_alerte: number | null
+    prix_unitaire: number | null
+    date_peremption: Date | null
+    code_article: string | null
+    est_actif: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ArticleStockCountAggregateOutputType = {
+    id: number
+    hospital_id: number
+    nom: number
+    categorie: number
+    description: number
+    unite: number
+    quantite_stock: number
+    seuil_alerte: number
+    prix_unitaire: number
+    date_peremption: number
+    code_article: number
+    est_actif: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type ArticleStockAvgAggregateInputType = {
+    quantite_stock?: true
+    seuil_alerte?: true
+    prix_unitaire?: true
+  }
+
+  export type ArticleStockSumAggregateInputType = {
+    quantite_stock?: true
+    seuil_alerte?: true
+    prix_unitaire?: true
+  }
+
+  export type ArticleStockMinAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    nom?: true
+    categorie?: true
+    description?: true
+    unite?: true
+    quantite_stock?: true
+    seuil_alerte?: true
+    prix_unitaire?: true
+    date_peremption?: true
+    code_article?: true
+    est_actif?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ArticleStockMaxAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    nom?: true
+    categorie?: true
+    description?: true
+    unite?: true
+    quantite_stock?: true
+    seuil_alerte?: true
+    prix_unitaire?: true
+    date_peremption?: true
+    code_article?: true
+    est_actif?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ArticleStockCountAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    nom?: true
+    categorie?: true
+    description?: true
+    unite?: true
+    quantite_stock?: true
+    seuil_alerte?: true
+    prix_unitaire?: true
+    date_peremption?: true
+    code_article?: true
+    est_actif?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type ArticleStockAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ArticleStock to aggregate.
+     */
+    where?: ArticleStockWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ArticleStocks to fetch.
+     */
+    orderBy?: ArticleStockOrderByWithRelationInput | ArticleStockOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ArticleStockWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ArticleStocks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ArticleStocks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ArticleStocks
+    **/
+    _count?: true | ArticleStockCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ArticleStockAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ArticleStockSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ArticleStockMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ArticleStockMaxAggregateInputType
+  }
+
+  export type GetArticleStockAggregateType<T extends ArticleStockAggregateArgs> = {
+        [P in keyof T & keyof AggregateArticleStock]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateArticleStock[P]>
+      : GetScalarType<T[P], AggregateArticleStock[P]>
+  }
+
+
+
+
+  export type ArticleStockGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ArticleStockWhereInput
+    orderBy?: ArticleStockOrderByWithAggregationInput | ArticleStockOrderByWithAggregationInput[]
+    by: ArticleStockScalarFieldEnum[] | ArticleStockScalarFieldEnum
+    having?: ArticleStockScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ArticleStockCountAggregateInputType | true
+    _avg?: ArticleStockAvgAggregateInputType
+    _sum?: ArticleStockSumAggregateInputType
+    _min?: ArticleStockMinAggregateInputType
+    _max?: ArticleStockMaxAggregateInputType
+  }
+
+  export type ArticleStockGroupByOutputType = {
+    id: string
+    hospital_id: string
+    nom: string
+    categorie: $Enums.CategorieArticle
+    description: string | null
+    unite: string
+    quantite_stock: number
+    seuil_alerte: number
+    prix_unitaire: number
+    date_peremption: Date | null
+    code_article: string | null
+    est_actif: boolean
+    created_at: Date
+    updated_at: Date
+    _count: ArticleStockCountAggregateOutputType | null
+    _avg: ArticleStockAvgAggregateOutputType | null
+    _sum: ArticleStockSumAggregateOutputType | null
+    _min: ArticleStockMinAggregateOutputType | null
+    _max: ArticleStockMaxAggregateOutputType | null
+  }
+
+  type GetArticleStockGroupByPayload<T extends ArticleStockGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ArticleStockGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ArticleStockGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ArticleStockGroupByOutputType[P]>
+            : GetScalarType<T[P], ArticleStockGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ArticleStockSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    nom?: boolean
+    categorie?: boolean
+    description?: boolean
+    unite?: boolean
+    quantite_stock?: boolean
+    seuil_alerte?: boolean
+    prix_unitaire?: boolean
+    date_peremption?: boolean
+    code_article?: boolean
+    est_actif?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    mouvements?: boolean | ArticleStock$mouvementsArgs<ExtArgs>
+    _count?: boolean | ArticleStockCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["articleStock"]>
+
+  export type ArticleStockSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    nom?: boolean
+    categorie?: boolean
+    description?: boolean
+    unite?: boolean
+    quantite_stock?: boolean
+    seuil_alerte?: boolean
+    prix_unitaire?: boolean
+    date_peremption?: boolean
+    code_article?: boolean
+    est_actif?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["articleStock"]>
+
+  export type ArticleStockSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    nom?: boolean
+    categorie?: boolean
+    description?: boolean
+    unite?: boolean
+    quantite_stock?: boolean
+    seuil_alerte?: boolean
+    prix_unitaire?: boolean
+    date_peremption?: boolean
+    code_article?: boolean
+    est_actif?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["articleStock"]>
+
+  export type ArticleStockSelectScalar = {
+    id?: boolean
+    hospital_id?: boolean
+    nom?: boolean
+    categorie?: boolean
+    description?: boolean
+    unite?: boolean
+    quantite_stock?: boolean
+    seuil_alerte?: boolean
+    prix_unitaire?: boolean
+    date_peremption?: boolean
+    code_article?: boolean
+    est_actif?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type ArticleStockOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "nom" | "categorie" | "description" | "unite" | "quantite_stock" | "seuil_alerte" | "prix_unitaire" | "date_peremption" | "code_article" | "est_actif" | "created_at" | "updated_at", ExtArgs["result"]["articleStock"]>
+  export type ArticleStockInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    mouvements?: boolean | ArticleStock$mouvementsArgs<ExtArgs>
+    _count?: boolean | ArticleStockCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ArticleStockIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
+  export type ArticleStockIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
+
+  export type $ArticleStockPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ArticleStock"
+    objects: {
+      hospital: Prisma.$HospitalPayload<ExtArgs>
+      mouvements: Prisma.$MouvementStockPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      hospital_id: string
+      nom: string
+      categorie: $Enums.CategorieArticle
+      description: string | null
+      unite: string
+      quantite_stock: number
+      seuil_alerte: number
+      prix_unitaire: number
+      date_peremption: Date | null
+      code_article: string | null
+      est_actif: boolean
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["articleStock"]>
+    composites: {}
+  }
+
+  type ArticleStockGetPayload<S extends boolean | null | undefined | ArticleStockDefaultArgs> = $Result.GetResult<Prisma.$ArticleStockPayload, S>
+
+  type ArticleStockCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ArticleStockFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ArticleStockCountAggregateInputType | true
+    }
+
+  export interface ArticleStockDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ArticleStock'], meta: { name: 'ArticleStock' } }
+    /**
+     * Find zero or one ArticleStock that matches the filter.
+     * @param {ArticleStockFindUniqueArgs} args - Arguments to find a ArticleStock
+     * @example
+     * // Get one ArticleStock
+     * const articleStock = await prisma.articleStock.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ArticleStockFindUniqueArgs>(args: SelectSubset<T, ArticleStockFindUniqueArgs<ExtArgs>>): Prisma__ArticleStockClient<$Result.GetResult<Prisma.$ArticleStockPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ArticleStock that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ArticleStockFindUniqueOrThrowArgs} args - Arguments to find a ArticleStock
+     * @example
+     * // Get one ArticleStock
+     * const articleStock = await prisma.articleStock.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ArticleStockFindUniqueOrThrowArgs>(args: SelectSubset<T, ArticleStockFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ArticleStockClient<$Result.GetResult<Prisma.$ArticleStockPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ArticleStock that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleStockFindFirstArgs} args - Arguments to find a ArticleStock
+     * @example
+     * // Get one ArticleStock
+     * const articleStock = await prisma.articleStock.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ArticleStockFindFirstArgs>(args?: SelectSubset<T, ArticleStockFindFirstArgs<ExtArgs>>): Prisma__ArticleStockClient<$Result.GetResult<Prisma.$ArticleStockPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ArticleStock that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleStockFindFirstOrThrowArgs} args - Arguments to find a ArticleStock
+     * @example
+     * // Get one ArticleStock
+     * const articleStock = await prisma.articleStock.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ArticleStockFindFirstOrThrowArgs>(args?: SelectSubset<T, ArticleStockFindFirstOrThrowArgs<ExtArgs>>): Prisma__ArticleStockClient<$Result.GetResult<Prisma.$ArticleStockPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ArticleStocks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleStockFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ArticleStocks
+     * const articleStocks = await prisma.articleStock.findMany()
+     * 
+     * // Get first 10 ArticleStocks
+     * const articleStocks = await prisma.articleStock.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const articleStockWithIdOnly = await prisma.articleStock.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ArticleStockFindManyArgs>(args?: SelectSubset<T, ArticleStockFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ArticleStock.
+     * @param {ArticleStockCreateArgs} args - Arguments to create a ArticleStock.
+     * @example
+     * // Create one ArticleStock
+     * const ArticleStock = await prisma.articleStock.create({
+     *   data: {
+     *     // ... data to create a ArticleStock
+     *   }
+     * })
+     * 
+     */
+    create<T extends ArticleStockCreateArgs>(args: SelectSubset<T, ArticleStockCreateArgs<ExtArgs>>): Prisma__ArticleStockClient<$Result.GetResult<Prisma.$ArticleStockPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ArticleStocks.
+     * @param {ArticleStockCreateManyArgs} args - Arguments to create many ArticleStocks.
+     * @example
+     * // Create many ArticleStocks
+     * const articleStock = await prisma.articleStock.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ArticleStockCreateManyArgs>(args?: SelectSubset<T, ArticleStockCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ArticleStocks and returns the data saved in the database.
+     * @param {ArticleStockCreateManyAndReturnArgs} args - Arguments to create many ArticleStocks.
+     * @example
+     * // Create many ArticleStocks
+     * const articleStock = await prisma.articleStock.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ArticleStocks and only return the `id`
+     * const articleStockWithIdOnly = await prisma.articleStock.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ArticleStockCreateManyAndReturnArgs>(args?: SelectSubset<T, ArticleStockCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleStockPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ArticleStock.
+     * @param {ArticleStockDeleteArgs} args - Arguments to delete one ArticleStock.
+     * @example
+     * // Delete one ArticleStock
+     * const ArticleStock = await prisma.articleStock.delete({
+     *   where: {
+     *     // ... filter to delete one ArticleStock
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ArticleStockDeleteArgs>(args: SelectSubset<T, ArticleStockDeleteArgs<ExtArgs>>): Prisma__ArticleStockClient<$Result.GetResult<Prisma.$ArticleStockPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ArticleStock.
+     * @param {ArticleStockUpdateArgs} args - Arguments to update one ArticleStock.
+     * @example
+     * // Update one ArticleStock
+     * const articleStock = await prisma.articleStock.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ArticleStockUpdateArgs>(args: SelectSubset<T, ArticleStockUpdateArgs<ExtArgs>>): Prisma__ArticleStockClient<$Result.GetResult<Prisma.$ArticleStockPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ArticleStocks.
+     * @param {ArticleStockDeleteManyArgs} args - Arguments to filter ArticleStocks to delete.
+     * @example
+     * // Delete a few ArticleStocks
+     * const { count } = await prisma.articleStock.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ArticleStockDeleteManyArgs>(args?: SelectSubset<T, ArticleStockDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ArticleStocks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleStockUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ArticleStocks
+     * const articleStock = await prisma.articleStock.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ArticleStockUpdateManyArgs>(args: SelectSubset<T, ArticleStockUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ArticleStocks and returns the data updated in the database.
+     * @param {ArticleStockUpdateManyAndReturnArgs} args - Arguments to update many ArticleStocks.
+     * @example
+     * // Update many ArticleStocks
+     * const articleStock = await prisma.articleStock.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ArticleStocks and only return the `id`
+     * const articleStockWithIdOnly = await prisma.articleStock.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ArticleStockUpdateManyAndReturnArgs>(args: SelectSubset<T, ArticleStockUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleStockPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ArticleStock.
+     * @param {ArticleStockUpsertArgs} args - Arguments to update or create a ArticleStock.
+     * @example
+     * // Update or create a ArticleStock
+     * const articleStock = await prisma.articleStock.upsert({
+     *   create: {
+     *     // ... data to create a ArticleStock
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ArticleStock we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ArticleStockUpsertArgs>(args: SelectSubset<T, ArticleStockUpsertArgs<ExtArgs>>): Prisma__ArticleStockClient<$Result.GetResult<Prisma.$ArticleStockPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ArticleStocks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleStockCountArgs} args - Arguments to filter ArticleStocks to count.
+     * @example
+     * // Count the number of ArticleStocks
+     * const count = await prisma.articleStock.count({
+     *   where: {
+     *     // ... the filter for the ArticleStocks we want to count
+     *   }
+     * })
+    **/
+    count<T extends ArticleStockCountArgs>(
+      args?: Subset<T, ArticleStockCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ArticleStockCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ArticleStock.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleStockAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ArticleStockAggregateArgs>(args: Subset<T, ArticleStockAggregateArgs>): Prisma.PrismaPromise<GetArticleStockAggregateType<T>>
+
+    /**
+     * Group by ArticleStock.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleStockGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ArticleStockGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ArticleStockGroupByArgs['orderBy'] }
+        : { orderBy?: ArticleStockGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ArticleStockGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetArticleStockGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ArticleStock model
+   */
+  readonly fields: ArticleStockFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ArticleStock.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ArticleStockClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    mouvements<T extends ArticleStock$mouvementsArgs<ExtArgs> = {}>(args?: Subset<T, ArticleStock$mouvementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MouvementStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ArticleStock model
+   */
+  interface ArticleStockFieldRefs {
+    readonly id: FieldRef<"ArticleStock", 'String'>
+    readonly hospital_id: FieldRef<"ArticleStock", 'String'>
+    readonly nom: FieldRef<"ArticleStock", 'String'>
+    readonly categorie: FieldRef<"ArticleStock", 'CategorieArticle'>
+    readonly description: FieldRef<"ArticleStock", 'String'>
+    readonly unite: FieldRef<"ArticleStock", 'String'>
+    readonly quantite_stock: FieldRef<"ArticleStock", 'Int'>
+    readonly seuil_alerte: FieldRef<"ArticleStock", 'Int'>
+    readonly prix_unitaire: FieldRef<"ArticleStock", 'Float'>
+    readonly date_peremption: FieldRef<"ArticleStock", 'DateTime'>
+    readonly code_article: FieldRef<"ArticleStock", 'String'>
+    readonly est_actif: FieldRef<"ArticleStock", 'Boolean'>
+    readonly created_at: FieldRef<"ArticleStock", 'DateTime'>
+    readonly updated_at: FieldRef<"ArticleStock", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ArticleStock findUnique
+   */
+  export type ArticleStockFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleStock
+     */
+    select?: ArticleStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleStock
+     */
+    omit?: ArticleStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleStockInclude<ExtArgs> | null
+    /**
+     * Filter, which ArticleStock to fetch.
+     */
+    where: ArticleStockWhereUniqueInput
+  }
+
+  /**
+   * ArticleStock findUniqueOrThrow
+   */
+  export type ArticleStockFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleStock
+     */
+    select?: ArticleStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleStock
+     */
+    omit?: ArticleStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleStockInclude<ExtArgs> | null
+    /**
+     * Filter, which ArticleStock to fetch.
+     */
+    where: ArticleStockWhereUniqueInput
+  }
+
+  /**
+   * ArticleStock findFirst
+   */
+  export type ArticleStockFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleStock
+     */
+    select?: ArticleStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleStock
+     */
+    omit?: ArticleStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleStockInclude<ExtArgs> | null
+    /**
+     * Filter, which ArticleStock to fetch.
+     */
+    where?: ArticleStockWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ArticleStocks to fetch.
+     */
+    orderBy?: ArticleStockOrderByWithRelationInput | ArticleStockOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ArticleStocks.
+     */
+    cursor?: ArticleStockWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ArticleStocks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ArticleStocks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ArticleStocks.
+     */
+    distinct?: ArticleStockScalarFieldEnum | ArticleStockScalarFieldEnum[]
+  }
+
+  /**
+   * ArticleStock findFirstOrThrow
+   */
+  export type ArticleStockFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleStock
+     */
+    select?: ArticleStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleStock
+     */
+    omit?: ArticleStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleStockInclude<ExtArgs> | null
+    /**
+     * Filter, which ArticleStock to fetch.
+     */
+    where?: ArticleStockWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ArticleStocks to fetch.
+     */
+    orderBy?: ArticleStockOrderByWithRelationInput | ArticleStockOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ArticleStocks.
+     */
+    cursor?: ArticleStockWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ArticleStocks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ArticleStocks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ArticleStocks.
+     */
+    distinct?: ArticleStockScalarFieldEnum | ArticleStockScalarFieldEnum[]
+  }
+
+  /**
+   * ArticleStock findMany
+   */
+  export type ArticleStockFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleStock
+     */
+    select?: ArticleStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleStock
+     */
+    omit?: ArticleStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleStockInclude<ExtArgs> | null
+    /**
+     * Filter, which ArticleStocks to fetch.
+     */
+    where?: ArticleStockWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ArticleStocks to fetch.
+     */
+    orderBy?: ArticleStockOrderByWithRelationInput | ArticleStockOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ArticleStocks.
+     */
+    cursor?: ArticleStockWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ArticleStocks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ArticleStocks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ArticleStocks.
+     */
+    distinct?: ArticleStockScalarFieldEnum | ArticleStockScalarFieldEnum[]
+  }
+
+  /**
+   * ArticleStock create
+   */
+  export type ArticleStockCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleStock
+     */
+    select?: ArticleStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleStock
+     */
+    omit?: ArticleStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleStockInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ArticleStock.
+     */
+    data: XOR<ArticleStockCreateInput, ArticleStockUncheckedCreateInput>
+  }
+
+  /**
+   * ArticleStock createMany
+   */
+  export type ArticleStockCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ArticleStocks.
+     */
+    data: ArticleStockCreateManyInput | ArticleStockCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ArticleStock createManyAndReturn
+   */
+  export type ArticleStockCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleStock
+     */
+    select?: ArticleStockSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleStock
+     */
+    omit?: ArticleStockOmit<ExtArgs> | null
+    /**
+     * The data used to create many ArticleStocks.
+     */
+    data: ArticleStockCreateManyInput | ArticleStockCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleStockIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ArticleStock update
+   */
+  export type ArticleStockUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleStock
+     */
+    select?: ArticleStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleStock
+     */
+    omit?: ArticleStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleStockInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ArticleStock.
+     */
+    data: XOR<ArticleStockUpdateInput, ArticleStockUncheckedUpdateInput>
+    /**
+     * Choose, which ArticleStock to update.
+     */
+    where: ArticleStockWhereUniqueInput
+  }
+
+  /**
+   * ArticleStock updateMany
+   */
+  export type ArticleStockUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ArticleStocks.
+     */
+    data: XOR<ArticleStockUpdateManyMutationInput, ArticleStockUncheckedUpdateManyInput>
+    /**
+     * Filter which ArticleStocks to update
+     */
+    where?: ArticleStockWhereInput
+    /**
+     * Limit how many ArticleStocks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ArticleStock updateManyAndReturn
+   */
+  export type ArticleStockUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleStock
+     */
+    select?: ArticleStockSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleStock
+     */
+    omit?: ArticleStockOmit<ExtArgs> | null
+    /**
+     * The data used to update ArticleStocks.
+     */
+    data: XOR<ArticleStockUpdateManyMutationInput, ArticleStockUncheckedUpdateManyInput>
+    /**
+     * Filter which ArticleStocks to update
+     */
+    where?: ArticleStockWhereInput
+    /**
+     * Limit how many ArticleStocks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleStockIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ArticleStock upsert
+   */
+  export type ArticleStockUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleStock
+     */
+    select?: ArticleStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleStock
+     */
+    omit?: ArticleStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleStockInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ArticleStock to update in case it exists.
+     */
+    where: ArticleStockWhereUniqueInput
+    /**
+     * In case the ArticleStock found by the `where` argument doesn't exist, create a new ArticleStock with this data.
+     */
+    create: XOR<ArticleStockCreateInput, ArticleStockUncheckedCreateInput>
+    /**
+     * In case the ArticleStock was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ArticleStockUpdateInput, ArticleStockUncheckedUpdateInput>
+  }
+
+  /**
+   * ArticleStock delete
+   */
+  export type ArticleStockDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleStock
+     */
+    select?: ArticleStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleStock
+     */
+    omit?: ArticleStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleStockInclude<ExtArgs> | null
+    /**
+     * Filter which ArticleStock to delete.
+     */
+    where: ArticleStockWhereUniqueInput
+  }
+
+  /**
+   * ArticleStock deleteMany
+   */
+  export type ArticleStockDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ArticleStocks to delete
+     */
+    where?: ArticleStockWhereInput
+    /**
+     * Limit how many ArticleStocks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ArticleStock.mouvements
+   */
+  export type ArticleStock$mouvementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MouvementStock
+     */
+    select?: MouvementStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MouvementStock
+     */
+    omit?: MouvementStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MouvementStockInclude<ExtArgs> | null
+    where?: MouvementStockWhereInput
+    orderBy?: MouvementStockOrderByWithRelationInput | MouvementStockOrderByWithRelationInput[]
+    cursor?: MouvementStockWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MouvementStockScalarFieldEnum | MouvementStockScalarFieldEnum[]
+  }
+
+  /**
+   * ArticleStock without action
+   */
+  export type ArticleStockDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleStock
+     */
+    select?: ArticleStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ArticleStock
+     */
+    omit?: ArticleStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleStockInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MouvementStock
+   */
+
+  export type AggregateMouvementStock = {
+    _count: MouvementStockCountAggregateOutputType | null
+    _avg: MouvementStockAvgAggregateOutputType | null
+    _sum: MouvementStockSumAggregateOutputType | null
+    _min: MouvementStockMinAggregateOutputType | null
+    _max: MouvementStockMaxAggregateOutputType | null
+  }
+
+  export type MouvementStockAvgAggregateOutputType = {
+    quantite: number | null
+    quantite_avant: number | null
+    quantite_apres: number | null
+  }
+
+  export type MouvementStockSumAggregateOutputType = {
+    quantite: number | null
+    quantite_avant: number | null
+    quantite_apres: number | null
+  }
+
+  export type MouvementStockMinAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    article_id: string | null
+    type_mouvement: $Enums.TypeMouvement | null
+    quantite: number | null
+    quantite_avant: number | null
+    quantite_apres: number | null
+    motif: string | null
+    utilisateur_id: string | null
+    created_at: Date | null
+  }
+
+  export type MouvementStockMaxAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    article_id: string | null
+    type_mouvement: $Enums.TypeMouvement | null
+    quantite: number | null
+    quantite_avant: number | null
+    quantite_apres: number | null
+    motif: string | null
+    utilisateur_id: string | null
+    created_at: Date | null
+  }
+
+  export type MouvementStockCountAggregateOutputType = {
+    id: number
+    hospital_id: number
+    article_id: number
+    type_mouvement: number
+    quantite: number
+    quantite_avant: number
+    quantite_apres: number
+    motif: number
+    utilisateur_id: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type MouvementStockAvgAggregateInputType = {
+    quantite?: true
+    quantite_avant?: true
+    quantite_apres?: true
+  }
+
+  export type MouvementStockSumAggregateInputType = {
+    quantite?: true
+    quantite_avant?: true
+    quantite_apres?: true
+  }
+
+  export type MouvementStockMinAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    article_id?: true
+    type_mouvement?: true
+    quantite?: true
+    quantite_avant?: true
+    quantite_apres?: true
+    motif?: true
+    utilisateur_id?: true
+    created_at?: true
+  }
+
+  export type MouvementStockMaxAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    article_id?: true
+    type_mouvement?: true
+    quantite?: true
+    quantite_avant?: true
+    quantite_apres?: true
+    motif?: true
+    utilisateur_id?: true
+    created_at?: true
+  }
+
+  export type MouvementStockCountAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    article_id?: true
+    type_mouvement?: true
+    quantite?: true
+    quantite_avant?: true
+    quantite_apres?: true
+    motif?: true
+    utilisateur_id?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type MouvementStockAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MouvementStock to aggregate.
+     */
+    where?: MouvementStockWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MouvementStocks to fetch.
+     */
+    orderBy?: MouvementStockOrderByWithRelationInput | MouvementStockOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MouvementStockWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MouvementStocks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MouvementStocks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MouvementStocks
+    **/
+    _count?: true | MouvementStockCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MouvementStockAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MouvementStockSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MouvementStockMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MouvementStockMaxAggregateInputType
+  }
+
+  export type GetMouvementStockAggregateType<T extends MouvementStockAggregateArgs> = {
+        [P in keyof T & keyof AggregateMouvementStock]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMouvementStock[P]>
+      : GetScalarType<T[P], AggregateMouvementStock[P]>
+  }
+
+
+
+
+  export type MouvementStockGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MouvementStockWhereInput
+    orderBy?: MouvementStockOrderByWithAggregationInput | MouvementStockOrderByWithAggregationInput[]
+    by: MouvementStockScalarFieldEnum[] | MouvementStockScalarFieldEnum
+    having?: MouvementStockScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MouvementStockCountAggregateInputType | true
+    _avg?: MouvementStockAvgAggregateInputType
+    _sum?: MouvementStockSumAggregateInputType
+    _min?: MouvementStockMinAggregateInputType
+    _max?: MouvementStockMaxAggregateInputType
+  }
+
+  export type MouvementStockGroupByOutputType = {
+    id: string
+    hospital_id: string
+    article_id: string
+    type_mouvement: $Enums.TypeMouvement
+    quantite: number
+    quantite_avant: number
+    quantite_apres: number
+    motif: string | null
+    utilisateur_id: string | null
+    created_at: Date
+    _count: MouvementStockCountAggregateOutputType | null
+    _avg: MouvementStockAvgAggregateOutputType | null
+    _sum: MouvementStockSumAggregateOutputType | null
+    _min: MouvementStockMinAggregateOutputType | null
+    _max: MouvementStockMaxAggregateOutputType | null
+  }
+
+  type GetMouvementStockGroupByPayload<T extends MouvementStockGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MouvementStockGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MouvementStockGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MouvementStockGroupByOutputType[P]>
+            : GetScalarType<T[P], MouvementStockGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MouvementStockSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    article_id?: boolean
+    type_mouvement?: boolean
+    quantite?: boolean
+    quantite_avant?: boolean
+    quantite_apres?: boolean
+    motif?: boolean
+    utilisateur_id?: boolean
+    created_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    article?: boolean | ArticleStockDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mouvementStock"]>
+
+  export type MouvementStockSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    article_id?: boolean
+    type_mouvement?: boolean
+    quantite?: boolean
+    quantite_avant?: boolean
+    quantite_apres?: boolean
+    motif?: boolean
+    utilisateur_id?: boolean
+    created_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    article?: boolean | ArticleStockDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mouvementStock"]>
+
+  export type MouvementStockSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    article_id?: boolean
+    type_mouvement?: boolean
+    quantite?: boolean
+    quantite_avant?: boolean
+    quantite_apres?: boolean
+    motif?: boolean
+    utilisateur_id?: boolean
+    created_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    article?: boolean | ArticleStockDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mouvementStock"]>
+
+  export type MouvementStockSelectScalar = {
+    id?: boolean
+    hospital_id?: boolean
+    article_id?: boolean
+    type_mouvement?: boolean
+    quantite?: boolean
+    quantite_avant?: boolean
+    quantite_apres?: boolean
+    motif?: boolean
+    utilisateur_id?: boolean
+    created_at?: boolean
+  }
+
+  export type MouvementStockOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "article_id" | "type_mouvement" | "quantite" | "quantite_avant" | "quantite_apres" | "motif" | "utilisateur_id" | "created_at", ExtArgs["result"]["mouvementStock"]>
+  export type MouvementStockInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    article?: boolean | ArticleStockDefaultArgs<ExtArgs>
+  }
+  export type MouvementStockIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    article?: boolean | ArticleStockDefaultArgs<ExtArgs>
+  }
+  export type MouvementStockIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    article?: boolean | ArticleStockDefaultArgs<ExtArgs>
+  }
+
+  export type $MouvementStockPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MouvementStock"
+    objects: {
+      hospital: Prisma.$HospitalPayload<ExtArgs>
+      article: Prisma.$ArticleStockPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      hospital_id: string
+      article_id: string
+      type_mouvement: $Enums.TypeMouvement
+      quantite: number
+      quantite_avant: number
+      quantite_apres: number
+      motif: string | null
+      utilisateur_id: string | null
+      created_at: Date
+    }, ExtArgs["result"]["mouvementStock"]>
+    composites: {}
+  }
+
+  type MouvementStockGetPayload<S extends boolean | null | undefined | MouvementStockDefaultArgs> = $Result.GetResult<Prisma.$MouvementStockPayload, S>
+
+  type MouvementStockCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MouvementStockFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MouvementStockCountAggregateInputType | true
+    }
+
+  export interface MouvementStockDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MouvementStock'], meta: { name: 'MouvementStock' } }
+    /**
+     * Find zero or one MouvementStock that matches the filter.
+     * @param {MouvementStockFindUniqueArgs} args - Arguments to find a MouvementStock
+     * @example
+     * // Get one MouvementStock
+     * const mouvementStock = await prisma.mouvementStock.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MouvementStockFindUniqueArgs>(args: SelectSubset<T, MouvementStockFindUniqueArgs<ExtArgs>>): Prisma__MouvementStockClient<$Result.GetResult<Prisma.$MouvementStockPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MouvementStock that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MouvementStockFindUniqueOrThrowArgs} args - Arguments to find a MouvementStock
+     * @example
+     * // Get one MouvementStock
+     * const mouvementStock = await prisma.mouvementStock.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MouvementStockFindUniqueOrThrowArgs>(args: SelectSubset<T, MouvementStockFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MouvementStockClient<$Result.GetResult<Prisma.$MouvementStockPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MouvementStock that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MouvementStockFindFirstArgs} args - Arguments to find a MouvementStock
+     * @example
+     * // Get one MouvementStock
+     * const mouvementStock = await prisma.mouvementStock.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MouvementStockFindFirstArgs>(args?: SelectSubset<T, MouvementStockFindFirstArgs<ExtArgs>>): Prisma__MouvementStockClient<$Result.GetResult<Prisma.$MouvementStockPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MouvementStock that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MouvementStockFindFirstOrThrowArgs} args - Arguments to find a MouvementStock
+     * @example
+     * // Get one MouvementStock
+     * const mouvementStock = await prisma.mouvementStock.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MouvementStockFindFirstOrThrowArgs>(args?: SelectSubset<T, MouvementStockFindFirstOrThrowArgs<ExtArgs>>): Prisma__MouvementStockClient<$Result.GetResult<Prisma.$MouvementStockPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MouvementStocks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MouvementStockFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MouvementStocks
+     * const mouvementStocks = await prisma.mouvementStock.findMany()
+     * 
+     * // Get first 10 MouvementStocks
+     * const mouvementStocks = await prisma.mouvementStock.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const mouvementStockWithIdOnly = await prisma.mouvementStock.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MouvementStockFindManyArgs>(args?: SelectSubset<T, MouvementStockFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MouvementStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MouvementStock.
+     * @param {MouvementStockCreateArgs} args - Arguments to create a MouvementStock.
+     * @example
+     * // Create one MouvementStock
+     * const MouvementStock = await prisma.mouvementStock.create({
+     *   data: {
+     *     // ... data to create a MouvementStock
+     *   }
+     * })
+     * 
+     */
+    create<T extends MouvementStockCreateArgs>(args: SelectSubset<T, MouvementStockCreateArgs<ExtArgs>>): Prisma__MouvementStockClient<$Result.GetResult<Prisma.$MouvementStockPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MouvementStocks.
+     * @param {MouvementStockCreateManyArgs} args - Arguments to create many MouvementStocks.
+     * @example
+     * // Create many MouvementStocks
+     * const mouvementStock = await prisma.mouvementStock.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MouvementStockCreateManyArgs>(args?: SelectSubset<T, MouvementStockCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MouvementStocks and returns the data saved in the database.
+     * @param {MouvementStockCreateManyAndReturnArgs} args - Arguments to create many MouvementStocks.
+     * @example
+     * // Create many MouvementStocks
+     * const mouvementStock = await prisma.mouvementStock.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MouvementStocks and only return the `id`
+     * const mouvementStockWithIdOnly = await prisma.mouvementStock.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MouvementStockCreateManyAndReturnArgs>(args?: SelectSubset<T, MouvementStockCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MouvementStockPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MouvementStock.
+     * @param {MouvementStockDeleteArgs} args - Arguments to delete one MouvementStock.
+     * @example
+     * // Delete one MouvementStock
+     * const MouvementStock = await prisma.mouvementStock.delete({
+     *   where: {
+     *     // ... filter to delete one MouvementStock
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MouvementStockDeleteArgs>(args: SelectSubset<T, MouvementStockDeleteArgs<ExtArgs>>): Prisma__MouvementStockClient<$Result.GetResult<Prisma.$MouvementStockPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MouvementStock.
+     * @param {MouvementStockUpdateArgs} args - Arguments to update one MouvementStock.
+     * @example
+     * // Update one MouvementStock
+     * const mouvementStock = await prisma.mouvementStock.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MouvementStockUpdateArgs>(args: SelectSubset<T, MouvementStockUpdateArgs<ExtArgs>>): Prisma__MouvementStockClient<$Result.GetResult<Prisma.$MouvementStockPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MouvementStocks.
+     * @param {MouvementStockDeleteManyArgs} args - Arguments to filter MouvementStocks to delete.
+     * @example
+     * // Delete a few MouvementStocks
+     * const { count } = await prisma.mouvementStock.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MouvementStockDeleteManyArgs>(args?: SelectSubset<T, MouvementStockDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MouvementStocks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MouvementStockUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MouvementStocks
+     * const mouvementStock = await prisma.mouvementStock.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MouvementStockUpdateManyArgs>(args: SelectSubset<T, MouvementStockUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MouvementStocks and returns the data updated in the database.
+     * @param {MouvementStockUpdateManyAndReturnArgs} args - Arguments to update many MouvementStocks.
+     * @example
+     * // Update many MouvementStocks
+     * const mouvementStock = await prisma.mouvementStock.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MouvementStocks and only return the `id`
+     * const mouvementStockWithIdOnly = await prisma.mouvementStock.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MouvementStockUpdateManyAndReturnArgs>(args: SelectSubset<T, MouvementStockUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MouvementStockPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MouvementStock.
+     * @param {MouvementStockUpsertArgs} args - Arguments to update or create a MouvementStock.
+     * @example
+     * // Update or create a MouvementStock
+     * const mouvementStock = await prisma.mouvementStock.upsert({
+     *   create: {
+     *     // ... data to create a MouvementStock
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MouvementStock we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MouvementStockUpsertArgs>(args: SelectSubset<T, MouvementStockUpsertArgs<ExtArgs>>): Prisma__MouvementStockClient<$Result.GetResult<Prisma.$MouvementStockPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MouvementStocks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MouvementStockCountArgs} args - Arguments to filter MouvementStocks to count.
+     * @example
+     * // Count the number of MouvementStocks
+     * const count = await prisma.mouvementStock.count({
+     *   where: {
+     *     // ... the filter for the MouvementStocks we want to count
+     *   }
+     * })
+    **/
+    count<T extends MouvementStockCountArgs>(
+      args?: Subset<T, MouvementStockCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MouvementStockCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MouvementStock.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MouvementStockAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MouvementStockAggregateArgs>(args: Subset<T, MouvementStockAggregateArgs>): Prisma.PrismaPromise<GetMouvementStockAggregateType<T>>
+
+    /**
+     * Group by MouvementStock.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MouvementStockGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MouvementStockGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MouvementStockGroupByArgs['orderBy'] }
+        : { orderBy?: MouvementStockGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MouvementStockGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMouvementStockGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MouvementStock model
+   */
+  readonly fields: MouvementStockFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MouvementStock.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MouvementStockClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    article<T extends ArticleStockDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ArticleStockDefaultArgs<ExtArgs>>): Prisma__ArticleStockClient<$Result.GetResult<Prisma.$ArticleStockPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MouvementStock model
+   */
+  interface MouvementStockFieldRefs {
+    readonly id: FieldRef<"MouvementStock", 'String'>
+    readonly hospital_id: FieldRef<"MouvementStock", 'String'>
+    readonly article_id: FieldRef<"MouvementStock", 'String'>
+    readonly type_mouvement: FieldRef<"MouvementStock", 'TypeMouvement'>
+    readonly quantite: FieldRef<"MouvementStock", 'Int'>
+    readonly quantite_avant: FieldRef<"MouvementStock", 'Int'>
+    readonly quantite_apres: FieldRef<"MouvementStock", 'Int'>
+    readonly motif: FieldRef<"MouvementStock", 'String'>
+    readonly utilisateur_id: FieldRef<"MouvementStock", 'String'>
+    readonly created_at: FieldRef<"MouvementStock", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MouvementStock findUnique
+   */
+  export type MouvementStockFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MouvementStock
+     */
+    select?: MouvementStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MouvementStock
+     */
+    omit?: MouvementStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MouvementStockInclude<ExtArgs> | null
+    /**
+     * Filter, which MouvementStock to fetch.
+     */
+    where: MouvementStockWhereUniqueInput
+  }
+
+  /**
+   * MouvementStock findUniqueOrThrow
+   */
+  export type MouvementStockFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MouvementStock
+     */
+    select?: MouvementStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MouvementStock
+     */
+    omit?: MouvementStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MouvementStockInclude<ExtArgs> | null
+    /**
+     * Filter, which MouvementStock to fetch.
+     */
+    where: MouvementStockWhereUniqueInput
+  }
+
+  /**
+   * MouvementStock findFirst
+   */
+  export type MouvementStockFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MouvementStock
+     */
+    select?: MouvementStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MouvementStock
+     */
+    omit?: MouvementStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MouvementStockInclude<ExtArgs> | null
+    /**
+     * Filter, which MouvementStock to fetch.
+     */
+    where?: MouvementStockWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MouvementStocks to fetch.
+     */
+    orderBy?: MouvementStockOrderByWithRelationInput | MouvementStockOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MouvementStocks.
+     */
+    cursor?: MouvementStockWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MouvementStocks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MouvementStocks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MouvementStocks.
+     */
+    distinct?: MouvementStockScalarFieldEnum | MouvementStockScalarFieldEnum[]
+  }
+
+  /**
+   * MouvementStock findFirstOrThrow
+   */
+  export type MouvementStockFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MouvementStock
+     */
+    select?: MouvementStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MouvementStock
+     */
+    omit?: MouvementStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MouvementStockInclude<ExtArgs> | null
+    /**
+     * Filter, which MouvementStock to fetch.
+     */
+    where?: MouvementStockWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MouvementStocks to fetch.
+     */
+    orderBy?: MouvementStockOrderByWithRelationInput | MouvementStockOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MouvementStocks.
+     */
+    cursor?: MouvementStockWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MouvementStocks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MouvementStocks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MouvementStocks.
+     */
+    distinct?: MouvementStockScalarFieldEnum | MouvementStockScalarFieldEnum[]
+  }
+
+  /**
+   * MouvementStock findMany
+   */
+  export type MouvementStockFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MouvementStock
+     */
+    select?: MouvementStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MouvementStock
+     */
+    omit?: MouvementStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MouvementStockInclude<ExtArgs> | null
+    /**
+     * Filter, which MouvementStocks to fetch.
+     */
+    where?: MouvementStockWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MouvementStocks to fetch.
+     */
+    orderBy?: MouvementStockOrderByWithRelationInput | MouvementStockOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MouvementStocks.
+     */
+    cursor?: MouvementStockWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MouvementStocks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MouvementStocks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MouvementStocks.
+     */
+    distinct?: MouvementStockScalarFieldEnum | MouvementStockScalarFieldEnum[]
+  }
+
+  /**
+   * MouvementStock create
+   */
+  export type MouvementStockCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MouvementStock
+     */
+    select?: MouvementStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MouvementStock
+     */
+    omit?: MouvementStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MouvementStockInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MouvementStock.
+     */
+    data: XOR<MouvementStockCreateInput, MouvementStockUncheckedCreateInput>
+  }
+
+  /**
+   * MouvementStock createMany
+   */
+  export type MouvementStockCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MouvementStocks.
+     */
+    data: MouvementStockCreateManyInput | MouvementStockCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MouvementStock createManyAndReturn
+   */
+  export type MouvementStockCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MouvementStock
+     */
+    select?: MouvementStockSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MouvementStock
+     */
+    omit?: MouvementStockOmit<ExtArgs> | null
+    /**
+     * The data used to create many MouvementStocks.
+     */
+    data: MouvementStockCreateManyInput | MouvementStockCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MouvementStockIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MouvementStock update
+   */
+  export type MouvementStockUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MouvementStock
+     */
+    select?: MouvementStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MouvementStock
+     */
+    omit?: MouvementStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MouvementStockInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MouvementStock.
+     */
+    data: XOR<MouvementStockUpdateInput, MouvementStockUncheckedUpdateInput>
+    /**
+     * Choose, which MouvementStock to update.
+     */
+    where: MouvementStockWhereUniqueInput
+  }
+
+  /**
+   * MouvementStock updateMany
+   */
+  export type MouvementStockUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MouvementStocks.
+     */
+    data: XOR<MouvementStockUpdateManyMutationInput, MouvementStockUncheckedUpdateManyInput>
+    /**
+     * Filter which MouvementStocks to update
+     */
+    where?: MouvementStockWhereInput
+    /**
+     * Limit how many MouvementStocks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MouvementStock updateManyAndReturn
+   */
+  export type MouvementStockUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MouvementStock
+     */
+    select?: MouvementStockSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MouvementStock
+     */
+    omit?: MouvementStockOmit<ExtArgs> | null
+    /**
+     * The data used to update MouvementStocks.
+     */
+    data: XOR<MouvementStockUpdateManyMutationInput, MouvementStockUncheckedUpdateManyInput>
+    /**
+     * Filter which MouvementStocks to update
+     */
+    where?: MouvementStockWhereInput
+    /**
+     * Limit how many MouvementStocks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MouvementStockIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MouvementStock upsert
+   */
+  export type MouvementStockUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MouvementStock
+     */
+    select?: MouvementStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MouvementStock
+     */
+    omit?: MouvementStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MouvementStockInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MouvementStock to update in case it exists.
+     */
+    where: MouvementStockWhereUniqueInput
+    /**
+     * In case the MouvementStock found by the `where` argument doesn't exist, create a new MouvementStock with this data.
+     */
+    create: XOR<MouvementStockCreateInput, MouvementStockUncheckedCreateInput>
+    /**
+     * In case the MouvementStock was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MouvementStockUpdateInput, MouvementStockUncheckedUpdateInput>
+  }
+
+  /**
+   * MouvementStock delete
+   */
+  export type MouvementStockDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MouvementStock
+     */
+    select?: MouvementStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MouvementStock
+     */
+    omit?: MouvementStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MouvementStockInclude<ExtArgs> | null
+    /**
+     * Filter which MouvementStock to delete.
+     */
+    where: MouvementStockWhereUniqueInput
+  }
+
+  /**
+   * MouvementStock deleteMany
+   */
+  export type MouvementStockDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MouvementStocks to delete
+     */
+    where?: MouvementStockWhereInput
+    /**
+     * Limit how many MouvementStocks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MouvementStock without action
+   */
+  export type MouvementStockDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MouvementStock
+     */
+    select?: MouvementStockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MouvementStock
+     */
+    omit?: MouvementStockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MouvementStockInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -14508,6 +17253,42 @@ export namespace Prisma {
   };
 
   export type ExamenImagerieScalarFieldEnum = (typeof ExamenImagerieScalarFieldEnum)[keyof typeof ExamenImagerieScalarFieldEnum]
+
+
+  export const ArticleStockScalarFieldEnum: {
+    id: 'id',
+    hospital_id: 'hospital_id',
+    nom: 'nom',
+    categorie: 'categorie',
+    description: 'description',
+    unite: 'unite',
+    quantite_stock: 'quantite_stock',
+    seuil_alerte: 'seuil_alerte',
+    prix_unitaire: 'prix_unitaire',
+    date_peremption: 'date_peremption',
+    code_article: 'code_article',
+    est_actif: 'est_actif',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type ArticleStockScalarFieldEnum = (typeof ArticleStockScalarFieldEnum)[keyof typeof ArticleStockScalarFieldEnum]
+
+
+  export const MouvementStockScalarFieldEnum: {
+    id: 'id',
+    hospital_id: 'hospital_id',
+    article_id: 'article_id',
+    type_mouvement: 'type_mouvement',
+    quantite: 'quantite',
+    quantite_avant: 'quantite_avant',
+    quantite_apres: 'quantite_apres',
+    motif: 'motif',
+    utilisateur_id: 'utilisateur_id',
+    created_at: 'created_at'
+  };
+
+  export type MouvementStockScalarFieldEnum = (typeof MouvementStockScalarFieldEnum)[keyof typeof MouvementStockScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -14712,6 +17493,34 @@ export namespace Prisma {
    */
   export type ListEnumTypeExamenImagerieFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TypeExamenImagerie[]'>
     
+
+
+  /**
+   * Reference to a field of type 'CategorieArticle'
+   */
+  export type EnumCategorieArticleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategorieArticle'>
+    
+
+
+  /**
+   * Reference to a field of type 'CategorieArticle[]'
+   */
+  export type ListEnumCategorieArticleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategorieArticle[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TypeMouvement'
+   */
+  export type EnumTypeMouvementFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TypeMouvement'>
+    
+
+
+  /**
+   * Reference to a field of type 'TypeMouvement[]'
+   */
+  export type ListEnumTypeMouvementFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TypeMouvement[]'>
+    
   /**
    * Deep Input Types
    */
@@ -14737,6 +17546,8 @@ export namespace Prisma {
     factures?: FactureListRelationFilter
     examens_labo?: ExamenLaboListRelationFilter
     examens_imagerie?: ExamenImagerieListRelationFilter
+    articles_stock?: ArticleStockListRelationFilter
+    mouvements_stock?: MouvementStockListRelationFilter
   }
 
   export type HospitalOrderByWithRelationInput = {
@@ -14756,6 +17567,8 @@ export namespace Prisma {
     factures?: FactureOrderByRelationAggregateInput
     examens_labo?: ExamenLaboOrderByRelationAggregateInput
     examens_imagerie?: ExamenImagerieOrderByRelationAggregateInput
+    articles_stock?: ArticleStockOrderByRelationAggregateInput
+    mouvements_stock?: MouvementStockOrderByRelationAggregateInput
   }
 
   export type HospitalWhereUniqueInput = Prisma.AtLeast<{
@@ -14778,6 +17591,8 @@ export namespace Prisma {
     factures?: FactureListRelationFilter
     examens_labo?: ExamenLaboListRelationFilter
     examens_imagerie?: ExamenImagerieListRelationFilter
+    articles_stock?: ArticleStockListRelationFilter
+    mouvements_stock?: MouvementStockListRelationFilter
   }, "id">
 
   export type HospitalOrderByWithAggregationInput = {
@@ -15703,6 +18518,196 @@ export namespace Prisma {
     updated_at?: DateTimeWithAggregatesFilter<"ExamenImagerie"> | Date | string
   }
 
+  export type ArticleStockWhereInput = {
+    AND?: ArticleStockWhereInput | ArticleStockWhereInput[]
+    OR?: ArticleStockWhereInput[]
+    NOT?: ArticleStockWhereInput | ArticleStockWhereInput[]
+    id?: StringFilter<"ArticleStock"> | string
+    hospital_id?: StringFilter<"ArticleStock"> | string
+    nom?: StringFilter<"ArticleStock"> | string
+    categorie?: EnumCategorieArticleFilter<"ArticleStock"> | $Enums.CategorieArticle
+    description?: StringNullableFilter<"ArticleStock"> | string | null
+    unite?: StringFilter<"ArticleStock"> | string
+    quantite_stock?: IntFilter<"ArticleStock"> | number
+    seuil_alerte?: IntFilter<"ArticleStock"> | number
+    prix_unitaire?: FloatFilter<"ArticleStock"> | number
+    date_peremption?: DateTimeNullableFilter<"ArticleStock"> | Date | string | null
+    code_article?: StringNullableFilter<"ArticleStock"> | string | null
+    est_actif?: BoolFilter<"ArticleStock"> | boolean
+    created_at?: DateTimeFilter<"ArticleStock"> | Date | string
+    updated_at?: DateTimeFilter<"ArticleStock"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+    mouvements?: MouvementStockListRelationFilter
+  }
+
+  export type ArticleStockOrderByWithRelationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    nom?: SortOrder
+    categorie?: SortOrder
+    description?: SortOrderInput | SortOrder
+    unite?: SortOrder
+    quantite_stock?: SortOrder
+    seuil_alerte?: SortOrder
+    prix_unitaire?: SortOrder
+    date_peremption?: SortOrderInput | SortOrder
+    code_article?: SortOrderInput | SortOrder
+    est_actif?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    hospital?: HospitalOrderByWithRelationInput
+    mouvements?: MouvementStockOrderByRelationAggregateInput
+  }
+
+  export type ArticleStockWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ArticleStockWhereInput | ArticleStockWhereInput[]
+    OR?: ArticleStockWhereInput[]
+    NOT?: ArticleStockWhereInput | ArticleStockWhereInput[]
+    hospital_id?: StringFilter<"ArticleStock"> | string
+    nom?: StringFilter<"ArticleStock"> | string
+    categorie?: EnumCategorieArticleFilter<"ArticleStock"> | $Enums.CategorieArticle
+    description?: StringNullableFilter<"ArticleStock"> | string | null
+    unite?: StringFilter<"ArticleStock"> | string
+    quantite_stock?: IntFilter<"ArticleStock"> | number
+    seuil_alerte?: IntFilter<"ArticleStock"> | number
+    prix_unitaire?: FloatFilter<"ArticleStock"> | number
+    date_peremption?: DateTimeNullableFilter<"ArticleStock"> | Date | string | null
+    code_article?: StringNullableFilter<"ArticleStock"> | string | null
+    est_actif?: BoolFilter<"ArticleStock"> | boolean
+    created_at?: DateTimeFilter<"ArticleStock"> | Date | string
+    updated_at?: DateTimeFilter<"ArticleStock"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+    mouvements?: MouvementStockListRelationFilter
+  }, "id">
+
+  export type ArticleStockOrderByWithAggregationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    nom?: SortOrder
+    categorie?: SortOrder
+    description?: SortOrderInput | SortOrder
+    unite?: SortOrder
+    quantite_stock?: SortOrder
+    seuil_alerte?: SortOrder
+    prix_unitaire?: SortOrder
+    date_peremption?: SortOrderInput | SortOrder
+    code_article?: SortOrderInput | SortOrder
+    est_actif?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: ArticleStockCountOrderByAggregateInput
+    _avg?: ArticleStockAvgOrderByAggregateInput
+    _max?: ArticleStockMaxOrderByAggregateInput
+    _min?: ArticleStockMinOrderByAggregateInput
+    _sum?: ArticleStockSumOrderByAggregateInput
+  }
+
+  export type ArticleStockScalarWhereWithAggregatesInput = {
+    AND?: ArticleStockScalarWhereWithAggregatesInput | ArticleStockScalarWhereWithAggregatesInput[]
+    OR?: ArticleStockScalarWhereWithAggregatesInput[]
+    NOT?: ArticleStockScalarWhereWithAggregatesInput | ArticleStockScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ArticleStock"> | string
+    hospital_id?: StringWithAggregatesFilter<"ArticleStock"> | string
+    nom?: StringWithAggregatesFilter<"ArticleStock"> | string
+    categorie?: EnumCategorieArticleWithAggregatesFilter<"ArticleStock"> | $Enums.CategorieArticle
+    description?: StringNullableWithAggregatesFilter<"ArticleStock"> | string | null
+    unite?: StringWithAggregatesFilter<"ArticleStock"> | string
+    quantite_stock?: IntWithAggregatesFilter<"ArticleStock"> | number
+    seuil_alerte?: IntWithAggregatesFilter<"ArticleStock"> | number
+    prix_unitaire?: FloatWithAggregatesFilter<"ArticleStock"> | number
+    date_peremption?: DateTimeNullableWithAggregatesFilter<"ArticleStock"> | Date | string | null
+    code_article?: StringNullableWithAggregatesFilter<"ArticleStock"> | string | null
+    est_actif?: BoolWithAggregatesFilter<"ArticleStock"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"ArticleStock"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"ArticleStock"> | Date | string
+  }
+
+  export type MouvementStockWhereInput = {
+    AND?: MouvementStockWhereInput | MouvementStockWhereInput[]
+    OR?: MouvementStockWhereInput[]
+    NOT?: MouvementStockWhereInput | MouvementStockWhereInput[]
+    id?: StringFilter<"MouvementStock"> | string
+    hospital_id?: StringFilter<"MouvementStock"> | string
+    article_id?: StringFilter<"MouvementStock"> | string
+    type_mouvement?: EnumTypeMouvementFilter<"MouvementStock"> | $Enums.TypeMouvement
+    quantite?: IntFilter<"MouvementStock"> | number
+    quantite_avant?: IntFilter<"MouvementStock"> | number
+    quantite_apres?: IntFilter<"MouvementStock"> | number
+    motif?: StringNullableFilter<"MouvementStock"> | string | null
+    utilisateur_id?: StringNullableFilter<"MouvementStock"> | string | null
+    created_at?: DateTimeFilter<"MouvementStock"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+    article?: XOR<ArticleStockScalarRelationFilter, ArticleStockWhereInput>
+  }
+
+  export type MouvementStockOrderByWithRelationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    article_id?: SortOrder
+    type_mouvement?: SortOrder
+    quantite?: SortOrder
+    quantite_avant?: SortOrder
+    quantite_apres?: SortOrder
+    motif?: SortOrderInput | SortOrder
+    utilisateur_id?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    hospital?: HospitalOrderByWithRelationInput
+    article?: ArticleStockOrderByWithRelationInput
+  }
+
+  export type MouvementStockWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MouvementStockWhereInput | MouvementStockWhereInput[]
+    OR?: MouvementStockWhereInput[]
+    NOT?: MouvementStockWhereInput | MouvementStockWhereInput[]
+    hospital_id?: StringFilter<"MouvementStock"> | string
+    article_id?: StringFilter<"MouvementStock"> | string
+    type_mouvement?: EnumTypeMouvementFilter<"MouvementStock"> | $Enums.TypeMouvement
+    quantite?: IntFilter<"MouvementStock"> | number
+    quantite_avant?: IntFilter<"MouvementStock"> | number
+    quantite_apres?: IntFilter<"MouvementStock"> | number
+    motif?: StringNullableFilter<"MouvementStock"> | string | null
+    utilisateur_id?: StringNullableFilter<"MouvementStock"> | string | null
+    created_at?: DateTimeFilter<"MouvementStock"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+    article?: XOR<ArticleStockScalarRelationFilter, ArticleStockWhereInput>
+  }, "id">
+
+  export type MouvementStockOrderByWithAggregationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    article_id?: SortOrder
+    type_mouvement?: SortOrder
+    quantite?: SortOrder
+    quantite_avant?: SortOrder
+    quantite_apres?: SortOrder
+    motif?: SortOrderInput | SortOrder
+    utilisateur_id?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    _count?: MouvementStockCountOrderByAggregateInput
+    _avg?: MouvementStockAvgOrderByAggregateInput
+    _max?: MouvementStockMaxOrderByAggregateInput
+    _min?: MouvementStockMinOrderByAggregateInput
+    _sum?: MouvementStockSumOrderByAggregateInput
+  }
+
+  export type MouvementStockScalarWhereWithAggregatesInput = {
+    AND?: MouvementStockScalarWhereWithAggregatesInput | MouvementStockScalarWhereWithAggregatesInput[]
+    OR?: MouvementStockScalarWhereWithAggregatesInput[]
+    NOT?: MouvementStockScalarWhereWithAggregatesInput | MouvementStockScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MouvementStock"> | string
+    hospital_id?: StringWithAggregatesFilter<"MouvementStock"> | string
+    article_id?: StringWithAggregatesFilter<"MouvementStock"> | string
+    type_mouvement?: EnumTypeMouvementWithAggregatesFilter<"MouvementStock"> | $Enums.TypeMouvement
+    quantite?: IntWithAggregatesFilter<"MouvementStock"> | number
+    quantite_avant?: IntWithAggregatesFilter<"MouvementStock"> | number
+    quantite_apres?: IntWithAggregatesFilter<"MouvementStock"> | number
+    motif?: StringNullableWithAggregatesFilter<"MouvementStock"> | string | null
+    utilisateur_id?: StringNullableWithAggregatesFilter<"MouvementStock"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"MouvementStock"> | Date | string
+  }
+
   export type HospitalCreateInput = {
     id?: string
     nom: string
@@ -15720,6 +18725,8 @@ export namespace Prisma {
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateInput = {
@@ -15739,6 +18746,8 @@ export namespace Prisma {
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUpdateInput = {
@@ -15758,6 +18767,8 @@ export namespace Prisma {
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateInput = {
@@ -15777,6 +18788,8 @@ export namespace Prisma {
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalCreateManyInput = {
@@ -16811,6 +19824,217 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ArticleStockCreateInput = {
+    id?: string
+    nom: string
+    categorie?: $Enums.CategorieArticle
+    description?: string | null
+    unite?: string
+    quantite_stock?: number
+    seuil_alerte?: number
+    prix_unitaire?: number
+    date_peremption?: Date | string | null
+    code_article?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutArticles_stockInput
+    mouvements?: MouvementStockCreateNestedManyWithoutArticleInput
+  }
+
+  export type ArticleStockUncheckedCreateInput = {
+    id?: string
+    hospital_id: string
+    nom: string
+    categorie?: $Enums.CategorieArticle
+    description?: string | null
+    unite?: string
+    quantite_stock?: number
+    seuil_alerte?: number
+    prix_unitaire?: number
+    date_peremption?: Date | string | null
+    code_article?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    mouvements?: MouvementStockUncheckedCreateNestedManyWithoutArticleInput
+  }
+
+  export type ArticleStockUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    categorie?: EnumCategorieArticleFieldUpdateOperationsInput | $Enums.CategorieArticle
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unite?: StringFieldUpdateOperationsInput | string
+    quantite_stock?: IntFieldUpdateOperationsInput | number
+    seuil_alerte?: IntFieldUpdateOperationsInput | number
+    prix_unitaire?: FloatFieldUpdateOperationsInput | number
+    date_peremption?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    code_article?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutArticles_stockNestedInput
+    mouvements?: MouvementStockUpdateManyWithoutArticleNestedInput
+  }
+
+  export type ArticleStockUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    categorie?: EnumCategorieArticleFieldUpdateOperationsInput | $Enums.CategorieArticle
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unite?: StringFieldUpdateOperationsInput | string
+    quantite_stock?: IntFieldUpdateOperationsInput | number
+    seuil_alerte?: IntFieldUpdateOperationsInput | number
+    prix_unitaire?: FloatFieldUpdateOperationsInput | number
+    date_peremption?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    code_article?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mouvements?: MouvementStockUncheckedUpdateManyWithoutArticleNestedInput
+  }
+
+  export type ArticleStockCreateManyInput = {
+    id?: string
+    hospital_id: string
+    nom: string
+    categorie?: $Enums.CategorieArticle
+    description?: string | null
+    unite?: string
+    quantite_stock?: number
+    seuil_alerte?: number
+    prix_unitaire?: number
+    date_peremption?: Date | string | null
+    code_article?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ArticleStockUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    categorie?: EnumCategorieArticleFieldUpdateOperationsInput | $Enums.CategorieArticle
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unite?: StringFieldUpdateOperationsInput | string
+    quantite_stock?: IntFieldUpdateOperationsInput | number
+    seuil_alerte?: IntFieldUpdateOperationsInput | number
+    prix_unitaire?: FloatFieldUpdateOperationsInput | number
+    date_peremption?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    code_article?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArticleStockUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    categorie?: EnumCategorieArticleFieldUpdateOperationsInput | $Enums.CategorieArticle
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unite?: StringFieldUpdateOperationsInput | string
+    quantite_stock?: IntFieldUpdateOperationsInput | number
+    seuil_alerte?: IntFieldUpdateOperationsInput | number
+    prix_unitaire?: FloatFieldUpdateOperationsInput | number
+    date_peremption?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    code_article?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MouvementStockCreateInput = {
+    id?: string
+    type_mouvement: $Enums.TypeMouvement
+    quantite: number
+    quantite_avant: number
+    quantite_apres: number
+    motif?: string | null
+    utilisateur_id?: string | null
+    created_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutMouvements_stockInput
+    article: ArticleStockCreateNestedOneWithoutMouvementsInput
+  }
+
+  export type MouvementStockUncheckedCreateInput = {
+    id?: string
+    hospital_id: string
+    article_id: string
+    type_mouvement: $Enums.TypeMouvement
+    quantite: number
+    quantite_avant: number
+    quantite_apres: number
+    motif?: string | null
+    utilisateur_id?: string | null
+    created_at?: Date | string
+  }
+
+  export type MouvementStockUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type_mouvement?: EnumTypeMouvementFieldUpdateOperationsInput | $Enums.TypeMouvement
+    quantite?: IntFieldUpdateOperationsInput | number
+    quantite_avant?: IntFieldUpdateOperationsInput | number
+    quantite_apres?: IntFieldUpdateOperationsInput | number
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutMouvements_stockNestedInput
+    article?: ArticleStockUpdateOneRequiredWithoutMouvementsNestedInput
+  }
+
+  export type MouvementStockUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    article_id?: StringFieldUpdateOperationsInput | string
+    type_mouvement?: EnumTypeMouvementFieldUpdateOperationsInput | $Enums.TypeMouvement
+    quantite?: IntFieldUpdateOperationsInput | number
+    quantite_avant?: IntFieldUpdateOperationsInput | number
+    quantite_apres?: IntFieldUpdateOperationsInput | number
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MouvementStockCreateManyInput = {
+    id?: string
+    hospital_id: string
+    article_id: string
+    type_mouvement: $Enums.TypeMouvement
+    quantite: number
+    quantite_avant: number
+    quantite_apres: number
+    motif?: string | null
+    utilisateur_id?: string | null
+    created_at?: Date | string
+  }
+
+  export type MouvementStockUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type_mouvement?: EnumTypeMouvementFieldUpdateOperationsInput | $Enums.TypeMouvement
+    quantite?: IntFieldUpdateOperationsInput | number
+    quantite_avant?: IntFieldUpdateOperationsInput | number
+    quantite_apres?: IntFieldUpdateOperationsInput | number
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MouvementStockUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    article_id?: StringFieldUpdateOperationsInput | string
+    type_mouvement?: EnumTypeMouvementFieldUpdateOperationsInput | $Enums.TypeMouvement
+    quantite?: IntFieldUpdateOperationsInput | number
+    quantite_avant?: IntFieldUpdateOperationsInput | number
+    quantite_apres?: IntFieldUpdateOperationsInput | number
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -16893,6 +20117,18 @@ export namespace Prisma {
     none?: ExamenImagerieWhereInput
   }
 
+  export type ArticleStockListRelationFilter = {
+    every?: ArticleStockWhereInput
+    some?: ArticleStockWhereInput
+    none?: ArticleStockWhereInput
+  }
+
+  export type MouvementStockListRelationFilter = {
+    every?: MouvementStockWhereInput
+    some?: MouvementStockWhereInput
+    none?: MouvementStockWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -16919,6 +20155,14 @@ export namespace Prisma {
   }
 
   export type ExamenImagerieOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ArticleStockOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MouvementStockOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -17779,6 +21023,159 @@ export namespace Prisma {
     _max?: NestedEnumTypeExamenImagerieFilter<$PrismaModel>
   }
 
+  export type EnumCategorieArticleFilter<$PrismaModel = never> = {
+    equals?: $Enums.CategorieArticle | EnumCategorieArticleFieldRefInput<$PrismaModel>
+    in?: $Enums.CategorieArticle[] | ListEnumCategorieArticleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CategorieArticle[] | ListEnumCategorieArticleFieldRefInput<$PrismaModel>
+    not?: NestedEnumCategorieArticleFilter<$PrismaModel> | $Enums.CategorieArticle
+  }
+
+  export type ArticleStockCountOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    nom?: SortOrder
+    categorie?: SortOrder
+    description?: SortOrder
+    unite?: SortOrder
+    quantite_stock?: SortOrder
+    seuil_alerte?: SortOrder
+    prix_unitaire?: SortOrder
+    date_peremption?: SortOrder
+    code_article?: SortOrder
+    est_actif?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ArticleStockAvgOrderByAggregateInput = {
+    quantite_stock?: SortOrder
+    seuil_alerte?: SortOrder
+    prix_unitaire?: SortOrder
+  }
+
+  export type ArticleStockMaxOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    nom?: SortOrder
+    categorie?: SortOrder
+    description?: SortOrder
+    unite?: SortOrder
+    quantite_stock?: SortOrder
+    seuil_alerte?: SortOrder
+    prix_unitaire?: SortOrder
+    date_peremption?: SortOrder
+    code_article?: SortOrder
+    est_actif?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ArticleStockMinOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    nom?: SortOrder
+    categorie?: SortOrder
+    description?: SortOrder
+    unite?: SortOrder
+    quantite_stock?: SortOrder
+    seuil_alerte?: SortOrder
+    prix_unitaire?: SortOrder
+    date_peremption?: SortOrder
+    code_article?: SortOrder
+    est_actif?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ArticleStockSumOrderByAggregateInput = {
+    quantite_stock?: SortOrder
+    seuil_alerte?: SortOrder
+    prix_unitaire?: SortOrder
+  }
+
+  export type EnumCategorieArticleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CategorieArticle | EnumCategorieArticleFieldRefInput<$PrismaModel>
+    in?: $Enums.CategorieArticle[] | ListEnumCategorieArticleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CategorieArticle[] | ListEnumCategorieArticleFieldRefInput<$PrismaModel>
+    not?: NestedEnumCategorieArticleWithAggregatesFilter<$PrismaModel> | $Enums.CategorieArticle
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCategorieArticleFilter<$PrismaModel>
+    _max?: NestedEnumCategorieArticleFilter<$PrismaModel>
+  }
+
+  export type EnumTypeMouvementFilter<$PrismaModel = never> = {
+    equals?: $Enums.TypeMouvement | EnumTypeMouvementFieldRefInput<$PrismaModel>
+    in?: $Enums.TypeMouvement[] | ListEnumTypeMouvementFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TypeMouvement[] | ListEnumTypeMouvementFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeMouvementFilter<$PrismaModel> | $Enums.TypeMouvement
+  }
+
+  export type ArticleStockScalarRelationFilter = {
+    is?: ArticleStockWhereInput
+    isNot?: ArticleStockWhereInput
+  }
+
+  export type MouvementStockCountOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    article_id?: SortOrder
+    type_mouvement?: SortOrder
+    quantite?: SortOrder
+    quantite_avant?: SortOrder
+    quantite_apres?: SortOrder
+    motif?: SortOrder
+    utilisateur_id?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type MouvementStockAvgOrderByAggregateInput = {
+    quantite?: SortOrder
+    quantite_avant?: SortOrder
+    quantite_apres?: SortOrder
+  }
+
+  export type MouvementStockMaxOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    article_id?: SortOrder
+    type_mouvement?: SortOrder
+    quantite?: SortOrder
+    quantite_avant?: SortOrder
+    quantite_apres?: SortOrder
+    motif?: SortOrder
+    utilisateur_id?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type MouvementStockMinOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    article_id?: SortOrder
+    type_mouvement?: SortOrder
+    quantite?: SortOrder
+    quantite_avant?: SortOrder
+    quantite_apres?: SortOrder
+    motif?: SortOrder
+    utilisateur_id?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type MouvementStockSumOrderByAggregateInput = {
+    quantite?: SortOrder
+    quantite_avant?: SortOrder
+    quantite_apres?: SortOrder
+  }
+
+  export type EnumTypeMouvementWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TypeMouvement | EnumTypeMouvementFieldRefInput<$PrismaModel>
+    in?: $Enums.TypeMouvement[] | ListEnumTypeMouvementFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TypeMouvement[] | ListEnumTypeMouvementFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeMouvementWithAggregatesFilter<$PrismaModel> | $Enums.TypeMouvement
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTypeMouvementFilter<$PrismaModel>
+    _max?: NestedEnumTypeMouvementFilter<$PrismaModel>
+  }
+
   export type UtilisateurCreateNestedManyWithoutHospitalInput = {
     create?: XOR<UtilisateurCreateWithoutHospitalInput, UtilisateurUncheckedCreateWithoutHospitalInput> | UtilisateurCreateWithoutHospitalInput[] | UtilisateurUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: UtilisateurCreateOrConnectWithoutHospitalInput | UtilisateurCreateOrConnectWithoutHospitalInput[]
@@ -17821,6 +21218,20 @@ export namespace Prisma {
     connect?: ExamenImagerieWhereUniqueInput | ExamenImagerieWhereUniqueInput[]
   }
 
+  export type ArticleStockCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<ArticleStockCreateWithoutHospitalInput, ArticleStockUncheckedCreateWithoutHospitalInput> | ArticleStockCreateWithoutHospitalInput[] | ArticleStockUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: ArticleStockCreateOrConnectWithoutHospitalInput | ArticleStockCreateOrConnectWithoutHospitalInput[]
+    createMany?: ArticleStockCreateManyHospitalInputEnvelope
+    connect?: ArticleStockWhereUniqueInput | ArticleStockWhereUniqueInput[]
+  }
+
+  export type MouvementStockCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<MouvementStockCreateWithoutHospitalInput, MouvementStockUncheckedCreateWithoutHospitalInput> | MouvementStockCreateWithoutHospitalInput[] | MouvementStockUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: MouvementStockCreateOrConnectWithoutHospitalInput | MouvementStockCreateOrConnectWithoutHospitalInput[]
+    createMany?: MouvementStockCreateManyHospitalInputEnvelope
+    connect?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
+  }
+
   export type UtilisateurUncheckedCreateNestedManyWithoutHospitalInput = {
     create?: XOR<UtilisateurCreateWithoutHospitalInput, UtilisateurUncheckedCreateWithoutHospitalInput> | UtilisateurCreateWithoutHospitalInput[] | UtilisateurUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: UtilisateurCreateOrConnectWithoutHospitalInput | UtilisateurCreateOrConnectWithoutHospitalInput[]
@@ -17861,6 +21272,20 @@ export namespace Prisma {
     connectOrCreate?: ExamenImagerieCreateOrConnectWithoutHospitalInput | ExamenImagerieCreateOrConnectWithoutHospitalInput[]
     createMany?: ExamenImagerieCreateManyHospitalInputEnvelope
     connect?: ExamenImagerieWhereUniqueInput | ExamenImagerieWhereUniqueInput[]
+  }
+
+  export type ArticleStockUncheckedCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<ArticleStockCreateWithoutHospitalInput, ArticleStockUncheckedCreateWithoutHospitalInput> | ArticleStockCreateWithoutHospitalInput[] | ArticleStockUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: ArticleStockCreateOrConnectWithoutHospitalInput | ArticleStockCreateOrConnectWithoutHospitalInput[]
+    createMany?: ArticleStockCreateManyHospitalInputEnvelope
+    connect?: ArticleStockWhereUniqueInput | ArticleStockWhereUniqueInput[]
+  }
+
+  export type MouvementStockUncheckedCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<MouvementStockCreateWithoutHospitalInput, MouvementStockUncheckedCreateWithoutHospitalInput> | MouvementStockCreateWithoutHospitalInput[] | MouvementStockUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: MouvementStockCreateOrConnectWithoutHospitalInput | MouvementStockCreateOrConnectWithoutHospitalInput[]
+    createMany?: MouvementStockCreateManyHospitalInputEnvelope
+    connect?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -17963,6 +21388,34 @@ export namespace Prisma {
     deleteMany?: ExamenImagerieScalarWhereInput | ExamenImagerieScalarWhereInput[]
   }
 
+  export type ArticleStockUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<ArticleStockCreateWithoutHospitalInput, ArticleStockUncheckedCreateWithoutHospitalInput> | ArticleStockCreateWithoutHospitalInput[] | ArticleStockUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: ArticleStockCreateOrConnectWithoutHospitalInput | ArticleStockCreateOrConnectWithoutHospitalInput[]
+    upsert?: ArticleStockUpsertWithWhereUniqueWithoutHospitalInput | ArticleStockUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: ArticleStockCreateManyHospitalInputEnvelope
+    set?: ArticleStockWhereUniqueInput | ArticleStockWhereUniqueInput[]
+    disconnect?: ArticleStockWhereUniqueInput | ArticleStockWhereUniqueInput[]
+    delete?: ArticleStockWhereUniqueInput | ArticleStockWhereUniqueInput[]
+    connect?: ArticleStockWhereUniqueInput | ArticleStockWhereUniqueInput[]
+    update?: ArticleStockUpdateWithWhereUniqueWithoutHospitalInput | ArticleStockUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: ArticleStockUpdateManyWithWhereWithoutHospitalInput | ArticleStockUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: ArticleStockScalarWhereInput | ArticleStockScalarWhereInput[]
+  }
+
+  export type MouvementStockUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<MouvementStockCreateWithoutHospitalInput, MouvementStockUncheckedCreateWithoutHospitalInput> | MouvementStockCreateWithoutHospitalInput[] | MouvementStockUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: MouvementStockCreateOrConnectWithoutHospitalInput | MouvementStockCreateOrConnectWithoutHospitalInput[]
+    upsert?: MouvementStockUpsertWithWhereUniqueWithoutHospitalInput | MouvementStockUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: MouvementStockCreateManyHospitalInputEnvelope
+    set?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
+    disconnect?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
+    delete?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
+    connect?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
+    update?: MouvementStockUpdateWithWhereUniqueWithoutHospitalInput | MouvementStockUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: MouvementStockUpdateManyWithWhereWithoutHospitalInput | MouvementStockUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: MouvementStockScalarWhereInput | MouvementStockScalarWhereInput[]
+  }
+
   export type UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput = {
     create?: XOR<UtilisateurCreateWithoutHospitalInput, UtilisateurUncheckedCreateWithoutHospitalInput> | UtilisateurCreateWithoutHospitalInput[] | UtilisateurUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: UtilisateurCreateOrConnectWithoutHospitalInput | UtilisateurCreateOrConnectWithoutHospitalInput[]
@@ -18045,6 +21498,34 @@ export namespace Prisma {
     update?: ExamenImagerieUpdateWithWhereUniqueWithoutHospitalInput | ExamenImagerieUpdateWithWhereUniqueWithoutHospitalInput[]
     updateMany?: ExamenImagerieUpdateManyWithWhereWithoutHospitalInput | ExamenImagerieUpdateManyWithWhereWithoutHospitalInput[]
     deleteMany?: ExamenImagerieScalarWhereInput | ExamenImagerieScalarWhereInput[]
+  }
+
+  export type ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<ArticleStockCreateWithoutHospitalInput, ArticleStockUncheckedCreateWithoutHospitalInput> | ArticleStockCreateWithoutHospitalInput[] | ArticleStockUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: ArticleStockCreateOrConnectWithoutHospitalInput | ArticleStockCreateOrConnectWithoutHospitalInput[]
+    upsert?: ArticleStockUpsertWithWhereUniqueWithoutHospitalInput | ArticleStockUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: ArticleStockCreateManyHospitalInputEnvelope
+    set?: ArticleStockWhereUniqueInput | ArticleStockWhereUniqueInput[]
+    disconnect?: ArticleStockWhereUniqueInput | ArticleStockWhereUniqueInput[]
+    delete?: ArticleStockWhereUniqueInput | ArticleStockWhereUniqueInput[]
+    connect?: ArticleStockWhereUniqueInput | ArticleStockWhereUniqueInput[]
+    update?: ArticleStockUpdateWithWhereUniqueWithoutHospitalInput | ArticleStockUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: ArticleStockUpdateManyWithWhereWithoutHospitalInput | ArticleStockUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: ArticleStockScalarWhereInput | ArticleStockScalarWhereInput[]
+  }
+
+  export type MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<MouvementStockCreateWithoutHospitalInput, MouvementStockUncheckedCreateWithoutHospitalInput> | MouvementStockCreateWithoutHospitalInput[] | MouvementStockUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: MouvementStockCreateOrConnectWithoutHospitalInput | MouvementStockCreateOrConnectWithoutHospitalInput[]
+    upsert?: MouvementStockUpsertWithWhereUniqueWithoutHospitalInput | MouvementStockUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: MouvementStockCreateManyHospitalInputEnvelope
+    set?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
+    disconnect?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
+    delete?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
+    connect?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
+    update?: MouvementStockUpdateWithWhereUniqueWithoutHospitalInput | MouvementStockUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: MouvementStockUpdateManyWithWhereWithoutHospitalInput | MouvementStockUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: MouvementStockScalarWhereInput | MouvementStockScalarWhereInput[]
   }
 
   export type HospitalCreateNestedOneWithoutUtilisateursInput = {
@@ -18799,6 +22280,98 @@ export namespace Prisma {
     update?: XOR<XOR<UtilisateurUpdateToOneWithWhereWithoutExamens_imagerie_prescritsInput, UtilisateurUpdateWithoutExamens_imagerie_prescritsInput>, UtilisateurUncheckedUpdateWithoutExamens_imagerie_prescritsInput>
   }
 
+  export type HospitalCreateNestedOneWithoutArticles_stockInput = {
+    create?: XOR<HospitalCreateWithoutArticles_stockInput, HospitalUncheckedCreateWithoutArticles_stockInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutArticles_stockInput
+    connect?: HospitalWhereUniqueInput
+  }
+
+  export type MouvementStockCreateNestedManyWithoutArticleInput = {
+    create?: XOR<MouvementStockCreateWithoutArticleInput, MouvementStockUncheckedCreateWithoutArticleInput> | MouvementStockCreateWithoutArticleInput[] | MouvementStockUncheckedCreateWithoutArticleInput[]
+    connectOrCreate?: MouvementStockCreateOrConnectWithoutArticleInput | MouvementStockCreateOrConnectWithoutArticleInput[]
+    createMany?: MouvementStockCreateManyArticleInputEnvelope
+    connect?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
+  }
+
+  export type MouvementStockUncheckedCreateNestedManyWithoutArticleInput = {
+    create?: XOR<MouvementStockCreateWithoutArticleInput, MouvementStockUncheckedCreateWithoutArticleInput> | MouvementStockCreateWithoutArticleInput[] | MouvementStockUncheckedCreateWithoutArticleInput[]
+    connectOrCreate?: MouvementStockCreateOrConnectWithoutArticleInput | MouvementStockCreateOrConnectWithoutArticleInput[]
+    createMany?: MouvementStockCreateManyArticleInputEnvelope
+    connect?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
+  }
+
+  export type EnumCategorieArticleFieldUpdateOperationsInput = {
+    set?: $Enums.CategorieArticle
+  }
+
+  export type HospitalUpdateOneRequiredWithoutArticles_stockNestedInput = {
+    create?: XOR<HospitalCreateWithoutArticles_stockInput, HospitalUncheckedCreateWithoutArticles_stockInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutArticles_stockInput
+    upsert?: HospitalUpsertWithoutArticles_stockInput
+    connect?: HospitalWhereUniqueInput
+    update?: XOR<XOR<HospitalUpdateToOneWithWhereWithoutArticles_stockInput, HospitalUpdateWithoutArticles_stockInput>, HospitalUncheckedUpdateWithoutArticles_stockInput>
+  }
+
+  export type MouvementStockUpdateManyWithoutArticleNestedInput = {
+    create?: XOR<MouvementStockCreateWithoutArticleInput, MouvementStockUncheckedCreateWithoutArticleInput> | MouvementStockCreateWithoutArticleInput[] | MouvementStockUncheckedCreateWithoutArticleInput[]
+    connectOrCreate?: MouvementStockCreateOrConnectWithoutArticleInput | MouvementStockCreateOrConnectWithoutArticleInput[]
+    upsert?: MouvementStockUpsertWithWhereUniqueWithoutArticleInput | MouvementStockUpsertWithWhereUniqueWithoutArticleInput[]
+    createMany?: MouvementStockCreateManyArticleInputEnvelope
+    set?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
+    disconnect?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
+    delete?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
+    connect?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
+    update?: MouvementStockUpdateWithWhereUniqueWithoutArticleInput | MouvementStockUpdateWithWhereUniqueWithoutArticleInput[]
+    updateMany?: MouvementStockUpdateManyWithWhereWithoutArticleInput | MouvementStockUpdateManyWithWhereWithoutArticleInput[]
+    deleteMany?: MouvementStockScalarWhereInput | MouvementStockScalarWhereInput[]
+  }
+
+  export type MouvementStockUncheckedUpdateManyWithoutArticleNestedInput = {
+    create?: XOR<MouvementStockCreateWithoutArticleInput, MouvementStockUncheckedCreateWithoutArticleInput> | MouvementStockCreateWithoutArticleInput[] | MouvementStockUncheckedCreateWithoutArticleInput[]
+    connectOrCreate?: MouvementStockCreateOrConnectWithoutArticleInput | MouvementStockCreateOrConnectWithoutArticleInput[]
+    upsert?: MouvementStockUpsertWithWhereUniqueWithoutArticleInput | MouvementStockUpsertWithWhereUniqueWithoutArticleInput[]
+    createMany?: MouvementStockCreateManyArticleInputEnvelope
+    set?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
+    disconnect?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
+    delete?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
+    connect?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
+    update?: MouvementStockUpdateWithWhereUniqueWithoutArticleInput | MouvementStockUpdateWithWhereUniqueWithoutArticleInput[]
+    updateMany?: MouvementStockUpdateManyWithWhereWithoutArticleInput | MouvementStockUpdateManyWithWhereWithoutArticleInput[]
+    deleteMany?: MouvementStockScalarWhereInput | MouvementStockScalarWhereInput[]
+  }
+
+  export type HospitalCreateNestedOneWithoutMouvements_stockInput = {
+    create?: XOR<HospitalCreateWithoutMouvements_stockInput, HospitalUncheckedCreateWithoutMouvements_stockInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutMouvements_stockInput
+    connect?: HospitalWhereUniqueInput
+  }
+
+  export type ArticleStockCreateNestedOneWithoutMouvementsInput = {
+    create?: XOR<ArticleStockCreateWithoutMouvementsInput, ArticleStockUncheckedCreateWithoutMouvementsInput>
+    connectOrCreate?: ArticleStockCreateOrConnectWithoutMouvementsInput
+    connect?: ArticleStockWhereUniqueInput
+  }
+
+  export type EnumTypeMouvementFieldUpdateOperationsInput = {
+    set?: $Enums.TypeMouvement
+  }
+
+  export type HospitalUpdateOneRequiredWithoutMouvements_stockNestedInput = {
+    create?: XOR<HospitalCreateWithoutMouvements_stockInput, HospitalUncheckedCreateWithoutMouvements_stockInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutMouvements_stockInput
+    upsert?: HospitalUpsertWithoutMouvements_stockInput
+    connect?: HospitalWhereUniqueInput
+    update?: XOR<XOR<HospitalUpdateToOneWithWhereWithoutMouvements_stockInput, HospitalUpdateWithoutMouvements_stockInput>, HospitalUncheckedUpdateWithoutMouvements_stockInput>
+  }
+
+  export type ArticleStockUpdateOneRequiredWithoutMouvementsNestedInput = {
+    create?: XOR<ArticleStockCreateWithoutMouvementsInput, ArticleStockUncheckedCreateWithoutMouvementsInput>
+    connectOrCreate?: ArticleStockCreateOrConnectWithoutMouvementsInput
+    upsert?: ArticleStockUpsertWithoutMouvementsInput
+    connect?: ArticleStockWhereUniqueInput
+    update?: XOR<XOR<ArticleStockUpdateToOneWithWhereWithoutMouvementsInput, ArticleStockUpdateWithoutMouvementsInput>, ArticleStockUncheckedUpdateWithoutMouvementsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -19152,6 +22725,40 @@ export namespace Prisma {
     _max?: NestedEnumTypeExamenImagerieFilter<$PrismaModel>
   }
 
+  export type NestedEnumCategorieArticleFilter<$PrismaModel = never> = {
+    equals?: $Enums.CategorieArticle | EnumCategorieArticleFieldRefInput<$PrismaModel>
+    in?: $Enums.CategorieArticle[] | ListEnumCategorieArticleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CategorieArticle[] | ListEnumCategorieArticleFieldRefInput<$PrismaModel>
+    not?: NestedEnumCategorieArticleFilter<$PrismaModel> | $Enums.CategorieArticle
+  }
+
+  export type NestedEnumCategorieArticleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CategorieArticle | EnumCategorieArticleFieldRefInput<$PrismaModel>
+    in?: $Enums.CategorieArticle[] | ListEnumCategorieArticleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CategorieArticle[] | ListEnumCategorieArticleFieldRefInput<$PrismaModel>
+    not?: NestedEnumCategorieArticleWithAggregatesFilter<$PrismaModel> | $Enums.CategorieArticle
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCategorieArticleFilter<$PrismaModel>
+    _max?: NestedEnumCategorieArticleFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTypeMouvementFilter<$PrismaModel = never> = {
+    equals?: $Enums.TypeMouvement | EnumTypeMouvementFieldRefInput<$PrismaModel>
+    in?: $Enums.TypeMouvement[] | ListEnumTypeMouvementFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TypeMouvement[] | ListEnumTypeMouvementFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeMouvementFilter<$PrismaModel> | $Enums.TypeMouvement
+  }
+
+  export type NestedEnumTypeMouvementWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TypeMouvement | EnumTypeMouvementFieldRefInput<$PrismaModel>
+    in?: $Enums.TypeMouvement[] | ListEnumTypeMouvementFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TypeMouvement[] | ListEnumTypeMouvementFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeMouvementWithAggregatesFilter<$PrismaModel> | $Enums.TypeMouvement
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTypeMouvementFilter<$PrismaModel>
+    _max?: NestedEnumTypeMouvementFilter<$PrismaModel>
+  }
+
   export type UtilisateurCreateWithoutHospitalInput = {
     id?: string
     supabase_uid?: string | null
@@ -19410,6 +23017,84 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ArticleStockCreateWithoutHospitalInput = {
+    id?: string
+    nom: string
+    categorie?: $Enums.CategorieArticle
+    description?: string | null
+    unite?: string
+    quantite_stock?: number
+    seuil_alerte?: number
+    prix_unitaire?: number
+    date_peremption?: Date | string | null
+    code_article?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    mouvements?: MouvementStockCreateNestedManyWithoutArticleInput
+  }
+
+  export type ArticleStockUncheckedCreateWithoutHospitalInput = {
+    id?: string
+    nom: string
+    categorie?: $Enums.CategorieArticle
+    description?: string | null
+    unite?: string
+    quantite_stock?: number
+    seuil_alerte?: number
+    prix_unitaire?: number
+    date_peremption?: Date | string | null
+    code_article?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    mouvements?: MouvementStockUncheckedCreateNestedManyWithoutArticleInput
+  }
+
+  export type ArticleStockCreateOrConnectWithoutHospitalInput = {
+    where: ArticleStockWhereUniqueInput
+    create: XOR<ArticleStockCreateWithoutHospitalInput, ArticleStockUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type ArticleStockCreateManyHospitalInputEnvelope = {
+    data: ArticleStockCreateManyHospitalInput | ArticleStockCreateManyHospitalInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MouvementStockCreateWithoutHospitalInput = {
+    id?: string
+    type_mouvement: $Enums.TypeMouvement
+    quantite: number
+    quantite_avant: number
+    quantite_apres: number
+    motif?: string | null
+    utilisateur_id?: string | null
+    created_at?: Date | string
+    article: ArticleStockCreateNestedOneWithoutMouvementsInput
+  }
+
+  export type MouvementStockUncheckedCreateWithoutHospitalInput = {
+    id?: string
+    article_id: string
+    type_mouvement: $Enums.TypeMouvement
+    quantite: number
+    quantite_avant: number
+    quantite_apres: number
+    motif?: string | null
+    utilisateur_id?: string | null
+    created_at?: Date | string
+  }
+
+  export type MouvementStockCreateOrConnectWithoutHospitalInput = {
+    where: MouvementStockWhereUniqueInput
+    create: XOR<MouvementStockCreateWithoutHospitalInput, MouvementStockUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type MouvementStockCreateManyHospitalInputEnvelope = {
+    data: MouvementStockCreateManyHospitalInput | MouvementStockCreateManyHospitalInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UtilisateurUpsertWithWhereUniqueWithoutHospitalInput = {
     where: UtilisateurWhereUniqueInput
     update: XOR<UtilisateurUpdateWithoutHospitalInput, UtilisateurUncheckedUpdateWithoutHospitalInput>
@@ -19623,6 +23308,74 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"ExamenImagerie"> | Date | string
   }
 
+  export type ArticleStockUpsertWithWhereUniqueWithoutHospitalInput = {
+    where: ArticleStockWhereUniqueInput
+    update: XOR<ArticleStockUpdateWithoutHospitalInput, ArticleStockUncheckedUpdateWithoutHospitalInput>
+    create: XOR<ArticleStockCreateWithoutHospitalInput, ArticleStockUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type ArticleStockUpdateWithWhereUniqueWithoutHospitalInput = {
+    where: ArticleStockWhereUniqueInput
+    data: XOR<ArticleStockUpdateWithoutHospitalInput, ArticleStockUncheckedUpdateWithoutHospitalInput>
+  }
+
+  export type ArticleStockUpdateManyWithWhereWithoutHospitalInput = {
+    where: ArticleStockScalarWhereInput
+    data: XOR<ArticleStockUpdateManyMutationInput, ArticleStockUncheckedUpdateManyWithoutHospitalInput>
+  }
+
+  export type ArticleStockScalarWhereInput = {
+    AND?: ArticleStockScalarWhereInput | ArticleStockScalarWhereInput[]
+    OR?: ArticleStockScalarWhereInput[]
+    NOT?: ArticleStockScalarWhereInput | ArticleStockScalarWhereInput[]
+    id?: StringFilter<"ArticleStock"> | string
+    hospital_id?: StringFilter<"ArticleStock"> | string
+    nom?: StringFilter<"ArticleStock"> | string
+    categorie?: EnumCategorieArticleFilter<"ArticleStock"> | $Enums.CategorieArticle
+    description?: StringNullableFilter<"ArticleStock"> | string | null
+    unite?: StringFilter<"ArticleStock"> | string
+    quantite_stock?: IntFilter<"ArticleStock"> | number
+    seuil_alerte?: IntFilter<"ArticleStock"> | number
+    prix_unitaire?: FloatFilter<"ArticleStock"> | number
+    date_peremption?: DateTimeNullableFilter<"ArticleStock"> | Date | string | null
+    code_article?: StringNullableFilter<"ArticleStock"> | string | null
+    est_actif?: BoolFilter<"ArticleStock"> | boolean
+    created_at?: DateTimeFilter<"ArticleStock"> | Date | string
+    updated_at?: DateTimeFilter<"ArticleStock"> | Date | string
+  }
+
+  export type MouvementStockUpsertWithWhereUniqueWithoutHospitalInput = {
+    where: MouvementStockWhereUniqueInput
+    update: XOR<MouvementStockUpdateWithoutHospitalInput, MouvementStockUncheckedUpdateWithoutHospitalInput>
+    create: XOR<MouvementStockCreateWithoutHospitalInput, MouvementStockUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type MouvementStockUpdateWithWhereUniqueWithoutHospitalInput = {
+    where: MouvementStockWhereUniqueInput
+    data: XOR<MouvementStockUpdateWithoutHospitalInput, MouvementStockUncheckedUpdateWithoutHospitalInput>
+  }
+
+  export type MouvementStockUpdateManyWithWhereWithoutHospitalInput = {
+    where: MouvementStockScalarWhereInput
+    data: XOR<MouvementStockUpdateManyMutationInput, MouvementStockUncheckedUpdateManyWithoutHospitalInput>
+  }
+
+  export type MouvementStockScalarWhereInput = {
+    AND?: MouvementStockScalarWhereInput | MouvementStockScalarWhereInput[]
+    OR?: MouvementStockScalarWhereInput[]
+    NOT?: MouvementStockScalarWhereInput | MouvementStockScalarWhereInput[]
+    id?: StringFilter<"MouvementStock"> | string
+    hospital_id?: StringFilter<"MouvementStock"> | string
+    article_id?: StringFilter<"MouvementStock"> | string
+    type_mouvement?: EnumTypeMouvementFilter<"MouvementStock"> | $Enums.TypeMouvement
+    quantite?: IntFilter<"MouvementStock"> | number
+    quantite_avant?: IntFilter<"MouvementStock"> | number
+    quantite_apres?: IntFilter<"MouvementStock"> | number
+    motif?: StringNullableFilter<"MouvementStock"> | string | null
+    utilisateur_id?: StringNullableFilter<"MouvementStock"> | string | null
+    created_at?: DateTimeFilter<"MouvementStock"> | Date | string
+  }
+
   export type HospitalCreateWithoutUtilisateursInput = {
     id?: string
     nom: string
@@ -19639,6 +23392,8 @@ export namespace Prisma {
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutUtilisateursInput = {
@@ -19657,6 +23412,8 @@ export namespace Prisma {
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutUtilisateursInput = {
@@ -19829,6 +23586,8 @@ export namespace Prisma {
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutUtilisateursInput = {
@@ -19847,6 +23606,8 @@ export namespace Prisma {
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type ConsultationUpsertWithWhereUniqueWithoutMedecinInput = {
@@ -20256,6 +24017,8 @@ export namespace Prisma {
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutPatientsInput = {
@@ -20274,6 +24037,8 @@ export namespace Prisma {
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutPatientsInput = {
@@ -20363,6 +24128,8 @@ export namespace Prisma {
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutPatientsInput = {
@@ -20381,6 +24148,8 @@ export namespace Prisma {
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalCreateWithoutConsultationsInput = {
@@ -20399,6 +24168,8 @@ export namespace Prisma {
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutConsultationsInput = {
@@ -20417,6 +24188,8 @@ export namespace Prisma {
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutConsultationsInput = {
@@ -20608,6 +24381,8 @@ export namespace Prisma {
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutConsultationsInput = {
@@ -20626,6 +24401,8 @@ export namespace Prisma {
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutConsultationsInput = {
@@ -20911,6 +24688,8 @@ export namespace Prisma {
     consultations?: ConsultationCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutFacturesInput = {
@@ -20929,6 +24708,8 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutFacturesInput = {
@@ -21083,6 +24864,8 @@ export namespace Prisma {
     consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutFacturesInput = {
@@ -21101,6 +24884,8 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutFacturesInput = {
@@ -21336,6 +25121,8 @@ export namespace Prisma {
     consultations?: ConsultationCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutExamens_laboInput = {
@@ -21354,6 +25141,8 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutExamens_laboInput = {
@@ -21476,6 +25265,8 @@ export namespace Prisma {
     consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutExamens_laboInput = {
@@ -21494,6 +25285,8 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutExamens_laboInput = {
@@ -21612,6 +25405,8 @@ export namespace Prisma {
     consultations?: ConsultationCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutExamens_imagerieInput = {
@@ -21630,6 +25425,8 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutExamens_imagerieInput = {
@@ -21752,6 +25549,8 @@ export namespace Prisma {
     consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutExamens_imagerieInput = {
@@ -21770,6 +25569,8 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutExamens_imagerieInput = {
@@ -21872,6 +25673,332 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboUncheckedUpdateManyWithoutMedecinNestedInput
   }
 
+  export type HospitalCreateWithoutArticles_stockInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    factures?: FactureCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalUncheckedCreateWithoutArticles_stockInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalCreateOrConnectWithoutArticles_stockInput = {
+    where: HospitalWhereUniqueInput
+    create: XOR<HospitalCreateWithoutArticles_stockInput, HospitalUncheckedCreateWithoutArticles_stockInput>
+  }
+
+  export type MouvementStockCreateWithoutArticleInput = {
+    id?: string
+    type_mouvement: $Enums.TypeMouvement
+    quantite: number
+    quantite_avant: number
+    quantite_apres: number
+    motif?: string | null
+    utilisateur_id?: string | null
+    created_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutMouvements_stockInput
+  }
+
+  export type MouvementStockUncheckedCreateWithoutArticleInput = {
+    id?: string
+    hospital_id: string
+    type_mouvement: $Enums.TypeMouvement
+    quantite: number
+    quantite_avant: number
+    quantite_apres: number
+    motif?: string | null
+    utilisateur_id?: string | null
+    created_at?: Date | string
+  }
+
+  export type MouvementStockCreateOrConnectWithoutArticleInput = {
+    where: MouvementStockWhereUniqueInput
+    create: XOR<MouvementStockCreateWithoutArticleInput, MouvementStockUncheckedCreateWithoutArticleInput>
+  }
+
+  export type MouvementStockCreateManyArticleInputEnvelope = {
+    data: MouvementStockCreateManyArticleInput | MouvementStockCreateManyArticleInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type HospitalUpsertWithoutArticles_stockInput = {
+    update: XOR<HospitalUpdateWithoutArticles_stockInput, HospitalUncheckedUpdateWithoutArticles_stockInput>
+    create: XOR<HospitalCreateWithoutArticles_stockInput, HospitalUncheckedCreateWithoutArticles_stockInput>
+    where?: HospitalWhereInput
+  }
+
+  export type HospitalUpdateToOneWithWhereWithoutArticles_stockInput = {
+    where?: HospitalWhereInput
+    data: XOR<HospitalUpdateWithoutArticles_stockInput, HospitalUncheckedUpdateWithoutArticles_stockInput>
+  }
+
+  export type HospitalUpdateWithoutArticles_stockInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type HospitalUncheckedUpdateWithoutArticles_stockInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type MouvementStockUpsertWithWhereUniqueWithoutArticleInput = {
+    where: MouvementStockWhereUniqueInput
+    update: XOR<MouvementStockUpdateWithoutArticleInput, MouvementStockUncheckedUpdateWithoutArticleInput>
+    create: XOR<MouvementStockCreateWithoutArticleInput, MouvementStockUncheckedCreateWithoutArticleInput>
+  }
+
+  export type MouvementStockUpdateWithWhereUniqueWithoutArticleInput = {
+    where: MouvementStockWhereUniqueInput
+    data: XOR<MouvementStockUpdateWithoutArticleInput, MouvementStockUncheckedUpdateWithoutArticleInput>
+  }
+
+  export type MouvementStockUpdateManyWithWhereWithoutArticleInput = {
+    where: MouvementStockScalarWhereInput
+    data: XOR<MouvementStockUpdateManyMutationInput, MouvementStockUncheckedUpdateManyWithoutArticleInput>
+  }
+
+  export type HospitalCreateWithoutMouvements_stockInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    factures?: FactureCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalUncheckedCreateWithoutMouvements_stockInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalCreateOrConnectWithoutMouvements_stockInput = {
+    where: HospitalWhereUniqueInput
+    create: XOR<HospitalCreateWithoutMouvements_stockInput, HospitalUncheckedCreateWithoutMouvements_stockInput>
+  }
+
+  export type ArticleStockCreateWithoutMouvementsInput = {
+    id?: string
+    nom: string
+    categorie?: $Enums.CategorieArticle
+    description?: string | null
+    unite?: string
+    quantite_stock?: number
+    seuil_alerte?: number
+    prix_unitaire?: number
+    date_peremption?: Date | string | null
+    code_article?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutArticles_stockInput
+  }
+
+  export type ArticleStockUncheckedCreateWithoutMouvementsInput = {
+    id?: string
+    hospital_id: string
+    nom: string
+    categorie?: $Enums.CategorieArticle
+    description?: string | null
+    unite?: string
+    quantite_stock?: number
+    seuil_alerte?: number
+    prix_unitaire?: number
+    date_peremption?: Date | string | null
+    code_article?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ArticleStockCreateOrConnectWithoutMouvementsInput = {
+    where: ArticleStockWhereUniqueInput
+    create: XOR<ArticleStockCreateWithoutMouvementsInput, ArticleStockUncheckedCreateWithoutMouvementsInput>
+  }
+
+  export type HospitalUpsertWithoutMouvements_stockInput = {
+    update: XOR<HospitalUpdateWithoutMouvements_stockInput, HospitalUncheckedUpdateWithoutMouvements_stockInput>
+    create: XOR<HospitalCreateWithoutMouvements_stockInput, HospitalUncheckedCreateWithoutMouvements_stockInput>
+    where?: HospitalWhereInput
+  }
+
+  export type HospitalUpdateToOneWithWhereWithoutMouvements_stockInput = {
+    where?: HospitalWhereInput
+    data: XOR<HospitalUpdateWithoutMouvements_stockInput, HospitalUncheckedUpdateWithoutMouvements_stockInput>
+  }
+
+  export type HospitalUpdateWithoutMouvements_stockInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type HospitalUncheckedUpdateWithoutMouvements_stockInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type ArticleStockUpsertWithoutMouvementsInput = {
+    update: XOR<ArticleStockUpdateWithoutMouvementsInput, ArticleStockUncheckedUpdateWithoutMouvementsInput>
+    create: XOR<ArticleStockCreateWithoutMouvementsInput, ArticleStockUncheckedCreateWithoutMouvementsInput>
+    where?: ArticleStockWhereInput
+  }
+
+  export type ArticleStockUpdateToOneWithWhereWithoutMouvementsInput = {
+    where?: ArticleStockWhereInput
+    data: XOR<ArticleStockUpdateWithoutMouvementsInput, ArticleStockUncheckedUpdateWithoutMouvementsInput>
+  }
+
+  export type ArticleStockUpdateWithoutMouvementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    categorie?: EnumCategorieArticleFieldUpdateOperationsInput | $Enums.CategorieArticle
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unite?: StringFieldUpdateOperationsInput | string
+    quantite_stock?: IntFieldUpdateOperationsInput | number
+    seuil_alerte?: IntFieldUpdateOperationsInput | number
+    prix_unitaire?: FloatFieldUpdateOperationsInput | number
+    date_peremption?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    code_article?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutArticles_stockNestedInput
+  }
+
+  export type ArticleStockUncheckedUpdateWithoutMouvementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    categorie?: EnumCategorieArticleFieldUpdateOperationsInput | $Enums.CategorieArticle
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unite?: StringFieldUpdateOperationsInput | string
+    quantite_stock?: IntFieldUpdateOperationsInput | number
+    seuil_alerte?: IntFieldUpdateOperationsInput | number
+    prix_unitaire?: FloatFieldUpdateOperationsInput | number
+    date_peremption?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    code_article?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UtilisateurCreateManyHospitalInput = {
     id?: string
     supabase_uid?: string | null
@@ -21963,6 +26090,34 @@ export namespace Prisma {
     zone_anatomique?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+  }
+
+  export type ArticleStockCreateManyHospitalInput = {
+    id?: string
+    nom: string
+    categorie?: $Enums.CategorieArticle
+    description?: string | null
+    unite?: string
+    quantite_stock?: number
+    seuil_alerte?: number
+    prix_unitaire?: number
+    date_peremption?: Date | string | null
+    code_article?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type MouvementStockCreateManyHospitalInput = {
+    id?: string
+    article_id: string
+    type_mouvement: $Enums.TypeMouvement
+    quantite: number
+    quantite_avant: number
+    quantite_apres: number
+    motif?: string | null
+    utilisateur_id?: string | null
+    created_at?: Date | string
   }
 
   export type UtilisateurUpdateWithoutHospitalInput = {
@@ -22254,6 +26409,92 @@ export namespace Prisma {
     zone_anatomique?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArticleStockUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    categorie?: EnumCategorieArticleFieldUpdateOperationsInput | $Enums.CategorieArticle
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unite?: StringFieldUpdateOperationsInput | string
+    quantite_stock?: IntFieldUpdateOperationsInput | number
+    seuil_alerte?: IntFieldUpdateOperationsInput | number
+    prix_unitaire?: FloatFieldUpdateOperationsInput | number
+    date_peremption?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    code_article?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mouvements?: MouvementStockUpdateManyWithoutArticleNestedInput
+  }
+
+  export type ArticleStockUncheckedUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    categorie?: EnumCategorieArticleFieldUpdateOperationsInput | $Enums.CategorieArticle
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unite?: StringFieldUpdateOperationsInput | string
+    quantite_stock?: IntFieldUpdateOperationsInput | number
+    seuil_alerte?: IntFieldUpdateOperationsInput | number
+    prix_unitaire?: FloatFieldUpdateOperationsInput | number
+    date_peremption?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    code_article?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mouvements?: MouvementStockUncheckedUpdateManyWithoutArticleNestedInput
+  }
+
+  export type ArticleStockUncheckedUpdateManyWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    categorie?: EnumCategorieArticleFieldUpdateOperationsInput | $Enums.CategorieArticle
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    unite?: StringFieldUpdateOperationsInput | string
+    quantite_stock?: IntFieldUpdateOperationsInput | number
+    seuil_alerte?: IntFieldUpdateOperationsInput | number
+    prix_unitaire?: FloatFieldUpdateOperationsInput | number
+    date_peremption?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    code_article?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MouvementStockUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type_mouvement?: EnumTypeMouvementFieldUpdateOperationsInput | $Enums.TypeMouvement
+    quantite?: IntFieldUpdateOperationsInput | number
+    quantite_avant?: IntFieldUpdateOperationsInput | number
+    quantite_apres?: IntFieldUpdateOperationsInput | number
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    article?: ArticleStockUpdateOneRequiredWithoutMouvementsNestedInput
+  }
+
+  export type MouvementStockUncheckedUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    article_id?: StringFieldUpdateOperationsInput | string
+    type_mouvement?: EnumTypeMouvementFieldUpdateOperationsInput | $Enums.TypeMouvement
+    quantite?: IntFieldUpdateOperationsInput | number
+    quantite_avant?: IntFieldUpdateOperationsInput | number
+    quantite_apres?: IntFieldUpdateOperationsInput | number
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MouvementStockUncheckedUpdateManyWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    article_id?: StringFieldUpdateOperationsInput | string
+    type_mouvement?: EnumTypeMouvementFieldUpdateOperationsInput | $Enums.TypeMouvement
+    quantite?: IntFieldUpdateOperationsInput | number
+    quantite_avant?: IntFieldUpdateOperationsInput | number
+    quantite_apres?: IntFieldUpdateOperationsInput | number
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ConsultationCreateManyMedecinInput = {
@@ -22863,6 +27104,54 @@ export namespace Prisma {
     quantite?: IntFieldUpdateOperationsInput | number
     prix_unitaire?: FloatFieldUpdateOperationsInput | number
     montant_total?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MouvementStockCreateManyArticleInput = {
+    id?: string
+    hospital_id: string
+    type_mouvement: $Enums.TypeMouvement
+    quantite: number
+    quantite_avant: number
+    quantite_apres: number
+    motif?: string | null
+    utilisateur_id?: string | null
+    created_at?: Date | string
+  }
+
+  export type MouvementStockUpdateWithoutArticleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type_mouvement?: EnumTypeMouvementFieldUpdateOperationsInput | $Enums.TypeMouvement
+    quantite?: IntFieldUpdateOperationsInput | number
+    quantite_avant?: IntFieldUpdateOperationsInput | number
+    quantite_apres?: IntFieldUpdateOperationsInput | number
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutMouvements_stockNestedInput
+  }
+
+  export type MouvementStockUncheckedUpdateWithoutArticleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    type_mouvement?: EnumTypeMouvementFieldUpdateOperationsInput | $Enums.TypeMouvement
+    quantite?: IntFieldUpdateOperationsInput | number
+    quantite_avant?: IntFieldUpdateOperationsInput | number
+    quantite_apres?: IntFieldUpdateOperationsInput | number
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MouvementStockUncheckedUpdateManyWithoutArticleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    type_mouvement?: EnumTypeMouvementFieldUpdateOperationsInput | $Enums.TypeMouvement
+    quantite?: IntFieldUpdateOperationsInput | number
+    quantite_avant?: IntFieldUpdateOperationsInput | number
+    quantite_apres?: IntFieldUpdateOperationsInput | number
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
