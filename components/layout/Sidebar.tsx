@@ -109,7 +109,7 @@ const navigation: NavItem[] = [
     href: "/dashboard/stats",
     icon: BarChart3,
     roles: ["ADMIN", "SUPER_ADMIN"],
-    comingSoon: true,
+    comingSoon: false,
   },
 ];
 

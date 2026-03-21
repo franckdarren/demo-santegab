@@ -43,7 +43,7 @@ export default async function DashboardLayout({
           Le div reprend les mêmes classes CSS que SidebarInset
           sans le overflow:hidden problématique.
           ============================================================ */}
-      <div className="relative flex flex-col flex-1 min-h-svh bg-gray-50 peer-data-[variant=inset]:min-h-[calc(100svh-theme(spacing.4))] md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow">
+      <div className="relative flex flex-col flex-1 min-h-svh bg-gray-50 peer-data-[variant=inset]:min-h-[calc(100svh-(--spacing(4)))] md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow">
         <Header
           utilisateur={{
             nom: utilisateur.nom,
