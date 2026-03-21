@@ -12,6 +12,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Role } from "@/app/generated/prisma/client";
+import { UsersRound } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -79,12 +80,13 @@ const navigation: NavItem[] = [
     comingSoon: false,
   },
 
-  { 
-    label: "Imagerie",    
-    href: "/dashboard/imaging",    
-    icon: ScanLine,     
-    roles: ["ADMIN", "RADIOLOGUE", "MEDECIN"],    
-    comingSoon: false },
+  {
+    label: "Imagerie",
+    href: "/dashboard/imaging",
+    icon: ScanLine,
+    roles: ["ADMIN", "RADIOLOGUE", "MEDECIN"],
+    comingSoon: false
+  },
 
   {
     label: "Pharmacie",
@@ -93,6 +95,15 @@ const navigation: NavItem[] = [
     roles: ["ADMIN", "PHARMACIEN"],
     comingSoon: false,
   },
+
+  {
+    label: "Utilisateurs",
+    href: "/dashboard/users",
+    icon: UsersRound,
+    roles: ["ADMIN", "SUPER_ADMIN"],
+    comingSoon: false,
+  },
+
   {
     label: "Statistiques",
     href: "/dashboard/stats",
