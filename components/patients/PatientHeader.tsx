@@ -1,8 +1,3 @@
-// ============================================================
-// PATIENT HEADER — Avec boutons Modifier, Supprimer
-// et Nouvelle Consultation fonctionnel
-// ============================================================
-
 "use client";
 
 import { useState } from "react";
@@ -20,6 +15,7 @@ import { Sexe } from "@/app/generated/prisma/client";
 import { ModifierPatientDialog } from "./ModifierPatientDialog";
 import { SupprimerPatientDialog } from "./SupprimerPatientDialog";
 import { NouvelleConsultationDepuisPatient } from "./NouvelleConsultationDepuisPatient";
+import { QrCodeButton } from "./QrCodeButton"; // ← seul ajout d'import
 
 interface PatientHeaderProps {
   patient: {
@@ -109,7 +105,7 @@ export function PatientHeader({
 
             {/* Actions */}
             <div className="flex gap-2 shrink-0 flex-wrap">
-              {/* Bouton Nouvelle consultation — ouvre le dialog */}
+
               <Button
                 type="button"
                 onClick={() => setDialogConsultation(true)}
@@ -119,7 +115,19 @@ export function PatientHeader({
                 Nouvelle consultation
               </Button>
 
-              <ModifierPatientDialog patient={patient} hospitalId={hospitalId} />
+              {/* ← Bouton QR Code ajouté ici */}
+              <QrCodeButton
+                patientId={patient.id}
+                hospitalId={hospitalId}
+                utilisateurId={medecinConnecteId}
+                nomPatient={nomComplet}
+              />
+
+              <ModifierPatientDialog
+                patient={patient}
+                hospitalId={hospitalId}
+              />
+
               <SupprimerPatientDialog
                 patientId={patient.id}
                 nomPatient={nomComplet}
@@ -188,7 +196,6 @@ export function PatientHeader({
         </CardContent>
       </Card>
 
-      {/* Dialog nouvelle consultation — patient pré-sélectionné */}
       <NouvelleConsultationDepuisPatient
         open={dialogConsultation}
         onOpenChange={setDialogConsultation}

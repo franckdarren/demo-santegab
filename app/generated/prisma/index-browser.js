@@ -316,6 +316,28 @@ exports.Prisma.EcritureComptableScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.QrTokenScalarFieldEnum = {
+  id: 'id',
+  patient_id: 'patient_id',
+  token: 'token',
+  expire_le: 'expire_le',
+  cree_par: 'cree_par',
+  hospital_id: 'hospital_id',
+  est_actif: 'est_actif',
+  created_at: 'created_at'
+};
+
+exports.Prisma.AuditLogCarnetScalarFieldEnum = {
+  id: 'id',
+  patient_id: 'patient_id',
+  hospital_id: 'hospital_id',
+  accessed_by: 'accessed_by',
+  ip_address: 'ip_address',
+  user_agent: 'user_agent',
+  type_acces: 'type_acces',
+  created_at: 'created_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -443,7 +465,9 @@ exports.Prisma.ModelName = {
   ExamenImagerie: 'ExamenImagerie',
   ArticleStock: 'ArticleStock',
   MouvementStock: 'MouvementStock',
-  EcritureComptable: 'EcritureComptable'
+  EcritureComptable: 'EcritureComptable',
+  QrToken: 'QrToken',
+  AuditLogCarnet: 'AuditLogCarnet'
 };
 
 /**

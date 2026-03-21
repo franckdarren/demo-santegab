@@ -1,5 +1,5 @@
 // ============================================================
-// PATIENT TABS — Carnet de santé numérique en onglets
+// PATIENT TABS — Dossier médical en onglets
 // ============================================================
 
 "use client";

@@ -78,6 +78,16 @@ export type MouvementStock = $Result.DefaultSelection<Prisma.$MouvementStockPayl
  * 
  */
 export type EcritureComptable = $Result.DefaultSelection<Prisma.$EcritureComptablePayload>
+/**
+ * Model QrToken
+ * 
+ */
+export type QrToken = $Result.DefaultSelection<Prisma.$QrTokenPayload>
+/**
+ * Model AuditLogCarnet
+ * 
+ */
+export type AuditLogCarnet = $Result.DefaultSelection<Prisma.$AuditLogCarnetPayload>
 
 /**
  * Enums
@@ -518,6 +528,26 @@ export class PrismaClient<
     * ```
     */
   get ecritureComptable(): Prisma.EcritureComptableDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.qrToken`: Exposes CRUD operations for the **QrToken** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more QrTokens
+    * const qrTokens = await prisma.qrToken.findMany()
+    * ```
+    */
+  get qrToken(): Prisma.QrTokenDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.auditLogCarnet`: Exposes CRUD operations for the **AuditLogCarnet** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AuditLogCarnets
+    * const auditLogCarnets = await prisma.auditLogCarnet.findMany()
+    * ```
+    */
+  get auditLogCarnet(): Prisma.AuditLogCarnetDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -964,7 +994,9 @@ export namespace Prisma {
     ExamenImagerie: 'ExamenImagerie',
     ArticleStock: 'ArticleStock',
     MouvementStock: 'MouvementStock',
-    EcritureComptable: 'EcritureComptable'
+    EcritureComptable: 'EcritureComptable',
+    QrToken: 'QrToken',
+    AuditLogCarnet: 'AuditLogCarnet'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -980,7 +1012,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "hospital" | "utilisateur" | "patient" | "patientHospital" | "consultation" | "prescription" | "facture" | "ligneFacture" | "examenLabo" | "examenImagerie" | "articleStock" | "mouvementStock" | "ecritureComptable"
+      modelProps: "hospital" | "utilisateur" | "patient" | "patientHospital" | "consultation" | "prescription" | "facture" | "ligneFacture" | "examenLabo" | "examenImagerie" | "articleStock" | "mouvementStock" | "ecritureComptable" | "qrToken" | "auditLogCarnet"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1946,6 +1978,154 @@ export namespace Prisma {
           }
         }
       }
+      QrToken: {
+        payload: Prisma.$QrTokenPayload<ExtArgs>
+        fields: Prisma.QrTokenFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.QrTokenFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrTokenPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.QrTokenFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrTokenPayload>
+          }
+          findFirst: {
+            args: Prisma.QrTokenFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrTokenPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.QrTokenFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrTokenPayload>
+          }
+          findMany: {
+            args: Prisma.QrTokenFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrTokenPayload>[]
+          }
+          create: {
+            args: Prisma.QrTokenCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrTokenPayload>
+          }
+          createMany: {
+            args: Prisma.QrTokenCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.QrTokenCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrTokenPayload>[]
+          }
+          delete: {
+            args: Prisma.QrTokenDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrTokenPayload>
+          }
+          update: {
+            args: Prisma.QrTokenUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrTokenPayload>
+          }
+          deleteMany: {
+            args: Prisma.QrTokenDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.QrTokenUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.QrTokenUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrTokenPayload>[]
+          }
+          upsert: {
+            args: Prisma.QrTokenUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QrTokenPayload>
+          }
+          aggregate: {
+            args: Prisma.QrTokenAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateQrToken>
+          }
+          groupBy: {
+            args: Prisma.QrTokenGroupByArgs<ExtArgs>
+            result: $Utils.Optional<QrTokenGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.QrTokenCountArgs<ExtArgs>
+            result: $Utils.Optional<QrTokenCountAggregateOutputType> | number
+          }
+        }
+      }
+      AuditLogCarnet: {
+        payload: Prisma.$AuditLogCarnetPayload<ExtArgs>
+        fields: Prisma.AuditLogCarnetFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AuditLogCarnetFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogCarnetPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AuditLogCarnetFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogCarnetPayload>
+          }
+          findFirst: {
+            args: Prisma.AuditLogCarnetFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogCarnetPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AuditLogCarnetFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogCarnetPayload>
+          }
+          findMany: {
+            args: Prisma.AuditLogCarnetFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogCarnetPayload>[]
+          }
+          create: {
+            args: Prisma.AuditLogCarnetCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogCarnetPayload>
+          }
+          createMany: {
+            args: Prisma.AuditLogCarnetCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AuditLogCarnetCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogCarnetPayload>[]
+          }
+          delete: {
+            args: Prisma.AuditLogCarnetDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogCarnetPayload>
+          }
+          update: {
+            args: Prisma.AuditLogCarnetUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogCarnetPayload>
+          }
+          deleteMany: {
+            args: Prisma.AuditLogCarnetDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AuditLogCarnetUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AuditLogCarnetUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogCarnetPayload>[]
+          }
+          upsert: {
+            args: Prisma.AuditLogCarnetUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogCarnetPayload>
+          }
+          aggregate: {
+            args: Prisma.AuditLogCarnetAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAuditLogCarnet>
+          }
+          groupBy: {
+            args: Prisma.AuditLogCarnetGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AuditLogCarnetGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AuditLogCarnetCountArgs<ExtArgs>
+            result: $Utils.Optional<AuditLogCarnetCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2067,6 +2247,8 @@ export namespace Prisma {
     articleStock?: ArticleStockOmit
     mouvementStock?: MouvementStockOmit
     ecritureComptable?: EcritureComptableOmit
+    qrToken?: QrTokenOmit
+    auditLogCarnet?: AuditLogCarnetOmit
   }
 
   /* Types for Logging */
@@ -2156,6 +2338,7 @@ export namespace Prisma {
     articles_stock: number
     mouvements_stock: number
     ecritures_comptables: number
+    qr_tokens: number
   }
 
   export type HospitalCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2168,6 +2351,7 @@ export namespace Prisma {
     articles_stock?: boolean | HospitalCountOutputTypeCountArticles_stockArgs
     mouvements_stock?: boolean | HospitalCountOutputTypeCountMouvements_stockArgs
     ecritures_comptables?: boolean | HospitalCountOutputTypeCountEcritures_comptablesArgs
+    qr_tokens?: boolean | HospitalCountOutputTypeCountQr_tokensArgs
   }
 
   // Custom InputTypes
@@ -2244,6 +2428,13 @@ export namespace Prisma {
     where?: EcritureComptableWhereInput
   }
 
+  /**
+   * HospitalCountOutputType without action
+   */
+  export type HospitalCountOutputTypeCountQr_tokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrTokenWhereInput
+  }
+
 
   /**
    * Count Type UtilisateurCountOutputType
@@ -2304,6 +2495,7 @@ export namespace Prisma {
     factures: number
     examens_labo: number
     examens_imagerie: number
+    qr_tokens: number
   }
 
   export type PatientCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2312,6 +2504,7 @@ export namespace Prisma {
     factures?: boolean | PatientCountOutputTypeCountFacturesArgs
     examens_labo?: boolean | PatientCountOutputTypeCountExamens_laboArgs
     examens_imagerie?: boolean | PatientCountOutputTypeCountExamens_imagerieArgs
+    qr_tokens?: boolean | PatientCountOutputTypeCountQr_tokensArgs
   }
 
   // Custom InputTypes
@@ -2358,6 +2551,13 @@ export namespace Prisma {
    */
   export type PatientCountOutputTypeCountExamens_imagerieArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ExamenImagerieWhereInput
+  }
+
+  /**
+   * PatientCountOutputType without action
+   */
+  export type PatientCountOutputTypeCountQr_tokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrTokenWhereInput
   }
 
 
@@ -2671,6 +2871,7 @@ export namespace Prisma {
     articles_stock?: boolean | Hospital$articles_stockArgs<ExtArgs>
     mouvements_stock?: boolean | Hospital$mouvements_stockArgs<ExtArgs>
     ecritures_comptables?: boolean | Hospital$ecritures_comptablesArgs<ExtArgs>
+    qr_tokens?: boolean | Hospital$qr_tokensArgs<ExtArgs>
     _count?: boolean | HospitalCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["hospital"]>
 
@@ -2724,6 +2925,7 @@ export namespace Prisma {
     articles_stock?: boolean | Hospital$articles_stockArgs<ExtArgs>
     mouvements_stock?: boolean | Hospital$mouvements_stockArgs<ExtArgs>
     ecritures_comptables?: boolean | Hospital$ecritures_comptablesArgs<ExtArgs>
+    qr_tokens?: boolean | Hospital$qr_tokensArgs<ExtArgs>
     _count?: boolean | HospitalCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type HospitalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2741,6 +2943,7 @@ export namespace Prisma {
       articles_stock: Prisma.$ArticleStockPayload<ExtArgs>[]
       mouvements_stock: Prisma.$MouvementStockPayload<ExtArgs>[]
       ecritures_comptables: Prisma.$EcritureComptablePayload<ExtArgs>[]
+      qr_tokens: Prisma.$QrTokenPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3156,6 +3359,7 @@ export namespace Prisma {
     articles_stock<T extends Hospital$articles_stockArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$articles_stockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     mouvements_stock<T extends Hospital$mouvements_stockArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$mouvements_stockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MouvementStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ecritures_comptables<T extends Hospital$ecritures_comptablesArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$ecritures_comptablesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EcritureComptablePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    qr_tokens<T extends Hospital$qr_tokensArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$qr_tokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3801,6 +4005,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: EcritureComptableScalarFieldEnum | EcritureComptableScalarFieldEnum[]
+  }
+
+  /**
+   * Hospital.qr_tokens
+   */
+  export type Hospital$qr_tokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrToken
+     */
+    select?: QrTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrToken
+     */
+    omit?: QrTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrTokenInclude<ExtArgs> | null
+    where?: QrTokenWhereInput
+    orderBy?: QrTokenOrderByWithRelationInput | QrTokenOrderByWithRelationInput[]
+    cursor?: QrTokenWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QrTokenScalarFieldEnum | QrTokenScalarFieldEnum[]
   }
 
   /**
@@ -5311,6 +5539,7 @@ export namespace Prisma {
     factures?: boolean | Patient$facturesArgs<ExtArgs>
     examens_labo?: boolean | Patient$examens_laboArgs<ExtArgs>
     examens_imagerie?: boolean | Patient$examens_imagerieArgs<ExtArgs>
+    qr_tokens?: boolean | Patient$qr_tokensArgs<ExtArgs>
     _count?: boolean | PatientCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["patient"]>
 
@@ -5375,6 +5604,7 @@ export namespace Prisma {
     factures?: boolean | Patient$facturesArgs<ExtArgs>
     examens_labo?: boolean | Patient$examens_laboArgs<ExtArgs>
     examens_imagerie?: boolean | Patient$examens_imagerieArgs<ExtArgs>
+    qr_tokens?: boolean | Patient$qr_tokensArgs<ExtArgs>
     _count?: boolean | PatientCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PatientIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -5388,6 +5618,7 @@ export namespace Prisma {
       factures: Prisma.$FacturePayload<ExtArgs>[]
       examens_labo: Prisma.$ExamenLaboPayload<ExtArgs>[]
       examens_imagerie: Prisma.$ExamenImageriePayload<ExtArgs>[]
+      qr_tokens: Prisma.$QrTokenPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5804,6 +6035,7 @@ export namespace Prisma {
     factures<T extends Patient$facturesArgs<ExtArgs> = {}>(args?: Subset<T, Patient$facturesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacturePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     examens_labo<T extends Patient$examens_laboArgs<ExtArgs> = {}>(args?: Subset<T, Patient$examens_laboArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenLaboPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     examens_imagerie<T extends Patient$examens_imagerieArgs<ExtArgs> = {}>(args?: Subset<T, Patient$examens_imagerieArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenImageriePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    qr_tokens<T extends Patient$qr_tokensArgs<ExtArgs> = {}>(args?: Subset<T, Patient$qr_tokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6358,6 +6590,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ExamenImagerieScalarFieldEnum | ExamenImagerieScalarFieldEnum[]
+  }
+
+  /**
+   * Patient.qr_tokens
+   */
+  export type Patient$qr_tokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrToken
+     */
+    select?: QrTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrToken
+     */
+    omit?: QrTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrTokenInclude<ExtArgs> | null
+    where?: QrTokenWhereInput
+    orderBy?: QrTokenOrderByWithRelationInput | QrTokenOrderByWithRelationInput[]
+    cursor?: QrTokenWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QrTokenScalarFieldEnum | QrTokenScalarFieldEnum[]
   }
 
   /**
@@ -18410,6 +18666,2155 @@ export namespace Prisma {
 
 
   /**
+   * Model QrToken
+   */
+
+  export type AggregateQrToken = {
+    _count: QrTokenCountAggregateOutputType | null
+    _min: QrTokenMinAggregateOutputType | null
+    _max: QrTokenMaxAggregateOutputType | null
+  }
+
+  export type QrTokenMinAggregateOutputType = {
+    id: string | null
+    patient_id: string | null
+    token: string | null
+    expire_le: Date | null
+    cree_par: string | null
+    hospital_id: string | null
+    est_actif: boolean | null
+    created_at: Date | null
+  }
+
+  export type QrTokenMaxAggregateOutputType = {
+    id: string | null
+    patient_id: string | null
+    token: string | null
+    expire_le: Date | null
+    cree_par: string | null
+    hospital_id: string | null
+    est_actif: boolean | null
+    created_at: Date | null
+  }
+
+  export type QrTokenCountAggregateOutputType = {
+    id: number
+    patient_id: number
+    token: number
+    expire_le: number
+    cree_par: number
+    hospital_id: number
+    est_actif: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type QrTokenMinAggregateInputType = {
+    id?: true
+    patient_id?: true
+    token?: true
+    expire_le?: true
+    cree_par?: true
+    hospital_id?: true
+    est_actif?: true
+    created_at?: true
+  }
+
+  export type QrTokenMaxAggregateInputType = {
+    id?: true
+    patient_id?: true
+    token?: true
+    expire_le?: true
+    cree_par?: true
+    hospital_id?: true
+    est_actif?: true
+    created_at?: true
+  }
+
+  export type QrTokenCountAggregateInputType = {
+    id?: true
+    patient_id?: true
+    token?: true
+    expire_le?: true
+    cree_par?: true
+    hospital_id?: true
+    est_actif?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type QrTokenAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QrToken to aggregate.
+     */
+    where?: QrTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrTokens to fetch.
+     */
+    orderBy?: QrTokenOrderByWithRelationInput | QrTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: QrTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned QrTokens
+    **/
+    _count?: true | QrTokenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: QrTokenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: QrTokenMaxAggregateInputType
+  }
+
+  export type GetQrTokenAggregateType<T extends QrTokenAggregateArgs> = {
+        [P in keyof T & keyof AggregateQrToken]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateQrToken[P]>
+      : GetScalarType<T[P], AggregateQrToken[P]>
+  }
+
+
+
+
+  export type QrTokenGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QrTokenWhereInput
+    orderBy?: QrTokenOrderByWithAggregationInput | QrTokenOrderByWithAggregationInput[]
+    by: QrTokenScalarFieldEnum[] | QrTokenScalarFieldEnum
+    having?: QrTokenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: QrTokenCountAggregateInputType | true
+    _min?: QrTokenMinAggregateInputType
+    _max?: QrTokenMaxAggregateInputType
+  }
+
+  export type QrTokenGroupByOutputType = {
+    id: string
+    patient_id: string
+    token: string
+    expire_le: Date
+    cree_par: string
+    hospital_id: string
+    est_actif: boolean
+    created_at: Date
+    _count: QrTokenCountAggregateOutputType | null
+    _min: QrTokenMinAggregateOutputType | null
+    _max: QrTokenMaxAggregateOutputType | null
+  }
+
+  type GetQrTokenGroupByPayload<T extends QrTokenGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<QrTokenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof QrTokenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], QrTokenGroupByOutputType[P]>
+            : GetScalarType<T[P], QrTokenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type QrTokenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    patient_id?: boolean
+    token?: boolean
+    expire_le?: boolean
+    cree_par?: boolean
+    hospital_id?: boolean
+    est_actif?: boolean
+    created_at?: boolean
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["qrToken"]>
+
+  export type QrTokenSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    patient_id?: boolean
+    token?: boolean
+    expire_le?: boolean
+    cree_par?: boolean
+    hospital_id?: boolean
+    est_actif?: boolean
+    created_at?: boolean
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["qrToken"]>
+
+  export type QrTokenSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    patient_id?: boolean
+    token?: boolean
+    expire_le?: boolean
+    cree_par?: boolean
+    hospital_id?: boolean
+    est_actif?: boolean
+    created_at?: boolean
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["qrToken"]>
+
+  export type QrTokenSelectScalar = {
+    id?: boolean
+    patient_id?: boolean
+    token?: boolean
+    expire_le?: boolean
+    cree_par?: boolean
+    hospital_id?: boolean
+    est_actif?: boolean
+    created_at?: boolean
+  }
+
+  export type QrTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "patient_id" | "token" | "expire_le" | "cree_par" | "hospital_id" | "est_actif" | "created_at", ExtArgs["result"]["qrToken"]>
+  export type QrTokenInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
+  export type QrTokenIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
+  export type QrTokenIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
+
+  export type $QrTokenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "QrToken"
+    objects: {
+      patient: Prisma.$PatientPayload<ExtArgs>
+      hospital: Prisma.$HospitalPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      patient_id: string
+      token: string
+      expire_le: Date
+      cree_par: string
+      hospital_id: string
+      est_actif: boolean
+      created_at: Date
+    }, ExtArgs["result"]["qrToken"]>
+    composites: {}
+  }
+
+  type QrTokenGetPayload<S extends boolean | null | undefined | QrTokenDefaultArgs> = $Result.GetResult<Prisma.$QrTokenPayload, S>
+
+  type QrTokenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<QrTokenFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: QrTokenCountAggregateInputType | true
+    }
+
+  export interface QrTokenDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['QrToken'], meta: { name: 'QrToken' } }
+    /**
+     * Find zero or one QrToken that matches the filter.
+     * @param {QrTokenFindUniqueArgs} args - Arguments to find a QrToken
+     * @example
+     * // Get one QrToken
+     * const qrToken = await prisma.qrToken.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends QrTokenFindUniqueArgs>(args: SelectSubset<T, QrTokenFindUniqueArgs<ExtArgs>>): Prisma__QrTokenClient<$Result.GetResult<Prisma.$QrTokenPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one QrToken that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {QrTokenFindUniqueOrThrowArgs} args - Arguments to find a QrToken
+     * @example
+     * // Get one QrToken
+     * const qrToken = await prisma.qrToken.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends QrTokenFindUniqueOrThrowArgs>(args: SelectSubset<T, QrTokenFindUniqueOrThrowArgs<ExtArgs>>): Prisma__QrTokenClient<$Result.GetResult<Prisma.$QrTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QrToken that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrTokenFindFirstArgs} args - Arguments to find a QrToken
+     * @example
+     * // Get one QrToken
+     * const qrToken = await prisma.qrToken.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends QrTokenFindFirstArgs>(args?: SelectSubset<T, QrTokenFindFirstArgs<ExtArgs>>): Prisma__QrTokenClient<$Result.GetResult<Prisma.$QrTokenPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QrToken that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrTokenFindFirstOrThrowArgs} args - Arguments to find a QrToken
+     * @example
+     * // Get one QrToken
+     * const qrToken = await prisma.qrToken.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends QrTokenFindFirstOrThrowArgs>(args?: SelectSubset<T, QrTokenFindFirstOrThrowArgs<ExtArgs>>): Prisma__QrTokenClient<$Result.GetResult<Prisma.$QrTokenPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more QrTokens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrTokenFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all QrTokens
+     * const qrTokens = await prisma.qrToken.findMany()
+     * 
+     * // Get first 10 QrTokens
+     * const qrTokens = await prisma.qrToken.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const qrTokenWithIdOnly = await prisma.qrToken.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends QrTokenFindManyArgs>(args?: SelectSubset<T, QrTokenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a QrToken.
+     * @param {QrTokenCreateArgs} args - Arguments to create a QrToken.
+     * @example
+     * // Create one QrToken
+     * const QrToken = await prisma.qrToken.create({
+     *   data: {
+     *     // ... data to create a QrToken
+     *   }
+     * })
+     * 
+     */
+    create<T extends QrTokenCreateArgs>(args: SelectSubset<T, QrTokenCreateArgs<ExtArgs>>): Prisma__QrTokenClient<$Result.GetResult<Prisma.$QrTokenPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many QrTokens.
+     * @param {QrTokenCreateManyArgs} args - Arguments to create many QrTokens.
+     * @example
+     * // Create many QrTokens
+     * const qrToken = await prisma.qrToken.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends QrTokenCreateManyArgs>(args?: SelectSubset<T, QrTokenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many QrTokens and returns the data saved in the database.
+     * @param {QrTokenCreateManyAndReturnArgs} args - Arguments to create many QrTokens.
+     * @example
+     * // Create many QrTokens
+     * const qrToken = await prisma.qrToken.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many QrTokens and only return the `id`
+     * const qrTokenWithIdOnly = await prisma.qrToken.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends QrTokenCreateManyAndReturnArgs>(args?: SelectSubset<T, QrTokenCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrTokenPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a QrToken.
+     * @param {QrTokenDeleteArgs} args - Arguments to delete one QrToken.
+     * @example
+     * // Delete one QrToken
+     * const QrToken = await prisma.qrToken.delete({
+     *   where: {
+     *     // ... filter to delete one QrToken
+     *   }
+     * })
+     * 
+     */
+    delete<T extends QrTokenDeleteArgs>(args: SelectSubset<T, QrTokenDeleteArgs<ExtArgs>>): Prisma__QrTokenClient<$Result.GetResult<Prisma.$QrTokenPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one QrToken.
+     * @param {QrTokenUpdateArgs} args - Arguments to update one QrToken.
+     * @example
+     * // Update one QrToken
+     * const qrToken = await prisma.qrToken.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends QrTokenUpdateArgs>(args: SelectSubset<T, QrTokenUpdateArgs<ExtArgs>>): Prisma__QrTokenClient<$Result.GetResult<Prisma.$QrTokenPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more QrTokens.
+     * @param {QrTokenDeleteManyArgs} args - Arguments to filter QrTokens to delete.
+     * @example
+     * // Delete a few QrTokens
+     * const { count } = await prisma.qrToken.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends QrTokenDeleteManyArgs>(args?: SelectSubset<T, QrTokenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QrTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrTokenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many QrTokens
+     * const qrToken = await prisma.qrToken.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends QrTokenUpdateManyArgs>(args: SelectSubset<T, QrTokenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QrTokens and returns the data updated in the database.
+     * @param {QrTokenUpdateManyAndReturnArgs} args - Arguments to update many QrTokens.
+     * @example
+     * // Update many QrTokens
+     * const qrToken = await prisma.qrToken.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more QrTokens and only return the `id`
+     * const qrTokenWithIdOnly = await prisma.qrToken.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends QrTokenUpdateManyAndReturnArgs>(args: SelectSubset<T, QrTokenUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrTokenPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one QrToken.
+     * @param {QrTokenUpsertArgs} args - Arguments to update or create a QrToken.
+     * @example
+     * // Update or create a QrToken
+     * const qrToken = await prisma.qrToken.upsert({
+     *   create: {
+     *     // ... data to create a QrToken
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the QrToken we want to update
+     *   }
+     * })
+     */
+    upsert<T extends QrTokenUpsertArgs>(args: SelectSubset<T, QrTokenUpsertArgs<ExtArgs>>): Prisma__QrTokenClient<$Result.GetResult<Prisma.$QrTokenPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of QrTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrTokenCountArgs} args - Arguments to filter QrTokens to count.
+     * @example
+     * // Count the number of QrTokens
+     * const count = await prisma.qrToken.count({
+     *   where: {
+     *     // ... the filter for the QrTokens we want to count
+     *   }
+     * })
+    **/
+    count<T extends QrTokenCountArgs>(
+      args?: Subset<T, QrTokenCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], QrTokenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a QrToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrTokenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends QrTokenAggregateArgs>(args: Subset<T, QrTokenAggregateArgs>): Prisma.PrismaPromise<GetQrTokenAggregateType<T>>
+
+    /**
+     * Group by QrToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QrTokenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends QrTokenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: QrTokenGroupByArgs['orderBy'] }
+        : { orderBy?: QrTokenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, QrTokenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetQrTokenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the QrToken model
+   */
+  readonly fields: QrTokenFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for QrToken.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__QrTokenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    patient<T extends PatientDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PatientDefaultArgs<ExtArgs>>): Prisma__PatientClient<$Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the QrToken model
+   */
+  interface QrTokenFieldRefs {
+    readonly id: FieldRef<"QrToken", 'String'>
+    readonly patient_id: FieldRef<"QrToken", 'String'>
+    readonly token: FieldRef<"QrToken", 'String'>
+    readonly expire_le: FieldRef<"QrToken", 'DateTime'>
+    readonly cree_par: FieldRef<"QrToken", 'String'>
+    readonly hospital_id: FieldRef<"QrToken", 'String'>
+    readonly est_actif: FieldRef<"QrToken", 'Boolean'>
+    readonly created_at: FieldRef<"QrToken", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * QrToken findUnique
+   */
+  export type QrTokenFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrToken
+     */
+    select?: QrTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrToken
+     */
+    omit?: QrTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which QrToken to fetch.
+     */
+    where: QrTokenWhereUniqueInput
+  }
+
+  /**
+   * QrToken findUniqueOrThrow
+   */
+  export type QrTokenFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrToken
+     */
+    select?: QrTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrToken
+     */
+    omit?: QrTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which QrToken to fetch.
+     */
+    where: QrTokenWhereUniqueInput
+  }
+
+  /**
+   * QrToken findFirst
+   */
+  export type QrTokenFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrToken
+     */
+    select?: QrTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrToken
+     */
+    omit?: QrTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which QrToken to fetch.
+     */
+    where?: QrTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrTokens to fetch.
+     */
+    orderBy?: QrTokenOrderByWithRelationInput | QrTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QrTokens.
+     */
+    cursor?: QrTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QrTokens.
+     */
+    distinct?: QrTokenScalarFieldEnum | QrTokenScalarFieldEnum[]
+  }
+
+  /**
+   * QrToken findFirstOrThrow
+   */
+  export type QrTokenFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrToken
+     */
+    select?: QrTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrToken
+     */
+    omit?: QrTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which QrToken to fetch.
+     */
+    where?: QrTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrTokens to fetch.
+     */
+    orderBy?: QrTokenOrderByWithRelationInput | QrTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QrTokens.
+     */
+    cursor?: QrTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QrTokens.
+     */
+    distinct?: QrTokenScalarFieldEnum | QrTokenScalarFieldEnum[]
+  }
+
+  /**
+   * QrToken findMany
+   */
+  export type QrTokenFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrToken
+     */
+    select?: QrTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrToken
+     */
+    omit?: QrTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which QrTokens to fetch.
+     */
+    where?: QrTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QrTokens to fetch.
+     */
+    orderBy?: QrTokenOrderByWithRelationInput | QrTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing QrTokens.
+     */
+    cursor?: QrTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QrTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QrTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QrTokens.
+     */
+    distinct?: QrTokenScalarFieldEnum | QrTokenScalarFieldEnum[]
+  }
+
+  /**
+   * QrToken create
+   */
+  export type QrTokenCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrToken
+     */
+    select?: QrTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrToken
+     */
+    omit?: QrTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to create a QrToken.
+     */
+    data: XOR<QrTokenCreateInput, QrTokenUncheckedCreateInput>
+  }
+
+  /**
+   * QrToken createMany
+   */
+  export type QrTokenCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many QrTokens.
+     */
+    data: QrTokenCreateManyInput | QrTokenCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * QrToken createManyAndReturn
+   */
+  export type QrTokenCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrToken
+     */
+    select?: QrTokenSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrToken
+     */
+    omit?: QrTokenOmit<ExtArgs> | null
+    /**
+     * The data used to create many QrTokens.
+     */
+    data: QrTokenCreateManyInput | QrTokenCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrTokenIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QrToken update
+   */
+  export type QrTokenUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrToken
+     */
+    select?: QrTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrToken
+     */
+    omit?: QrTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to update a QrToken.
+     */
+    data: XOR<QrTokenUpdateInput, QrTokenUncheckedUpdateInput>
+    /**
+     * Choose, which QrToken to update.
+     */
+    where: QrTokenWhereUniqueInput
+  }
+
+  /**
+   * QrToken updateMany
+   */
+  export type QrTokenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update QrTokens.
+     */
+    data: XOR<QrTokenUpdateManyMutationInput, QrTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which QrTokens to update
+     */
+    where?: QrTokenWhereInput
+    /**
+     * Limit how many QrTokens to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * QrToken updateManyAndReturn
+   */
+  export type QrTokenUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrToken
+     */
+    select?: QrTokenSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrToken
+     */
+    omit?: QrTokenOmit<ExtArgs> | null
+    /**
+     * The data used to update QrTokens.
+     */
+    data: XOR<QrTokenUpdateManyMutationInput, QrTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which QrTokens to update
+     */
+    where?: QrTokenWhereInput
+    /**
+     * Limit how many QrTokens to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrTokenIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QrToken upsert
+   */
+  export type QrTokenUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrToken
+     */
+    select?: QrTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrToken
+     */
+    omit?: QrTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrTokenInclude<ExtArgs> | null
+    /**
+     * The filter to search for the QrToken to update in case it exists.
+     */
+    where: QrTokenWhereUniqueInput
+    /**
+     * In case the QrToken found by the `where` argument doesn't exist, create a new QrToken with this data.
+     */
+    create: XOR<QrTokenCreateInput, QrTokenUncheckedCreateInput>
+    /**
+     * In case the QrToken was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<QrTokenUpdateInput, QrTokenUncheckedUpdateInput>
+  }
+
+  /**
+   * QrToken delete
+   */
+  export type QrTokenDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrToken
+     */
+    select?: QrTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrToken
+     */
+    omit?: QrTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrTokenInclude<ExtArgs> | null
+    /**
+     * Filter which QrToken to delete.
+     */
+    where: QrTokenWhereUniqueInput
+  }
+
+  /**
+   * QrToken deleteMany
+   */
+  export type QrTokenDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QrTokens to delete
+     */
+    where?: QrTokenWhereInput
+    /**
+     * Limit how many QrTokens to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * QrToken without action
+   */
+  export type QrTokenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QrToken
+     */
+    select?: QrTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QrToken
+     */
+    omit?: QrTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QrTokenInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AuditLogCarnet
+   */
+
+  export type AggregateAuditLogCarnet = {
+    _count: AuditLogCarnetCountAggregateOutputType | null
+    _min: AuditLogCarnetMinAggregateOutputType | null
+    _max: AuditLogCarnetMaxAggregateOutputType | null
+  }
+
+  export type AuditLogCarnetMinAggregateOutputType = {
+    id: string | null
+    patient_id: string | null
+    hospital_id: string | null
+    accessed_by: string | null
+    ip_address: string | null
+    user_agent: string | null
+    type_acces: string | null
+    created_at: Date | null
+  }
+
+  export type AuditLogCarnetMaxAggregateOutputType = {
+    id: string | null
+    patient_id: string | null
+    hospital_id: string | null
+    accessed_by: string | null
+    ip_address: string | null
+    user_agent: string | null
+    type_acces: string | null
+    created_at: Date | null
+  }
+
+  export type AuditLogCarnetCountAggregateOutputType = {
+    id: number
+    patient_id: number
+    hospital_id: number
+    accessed_by: number
+    ip_address: number
+    user_agent: number
+    type_acces: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type AuditLogCarnetMinAggregateInputType = {
+    id?: true
+    patient_id?: true
+    hospital_id?: true
+    accessed_by?: true
+    ip_address?: true
+    user_agent?: true
+    type_acces?: true
+    created_at?: true
+  }
+
+  export type AuditLogCarnetMaxAggregateInputType = {
+    id?: true
+    patient_id?: true
+    hospital_id?: true
+    accessed_by?: true
+    ip_address?: true
+    user_agent?: true
+    type_acces?: true
+    created_at?: true
+  }
+
+  export type AuditLogCarnetCountAggregateInputType = {
+    id?: true
+    patient_id?: true
+    hospital_id?: true
+    accessed_by?: true
+    ip_address?: true
+    user_agent?: true
+    type_acces?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type AuditLogCarnetAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AuditLogCarnet to aggregate.
+     */
+    where?: AuditLogCarnetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditLogCarnets to fetch.
+     */
+    orderBy?: AuditLogCarnetOrderByWithRelationInput | AuditLogCarnetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AuditLogCarnetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditLogCarnets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditLogCarnets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AuditLogCarnets
+    **/
+    _count?: true | AuditLogCarnetCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AuditLogCarnetMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AuditLogCarnetMaxAggregateInputType
+  }
+
+  export type GetAuditLogCarnetAggregateType<T extends AuditLogCarnetAggregateArgs> = {
+        [P in keyof T & keyof AggregateAuditLogCarnet]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAuditLogCarnet[P]>
+      : GetScalarType<T[P], AggregateAuditLogCarnet[P]>
+  }
+
+
+
+
+  export type AuditLogCarnetGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuditLogCarnetWhereInput
+    orderBy?: AuditLogCarnetOrderByWithAggregationInput | AuditLogCarnetOrderByWithAggregationInput[]
+    by: AuditLogCarnetScalarFieldEnum[] | AuditLogCarnetScalarFieldEnum
+    having?: AuditLogCarnetScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AuditLogCarnetCountAggregateInputType | true
+    _min?: AuditLogCarnetMinAggregateInputType
+    _max?: AuditLogCarnetMaxAggregateInputType
+  }
+
+  export type AuditLogCarnetGroupByOutputType = {
+    id: string
+    patient_id: string
+    hospital_id: string | null
+    accessed_by: string | null
+    ip_address: string | null
+    user_agent: string | null
+    type_acces: string
+    created_at: Date
+    _count: AuditLogCarnetCountAggregateOutputType | null
+    _min: AuditLogCarnetMinAggregateOutputType | null
+    _max: AuditLogCarnetMaxAggregateOutputType | null
+  }
+
+  type GetAuditLogCarnetGroupByPayload<T extends AuditLogCarnetGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AuditLogCarnetGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AuditLogCarnetGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AuditLogCarnetGroupByOutputType[P]>
+            : GetScalarType<T[P], AuditLogCarnetGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AuditLogCarnetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    patient_id?: boolean
+    hospital_id?: boolean
+    accessed_by?: boolean
+    ip_address?: boolean
+    user_agent?: boolean
+    type_acces?: boolean
+    created_at?: boolean
+  }, ExtArgs["result"]["auditLogCarnet"]>
+
+  export type AuditLogCarnetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    patient_id?: boolean
+    hospital_id?: boolean
+    accessed_by?: boolean
+    ip_address?: boolean
+    user_agent?: boolean
+    type_acces?: boolean
+    created_at?: boolean
+  }, ExtArgs["result"]["auditLogCarnet"]>
+
+  export type AuditLogCarnetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    patient_id?: boolean
+    hospital_id?: boolean
+    accessed_by?: boolean
+    ip_address?: boolean
+    user_agent?: boolean
+    type_acces?: boolean
+    created_at?: boolean
+  }, ExtArgs["result"]["auditLogCarnet"]>
+
+  export type AuditLogCarnetSelectScalar = {
+    id?: boolean
+    patient_id?: boolean
+    hospital_id?: boolean
+    accessed_by?: boolean
+    ip_address?: boolean
+    user_agent?: boolean
+    type_acces?: boolean
+    created_at?: boolean
+  }
+
+  export type AuditLogCarnetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "patient_id" | "hospital_id" | "accessed_by" | "ip_address" | "user_agent" | "type_acces" | "created_at", ExtArgs["result"]["auditLogCarnet"]>
+
+  export type $AuditLogCarnetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AuditLogCarnet"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      patient_id: string
+      hospital_id: string | null
+      accessed_by: string | null
+      ip_address: string | null
+      user_agent: string | null
+      type_acces: string
+      created_at: Date
+    }, ExtArgs["result"]["auditLogCarnet"]>
+    composites: {}
+  }
+
+  type AuditLogCarnetGetPayload<S extends boolean | null | undefined | AuditLogCarnetDefaultArgs> = $Result.GetResult<Prisma.$AuditLogCarnetPayload, S>
+
+  type AuditLogCarnetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AuditLogCarnetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AuditLogCarnetCountAggregateInputType | true
+    }
+
+  export interface AuditLogCarnetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AuditLogCarnet'], meta: { name: 'AuditLogCarnet' } }
+    /**
+     * Find zero or one AuditLogCarnet that matches the filter.
+     * @param {AuditLogCarnetFindUniqueArgs} args - Arguments to find a AuditLogCarnet
+     * @example
+     * // Get one AuditLogCarnet
+     * const auditLogCarnet = await prisma.auditLogCarnet.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AuditLogCarnetFindUniqueArgs>(args: SelectSubset<T, AuditLogCarnetFindUniqueArgs<ExtArgs>>): Prisma__AuditLogCarnetClient<$Result.GetResult<Prisma.$AuditLogCarnetPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AuditLogCarnet that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AuditLogCarnetFindUniqueOrThrowArgs} args - Arguments to find a AuditLogCarnet
+     * @example
+     * // Get one AuditLogCarnet
+     * const auditLogCarnet = await prisma.auditLogCarnet.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AuditLogCarnetFindUniqueOrThrowArgs>(args: SelectSubset<T, AuditLogCarnetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AuditLogCarnetClient<$Result.GetResult<Prisma.$AuditLogCarnetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AuditLogCarnet that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogCarnetFindFirstArgs} args - Arguments to find a AuditLogCarnet
+     * @example
+     * // Get one AuditLogCarnet
+     * const auditLogCarnet = await prisma.auditLogCarnet.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AuditLogCarnetFindFirstArgs>(args?: SelectSubset<T, AuditLogCarnetFindFirstArgs<ExtArgs>>): Prisma__AuditLogCarnetClient<$Result.GetResult<Prisma.$AuditLogCarnetPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AuditLogCarnet that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogCarnetFindFirstOrThrowArgs} args - Arguments to find a AuditLogCarnet
+     * @example
+     * // Get one AuditLogCarnet
+     * const auditLogCarnet = await prisma.auditLogCarnet.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AuditLogCarnetFindFirstOrThrowArgs>(args?: SelectSubset<T, AuditLogCarnetFindFirstOrThrowArgs<ExtArgs>>): Prisma__AuditLogCarnetClient<$Result.GetResult<Prisma.$AuditLogCarnetPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AuditLogCarnets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogCarnetFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AuditLogCarnets
+     * const auditLogCarnets = await prisma.auditLogCarnet.findMany()
+     * 
+     * // Get first 10 AuditLogCarnets
+     * const auditLogCarnets = await prisma.auditLogCarnet.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const auditLogCarnetWithIdOnly = await prisma.auditLogCarnet.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AuditLogCarnetFindManyArgs>(args?: SelectSubset<T, AuditLogCarnetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogCarnetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AuditLogCarnet.
+     * @param {AuditLogCarnetCreateArgs} args - Arguments to create a AuditLogCarnet.
+     * @example
+     * // Create one AuditLogCarnet
+     * const AuditLogCarnet = await prisma.auditLogCarnet.create({
+     *   data: {
+     *     // ... data to create a AuditLogCarnet
+     *   }
+     * })
+     * 
+     */
+    create<T extends AuditLogCarnetCreateArgs>(args: SelectSubset<T, AuditLogCarnetCreateArgs<ExtArgs>>): Prisma__AuditLogCarnetClient<$Result.GetResult<Prisma.$AuditLogCarnetPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AuditLogCarnets.
+     * @param {AuditLogCarnetCreateManyArgs} args - Arguments to create many AuditLogCarnets.
+     * @example
+     * // Create many AuditLogCarnets
+     * const auditLogCarnet = await prisma.auditLogCarnet.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AuditLogCarnetCreateManyArgs>(args?: SelectSubset<T, AuditLogCarnetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AuditLogCarnets and returns the data saved in the database.
+     * @param {AuditLogCarnetCreateManyAndReturnArgs} args - Arguments to create many AuditLogCarnets.
+     * @example
+     * // Create many AuditLogCarnets
+     * const auditLogCarnet = await prisma.auditLogCarnet.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AuditLogCarnets and only return the `id`
+     * const auditLogCarnetWithIdOnly = await prisma.auditLogCarnet.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AuditLogCarnetCreateManyAndReturnArgs>(args?: SelectSubset<T, AuditLogCarnetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogCarnetPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AuditLogCarnet.
+     * @param {AuditLogCarnetDeleteArgs} args - Arguments to delete one AuditLogCarnet.
+     * @example
+     * // Delete one AuditLogCarnet
+     * const AuditLogCarnet = await prisma.auditLogCarnet.delete({
+     *   where: {
+     *     // ... filter to delete one AuditLogCarnet
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AuditLogCarnetDeleteArgs>(args: SelectSubset<T, AuditLogCarnetDeleteArgs<ExtArgs>>): Prisma__AuditLogCarnetClient<$Result.GetResult<Prisma.$AuditLogCarnetPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AuditLogCarnet.
+     * @param {AuditLogCarnetUpdateArgs} args - Arguments to update one AuditLogCarnet.
+     * @example
+     * // Update one AuditLogCarnet
+     * const auditLogCarnet = await prisma.auditLogCarnet.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AuditLogCarnetUpdateArgs>(args: SelectSubset<T, AuditLogCarnetUpdateArgs<ExtArgs>>): Prisma__AuditLogCarnetClient<$Result.GetResult<Prisma.$AuditLogCarnetPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AuditLogCarnets.
+     * @param {AuditLogCarnetDeleteManyArgs} args - Arguments to filter AuditLogCarnets to delete.
+     * @example
+     * // Delete a few AuditLogCarnets
+     * const { count } = await prisma.auditLogCarnet.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AuditLogCarnetDeleteManyArgs>(args?: SelectSubset<T, AuditLogCarnetDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AuditLogCarnets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogCarnetUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AuditLogCarnets
+     * const auditLogCarnet = await prisma.auditLogCarnet.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AuditLogCarnetUpdateManyArgs>(args: SelectSubset<T, AuditLogCarnetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AuditLogCarnets and returns the data updated in the database.
+     * @param {AuditLogCarnetUpdateManyAndReturnArgs} args - Arguments to update many AuditLogCarnets.
+     * @example
+     * // Update many AuditLogCarnets
+     * const auditLogCarnet = await prisma.auditLogCarnet.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AuditLogCarnets and only return the `id`
+     * const auditLogCarnetWithIdOnly = await prisma.auditLogCarnet.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AuditLogCarnetUpdateManyAndReturnArgs>(args: SelectSubset<T, AuditLogCarnetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogCarnetPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AuditLogCarnet.
+     * @param {AuditLogCarnetUpsertArgs} args - Arguments to update or create a AuditLogCarnet.
+     * @example
+     * // Update or create a AuditLogCarnet
+     * const auditLogCarnet = await prisma.auditLogCarnet.upsert({
+     *   create: {
+     *     // ... data to create a AuditLogCarnet
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AuditLogCarnet we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AuditLogCarnetUpsertArgs>(args: SelectSubset<T, AuditLogCarnetUpsertArgs<ExtArgs>>): Prisma__AuditLogCarnetClient<$Result.GetResult<Prisma.$AuditLogCarnetPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AuditLogCarnets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogCarnetCountArgs} args - Arguments to filter AuditLogCarnets to count.
+     * @example
+     * // Count the number of AuditLogCarnets
+     * const count = await prisma.auditLogCarnet.count({
+     *   where: {
+     *     // ... the filter for the AuditLogCarnets we want to count
+     *   }
+     * })
+    **/
+    count<T extends AuditLogCarnetCountArgs>(
+      args?: Subset<T, AuditLogCarnetCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AuditLogCarnetCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AuditLogCarnet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogCarnetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AuditLogCarnetAggregateArgs>(args: Subset<T, AuditLogCarnetAggregateArgs>): Prisma.PrismaPromise<GetAuditLogCarnetAggregateType<T>>
+
+    /**
+     * Group by AuditLogCarnet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogCarnetGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AuditLogCarnetGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AuditLogCarnetGroupByArgs['orderBy'] }
+        : { orderBy?: AuditLogCarnetGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AuditLogCarnetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAuditLogCarnetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AuditLogCarnet model
+   */
+  readonly fields: AuditLogCarnetFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AuditLogCarnet.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AuditLogCarnetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AuditLogCarnet model
+   */
+  interface AuditLogCarnetFieldRefs {
+    readonly id: FieldRef<"AuditLogCarnet", 'String'>
+    readonly patient_id: FieldRef<"AuditLogCarnet", 'String'>
+    readonly hospital_id: FieldRef<"AuditLogCarnet", 'String'>
+    readonly accessed_by: FieldRef<"AuditLogCarnet", 'String'>
+    readonly ip_address: FieldRef<"AuditLogCarnet", 'String'>
+    readonly user_agent: FieldRef<"AuditLogCarnet", 'String'>
+    readonly type_acces: FieldRef<"AuditLogCarnet", 'String'>
+    readonly created_at: FieldRef<"AuditLogCarnet", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AuditLogCarnet findUnique
+   */
+  export type AuditLogCarnetFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLogCarnet
+     */
+    select?: AuditLogCarnetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLogCarnet
+     */
+    omit?: AuditLogCarnetOmit<ExtArgs> | null
+    /**
+     * Filter, which AuditLogCarnet to fetch.
+     */
+    where: AuditLogCarnetWhereUniqueInput
+  }
+
+  /**
+   * AuditLogCarnet findUniqueOrThrow
+   */
+  export type AuditLogCarnetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLogCarnet
+     */
+    select?: AuditLogCarnetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLogCarnet
+     */
+    omit?: AuditLogCarnetOmit<ExtArgs> | null
+    /**
+     * Filter, which AuditLogCarnet to fetch.
+     */
+    where: AuditLogCarnetWhereUniqueInput
+  }
+
+  /**
+   * AuditLogCarnet findFirst
+   */
+  export type AuditLogCarnetFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLogCarnet
+     */
+    select?: AuditLogCarnetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLogCarnet
+     */
+    omit?: AuditLogCarnetOmit<ExtArgs> | null
+    /**
+     * Filter, which AuditLogCarnet to fetch.
+     */
+    where?: AuditLogCarnetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditLogCarnets to fetch.
+     */
+    orderBy?: AuditLogCarnetOrderByWithRelationInput | AuditLogCarnetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AuditLogCarnets.
+     */
+    cursor?: AuditLogCarnetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditLogCarnets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditLogCarnets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuditLogCarnets.
+     */
+    distinct?: AuditLogCarnetScalarFieldEnum | AuditLogCarnetScalarFieldEnum[]
+  }
+
+  /**
+   * AuditLogCarnet findFirstOrThrow
+   */
+  export type AuditLogCarnetFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLogCarnet
+     */
+    select?: AuditLogCarnetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLogCarnet
+     */
+    omit?: AuditLogCarnetOmit<ExtArgs> | null
+    /**
+     * Filter, which AuditLogCarnet to fetch.
+     */
+    where?: AuditLogCarnetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditLogCarnets to fetch.
+     */
+    orderBy?: AuditLogCarnetOrderByWithRelationInput | AuditLogCarnetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AuditLogCarnets.
+     */
+    cursor?: AuditLogCarnetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditLogCarnets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditLogCarnets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuditLogCarnets.
+     */
+    distinct?: AuditLogCarnetScalarFieldEnum | AuditLogCarnetScalarFieldEnum[]
+  }
+
+  /**
+   * AuditLogCarnet findMany
+   */
+  export type AuditLogCarnetFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLogCarnet
+     */
+    select?: AuditLogCarnetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLogCarnet
+     */
+    omit?: AuditLogCarnetOmit<ExtArgs> | null
+    /**
+     * Filter, which AuditLogCarnets to fetch.
+     */
+    where?: AuditLogCarnetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditLogCarnets to fetch.
+     */
+    orderBy?: AuditLogCarnetOrderByWithRelationInput | AuditLogCarnetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AuditLogCarnets.
+     */
+    cursor?: AuditLogCarnetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditLogCarnets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditLogCarnets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuditLogCarnets.
+     */
+    distinct?: AuditLogCarnetScalarFieldEnum | AuditLogCarnetScalarFieldEnum[]
+  }
+
+  /**
+   * AuditLogCarnet create
+   */
+  export type AuditLogCarnetCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLogCarnet
+     */
+    select?: AuditLogCarnetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLogCarnet
+     */
+    omit?: AuditLogCarnetOmit<ExtArgs> | null
+    /**
+     * The data needed to create a AuditLogCarnet.
+     */
+    data: XOR<AuditLogCarnetCreateInput, AuditLogCarnetUncheckedCreateInput>
+  }
+
+  /**
+   * AuditLogCarnet createMany
+   */
+  export type AuditLogCarnetCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AuditLogCarnets.
+     */
+    data: AuditLogCarnetCreateManyInput | AuditLogCarnetCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AuditLogCarnet createManyAndReturn
+   */
+  export type AuditLogCarnetCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLogCarnet
+     */
+    select?: AuditLogCarnetSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLogCarnet
+     */
+    omit?: AuditLogCarnetOmit<ExtArgs> | null
+    /**
+     * The data used to create many AuditLogCarnets.
+     */
+    data: AuditLogCarnetCreateManyInput | AuditLogCarnetCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AuditLogCarnet update
+   */
+  export type AuditLogCarnetUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLogCarnet
+     */
+    select?: AuditLogCarnetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLogCarnet
+     */
+    omit?: AuditLogCarnetOmit<ExtArgs> | null
+    /**
+     * The data needed to update a AuditLogCarnet.
+     */
+    data: XOR<AuditLogCarnetUpdateInput, AuditLogCarnetUncheckedUpdateInput>
+    /**
+     * Choose, which AuditLogCarnet to update.
+     */
+    where: AuditLogCarnetWhereUniqueInput
+  }
+
+  /**
+   * AuditLogCarnet updateMany
+   */
+  export type AuditLogCarnetUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AuditLogCarnets.
+     */
+    data: XOR<AuditLogCarnetUpdateManyMutationInput, AuditLogCarnetUncheckedUpdateManyInput>
+    /**
+     * Filter which AuditLogCarnets to update
+     */
+    where?: AuditLogCarnetWhereInput
+    /**
+     * Limit how many AuditLogCarnets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AuditLogCarnet updateManyAndReturn
+   */
+  export type AuditLogCarnetUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLogCarnet
+     */
+    select?: AuditLogCarnetSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLogCarnet
+     */
+    omit?: AuditLogCarnetOmit<ExtArgs> | null
+    /**
+     * The data used to update AuditLogCarnets.
+     */
+    data: XOR<AuditLogCarnetUpdateManyMutationInput, AuditLogCarnetUncheckedUpdateManyInput>
+    /**
+     * Filter which AuditLogCarnets to update
+     */
+    where?: AuditLogCarnetWhereInput
+    /**
+     * Limit how many AuditLogCarnets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AuditLogCarnet upsert
+   */
+  export type AuditLogCarnetUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLogCarnet
+     */
+    select?: AuditLogCarnetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLogCarnet
+     */
+    omit?: AuditLogCarnetOmit<ExtArgs> | null
+    /**
+     * The filter to search for the AuditLogCarnet to update in case it exists.
+     */
+    where: AuditLogCarnetWhereUniqueInput
+    /**
+     * In case the AuditLogCarnet found by the `where` argument doesn't exist, create a new AuditLogCarnet with this data.
+     */
+    create: XOR<AuditLogCarnetCreateInput, AuditLogCarnetUncheckedCreateInput>
+    /**
+     * In case the AuditLogCarnet was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AuditLogCarnetUpdateInput, AuditLogCarnetUncheckedUpdateInput>
+  }
+
+  /**
+   * AuditLogCarnet delete
+   */
+  export type AuditLogCarnetDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLogCarnet
+     */
+    select?: AuditLogCarnetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLogCarnet
+     */
+    omit?: AuditLogCarnetOmit<ExtArgs> | null
+    /**
+     * Filter which AuditLogCarnet to delete.
+     */
+    where: AuditLogCarnetWhereUniqueInput
+  }
+
+  /**
+   * AuditLogCarnet deleteMany
+   */
+  export type AuditLogCarnetDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AuditLogCarnets to delete
+     */
+    where?: AuditLogCarnetWhereInput
+    /**
+     * Limit how many AuditLogCarnets to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AuditLogCarnet without action
+   */
+  export type AuditLogCarnetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLogCarnet
+     */
+    select?: AuditLogCarnetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLogCarnet
+     */
+    omit?: AuditLogCarnetOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -18656,6 +21061,34 @@ export namespace Prisma {
   };
 
   export type EcritureComptableScalarFieldEnum = (typeof EcritureComptableScalarFieldEnum)[keyof typeof EcritureComptableScalarFieldEnum]
+
+
+  export const QrTokenScalarFieldEnum: {
+    id: 'id',
+    patient_id: 'patient_id',
+    token: 'token',
+    expire_le: 'expire_le',
+    cree_par: 'cree_par',
+    hospital_id: 'hospital_id',
+    est_actif: 'est_actif',
+    created_at: 'created_at'
+  };
+
+  export type QrTokenScalarFieldEnum = (typeof QrTokenScalarFieldEnum)[keyof typeof QrTokenScalarFieldEnum]
+
+
+  export const AuditLogCarnetScalarFieldEnum: {
+    id: 'id',
+    patient_id: 'patient_id',
+    hospital_id: 'hospital_id',
+    accessed_by: 'accessed_by',
+    ip_address: 'ip_address',
+    user_agent: 'user_agent',
+    type_acces: 'type_acces',
+    created_at: 'created_at'
+  };
+
+  export type AuditLogCarnetScalarFieldEnum = (typeof AuditLogCarnetScalarFieldEnum)[keyof typeof AuditLogCarnetScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -18944,6 +21377,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockListRelationFilter
     mouvements_stock?: MouvementStockListRelationFilter
     ecritures_comptables?: EcritureComptableListRelationFilter
+    qr_tokens?: QrTokenListRelationFilter
   }
 
   export type HospitalOrderByWithRelationInput = {
@@ -18966,6 +21400,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockOrderByRelationAggregateInput
     mouvements_stock?: MouvementStockOrderByRelationAggregateInput
     ecritures_comptables?: EcritureComptableOrderByRelationAggregateInput
+    qr_tokens?: QrTokenOrderByRelationAggregateInput
   }
 
   export type HospitalWhereUniqueInput = Prisma.AtLeast<{
@@ -18991,6 +21426,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockListRelationFilter
     mouvements_stock?: MouvementStockListRelationFilter
     ecritures_comptables?: EcritureComptableListRelationFilter
+    qr_tokens?: QrTokenListRelationFilter
   }, "id">
 
   export type HospitalOrderByWithAggregationInput = {
@@ -19148,6 +21584,7 @@ export namespace Prisma {
     factures?: FactureListRelationFilter
     examens_labo?: ExamenLaboListRelationFilter
     examens_imagerie?: ExamenImagerieListRelationFilter
+    qr_tokens?: QrTokenListRelationFilter
   }
 
   export type PatientOrderByWithRelationInput = {
@@ -19171,6 +21608,7 @@ export namespace Prisma {
     factures?: FactureOrderByRelationAggregateInput
     examens_labo?: ExamenLaboOrderByRelationAggregateInput
     examens_imagerie?: ExamenImagerieOrderByRelationAggregateInput
+    qr_tokens?: QrTokenOrderByRelationAggregateInput
   }
 
   export type PatientWhereUniqueInput = Prisma.AtLeast<{
@@ -19197,6 +21635,7 @@ export namespace Prisma {
     factures?: FactureListRelationFilter
     examens_labo?: ExamenLaboListRelationFilter
     examens_imagerie?: ExamenImagerieListRelationFilter
+    qr_tokens?: QrTokenListRelationFilter
   }, "id" | "numero_dossier">
 
   export type PatientOrderByWithAggregationInput = {
@@ -20198,6 +22637,146 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"EcritureComptable"> | Date | string
   }
 
+  export type QrTokenWhereInput = {
+    AND?: QrTokenWhereInput | QrTokenWhereInput[]
+    OR?: QrTokenWhereInput[]
+    NOT?: QrTokenWhereInput | QrTokenWhereInput[]
+    id?: StringFilter<"QrToken"> | string
+    patient_id?: StringFilter<"QrToken"> | string
+    token?: StringFilter<"QrToken"> | string
+    expire_le?: DateTimeFilter<"QrToken"> | Date | string
+    cree_par?: StringFilter<"QrToken"> | string
+    hospital_id?: StringFilter<"QrToken"> | string
+    est_actif?: BoolFilter<"QrToken"> | boolean
+    created_at?: DateTimeFilter<"QrToken"> | Date | string
+    patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+  }
+
+  export type QrTokenOrderByWithRelationInput = {
+    id?: SortOrder
+    patient_id?: SortOrder
+    token?: SortOrder
+    expire_le?: SortOrder
+    cree_par?: SortOrder
+    hospital_id?: SortOrder
+    est_actif?: SortOrder
+    created_at?: SortOrder
+    patient?: PatientOrderByWithRelationInput
+    hospital?: HospitalOrderByWithRelationInput
+  }
+
+  export type QrTokenWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    token?: string
+    AND?: QrTokenWhereInput | QrTokenWhereInput[]
+    OR?: QrTokenWhereInput[]
+    NOT?: QrTokenWhereInput | QrTokenWhereInput[]
+    patient_id?: StringFilter<"QrToken"> | string
+    expire_le?: DateTimeFilter<"QrToken"> | Date | string
+    cree_par?: StringFilter<"QrToken"> | string
+    hospital_id?: StringFilter<"QrToken"> | string
+    est_actif?: BoolFilter<"QrToken"> | boolean
+    created_at?: DateTimeFilter<"QrToken"> | Date | string
+    patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+  }, "id" | "token">
+
+  export type QrTokenOrderByWithAggregationInput = {
+    id?: SortOrder
+    patient_id?: SortOrder
+    token?: SortOrder
+    expire_le?: SortOrder
+    cree_par?: SortOrder
+    hospital_id?: SortOrder
+    est_actif?: SortOrder
+    created_at?: SortOrder
+    _count?: QrTokenCountOrderByAggregateInput
+    _max?: QrTokenMaxOrderByAggregateInput
+    _min?: QrTokenMinOrderByAggregateInput
+  }
+
+  export type QrTokenScalarWhereWithAggregatesInput = {
+    AND?: QrTokenScalarWhereWithAggregatesInput | QrTokenScalarWhereWithAggregatesInput[]
+    OR?: QrTokenScalarWhereWithAggregatesInput[]
+    NOT?: QrTokenScalarWhereWithAggregatesInput | QrTokenScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"QrToken"> | string
+    patient_id?: StringWithAggregatesFilter<"QrToken"> | string
+    token?: StringWithAggregatesFilter<"QrToken"> | string
+    expire_le?: DateTimeWithAggregatesFilter<"QrToken"> | Date | string
+    cree_par?: StringWithAggregatesFilter<"QrToken"> | string
+    hospital_id?: StringWithAggregatesFilter<"QrToken"> | string
+    est_actif?: BoolWithAggregatesFilter<"QrToken"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"QrToken"> | Date | string
+  }
+
+  export type AuditLogCarnetWhereInput = {
+    AND?: AuditLogCarnetWhereInput | AuditLogCarnetWhereInput[]
+    OR?: AuditLogCarnetWhereInput[]
+    NOT?: AuditLogCarnetWhereInput | AuditLogCarnetWhereInput[]
+    id?: StringFilter<"AuditLogCarnet"> | string
+    patient_id?: StringFilter<"AuditLogCarnet"> | string
+    hospital_id?: StringNullableFilter<"AuditLogCarnet"> | string | null
+    accessed_by?: StringNullableFilter<"AuditLogCarnet"> | string | null
+    ip_address?: StringNullableFilter<"AuditLogCarnet"> | string | null
+    user_agent?: StringNullableFilter<"AuditLogCarnet"> | string | null
+    type_acces?: StringFilter<"AuditLogCarnet"> | string
+    created_at?: DateTimeFilter<"AuditLogCarnet"> | Date | string
+  }
+
+  export type AuditLogCarnetOrderByWithRelationInput = {
+    id?: SortOrder
+    patient_id?: SortOrder
+    hospital_id?: SortOrderInput | SortOrder
+    accessed_by?: SortOrderInput | SortOrder
+    ip_address?: SortOrderInput | SortOrder
+    user_agent?: SortOrderInput | SortOrder
+    type_acces?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type AuditLogCarnetWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AuditLogCarnetWhereInput | AuditLogCarnetWhereInput[]
+    OR?: AuditLogCarnetWhereInput[]
+    NOT?: AuditLogCarnetWhereInput | AuditLogCarnetWhereInput[]
+    patient_id?: StringFilter<"AuditLogCarnet"> | string
+    hospital_id?: StringNullableFilter<"AuditLogCarnet"> | string | null
+    accessed_by?: StringNullableFilter<"AuditLogCarnet"> | string | null
+    ip_address?: StringNullableFilter<"AuditLogCarnet"> | string | null
+    user_agent?: StringNullableFilter<"AuditLogCarnet"> | string | null
+    type_acces?: StringFilter<"AuditLogCarnet"> | string
+    created_at?: DateTimeFilter<"AuditLogCarnet"> | Date | string
+  }, "id">
+
+  export type AuditLogCarnetOrderByWithAggregationInput = {
+    id?: SortOrder
+    patient_id?: SortOrder
+    hospital_id?: SortOrderInput | SortOrder
+    accessed_by?: SortOrderInput | SortOrder
+    ip_address?: SortOrderInput | SortOrder
+    user_agent?: SortOrderInput | SortOrder
+    type_acces?: SortOrder
+    created_at?: SortOrder
+    _count?: AuditLogCarnetCountOrderByAggregateInput
+    _max?: AuditLogCarnetMaxOrderByAggregateInput
+    _min?: AuditLogCarnetMinOrderByAggregateInput
+  }
+
+  export type AuditLogCarnetScalarWhereWithAggregatesInput = {
+    AND?: AuditLogCarnetScalarWhereWithAggregatesInput | AuditLogCarnetScalarWhereWithAggregatesInput[]
+    OR?: AuditLogCarnetScalarWhereWithAggregatesInput[]
+    NOT?: AuditLogCarnetScalarWhereWithAggregatesInput | AuditLogCarnetScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AuditLogCarnet"> | string
+    patient_id?: StringWithAggregatesFilter<"AuditLogCarnet"> | string
+    hospital_id?: StringNullableWithAggregatesFilter<"AuditLogCarnet"> | string | null
+    accessed_by?: StringNullableWithAggregatesFilter<"AuditLogCarnet"> | string | null
+    ip_address?: StringNullableWithAggregatesFilter<"AuditLogCarnet"> | string | null
+    user_agent?: StringNullableWithAggregatesFilter<"AuditLogCarnet"> | string | null
+    type_acces?: StringWithAggregatesFilter<"AuditLogCarnet"> | string
+    created_at?: DateTimeWithAggregatesFilter<"AuditLogCarnet"> | Date | string
+  }
+
   export type HospitalCreateInput = {
     id?: string
     nom: string
@@ -20218,6 +22797,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateInput = {
@@ -20240,6 +22820,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUpdateInput = {
@@ -20262,6 +22843,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateInput = {
@@ -20284,6 +22866,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalCreateManyInput = {
@@ -20462,6 +23045,7 @@ export namespace Prisma {
     factures?: FactureCreateNestedManyWithoutPatientInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutPatientInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutPatientInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutPatientInput
   }
 
   export type PatientUncheckedCreateInput = {
@@ -20485,6 +23069,7 @@ export namespace Prisma {
     factures?: FactureUncheckedCreateNestedManyWithoutPatientInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutPatientInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutPatientInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutPatientInput
   }
 
   export type PatientUpdateInput = {
@@ -20508,6 +23093,7 @@ export namespace Prisma {
     factures?: FactureUpdateManyWithoutPatientNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutPatientNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutPatientNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutPatientNestedInput
   }
 
   export type PatientUncheckedUpdateInput = {
@@ -20531,6 +23117,7 @@ export namespace Prisma {
     factures?: FactureUncheckedUpdateManyWithoutPatientNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutPatientNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutPatientNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutPatientNestedInput
   }
 
   export type PatientCreateManyInput = {
@@ -21633,6 +24220,158 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type QrTokenCreateInput = {
+    id?: string
+    token: string
+    expire_le: Date | string
+    cree_par: string
+    est_actif?: boolean
+    created_at?: Date | string
+    patient: PatientCreateNestedOneWithoutQr_tokensInput
+    hospital: HospitalCreateNestedOneWithoutQr_tokensInput
+  }
+
+  export type QrTokenUncheckedCreateInput = {
+    id?: string
+    patient_id: string
+    token: string
+    expire_le: Date | string
+    cree_par: string
+    hospital_id: string
+    est_actif?: boolean
+    created_at?: Date | string
+  }
+
+  export type QrTokenUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expire_le?: DateTimeFieldUpdateOperationsInput | Date | string
+    cree_par?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    patient?: PatientUpdateOneRequiredWithoutQr_tokensNestedInput
+    hospital?: HospitalUpdateOneRequiredWithoutQr_tokensNestedInput
+  }
+
+  export type QrTokenUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expire_le?: DateTimeFieldUpdateOperationsInput | Date | string
+    cree_par?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrTokenCreateManyInput = {
+    id?: string
+    patient_id: string
+    token: string
+    expire_le: Date | string
+    cree_par: string
+    hospital_id: string
+    est_actif?: boolean
+    created_at?: Date | string
+  }
+
+  export type QrTokenUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expire_le?: DateTimeFieldUpdateOperationsInput | Date | string
+    cree_par?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrTokenUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expire_le?: DateTimeFieldUpdateOperationsInput | Date | string
+    cree_par?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogCarnetCreateInput = {
+    id?: string
+    patient_id: string
+    hospital_id?: string | null
+    accessed_by?: string | null
+    ip_address?: string | null
+    user_agent?: string | null
+    type_acces?: string
+    created_at?: Date | string
+  }
+
+  export type AuditLogCarnetUncheckedCreateInput = {
+    id?: string
+    patient_id: string
+    hospital_id?: string | null
+    accessed_by?: string | null
+    ip_address?: string | null
+    user_agent?: string | null
+    type_acces?: string
+    created_at?: Date | string
+  }
+
+  export type AuditLogCarnetUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: NullableStringFieldUpdateOperationsInput | string | null
+    accessed_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_agent?: NullableStringFieldUpdateOperationsInput | string | null
+    type_acces?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogCarnetUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: NullableStringFieldUpdateOperationsInput | string | null
+    accessed_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_agent?: NullableStringFieldUpdateOperationsInput | string | null
+    type_acces?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogCarnetCreateManyInput = {
+    id?: string
+    patient_id: string
+    hospital_id?: string | null
+    accessed_by?: string | null
+    ip_address?: string | null
+    user_agent?: string | null
+    type_acces?: string
+    created_at?: Date | string
+  }
+
+  export type AuditLogCarnetUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: NullableStringFieldUpdateOperationsInput | string | null
+    accessed_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_agent?: NullableStringFieldUpdateOperationsInput | string | null
+    type_acces?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogCarnetUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: NullableStringFieldUpdateOperationsInput | string | null
+    accessed_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_agent?: NullableStringFieldUpdateOperationsInput | string | null
+    type_acces?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -21733,6 +24472,12 @@ export namespace Prisma {
     none?: EcritureComptableWhereInput
   }
 
+  export type QrTokenListRelationFilter = {
+    every?: QrTokenWhereInput
+    some?: QrTokenWhereInput
+    none?: QrTokenWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -21771,6 +24516,10 @@ export namespace Prisma {
   }
 
   export type EcritureComptableOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type QrTokenOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -22871,6 +25620,72 @@ export namespace Prisma {
     _max?: NestedEnumCategorieDepenseNullableFilter<$PrismaModel>
   }
 
+  export type QrTokenCountOrderByAggregateInput = {
+    id?: SortOrder
+    patient_id?: SortOrder
+    token?: SortOrder
+    expire_le?: SortOrder
+    cree_par?: SortOrder
+    hospital_id?: SortOrder
+    est_actif?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type QrTokenMaxOrderByAggregateInput = {
+    id?: SortOrder
+    patient_id?: SortOrder
+    token?: SortOrder
+    expire_le?: SortOrder
+    cree_par?: SortOrder
+    hospital_id?: SortOrder
+    est_actif?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type QrTokenMinOrderByAggregateInput = {
+    id?: SortOrder
+    patient_id?: SortOrder
+    token?: SortOrder
+    expire_le?: SortOrder
+    cree_par?: SortOrder
+    hospital_id?: SortOrder
+    est_actif?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type AuditLogCarnetCountOrderByAggregateInput = {
+    id?: SortOrder
+    patient_id?: SortOrder
+    hospital_id?: SortOrder
+    accessed_by?: SortOrder
+    ip_address?: SortOrder
+    user_agent?: SortOrder
+    type_acces?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type AuditLogCarnetMaxOrderByAggregateInput = {
+    id?: SortOrder
+    patient_id?: SortOrder
+    hospital_id?: SortOrder
+    accessed_by?: SortOrder
+    ip_address?: SortOrder
+    user_agent?: SortOrder
+    type_acces?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type AuditLogCarnetMinOrderByAggregateInput = {
+    id?: SortOrder
+    patient_id?: SortOrder
+    hospital_id?: SortOrder
+    accessed_by?: SortOrder
+    ip_address?: SortOrder
+    user_agent?: SortOrder
+    type_acces?: SortOrder
+    created_at?: SortOrder
+  }
+
   export type UtilisateurCreateNestedManyWithoutHospitalInput = {
     create?: XOR<UtilisateurCreateWithoutHospitalInput, UtilisateurUncheckedCreateWithoutHospitalInput> | UtilisateurCreateWithoutHospitalInput[] | UtilisateurUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: UtilisateurCreateOrConnectWithoutHospitalInput | UtilisateurCreateOrConnectWithoutHospitalInput[]
@@ -22934,6 +25749,13 @@ export namespace Prisma {
     connect?: EcritureComptableWhereUniqueInput | EcritureComptableWhereUniqueInput[]
   }
 
+  export type QrTokenCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<QrTokenCreateWithoutHospitalInput, QrTokenUncheckedCreateWithoutHospitalInput> | QrTokenCreateWithoutHospitalInput[] | QrTokenUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: QrTokenCreateOrConnectWithoutHospitalInput | QrTokenCreateOrConnectWithoutHospitalInput[]
+    createMany?: QrTokenCreateManyHospitalInputEnvelope
+    connect?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
+  }
+
   export type UtilisateurUncheckedCreateNestedManyWithoutHospitalInput = {
     create?: XOR<UtilisateurCreateWithoutHospitalInput, UtilisateurUncheckedCreateWithoutHospitalInput> | UtilisateurCreateWithoutHospitalInput[] | UtilisateurUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: UtilisateurCreateOrConnectWithoutHospitalInput | UtilisateurCreateOrConnectWithoutHospitalInput[]
@@ -22995,6 +25817,13 @@ export namespace Prisma {
     connectOrCreate?: EcritureComptableCreateOrConnectWithoutHospitalInput | EcritureComptableCreateOrConnectWithoutHospitalInput[]
     createMany?: EcritureComptableCreateManyHospitalInputEnvelope
     connect?: EcritureComptableWhereUniqueInput | EcritureComptableWhereUniqueInput[]
+  }
+
+  export type QrTokenUncheckedCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<QrTokenCreateWithoutHospitalInput, QrTokenUncheckedCreateWithoutHospitalInput> | QrTokenCreateWithoutHospitalInput[] | QrTokenUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: QrTokenCreateOrConnectWithoutHospitalInput | QrTokenCreateOrConnectWithoutHospitalInput[]
+    createMany?: QrTokenCreateManyHospitalInputEnvelope
+    connect?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -23139,6 +25968,20 @@ export namespace Prisma {
     deleteMany?: EcritureComptableScalarWhereInput | EcritureComptableScalarWhereInput[]
   }
 
+  export type QrTokenUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<QrTokenCreateWithoutHospitalInput, QrTokenUncheckedCreateWithoutHospitalInput> | QrTokenCreateWithoutHospitalInput[] | QrTokenUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: QrTokenCreateOrConnectWithoutHospitalInput | QrTokenCreateOrConnectWithoutHospitalInput[]
+    upsert?: QrTokenUpsertWithWhereUniqueWithoutHospitalInput | QrTokenUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: QrTokenCreateManyHospitalInputEnvelope
+    set?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
+    disconnect?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
+    delete?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
+    connect?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
+    update?: QrTokenUpdateWithWhereUniqueWithoutHospitalInput | QrTokenUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: QrTokenUpdateManyWithWhereWithoutHospitalInput | QrTokenUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: QrTokenScalarWhereInput | QrTokenScalarWhereInput[]
+  }
+
   export type UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput = {
     create?: XOR<UtilisateurCreateWithoutHospitalInput, UtilisateurUncheckedCreateWithoutHospitalInput> | UtilisateurCreateWithoutHospitalInput[] | UtilisateurUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: UtilisateurCreateOrConnectWithoutHospitalInput | UtilisateurCreateOrConnectWithoutHospitalInput[]
@@ -23263,6 +26106,20 @@ export namespace Prisma {
     update?: EcritureComptableUpdateWithWhereUniqueWithoutHospitalInput | EcritureComptableUpdateWithWhereUniqueWithoutHospitalInput[]
     updateMany?: EcritureComptableUpdateManyWithWhereWithoutHospitalInput | EcritureComptableUpdateManyWithWhereWithoutHospitalInput[]
     deleteMany?: EcritureComptableScalarWhereInput | EcritureComptableScalarWhereInput[]
+  }
+
+  export type QrTokenUncheckedUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<QrTokenCreateWithoutHospitalInput, QrTokenUncheckedCreateWithoutHospitalInput> | QrTokenCreateWithoutHospitalInput[] | QrTokenUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: QrTokenCreateOrConnectWithoutHospitalInput | QrTokenCreateOrConnectWithoutHospitalInput[]
+    upsert?: QrTokenUpsertWithWhereUniqueWithoutHospitalInput | QrTokenUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: QrTokenCreateManyHospitalInputEnvelope
+    set?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
+    disconnect?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
+    delete?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
+    connect?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
+    update?: QrTokenUpdateWithWhereUniqueWithoutHospitalInput | QrTokenUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: QrTokenUpdateManyWithWhereWithoutHospitalInput | QrTokenUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: QrTokenScalarWhereInput | QrTokenScalarWhereInput[]
   }
 
   export type HospitalCreateNestedOneWithoutUtilisateursInput = {
@@ -23444,6 +26301,13 @@ export namespace Prisma {
     connect?: ExamenImagerieWhereUniqueInput | ExamenImagerieWhereUniqueInput[]
   }
 
+  export type QrTokenCreateNestedManyWithoutPatientInput = {
+    create?: XOR<QrTokenCreateWithoutPatientInput, QrTokenUncheckedCreateWithoutPatientInput> | QrTokenCreateWithoutPatientInput[] | QrTokenUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: QrTokenCreateOrConnectWithoutPatientInput | QrTokenCreateOrConnectWithoutPatientInput[]
+    createMany?: QrTokenCreateManyPatientInputEnvelope
+    connect?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
+  }
+
   export type PatientHospitalUncheckedCreateNestedManyWithoutPatientInput = {
     create?: XOR<PatientHospitalCreateWithoutPatientInput, PatientHospitalUncheckedCreateWithoutPatientInput> | PatientHospitalCreateWithoutPatientInput[] | PatientHospitalUncheckedCreateWithoutPatientInput[]
     connectOrCreate?: PatientHospitalCreateOrConnectWithoutPatientInput | PatientHospitalCreateOrConnectWithoutPatientInput[]
@@ -23477,6 +26341,13 @@ export namespace Prisma {
     connectOrCreate?: ExamenImagerieCreateOrConnectWithoutPatientInput | ExamenImagerieCreateOrConnectWithoutPatientInput[]
     createMany?: ExamenImagerieCreateManyPatientInputEnvelope
     connect?: ExamenImagerieWhereUniqueInput | ExamenImagerieWhereUniqueInput[]
+  }
+
+  export type QrTokenUncheckedCreateNestedManyWithoutPatientInput = {
+    create?: XOR<QrTokenCreateWithoutPatientInput, QrTokenUncheckedCreateWithoutPatientInput> | QrTokenCreateWithoutPatientInput[] | QrTokenUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: QrTokenCreateOrConnectWithoutPatientInput | QrTokenCreateOrConnectWithoutPatientInput[]
+    createMany?: QrTokenCreateManyPatientInputEnvelope
+    connect?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -23557,6 +26428,20 @@ export namespace Prisma {
     deleteMany?: ExamenImagerieScalarWhereInput | ExamenImagerieScalarWhereInput[]
   }
 
+  export type QrTokenUpdateManyWithoutPatientNestedInput = {
+    create?: XOR<QrTokenCreateWithoutPatientInput, QrTokenUncheckedCreateWithoutPatientInput> | QrTokenCreateWithoutPatientInput[] | QrTokenUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: QrTokenCreateOrConnectWithoutPatientInput | QrTokenCreateOrConnectWithoutPatientInput[]
+    upsert?: QrTokenUpsertWithWhereUniqueWithoutPatientInput | QrTokenUpsertWithWhereUniqueWithoutPatientInput[]
+    createMany?: QrTokenCreateManyPatientInputEnvelope
+    set?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
+    disconnect?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
+    delete?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
+    connect?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
+    update?: QrTokenUpdateWithWhereUniqueWithoutPatientInput | QrTokenUpdateWithWhereUniqueWithoutPatientInput[]
+    updateMany?: QrTokenUpdateManyWithWhereWithoutPatientInput | QrTokenUpdateManyWithWhereWithoutPatientInput[]
+    deleteMany?: QrTokenScalarWhereInput | QrTokenScalarWhereInput[]
+  }
+
   export type PatientHospitalUncheckedUpdateManyWithoutPatientNestedInput = {
     create?: XOR<PatientHospitalCreateWithoutPatientInput, PatientHospitalUncheckedCreateWithoutPatientInput> | PatientHospitalCreateWithoutPatientInput[] | PatientHospitalUncheckedCreateWithoutPatientInput[]
     connectOrCreate?: PatientHospitalCreateOrConnectWithoutPatientInput | PatientHospitalCreateOrConnectWithoutPatientInput[]
@@ -23625,6 +26510,20 @@ export namespace Prisma {
     update?: ExamenImagerieUpdateWithWhereUniqueWithoutPatientInput | ExamenImagerieUpdateWithWhereUniqueWithoutPatientInput[]
     updateMany?: ExamenImagerieUpdateManyWithWhereWithoutPatientInput | ExamenImagerieUpdateManyWithWhereWithoutPatientInput[]
     deleteMany?: ExamenImagerieScalarWhereInput | ExamenImagerieScalarWhereInput[]
+  }
+
+  export type QrTokenUncheckedUpdateManyWithoutPatientNestedInput = {
+    create?: XOR<QrTokenCreateWithoutPatientInput, QrTokenUncheckedCreateWithoutPatientInput> | QrTokenCreateWithoutPatientInput[] | QrTokenUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: QrTokenCreateOrConnectWithoutPatientInput | QrTokenCreateOrConnectWithoutPatientInput[]
+    upsert?: QrTokenUpsertWithWhereUniqueWithoutPatientInput | QrTokenUpsertWithWhereUniqueWithoutPatientInput[]
+    createMany?: QrTokenCreateManyPatientInputEnvelope
+    set?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
+    disconnect?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
+    delete?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
+    connect?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
+    update?: QrTokenUpdateWithWhereUniqueWithoutPatientInput | QrTokenUpdateWithWhereUniqueWithoutPatientInput[]
+    updateMany?: QrTokenUpdateManyWithWhereWithoutPatientInput | QrTokenUpdateManyWithWhereWithoutPatientInput[]
+    deleteMany?: QrTokenScalarWhereInput | QrTokenScalarWhereInput[]
   }
 
   export type PatientCreateNestedOneWithoutHospitalisationsInput = {
@@ -24129,6 +27028,34 @@ export namespace Prisma {
     upsert?: HospitalUpsertWithoutEcritures_comptablesInput
     connect?: HospitalWhereUniqueInput
     update?: XOR<XOR<HospitalUpdateToOneWithWhereWithoutEcritures_comptablesInput, HospitalUpdateWithoutEcritures_comptablesInput>, HospitalUncheckedUpdateWithoutEcritures_comptablesInput>
+  }
+
+  export type PatientCreateNestedOneWithoutQr_tokensInput = {
+    create?: XOR<PatientCreateWithoutQr_tokensInput, PatientUncheckedCreateWithoutQr_tokensInput>
+    connectOrCreate?: PatientCreateOrConnectWithoutQr_tokensInput
+    connect?: PatientWhereUniqueInput
+  }
+
+  export type HospitalCreateNestedOneWithoutQr_tokensInput = {
+    create?: XOR<HospitalCreateWithoutQr_tokensInput, HospitalUncheckedCreateWithoutQr_tokensInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutQr_tokensInput
+    connect?: HospitalWhereUniqueInput
+  }
+
+  export type PatientUpdateOneRequiredWithoutQr_tokensNestedInput = {
+    create?: XOR<PatientCreateWithoutQr_tokensInput, PatientUncheckedCreateWithoutQr_tokensInput>
+    connectOrCreate?: PatientCreateOrConnectWithoutQr_tokensInput
+    upsert?: PatientUpsertWithoutQr_tokensInput
+    connect?: PatientWhereUniqueInput
+    update?: XOR<XOR<PatientUpdateToOneWithWhereWithoutQr_tokensInput, PatientUpdateWithoutQr_tokensInput>, PatientUncheckedUpdateWithoutQr_tokensInput>
+  }
+
+  export type HospitalUpdateOneRequiredWithoutQr_tokensNestedInput = {
+    create?: XOR<HospitalCreateWithoutQr_tokensInput, HospitalUncheckedCreateWithoutQr_tokensInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutQr_tokensInput
+    upsert?: HospitalUpsertWithoutQr_tokensInput
+    connect?: HospitalWhereUniqueInput
+    update?: XOR<XOR<HospitalUpdateToOneWithWhereWithoutQr_tokensInput, HospitalUpdateWithoutQr_tokensInput>, HospitalUncheckedUpdateWithoutQr_tokensInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -24926,6 +27853,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type QrTokenCreateWithoutHospitalInput = {
+    id?: string
+    token: string
+    expire_le: Date | string
+    cree_par: string
+    est_actif?: boolean
+    created_at?: Date | string
+    patient: PatientCreateNestedOneWithoutQr_tokensInput
+  }
+
+  export type QrTokenUncheckedCreateWithoutHospitalInput = {
+    id?: string
+    patient_id: string
+    token: string
+    expire_le: Date | string
+    cree_par: string
+    est_actif?: boolean
+    created_at?: Date | string
+  }
+
+  export type QrTokenCreateOrConnectWithoutHospitalInput = {
+    where: QrTokenWhereUniqueInput
+    create: XOR<QrTokenCreateWithoutHospitalInput, QrTokenUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type QrTokenCreateManyHospitalInputEnvelope = {
+    data: QrTokenCreateManyHospitalInput | QrTokenCreateManyHospitalInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UtilisateurUpsertWithWhereUniqueWithoutHospitalInput = {
     where: UtilisateurWhereUniqueInput
     update: XOR<UtilisateurUpdateWithoutHospitalInput, UtilisateurUncheckedUpdateWithoutHospitalInput>
@@ -25241,6 +28198,36 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"EcritureComptable"> | Date | string
   }
 
+  export type QrTokenUpsertWithWhereUniqueWithoutHospitalInput = {
+    where: QrTokenWhereUniqueInput
+    update: XOR<QrTokenUpdateWithoutHospitalInput, QrTokenUncheckedUpdateWithoutHospitalInput>
+    create: XOR<QrTokenCreateWithoutHospitalInput, QrTokenUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type QrTokenUpdateWithWhereUniqueWithoutHospitalInput = {
+    where: QrTokenWhereUniqueInput
+    data: XOR<QrTokenUpdateWithoutHospitalInput, QrTokenUncheckedUpdateWithoutHospitalInput>
+  }
+
+  export type QrTokenUpdateManyWithWhereWithoutHospitalInput = {
+    where: QrTokenScalarWhereInput
+    data: XOR<QrTokenUpdateManyMutationInput, QrTokenUncheckedUpdateManyWithoutHospitalInput>
+  }
+
+  export type QrTokenScalarWhereInput = {
+    AND?: QrTokenScalarWhereInput | QrTokenScalarWhereInput[]
+    OR?: QrTokenScalarWhereInput[]
+    NOT?: QrTokenScalarWhereInput | QrTokenScalarWhereInput[]
+    id?: StringFilter<"QrToken"> | string
+    patient_id?: StringFilter<"QrToken"> | string
+    token?: StringFilter<"QrToken"> | string
+    expire_le?: DateTimeFilter<"QrToken"> | Date | string
+    cree_par?: StringFilter<"QrToken"> | string
+    hospital_id?: StringFilter<"QrToken"> | string
+    est_actif?: BoolFilter<"QrToken"> | boolean
+    created_at?: DateTimeFilter<"QrToken"> | Date | string
+  }
+
   export type HospitalCreateWithoutUtilisateursInput = {
     id?: string
     nom: string
@@ -25260,6 +28247,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutUtilisateursInput = {
@@ -25281,6 +28269,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutUtilisateursInput = {
@@ -25456,6 +28445,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutUtilisateursInput = {
@@ -25477,6 +28467,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type ConsultationUpsertWithWhereUniqueWithoutMedecinInput = {
@@ -25741,6 +28732,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type QrTokenCreateWithoutPatientInput = {
+    id?: string
+    token: string
+    expire_le: Date | string
+    cree_par: string
+    est_actif?: boolean
+    created_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutQr_tokensInput
+  }
+
+  export type QrTokenUncheckedCreateWithoutPatientInput = {
+    id?: string
+    token: string
+    expire_le: Date | string
+    cree_par: string
+    hospital_id: string
+    est_actif?: boolean
+    created_at?: Date | string
+  }
+
+  export type QrTokenCreateOrConnectWithoutPatientInput = {
+    where: QrTokenWhereUniqueInput
+    create: XOR<QrTokenCreateWithoutPatientInput, QrTokenUncheckedCreateWithoutPatientInput>
+  }
+
+  export type QrTokenCreateManyPatientInputEnvelope = {
+    data: QrTokenCreateManyPatientInput | QrTokenCreateManyPatientInput[]
+    skipDuplicates?: boolean
+  }
+
   export type PatientHospitalUpsertWithWhereUniqueWithoutPatientInput = {
     where: PatientHospitalWhereUniqueInput
     update: XOR<PatientHospitalUpdateWithoutPatientInput, PatientHospitalUncheckedUpdateWithoutPatientInput>
@@ -25821,6 +28842,22 @@ export namespace Prisma {
     data: XOR<ExamenImagerieUpdateManyMutationInput, ExamenImagerieUncheckedUpdateManyWithoutPatientInput>
   }
 
+  export type QrTokenUpsertWithWhereUniqueWithoutPatientInput = {
+    where: QrTokenWhereUniqueInput
+    update: XOR<QrTokenUpdateWithoutPatientInput, QrTokenUncheckedUpdateWithoutPatientInput>
+    create: XOR<QrTokenCreateWithoutPatientInput, QrTokenUncheckedCreateWithoutPatientInput>
+  }
+
+  export type QrTokenUpdateWithWhereUniqueWithoutPatientInput = {
+    where: QrTokenWhereUniqueInput
+    data: XOR<QrTokenUpdateWithoutPatientInput, QrTokenUncheckedUpdateWithoutPatientInput>
+  }
+
+  export type QrTokenUpdateManyWithWhereWithoutPatientInput = {
+    where: QrTokenScalarWhereInput
+    data: XOR<QrTokenUpdateManyMutationInput, QrTokenUncheckedUpdateManyWithoutPatientInput>
+  }
+
   export type PatientCreateWithoutHospitalisationsInput = {
     id?: string
     numero_dossier: string
@@ -25841,6 +28878,7 @@ export namespace Prisma {
     factures?: FactureCreateNestedManyWithoutPatientInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutPatientInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutPatientInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutPatientInput
   }
 
   export type PatientUncheckedCreateWithoutHospitalisationsInput = {
@@ -25863,6 +28901,7 @@ export namespace Prisma {
     factures?: FactureUncheckedCreateNestedManyWithoutPatientInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutPatientInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutPatientInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutPatientInput
   }
 
   export type PatientCreateOrConnectWithoutHospitalisationsInput = {
@@ -25889,6 +28928,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutPatientsInput = {
@@ -25910,6 +28950,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutPatientsInput = {
@@ -25948,6 +28989,7 @@ export namespace Prisma {
     factures?: FactureUpdateManyWithoutPatientNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutPatientNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutPatientNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutPatientNestedInput
   }
 
   export type PatientUncheckedUpdateWithoutHospitalisationsInput = {
@@ -25970,6 +29012,7 @@ export namespace Prisma {
     factures?: FactureUncheckedUpdateManyWithoutPatientNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutPatientNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutPatientNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutPatientNestedInput
   }
 
   export type HospitalUpsertWithoutPatientsInput = {
@@ -26002,6 +29045,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutPatientsInput = {
@@ -26023,6 +29067,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalCreateWithoutConsultationsInput = {
@@ -26044,6 +29089,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutConsultationsInput = {
@@ -26065,6 +29111,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutConsultationsInput = {
@@ -26092,6 +29139,7 @@ export namespace Prisma {
     factures?: FactureCreateNestedManyWithoutPatientInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutPatientInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutPatientInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutPatientInput
   }
 
   export type PatientUncheckedCreateWithoutConsultationsInput = {
@@ -26114,6 +29162,7 @@ export namespace Prisma {
     factures?: FactureUncheckedCreateNestedManyWithoutPatientInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutPatientInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutPatientInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutPatientInput
   }
 
   export type PatientCreateOrConnectWithoutConsultationsInput = {
@@ -26259,6 +29308,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutConsultationsInput = {
@@ -26280,6 +29330,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutConsultationsInput = {
@@ -26313,6 +29364,7 @@ export namespace Prisma {
     factures?: FactureUpdateManyWithoutPatientNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutPatientNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutPatientNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutPatientNestedInput
   }
 
   export type PatientUncheckedUpdateWithoutConsultationsInput = {
@@ -26335,6 +29387,7 @@ export namespace Prisma {
     factures?: FactureUncheckedUpdateManyWithoutPatientNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutPatientNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutPatientNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutPatientNestedInput
   }
 
   export type UtilisateurUpsertWithoutConsultationsInput = {
@@ -26568,6 +29621,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutFacturesInput = {
@@ -26589,6 +29643,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutFacturesInput = {
@@ -26616,6 +29671,7 @@ export namespace Prisma {
     consultations?: ConsultationCreateNestedManyWithoutPatientInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutPatientInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutPatientInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutPatientInput
   }
 
   export type PatientUncheckedCreateWithoutFacturesInput = {
@@ -26638,6 +29694,7 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedCreateNestedManyWithoutPatientInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutPatientInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutPatientInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutPatientInput
   }
 
   export type PatientCreateOrConnectWithoutFacturesInput = {
@@ -26746,6 +29803,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutFacturesInput = {
@@ -26767,6 +29825,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutFacturesInput = {
@@ -26800,6 +29859,7 @@ export namespace Prisma {
     consultations?: ConsultationUpdateManyWithoutPatientNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutPatientNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutPatientNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutPatientNestedInput
   }
 
   export type PatientUncheckedUpdateWithoutFacturesInput = {
@@ -26822,6 +29882,7 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedUpdateManyWithoutPatientNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutPatientNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutPatientNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutPatientNestedInput
   }
 
   export type ConsultationUpsertWithoutFactureInput = {
@@ -27005,6 +30066,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutExamens_laboInput = {
@@ -27026,6 +30088,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutExamens_laboInput = {
@@ -27053,6 +30116,7 @@ export namespace Prisma {
     consultations?: ConsultationCreateNestedManyWithoutPatientInput
     factures?: FactureCreateNestedManyWithoutPatientInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutPatientInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutPatientInput
   }
 
   export type PatientUncheckedCreateWithoutExamens_laboInput = {
@@ -27075,6 +30139,7 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedCreateNestedManyWithoutPatientInput
     factures?: FactureUncheckedCreateNestedManyWithoutPatientInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutPatientInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutPatientInput
   }
 
   export type PatientCreateOrConnectWithoutExamens_laboInput = {
@@ -27151,6 +30216,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutExamens_laboInput = {
@@ -27172,6 +30238,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutExamens_laboInput = {
@@ -27205,6 +30272,7 @@ export namespace Prisma {
     consultations?: ConsultationUpdateManyWithoutPatientNestedInput
     factures?: FactureUpdateManyWithoutPatientNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutPatientNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutPatientNestedInput
   }
 
   export type PatientUncheckedUpdateWithoutExamens_laboInput = {
@@ -27227,6 +30295,7 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedUpdateManyWithoutPatientNestedInput
     factures?: FactureUncheckedUpdateManyWithoutPatientNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutPatientNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutPatientNestedInput
   }
 
   export type UtilisateurUpsertWithoutExamens_labo_prescritsInput = {
@@ -27293,6 +30362,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutExamens_imagerieInput = {
@@ -27314,6 +30384,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutExamens_imagerieInput = {
@@ -27341,6 +30412,7 @@ export namespace Prisma {
     consultations?: ConsultationCreateNestedManyWithoutPatientInput
     factures?: FactureCreateNestedManyWithoutPatientInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutPatientInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutPatientInput
   }
 
   export type PatientUncheckedCreateWithoutExamens_imagerieInput = {
@@ -27363,6 +30435,7 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedCreateNestedManyWithoutPatientInput
     factures?: FactureUncheckedCreateNestedManyWithoutPatientInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutPatientInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutPatientInput
   }
 
   export type PatientCreateOrConnectWithoutExamens_imagerieInput = {
@@ -27439,6 +30512,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutExamens_imagerieInput = {
@@ -27460,6 +30534,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutExamens_imagerieInput = {
@@ -27493,6 +30568,7 @@ export namespace Prisma {
     consultations?: ConsultationUpdateManyWithoutPatientNestedInput
     factures?: FactureUpdateManyWithoutPatientNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutPatientNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutPatientNestedInput
   }
 
   export type PatientUncheckedUpdateWithoutExamens_imagerieInput = {
@@ -27515,6 +30591,7 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedUpdateManyWithoutPatientNestedInput
     factures?: FactureUncheckedUpdateManyWithoutPatientNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutPatientNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutPatientNestedInput
   }
 
   export type UtilisateurUpsertWithoutExamens_imagerie_prescritsInput = {
@@ -27581,6 +30658,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutArticles_stockInput = {
@@ -27602,6 +30680,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutArticles_stockInput = {
@@ -27673,6 +30752,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutArticles_stockInput = {
@@ -27694,6 +30774,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type MouvementStockUpsertWithWhereUniqueWithoutArticleInput = {
@@ -27731,6 +30812,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutMouvements_stockInput = {
@@ -27752,6 +30834,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutMouvements_stockInput = {
@@ -27828,6 +30911,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutMouvements_stockInput = {
@@ -27849,6 +30933,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type ArticleStockUpsertWithoutMouvementsInput = {
@@ -27915,6 +31000,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutEcritures_comptablesInput = {
@@ -27936,6 +31022,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutEcritures_comptablesInput = {
@@ -27973,6 +31060,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutEcritures_comptablesInput = {
@@ -27994,6 +31082,219 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type PatientCreateWithoutQr_tokensInput = {
+    id?: string
+    numero_dossier: string
+    nom: string
+    prenom: string
+    date_naissance?: Date | string | null
+    sexe?: $Enums.Sexe | null
+    telephone?: string | null
+    email?: string | null
+    adresse?: string | null
+    ville?: string | null
+    groupe_sanguin?: string | null
+    allergies?: string | null
+    antecedents?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospitalisations?: PatientHospitalCreateNestedManyWithoutPatientInput
+    consultations?: ConsultationCreateNestedManyWithoutPatientInput
+    factures?: FactureCreateNestedManyWithoutPatientInput
+    examens_labo?: ExamenLaboCreateNestedManyWithoutPatientInput
+    examens_imagerie?: ExamenImagerieCreateNestedManyWithoutPatientInput
+  }
+
+  export type PatientUncheckedCreateWithoutQr_tokensInput = {
+    id?: string
+    numero_dossier: string
+    nom: string
+    prenom: string
+    date_naissance?: Date | string | null
+    sexe?: $Enums.Sexe | null
+    telephone?: string | null
+    email?: string | null
+    adresse?: string | null
+    ville?: string | null
+    groupe_sanguin?: string | null
+    allergies?: string | null
+    antecedents?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospitalisations?: PatientHospitalUncheckedCreateNestedManyWithoutPatientInput
+    consultations?: ConsultationUncheckedCreateNestedManyWithoutPatientInput
+    factures?: FactureUncheckedCreateNestedManyWithoutPatientInput
+    examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutPatientInput
+    examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutPatientInput
+  }
+
+  export type PatientCreateOrConnectWithoutQr_tokensInput = {
+    where: PatientWhereUniqueInput
+    create: XOR<PatientCreateWithoutQr_tokensInput, PatientUncheckedCreateWithoutQr_tokensInput>
+  }
+
+  export type HospitalCreateWithoutQr_tokensInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    factures?: FactureCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalUncheckedCreateWithoutQr_tokensInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalCreateOrConnectWithoutQr_tokensInput = {
+    where: HospitalWhereUniqueInput
+    create: XOR<HospitalCreateWithoutQr_tokensInput, HospitalUncheckedCreateWithoutQr_tokensInput>
+  }
+
+  export type PatientUpsertWithoutQr_tokensInput = {
+    update: XOR<PatientUpdateWithoutQr_tokensInput, PatientUncheckedUpdateWithoutQr_tokensInput>
+    create: XOR<PatientCreateWithoutQr_tokensInput, PatientUncheckedCreateWithoutQr_tokensInput>
+    where?: PatientWhereInput
+  }
+
+  export type PatientUpdateToOneWithWhereWithoutQr_tokensInput = {
+    where?: PatientWhereInput
+    data: XOR<PatientUpdateWithoutQr_tokensInput, PatientUncheckedUpdateWithoutQr_tokensInput>
+  }
+
+  export type PatientUpdateWithoutQr_tokensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero_dossier?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    date_naissance?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sexe?: NullableEnumSexeFieldUpdateOperationsInput | $Enums.Sexe | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    groupe_sanguin?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    antecedents?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospitalisations?: PatientHospitalUpdateManyWithoutPatientNestedInput
+    consultations?: ConsultationUpdateManyWithoutPatientNestedInput
+    factures?: FactureUpdateManyWithoutPatientNestedInput
+    examens_labo?: ExamenLaboUpdateManyWithoutPatientNestedInput
+    examens_imagerie?: ExamenImagerieUpdateManyWithoutPatientNestedInput
+  }
+
+  export type PatientUncheckedUpdateWithoutQr_tokensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero_dossier?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    date_naissance?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sexe?: NullableEnumSexeFieldUpdateOperationsInput | $Enums.Sexe | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    groupe_sanguin?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    antecedents?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospitalisations?: PatientHospitalUncheckedUpdateManyWithoutPatientNestedInput
+    consultations?: ConsultationUncheckedUpdateManyWithoutPatientNestedInput
+    factures?: FactureUncheckedUpdateManyWithoutPatientNestedInput
+    examens_labo?: ExamenLaboUncheckedUpdateManyWithoutPatientNestedInput
+    examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutPatientNestedInput
+  }
+
+  export type HospitalUpsertWithoutQr_tokensInput = {
+    update: XOR<HospitalUpdateWithoutQr_tokensInput, HospitalUncheckedUpdateWithoutQr_tokensInput>
+    create: XOR<HospitalCreateWithoutQr_tokensInput, HospitalUncheckedCreateWithoutQr_tokensInput>
+    where?: HospitalWhereInput
+  }
+
+  export type HospitalUpdateToOneWithWhereWithoutQr_tokensInput = {
+    where?: HospitalWhereInput
+    data: XOR<HospitalUpdateWithoutQr_tokensInput, HospitalUncheckedUpdateWithoutQr_tokensInput>
+  }
+
+  export type HospitalUpdateWithoutQr_tokensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type HospitalUncheckedUpdateWithoutQr_tokensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type UtilisateurCreateManyHospitalInput = {
@@ -28128,6 +31429,16 @@ export namespace Prisma {
     facture_id?: string | null
     utilisateur_id?: string | null
     notes?: string | null
+    created_at?: Date | string
+  }
+
+  export type QrTokenCreateManyHospitalInput = {
+    id?: string
+    patient_id: string
+    token: string
+    expire_le: Date | string
+    cree_par: string
+    est_actif?: boolean
     created_at?: Date | string
   }
 
@@ -28550,6 +31861,36 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type QrTokenUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expire_le?: DateTimeFieldUpdateOperationsInput | Date | string
+    cree_par?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    patient?: PatientUpdateOneRequiredWithoutQr_tokensNestedInput
+  }
+
+  export type QrTokenUncheckedUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expire_le?: DateTimeFieldUpdateOperationsInput | Date | string
+    cree_par?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrTokenUncheckedUpdateManyWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expire_le?: DateTimeFieldUpdateOperationsInput | Date | string
+    cree_par?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ConsultationCreateManyMedecinInput = {
     id?: string
     hospital_id: string
@@ -28841,6 +32182,16 @@ export namespace Prisma {
     updated_at?: Date | string
   }
 
+  export type QrTokenCreateManyPatientInput = {
+    id?: string
+    token: string
+    expire_le: Date | string
+    cree_par: string
+    hospital_id: string
+    est_actif?: boolean
+    created_at?: Date | string
+  }
+
   export type PatientHospitalUpdateWithoutPatientInput = {
     id?: StringFieldUpdateOperationsInput | string
     assurance_nom?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29082,6 +32433,36 @@ export namespace Prisma {
     zone_anatomique?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrTokenUpdateWithoutPatientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expire_le?: DateTimeFieldUpdateOperationsInput | Date | string
+    cree_par?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutQr_tokensNestedInput
+  }
+
+  export type QrTokenUncheckedUpdateWithoutPatientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expire_le?: DateTimeFieldUpdateOperationsInput | Date | string
+    cree_par?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type QrTokenUncheckedUpdateManyWithoutPatientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expire_le?: DateTimeFieldUpdateOperationsInput | Date | string
+    cree_par?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PrescriptionCreateManyConsultationInput = {

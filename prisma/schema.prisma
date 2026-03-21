@@ -138,6 +138,7 @@ model Hospital {
   articles_stock   ArticleStock[]    @relation("HospitalArticlesStock")
   mouvements_stock MouvementStock[]  @relation("HospitalMouvementsStock")
   ecritures_comptables EcritureComptable[] @relation("HospitalEcritures")
+  qr_tokens    QrToken[] @relation("HospitalQrTokens")
 
   @@map("hospitals")
 }
@@ -193,6 +194,7 @@ model Patient {
   factures         Facture[]         @relation("PatientFactures")
   examens_labo     ExamenLabo[]      @relation("PatientExamensLabo")
   examens_imagerie ExamenImagerie[]  @relation("PatientExamensImagerie")
+  qr_tokens    QrToken[] @relation("PatientQrTokens")
 
   @@map("patients")
 }
@@ -444,4 +446,45 @@ model EcritureComptable {
   @@index([type_ecriture])
   @@index([date_ecriture])
   @@map("ecritures_comptables")
+}
+
+
+// ============================================================
+// TABLE : qr_tokens
+// Tokens temporaires pour accès QR Code carnet de santé
+// ============================================================
+model QrToken {
+  id          String   @id @default(uuid())
+  patient_id  String
+  token       String   @unique
+  expire_le   DateTime
+  cree_par    String
+  hospital_id String
+  est_actif   Boolean  @default(true)
+  created_at  DateTime @default(now())
+
+  patient  Patient  @relation("PatientQrTokens", fields: [patient_id], references: [id])
+  hospital Hospital @relation("HospitalQrTokens", fields: [hospital_id], references: [id])
+
+  @@index([token])
+  @@index([patient_id])
+  @@map("qr_tokens")
+}
+
+// ============================================================
+// TABLE : audit_logs_carnet
+// Chaque accès au carnet est tracé — obligation légale
+// ============================================================
+model AuditLogCarnet {
+  id          String   @id @default(uuid())
+  patient_id  String
+  hospital_id String?
+  accessed_by String?
+  ip_address  String?
+  user_agent  String?
+  type_acces  String   @default("QR_CODE")
+  created_at  DateTime @default(now())
+
+  @@index([patient_id])
+  @@map("audit_logs_carnet")
 }
