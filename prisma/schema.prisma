@@ -95,6 +95,25 @@ enum TypeMouvement {
   PEREMPTION
 }
 
+enum TypeEcriture {
+  RECETTE
+  DEPENSE
+  AJUSTEMENT
+}
+
+enum CategorieDepense {
+  SALAIRES
+  MEDICAMENTS
+  EQUIPEMENT
+  LOYER
+  ELECTRICITE
+  EAU
+  TELEPHONE
+  FOURNITURES
+  MAINTENANCE
+  AUTRE
+}
+
 // ============================================================
 // TABLE : hospitals
 // ============================================================
@@ -118,6 +137,7 @@ model Hospital {
   examens_imagerie ExamenImagerie[]  @relation("HospitalExamensImagerie")
   articles_stock   ArticleStock[]    @relation("HospitalArticlesStock")
   mouvements_stock MouvementStock[]  @relation("HospitalMouvementsStock")
+  ecritures_comptables EcritureComptable[] @relation("HospitalEcritures")
 
   @@map("hospitals")
 }
@@ -402,4 +422,26 @@ model MouvementStock {
   @@index([hospital_id])
   @@index([article_id])
   @@map("mouvements_stock")
+}
+
+model EcritureComptable {
+  id              String            @id @default(uuid())
+  hospital_id     String
+  type_ecriture   TypeEcriture
+  categorie       CategorieDepense?
+  libelle         String
+  montant         Float
+  date_ecriture   DateTime          @default(now())
+  reference       String?
+  facture_id      String?
+  utilisateur_id  String?
+  notes           String?
+  created_at      DateTime          @default(now())
+
+  hospital Hospital @relation("HospitalEcritures", fields: [hospital_id], references: [id])
+
+  @@index([hospital_id])
+  @@index([type_ecriture])
+  @@index([date_ecriture])
+  @@map("ecritures_comptables")
 }

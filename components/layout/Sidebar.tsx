@@ -13,6 +13,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Role } from "@/app/generated/prisma/client";
 import { UsersRound } from "lucide-react";
+import { BookOpen } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -103,6 +104,14 @@ const navigation: NavItem[] = [
     roles: ["ADMIN", "SUPER_ADMIN"],
     comingSoon: false,
   },
+
+  {
+  label: "Comptabilité",
+  href: "/dashboard/accounting",
+  icon: BookOpen,
+  roles: ["ADMIN", "COMPTABLE", "SUPER_ADMIN"],
+  comingSoon: false,
+},
 
   {
     label: "Statistiques",

@@ -73,6 +73,11 @@ export type ArticleStock = $Result.DefaultSelection<Prisma.$ArticleStockPayload>
  * 
  */
 export type MouvementStock = $Result.DefaultSelection<Prisma.$MouvementStockPayload>
+/**
+ * Model EcritureComptable
+ * 
+ */
+export type EcritureComptable = $Result.DefaultSelection<Prisma.$EcritureComptablePayload>
 
 /**
  * Enums
@@ -188,6 +193,31 @@ export const TypeMouvement: {
 
 export type TypeMouvement = (typeof TypeMouvement)[keyof typeof TypeMouvement]
 
+
+export const TypeEcriture: {
+  RECETTE: 'RECETTE',
+  DEPENSE: 'DEPENSE',
+  AJUSTEMENT: 'AJUSTEMENT'
+};
+
+export type TypeEcriture = (typeof TypeEcriture)[keyof typeof TypeEcriture]
+
+
+export const CategorieDepense: {
+  SALAIRES: 'SALAIRES',
+  MEDICAMENTS: 'MEDICAMENTS',
+  EQUIPEMENT: 'EQUIPEMENT',
+  LOYER: 'LOYER',
+  ELECTRICITE: 'ELECTRICITE',
+  EAU: 'EAU',
+  TELEPHONE: 'TELEPHONE',
+  FOURNITURES: 'FOURNITURES',
+  MAINTENANCE: 'MAINTENANCE',
+  AUTRE: 'AUTRE'
+};
+
+export type CategorieDepense = (typeof CategorieDepense)[keyof typeof CategorieDepense]
+
 }
 
 export type Role = $Enums.Role
@@ -229,6 +259,14 @@ export const CategorieArticle: typeof $Enums.CategorieArticle
 export type TypeMouvement = $Enums.TypeMouvement
 
 export const TypeMouvement: typeof $Enums.TypeMouvement
+
+export type TypeEcriture = $Enums.TypeEcriture
+
+export const TypeEcriture: typeof $Enums.TypeEcriture
+
+export type CategorieDepense = $Enums.CategorieDepense
+
+export const CategorieDepense: typeof $Enums.CategorieDepense
 
 /**
  * ##  Prisma Client ʲˢ
@@ -470,6 +508,16 @@ export class PrismaClient<
     * ```
     */
   get mouvementStock(): Prisma.MouvementStockDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.ecritureComptable`: Exposes CRUD operations for the **EcritureComptable** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EcritureComptables
+    * const ecritureComptables = await prisma.ecritureComptable.findMany()
+    * ```
+    */
+  get ecritureComptable(): Prisma.EcritureComptableDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -915,7 +963,8 @@ export namespace Prisma {
     ExamenLabo: 'ExamenLabo',
     ExamenImagerie: 'ExamenImagerie',
     ArticleStock: 'ArticleStock',
-    MouvementStock: 'MouvementStock'
+    MouvementStock: 'MouvementStock',
+    EcritureComptable: 'EcritureComptable'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -931,7 +980,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "hospital" | "utilisateur" | "patient" | "patientHospital" | "consultation" | "prescription" | "facture" | "ligneFacture" | "examenLabo" | "examenImagerie" | "articleStock" | "mouvementStock"
+      modelProps: "hospital" | "utilisateur" | "patient" | "patientHospital" | "consultation" | "prescription" | "facture" | "ligneFacture" | "examenLabo" | "examenImagerie" | "articleStock" | "mouvementStock" | "ecritureComptable"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1823,6 +1872,80 @@ export namespace Prisma {
           }
         }
       }
+      EcritureComptable: {
+        payload: Prisma.$EcritureComptablePayload<ExtArgs>
+        fields: Prisma.EcritureComptableFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EcritureComptableFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EcritureComptablePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EcritureComptableFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EcritureComptablePayload>
+          }
+          findFirst: {
+            args: Prisma.EcritureComptableFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EcritureComptablePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EcritureComptableFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EcritureComptablePayload>
+          }
+          findMany: {
+            args: Prisma.EcritureComptableFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EcritureComptablePayload>[]
+          }
+          create: {
+            args: Prisma.EcritureComptableCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EcritureComptablePayload>
+          }
+          createMany: {
+            args: Prisma.EcritureComptableCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EcritureComptableCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EcritureComptablePayload>[]
+          }
+          delete: {
+            args: Prisma.EcritureComptableDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EcritureComptablePayload>
+          }
+          update: {
+            args: Prisma.EcritureComptableUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EcritureComptablePayload>
+          }
+          deleteMany: {
+            args: Prisma.EcritureComptableDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EcritureComptableUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EcritureComptableUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EcritureComptablePayload>[]
+          }
+          upsert: {
+            args: Prisma.EcritureComptableUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EcritureComptablePayload>
+          }
+          aggregate: {
+            args: Prisma.EcritureComptableAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEcritureComptable>
+          }
+          groupBy: {
+            args: Prisma.EcritureComptableGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EcritureComptableGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EcritureComptableCountArgs<ExtArgs>
+            result: $Utils.Optional<EcritureComptableCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1943,6 +2066,7 @@ export namespace Prisma {
     examenImagerie?: ExamenImagerieOmit
     articleStock?: ArticleStockOmit
     mouvementStock?: MouvementStockOmit
+    ecritureComptable?: EcritureComptableOmit
   }
 
   /* Types for Logging */
@@ -2031,6 +2155,7 @@ export namespace Prisma {
     examens_imagerie: number
     articles_stock: number
     mouvements_stock: number
+    ecritures_comptables: number
   }
 
   export type HospitalCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2042,6 +2167,7 @@ export namespace Prisma {
     examens_imagerie?: boolean | HospitalCountOutputTypeCountExamens_imagerieArgs
     articles_stock?: boolean | HospitalCountOutputTypeCountArticles_stockArgs
     mouvements_stock?: boolean | HospitalCountOutputTypeCountMouvements_stockArgs
+    ecritures_comptables?: boolean | HospitalCountOutputTypeCountEcritures_comptablesArgs
   }
 
   // Custom InputTypes
@@ -2109,6 +2235,13 @@ export namespace Prisma {
    */
   export type HospitalCountOutputTypeCountMouvements_stockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MouvementStockWhereInput
+  }
+
+  /**
+   * HospitalCountOutputType without action
+   */
+  export type HospitalCountOutputTypeCountEcritures_comptablesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EcritureComptableWhereInput
   }
 
 
@@ -2537,6 +2670,7 @@ export namespace Prisma {
     examens_imagerie?: boolean | Hospital$examens_imagerieArgs<ExtArgs>
     articles_stock?: boolean | Hospital$articles_stockArgs<ExtArgs>
     mouvements_stock?: boolean | Hospital$mouvements_stockArgs<ExtArgs>
+    ecritures_comptables?: boolean | Hospital$ecritures_comptablesArgs<ExtArgs>
     _count?: boolean | HospitalCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["hospital"]>
 
@@ -2589,6 +2723,7 @@ export namespace Prisma {
     examens_imagerie?: boolean | Hospital$examens_imagerieArgs<ExtArgs>
     articles_stock?: boolean | Hospital$articles_stockArgs<ExtArgs>
     mouvements_stock?: boolean | Hospital$mouvements_stockArgs<ExtArgs>
+    ecritures_comptables?: boolean | Hospital$ecritures_comptablesArgs<ExtArgs>
     _count?: boolean | HospitalCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type HospitalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2605,6 +2740,7 @@ export namespace Prisma {
       examens_imagerie: Prisma.$ExamenImageriePayload<ExtArgs>[]
       articles_stock: Prisma.$ArticleStockPayload<ExtArgs>[]
       mouvements_stock: Prisma.$MouvementStockPayload<ExtArgs>[]
+      ecritures_comptables: Prisma.$EcritureComptablePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3019,6 +3155,7 @@ export namespace Prisma {
     examens_imagerie<T extends Hospital$examens_imagerieArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$examens_imagerieArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenImageriePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     articles_stock<T extends Hospital$articles_stockArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$articles_stockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     mouvements_stock<T extends Hospital$mouvements_stockArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$mouvements_stockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MouvementStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    ecritures_comptables<T extends Hospital$ecritures_comptablesArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$ecritures_comptablesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EcritureComptablePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3640,6 +3777,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MouvementStockScalarFieldEnum | MouvementStockScalarFieldEnum[]
+  }
+
+  /**
+   * Hospital.ecritures_comptables
+   */
+  export type Hospital$ecritures_comptablesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EcritureComptable
+     */
+    select?: EcritureComptableSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EcritureComptable
+     */
+    omit?: EcritureComptableOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EcritureComptableInclude<ExtArgs> | null
+    where?: EcritureComptableWhereInput
+    orderBy?: EcritureComptableOrderByWithRelationInput | EcritureComptableOrderByWithRelationInput[]
+    cursor?: EcritureComptableWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EcritureComptableScalarFieldEnum | EcritureComptableScalarFieldEnum[]
   }
 
   /**
@@ -17061,6 +17222,1194 @@ export namespace Prisma {
 
 
   /**
+   * Model EcritureComptable
+   */
+
+  export type AggregateEcritureComptable = {
+    _count: EcritureComptableCountAggregateOutputType | null
+    _avg: EcritureComptableAvgAggregateOutputType | null
+    _sum: EcritureComptableSumAggregateOutputType | null
+    _min: EcritureComptableMinAggregateOutputType | null
+    _max: EcritureComptableMaxAggregateOutputType | null
+  }
+
+  export type EcritureComptableAvgAggregateOutputType = {
+    montant: number | null
+  }
+
+  export type EcritureComptableSumAggregateOutputType = {
+    montant: number | null
+  }
+
+  export type EcritureComptableMinAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    type_ecriture: $Enums.TypeEcriture | null
+    categorie: $Enums.CategorieDepense | null
+    libelle: string | null
+    montant: number | null
+    date_ecriture: Date | null
+    reference: string | null
+    facture_id: string | null
+    utilisateur_id: string | null
+    notes: string | null
+    created_at: Date | null
+  }
+
+  export type EcritureComptableMaxAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    type_ecriture: $Enums.TypeEcriture | null
+    categorie: $Enums.CategorieDepense | null
+    libelle: string | null
+    montant: number | null
+    date_ecriture: Date | null
+    reference: string | null
+    facture_id: string | null
+    utilisateur_id: string | null
+    notes: string | null
+    created_at: Date | null
+  }
+
+  export type EcritureComptableCountAggregateOutputType = {
+    id: number
+    hospital_id: number
+    type_ecriture: number
+    categorie: number
+    libelle: number
+    montant: number
+    date_ecriture: number
+    reference: number
+    facture_id: number
+    utilisateur_id: number
+    notes: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type EcritureComptableAvgAggregateInputType = {
+    montant?: true
+  }
+
+  export type EcritureComptableSumAggregateInputType = {
+    montant?: true
+  }
+
+  export type EcritureComptableMinAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    type_ecriture?: true
+    categorie?: true
+    libelle?: true
+    montant?: true
+    date_ecriture?: true
+    reference?: true
+    facture_id?: true
+    utilisateur_id?: true
+    notes?: true
+    created_at?: true
+  }
+
+  export type EcritureComptableMaxAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    type_ecriture?: true
+    categorie?: true
+    libelle?: true
+    montant?: true
+    date_ecriture?: true
+    reference?: true
+    facture_id?: true
+    utilisateur_id?: true
+    notes?: true
+    created_at?: true
+  }
+
+  export type EcritureComptableCountAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    type_ecriture?: true
+    categorie?: true
+    libelle?: true
+    montant?: true
+    date_ecriture?: true
+    reference?: true
+    facture_id?: true
+    utilisateur_id?: true
+    notes?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type EcritureComptableAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EcritureComptable to aggregate.
+     */
+    where?: EcritureComptableWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EcritureComptables to fetch.
+     */
+    orderBy?: EcritureComptableOrderByWithRelationInput | EcritureComptableOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EcritureComptableWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EcritureComptables from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EcritureComptables.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EcritureComptables
+    **/
+    _count?: true | EcritureComptableCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: EcritureComptableAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EcritureComptableSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EcritureComptableMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EcritureComptableMaxAggregateInputType
+  }
+
+  export type GetEcritureComptableAggregateType<T extends EcritureComptableAggregateArgs> = {
+        [P in keyof T & keyof AggregateEcritureComptable]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEcritureComptable[P]>
+      : GetScalarType<T[P], AggregateEcritureComptable[P]>
+  }
+
+
+
+
+  export type EcritureComptableGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EcritureComptableWhereInput
+    orderBy?: EcritureComptableOrderByWithAggregationInput | EcritureComptableOrderByWithAggregationInput[]
+    by: EcritureComptableScalarFieldEnum[] | EcritureComptableScalarFieldEnum
+    having?: EcritureComptableScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EcritureComptableCountAggregateInputType | true
+    _avg?: EcritureComptableAvgAggregateInputType
+    _sum?: EcritureComptableSumAggregateInputType
+    _min?: EcritureComptableMinAggregateInputType
+    _max?: EcritureComptableMaxAggregateInputType
+  }
+
+  export type EcritureComptableGroupByOutputType = {
+    id: string
+    hospital_id: string
+    type_ecriture: $Enums.TypeEcriture
+    categorie: $Enums.CategorieDepense | null
+    libelle: string
+    montant: number
+    date_ecriture: Date
+    reference: string | null
+    facture_id: string | null
+    utilisateur_id: string | null
+    notes: string | null
+    created_at: Date
+    _count: EcritureComptableCountAggregateOutputType | null
+    _avg: EcritureComptableAvgAggregateOutputType | null
+    _sum: EcritureComptableSumAggregateOutputType | null
+    _min: EcritureComptableMinAggregateOutputType | null
+    _max: EcritureComptableMaxAggregateOutputType | null
+  }
+
+  type GetEcritureComptableGroupByPayload<T extends EcritureComptableGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EcritureComptableGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EcritureComptableGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EcritureComptableGroupByOutputType[P]>
+            : GetScalarType<T[P], EcritureComptableGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EcritureComptableSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    type_ecriture?: boolean
+    categorie?: boolean
+    libelle?: boolean
+    montant?: boolean
+    date_ecriture?: boolean
+    reference?: boolean
+    facture_id?: boolean
+    utilisateur_id?: boolean
+    notes?: boolean
+    created_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ecritureComptable"]>
+
+  export type EcritureComptableSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    type_ecriture?: boolean
+    categorie?: boolean
+    libelle?: boolean
+    montant?: boolean
+    date_ecriture?: boolean
+    reference?: boolean
+    facture_id?: boolean
+    utilisateur_id?: boolean
+    notes?: boolean
+    created_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ecritureComptable"]>
+
+  export type EcritureComptableSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    type_ecriture?: boolean
+    categorie?: boolean
+    libelle?: boolean
+    montant?: boolean
+    date_ecriture?: boolean
+    reference?: boolean
+    facture_id?: boolean
+    utilisateur_id?: boolean
+    notes?: boolean
+    created_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ecritureComptable"]>
+
+  export type EcritureComptableSelectScalar = {
+    id?: boolean
+    hospital_id?: boolean
+    type_ecriture?: boolean
+    categorie?: boolean
+    libelle?: boolean
+    montant?: boolean
+    date_ecriture?: boolean
+    reference?: boolean
+    facture_id?: boolean
+    utilisateur_id?: boolean
+    notes?: boolean
+    created_at?: boolean
+  }
+
+  export type EcritureComptableOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "type_ecriture" | "categorie" | "libelle" | "montant" | "date_ecriture" | "reference" | "facture_id" | "utilisateur_id" | "notes" | "created_at", ExtArgs["result"]["ecritureComptable"]>
+  export type EcritureComptableInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
+  export type EcritureComptableIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
+  export type EcritureComptableIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
+
+  export type $EcritureComptablePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EcritureComptable"
+    objects: {
+      hospital: Prisma.$HospitalPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      hospital_id: string
+      type_ecriture: $Enums.TypeEcriture
+      categorie: $Enums.CategorieDepense | null
+      libelle: string
+      montant: number
+      date_ecriture: Date
+      reference: string | null
+      facture_id: string | null
+      utilisateur_id: string | null
+      notes: string | null
+      created_at: Date
+    }, ExtArgs["result"]["ecritureComptable"]>
+    composites: {}
+  }
+
+  type EcritureComptableGetPayload<S extends boolean | null | undefined | EcritureComptableDefaultArgs> = $Result.GetResult<Prisma.$EcritureComptablePayload, S>
+
+  type EcritureComptableCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EcritureComptableFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EcritureComptableCountAggregateInputType | true
+    }
+
+  export interface EcritureComptableDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EcritureComptable'], meta: { name: 'EcritureComptable' } }
+    /**
+     * Find zero or one EcritureComptable that matches the filter.
+     * @param {EcritureComptableFindUniqueArgs} args - Arguments to find a EcritureComptable
+     * @example
+     * // Get one EcritureComptable
+     * const ecritureComptable = await prisma.ecritureComptable.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EcritureComptableFindUniqueArgs>(args: SelectSubset<T, EcritureComptableFindUniqueArgs<ExtArgs>>): Prisma__EcritureComptableClient<$Result.GetResult<Prisma.$EcritureComptablePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EcritureComptable that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EcritureComptableFindUniqueOrThrowArgs} args - Arguments to find a EcritureComptable
+     * @example
+     * // Get one EcritureComptable
+     * const ecritureComptable = await prisma.ecritureComptable.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EcritureComptableFindUniqueOrThrowArgs>(args: SelectSubset<T, EcritureComptableFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EcritureComptableClient<$Result.GetResult<Prisma.$EcritureComptablePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EcritureComptable that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EcritureComptableFindFirstArgs} args - Arguments to find a EcritureComptable
+     * @example
+     * // Get one EcritureComptable
+     * const ecritureComptable = await prisma.ecritureComptable.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EcritureComptableFindFirstArgs>(args?: SelectSubset<T, EcritureComptableFindFirstArgs<ExtArgs>>): Prisma__EcritureComptableClient<$Result.GetResult<Prisma.$EcritureComptablePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EcritureComptable that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EcritureComptableFindFirstOrThrowArgs} args - Arguments to find a EcritureComptable
+     * @example
+     * // Get one EcritureComptable
+     * const ecritureComptable = await prisma.ecritureComptable.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EcritureComptableFindFirstOrThrowArgs>(args?: SelectSubset<T, EcritureComptableFindFirstOrThrowArgs<ExtArgs>>): Prisma__EcritureComptableClient<$Result.GetResult<Prisma.$EcritureComptablePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EcritureComptables that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EcritureComptableFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EcritureComptables
+     * const ecritureComptables = await prisma.ecritureComptable.findMany()
+     * 
+     * // Get first 10 EcritureComptables
+     * const ecritureComptables = await prisma.ecritureComptable.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const ecritureComptableWithIdOnly = await prisma.ecritureComptable.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EcritureComptableFindManyArgs>(args?: SelectSubset<T, EcritureComptableFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EcritureComptablePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EcritureComptable.
+     * @param {EcritureComptableCreateArgs} args - Arguments to create a EcritureComptable.
+     * @example
+     * // Create one EcritureComptable
+     * const EcritureComptable = await prisma.ecritureComptable.create({
+     *   data: {
+     *     // ... data to create a EcritureComptable
+     *   }
+     * })
+     * 
+     */
+    create<T extends EcritureComptableCreateArgs>(args: SelectSubset<T, EcritureComptableCreateArgs<ExtArgs>>): Prisma__EcritureComptableClient<$Result.GetResult<Prisma.$EcritureComptablePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EcritureComptables.
+     * @param {EcritureComptableCreateManyArgs} args - Arguments to create many EcritureComptables.
+     * @example
+     * // Create many EcritureComptables
+     * const ecritureComptable = await prisma.ecritureComptable.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EcritureComptableCreateManyArgs>(args?: SelectSubset<T, EcritureComptableCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EcritureComptables and returns the data saved in the database.
+     * @param {EcritureComptableCreateManyAndReturnArgs} args - Arguments to create many EcritureComptables.
+     * @example
+     * // Create many EcritureComptables
+     * const ecritureComptable = await prisma.ecritureComptable.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EcritureComptables and only return the `id`
+     * const ecritureComptableWithIdOnly = await prisma.ecritureComptable.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EcritureComptableCreateManyAndReturnArgs>(args?: SelectSubset<T, EcritureComptableCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EcritureComptablePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EcritureComptable.
+     * @param {EcritureComptableDeleteArgs} args - Arguments to delete one EcritureComptable.
+     * @example
+     * // Delete one EcritureComptable
+     * const EcritureComptable = await prisma.ecritureComptable.delete({
+     *   where: {
+     *     // ... filter to delete one EcritureComptable
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EcritureComptableDeleteArgs>(args: SelectSubset<T, EcritureComptableDeleteArgs<ExtArgs>>): Prisma__EcritureComptableClient<$Result.GetResult<Prisma.$EcritureComptablePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EcritureComptable.
+     * @param {EcritureComptableUpdateArgs} args - Arguments to update one EcritureComptable.
+     * @example
+     * // Update one EcritureComptable
+     * const ecritureComptable = await prisma.ecritureComptable.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EcritureComptableUpdateArgs>(args: SelectSubset<T, EcritureComptableUpdateArgs<ExtArgs>>): Prisma__EcritureComptableClient<$Result.GetResult<Prisma.$EcritureComptablePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EcritureComptables.
+     * @param {EcritureComptableDeleteManyArgs} args - Arguments to filter EcritureComptables to delete.
+     * @example
+     * // Delete a few EcritureComptables
+     * const { count } = await prisma.ecritureComptable.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EcritureComptableDeleteManyArgs>(args?: SelectSubset<T, EcritureComptableDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EcritureComptables.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EcritureComptableUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EcritureComptables
+     * const ecritureComptable = await prisma.ecritureComptable.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EcritureComptableUpdateManyArgs>(args: SelectSubset<T, EcritureComptableUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EcritureComptables and returns the data updated in the database.
+     * @param {EcritureComptableUpdateManyAndReturnArgs} args - Arguments to update many EcritureComptables.
+     * @example
+     * // Update many EcritureComptables
+     * const ecritureComptable = await prisma.ecritureComptable.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EcritureComptables and only return the `id`
+     * const ecritureComptableWithIdOnly = await prisma.ecritureComptable.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EcritureComptableUpdateManyAndReturnArgs>(args: SelectSubset<T, EcritureComptableUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EcritureComptablePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EcritureComptable.
+     * @param {EcritureComptableUpsertArgs} args - Arguments to update or create a EcritureComptable.
+     * @example
+     * // Update or create a EcritureComptable
+     * const ecritureComptable = await prisma.ecritureComptable.upsert({
+     *   create: {
+     *     // ... data to create a EcritureComptable
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EcritureComptable we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EcritureComptableUpsertArgs>(args: SelectSubset<T, EcritureComptableUpsertArgs<ExtArgs>>): Prisma__EcritureComptableClient<$Result.GetResult<Prisma.$EcritureComptablePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EcritureComptables.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EcritureComptableCountArgs} args - Arguments to filter EcritureComptables to count.
+     * @example
+     * // Count the number of EcritureComptables
+     * const count = await prisma.ecritureComptable.count({
+     *   where: {
+     *     // ... the filter for the EcritureComptables we want to count
+     *   }
+     * })
+    **/
+    count<T extends EcritureComptableCountArgs>(
+      args?: Subset<T, EcritureComptableCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EcritureComptableCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EcritureComptable.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EcritureComptableAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EcritureComptableAggregateArgs>(args: Subset<T, EcritureComptableAggregateArgs>): Prisma.PrismaPromise<GetEcritureComptableAggregateType<T>>
+
+    /**
+     * Group by EcritureComptable.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EcritureComptableGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EcritureComptableGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EcritureComptableGroupByArgs['orderBy'] }
+        : { orderBy?: EcritureComptableGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EcritureComptableGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEcritureComptableGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EcritureComptable model
+   */
+  readonly fields: EcritureComptableFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EcritureComptable.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EcritureComptableClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EcritureComptable model
+   */
+  interface EcritureComptableFieldRefs {
+    readonly id: FieldRef<"EcritureComptable", 'String'>
+    readonly hospital_id: FieldRef<"EcritureComptable", 'String'>
+    readonly type_ecriture: FieldRef<"EcritureComptable", 'TypeEcriture'>
+    readonly categorie: FieldRef<"EcritureComptable", 'CategorieDepense'>
+    readonly libelle: FieldRef<"EcritureComptable", 'String'>
+    readonly montant: FieldRef<"EcritureComptable", 'Float'>
+    readonly date_ecriture: FieldRef<"EcritureComptable", 'DateTime'>
+    readonly reference: FieldRef<"EcritureComptable", 'String'>
+    readonly facture_id: FieldRef<"EcritureComptable", 'String'>
+    readonly utilisateur_id: FieldRef<"EcritureComptable", 'String'>
+    readonly notes: FieldRef<"EcritureComptable", 'String'>
+    readonly created_at: FieldRef<"EcritureComptable", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EcritureComptable findUnique
+   */
+  export type EcritureComptableFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EcritureComptable
+     */
+    select?: EcritureComptableSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EcritureComptable
+     */
+    omit?: EcritureComptableOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EcritureComptableInclude<ExtArgs> | null
+    /**
+     * Filter, which EcritureComptable to fetch.
+     */
+    where: EcritureComptableWhereUniqueInput
+  }
+
+  /**
+   * EcritureComptable findUniqueOrThrow
+   */
+  export type EcritureComptableFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EcritureComptable
+     */
+    select?: EcritureComptableSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EcritureComptable
+     */
+    omit?: EcritureComptableOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EcritureComptableInclude<ExtArgs> | null
+    /**
+     * Filter, which EcritureComptable to fetch.
+     */
+    where: EcritureComptableWhereUniqueInput
+  }
+
+  /**
+   * EcritureComptable findFirst
+   */
+  export type EcritureComptableFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EcritureComptable
+     */
+    select?: EcritureComptableSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EcritureComptable
+     */
+    omit?: EcritureComptableOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EcritureComptableInclude<ExtArgs> | null
+    /**
+     * Filter, which EcritureComptable to fetch.
+     */
+    where?: EcritureComptableWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EcritureComptables to fetch.
+     */
+    orderBy?: EcritureComptableOrderByWithRelationInput | EcritureComptableOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EcritureComptables.
+     */
+    cursor?: EcritureComptableWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EcritureComptables from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EcritureComptables.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EcritureComptables.
+     */
+    distinct?: EcritureComptableScalarFieldEnum | EcritureComptableScalarFieldEnum[]
+  }
+
+  /**
+   * EcritureComptable findFirstOrThrow
+   */
+  export type EcritureComptableFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EcritureComptable
+     */
+    select?: EcritureComptableSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EcritureComptable
+     */
+    omit?: EcritureComptableOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EcritureComptableInclude<ExtArgs> | null
+    /**
+     * Filter, which EcritureComptable to fetch.
+     */
+    where?: EcritureComptableWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EcritureComptables to fetch.
+     */
+    orderBy?: EcritureComptableOrderByWithRelationInput | EcritureComptableOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EcritureComptables.
+     */
+    cursor?: EcritureComptableWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EcritureComptables from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EcritureComptables.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EcritureComptables.
+     */
+    distinct?: EcritureComptableScalarFieldEnum | EcritureComptableScalarFieldEnum[]
+  }
+
+  /**
+   * EcritureComptable findMany
+   */
+  export type EcritureComptableFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EcritureComptable
+     */
+    select?: EcritureComptableSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EcritureComptable
+     */
+    omit?: EcritureComptableOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EcritureComptableInclude<ExtArgs> | null
+    /**
+     * Filter, which EcritureComptables to fetch.
+     */
+    where?: EcritureComptableWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EcritureComptables to fetch.
+     */
+    orderBy?: EcritureComptableOrderByWithRelationInput | EcritureComptableOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EcritureComptables.
+     */
+    cursor?: EcritureComptableWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EcritureComptables from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EcritureComptables.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EcritureComptables.
+     */
+    distinct?: EcritureComptableScalarFieldEnum | EcritureComptableScalarFieldEnum[]
+  }
+
+  /**
+   * EcritureComptable create
+   */
+  export type EcritureComptableCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EcritureComptable
+     */
+    select?: EcritureComptableSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EcritureComptable
+     */
+    omit?: EcritureComptableOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EcritureComptableInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EcritureComptable.
+     */
+    data: XOR<EcritureComptableCreateInput, EcritureComptableUncheckedCreateInput>
+  }
+
+  /**
+   * EcritureComptable createMany
+   */
+  export type EcritureComptableCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EcritureComptables.
+     */
+    data: EcritureComptableCreateManyInput | EcritureComptableCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EcritureComptable createManyAndReturn
+   */
+  export type EcritureComptableCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EcritureComptable
+     */
+    select?: EcritureComptableSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EcritureComptable
+     */
+    omit?: EcritureComptableOmit<ExtArgs> | null
+    /**
+     * The data used to create many EcritureComptables.
+     */
+    data: EcritureComptableCreateManyInput | EcritureComptableCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EcritureComptableIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EcritureComptable update
+   */
+  export type EcritureComptableUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EcritureComptable
+     */
+    select?: EcritureComptableSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EcritureComptable
+     */
+    omit?: EcritureComptableOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EcritureComptableInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EcritureComptable.
+     */
+    data: XOR<EcritureComptableUpdateInput, EcritureComptableUncheckedUpdateInput>
+    /**
+     * Choose, which EcritureComptable to update.
+     */
+    where: EcritureComptableWhereUniqueInput
+  }
+
+  /**
+   * EcritureComptable updateMany
+   */
+  export type EcritureComptableUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EcritureComptables.
+     */
+    data: XOR<EcritureComptableUpdateManyMutationInput, EcritureComptableUncheckedUpdateManyInput>
+    /**
+     * Filter which EcritureComptables to update
+     */
+    where?: EcritureComptableWhereInput
+    /**
+     * Limit how many EcritureComptables to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EcritureComptable updateManyAndReturn
+   */
+  export type EcritureComptableUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EcritureComptable
+     */
+    select?: EcritureComptableSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EcritureComptable
+     */
+    omit?: EcritureComptableOmit<ExtArgs> | null
+    /**
+     * The data used to update EcritureComptables.
+     */
+    data: XOR<EcritureComptableUpdateManyMutationInput, EcritureComptableUncheckedUpdateManyInput>
+    /**
+     * Filter which EcritureComptables to update
+     */
+    where?: EcritureComptableWhereInput
+    /**
+     * Limit how many EcritureComptables to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EcritureComptableIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EcritureComptable upsert
+   */
+  export type EcritureComptableUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EcritureComptable
+     */
+    select?: EcritureComptableSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EcritureComptable
+     */
+    omit?: EcritureComptableOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EcritureComptableInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EcritureComptable to update in case it exists.
+     */
+    where: EcritureComptableWhereUniqueInput
+    /**
+     * In case the EcritureComptable found by the `where` argument doesn't exist, create a new EcritureComptable with this data.
+     */
+    create: XOR<EcritureComptableCreateInput, EcritureComptableUncheckedCreateInput>
+    /**
+     * In case the EcritureComptable was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EcritureComptableUpdateInput, EcritureComptableUncheckedUpdateInput>
+  }
+
+  /**
+   * EcritureComptable delete
+   */
+  export type EcritureComptableDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EcritureComptable
+     */
+    select?: EcritureComptableSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EcritureComptable
+     */
+    omit?: EcritureComptableOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EcritureComptableInclude<ExtArgs> | null
+    /**
+     * Filter which EcritureComptable to delete.
+     */
+    where: EcritureComptableWhereUniqueInput
+  }
+
+  /**
+   * EcritureComptable deleteMany
+   */
+  export type EcritureComptableDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EcritureComptables to delete
+     */
+    where?: EcritureComptableWhereInput
+    /**
+     * Limit how many EcritureComptables to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EcritureComptable without action
+   */
+  export type EcritureComptableDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EcritureComptable
+     */
+    select?: EcritureComptableSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EcritureComptable
+     */
+    omit?: EcritureComptableOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EcritureComptableInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -17289,6 +18638,24 @@ export namespace Prisma {
   };
 
   export type MouvementStockScalarFieldEnum = (typeof MouvementStockScalarFieldEnum)[keyof typeof MouvementStockScalarFieldEnum]
+
+
+  export const EcritureComptableScalarFieldEnum: {
+    id: 'id',
+    hospital_id: 'hospital_id',
+    type_ecriture: 'type_ecriture',
+    categorie: 'categorie',
+    libelle: 'libelle',
+    montant: 'montant',
+    date_ecriture: 'date_ecriture',
+    reference: 'reference',
+    facture_id: 'facture_id',
+    utilisateur_id: 'utilisateur_id',
+    notes: 'notes',
+    created_at: 'created_at'
+  };
+
+  export type EcritureComptableScalarFieldEnum = (typeof EcritureComptableScalarFieldEnum)[keyof typeof EcritureComptableScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -17521,6 +18888,34 @@ export namespace Prisma {
    */
   export type ListEnumTypeMouvementFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TypeMouvement[]'>
     
+
+
+  /**
+   * Reference to a field of type 'TypeEcriture'
+   */
+  export type EnumTypeEcritureFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TypeEcriture'>
+    
+
+
+  /**
+   * Reference to a field of type 'TypeEcriture[]'
+   */
+  export type ListEnumTypeEcritureFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TypeEcriture[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CategorieDepense'
+   */
+  export type EnumCategorieDepenseFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategorieDepense'>
+    
+
+
+  /**
+   * Reference to a field of type 'CategorieDepense[]'
+   */
+  export type ListEnumCategorieDepenseFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategorieDepense[]'>
+    
   /**
    * Deep Input Types
    */
@@ -17548,6 +18943,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieListRelationFilter
     articles_stock?: ArticleStockListRelationFilter
     mouvements_stock?: MouvementStockListRelationFilter
+    ecritures_comptables?: EcritureComptableListRelationFilter
   }
 
   export type HospitalOrderByWithRelationInput = {
@@ -17569,6 +18965,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieOrderByRelationAggregateInput
     articles_stock?: ArticleStockOrderByRelationAggregateInput
     mouvements_stock?: MouvementStockOrderByRelationAggregateInput
+    ecritures_comptables?: EcritureComptableOrderByRelationAggregateInput
   }
 
   export type HospitalWhereUniqueInput = Prisma.AtLeast<{
@@ -17593,6 +18990,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieListRelationFilter
     articles_stock?: ArticleStockListRelationFilter
     mouvements_stock?: MouvementStockListRelationFilter
+    ecritures_comptables?: EcritureComptableListRelationFilter
   }, "id">
 
   export type HospitalOrderByWithAggregationInput = {
@@ -18708,6 +20106,98 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"MouvementStock"> | Date | string
   }
 
+  export type EcritureComptableWhereInput = {
+    AND?: EcritureComptableWhereInput | EcritureComptableWhereInput[]
+    OR?: EcritureComptableWhereInput[]
+    NOT?: EcritureComptableWhereInput | EcritureComptableWhereInput[]
+    id?: StringFilter<"EcritureComptable"> | string
+    hospital_id?: StringFilter<"EcritureComptable"> | string
+    type_ecriture?: EnumTypeEcritureFilter<"EcritureComptable"> | $Enums.TypeEcriture
+    categorie?: EnumCategorieDepenseNullableFilter<"EcritureComptable"> | $Enums.CategorieDepense | null
+    libelle?: StringFilter<"EcritureComptable"> | string
+    montant?: FloatFilter<"EcritureComptable"> | number
+    date_ecriture?: DateTimeFilter<"EcritureComptable"> | Date | string
+    reference?: StringNullableFilter<"EcritureComptable"> | string | null
+    facture_id?: StringNullableFilter<"EcritureComptable"> | string | null
+    utilisateur_id?: StringNullableFilter<"EcritureComptable"> | string | null
+    notes?: StringNullableFilter<"EcritureComptable"> | string | null
+    created_at?: DateTimeFilter<"EcritureComptable"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+  }
+
+  export type EcritureComptableOrderByWithRelationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    type_ecriture?: SortOrder
+    categorie?: SortOrderInput | SortOrder
+    libelle?: SortOrder
+    montant?: SortOrder
+    date_ecriture?: SortOrder
+    reference?: SortOrderInput | SortOrder
+    facture_id?: SortOrderInput | SortOrder
+    utilisateur_id?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    hospital?: HospitalOrderByWithRelationInput
+  }
+
+  export type EcritureComptableWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: EcritureComptableWhereInput | EcritureComptableWhereInput[]
+    OR?: EcritureComptableWhereInput[]
+    NOT?: EcritureComptableWhereInput | EcritureComptableWhereInput[]
+    hospital_id?: StringFilter<"EcritureComptable"> | string
+    type_ecriture?: EnumTypeEcritureFilter<"EcritureComptable"> | $Enums.TypeEcriture
+    categorie?: EnumCategorieDepenseNullableFilter<"EcritureComptable"> | $Enums.CategorieDepense | null
+    libelle?: StringFilter<"EcritureComptable"> | string
+    montant?: FloatFilter<"EcritureComptable"> | number
+    date_ecriture?: DateTimeFilter<"EcritureComptable"> | Date | string
+    reference?: StringNullableFilter<"EcritureComptable"> | string | null
+    facture_id?: StringNullableFilter<"EcritureComptable"> | string | null
+    utilisateur_id?: StringNullableFilter<"EcritureComptable"> | string | null
+    notes?: StringNullableFilter<"EcritureComptable"> | string | null
+    created_at?: DateTimeFilter<"EcritureComptable"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+  }, "id">
+
+  export type EcritureComptableOrderByWithAggregationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    type_ecriture?: SortOrder
+    categorie?: SortOrderInput | SortOrder
+    libelle?: SortOrder
+    montant?: SortOrder
+    date_ecriture?: SortOrder
+    reference?: SortOrderInput | SortOrder
+    facture_id?: SortOrderInput | SortOrder
+    utilisateur_id?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    _count?: EcritureComptableCountOrderByAggregateInput
+    _avg?: EcritureComptableAvgOrderByAggregateInput
+    _max?: EcritureComptableMaxOrderByAggregateInput
+    _min?: EcritureComptableMinOrderByAggregateInput
+    _sum?: EcritureComptableSumOrderByAggregateInput
+  }
+
+  export type EcritureComptableScalarWhereWithAggregatesInput = {
+    AND?: EcritureComptableScalarWhereWithAggregatesInput | EcritureComptableScalarWhereWithAggregatesInput[]
+    OR?: EcritureComptableScalarWhereWithAggregatesInput[]
+    NOT?: EcritureComptableScalarWhereWithAggregatesInput | EcritureComptableScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EcritureComptable"> | string
+    hospital_id?: StringWithAggregatesFilter<"EcritureComptable"> | string
+    type_ecriture?: EnumTypeEcritureWithAggregatesFilter<"EcritureComptable"> | $Enums.TypeEcriture
+    categorie?: EnumCategorieDepenseNullableWithAggregatesFilter<"EcritureComptable"> | $Enums.CategorieDepense | null
+    libelle?: StringWithAggregatesFilter<"EcritureComptable"> | string
+    montant?: FloatWithAggregatesFilter<"EcritureComptable"> | number
+    date_ecriture?: DateTimeWithAggregatesFilter<"EcritureComptable"> | Date | string
+    reference?: StringNullableWithAggregatesFilter<"EcritureComptable"> | string | null
+    facture_id?: StringNullableWithAggregatesFilter<"EcritureComptable"> | string | null
+    utilisateur_id?: StringNullableWithAggregatesFilter<"EcritureComptable"> | string | null
+    notes?: StringNullableWithAggregatesFilter<"EcritureComptable"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"EcritureComptable"> | Date | string
+  }
+
   export type HospitalCreateInput = {
     id?: string
     nom: string
@@ -18727,6 +20217,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateInput = {
@@ -18748,6 +20239,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUpdateInput = {
@@ -18769,6 +20261,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateInput = {
@@ -18790,6 +20283,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalCreateManyInput = {
@@ -20035,6 +21529,110 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type EcritureComptableCreateInput = {
+    id?: string
+    type_ecriture: $Enums.TypeEcriture
+    categorie?: $Enums.CategorieDepense | null
+    libelle: string
+    montant: number
+    date_ecriture?: Date | string
+    reference?: string | null
+    facture_id?: string | null
+    utilisateur_id?: string | null
+    notes?: string | null
+    created_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutEcritures_comptablesInput
+  }
+
+  export type EcritureComptableUncheckedCreateInput = {
+    id?: string
+    hospital_id: string
+    type_ecriture: $Enums.TypeEcriture
+    categorie?: $Enums.CategorieDepense | null
+    libelle: string
+    montant: number
+    date_ecriture?: Date | string
+    reference?: string | null
+    facture_id?: string | null
+    utilisateur_id?: string | null
+    notes?: string | null
+    created_at?: Date | string
+  }
+
+  export type EcritureComptableUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type_ecriture?: EnumTypeEcritureFieldUpdateOperationsInput | $Enums.TypeEcriture
+    categorie?: NullableEnumCategorieDepenseFieldUpdateOperationsInput | $Enums.CategorieDepense | null
+    libelle?: StringFieldUpdateOperationsInput | string
+    montant?: FloatFieldUpdateOperationsInput | number
+    date_ecriture?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutEcritures_comptablesNestedInput
+  }
+
+  export type EcritureComptableUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    type_ecriture?: EnumTypeEcritureFieldUpdateOperationsInput | $Enums.TypeEcriture
+    categorie?: NullableEnumCategorieDepenseFieldUpdateOperationsInput | $Enums.CategorieDepense | null
+    libelle?: StringFieldUpdateOperationsInput | string
+    montant?: FloatFieldUpdateOperationsInput | number
+    date_ecriture?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EcritureComptableCreateManyInput = {
+    id?: string
+    hospital_id: string
+    type_ecriture: $Enums.TypeEcriture
+    categorie?: $Enums.CategorieDepense | null
+    libelle: string
+    montant: number
+    date_ecriture?: Date | string
+    reference?: string | null
+    facture_id?: string | null
+    utilisateur_id?: string | null
+    notes?: string | null
+    created_at?: Date | string
+  }
+
+  export type EcritureComptableUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type_ecriture?: EnumTypeEcritureFieldUpdateOperationsInput | $Enums.TypeEcriture
+    categorie?: NullableEnumCategorieDepenseFieldUpdateOperationsInput | $Enums.CategorieDepense | null
+    libelle?: StringFieldUpdateOperationsInput | string
+    montant?: FloatFieldUpdateOperationsInput | number
+    date_ecriture?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EcritureComptableUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    type_ecriture?: EnumTypeEcritureFieldUpdateOperationsInput | $Enums.TypeEcriture
+    categorie?: NullableEnumCategorieDepenseFieldUpdateOperationsInput | $Enums.CategorieDepense | null
+    libelle?: StringFieldUpdateOperationsInput | string
+    montant?: FloatFieldUpdateOperationsInput | number
+    date_ecriture?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -20129,6 +21727,12 @@ export namespace Prisma {
     none?: MouvementStockWhereInput
   }
 
+  export type EcritureComptableListRelationFilter = {
+    every?: EcritureComptableWhereInput
+    some?: EcritureComptableWhereInput
+    none?: EcritureComptableWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -20163,6 +21767,10 @@ export namespace Prisma {
   }
 
   export type MouvementStockOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EcritureComptableOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -21176,6 +22784,93 @@ export namespace Prisma {
     _max?: NestedEnumTypeMouvementFilter<$PrismaModel>
   }
 
+  export type EnumTypeEcritureFilter<$PrismaModel = never> = {
+    equals?: $Enums.TypeEcriture | EnumTypeEcritureFieldRefInput<$PrismaModel>
+    in?: $Enums.TypeEcriture[] | ListEnumTypeEcritureFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TypeEcriture[] | ListEnumTypeEcritureFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeEcritureFilter<$PrismaModel> | $Enums.TypeEcriture
+  }
+
+  export type EnumCategorieDepenseNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.CategorieDepense | EnumCategorieDepenseFieldRefInput<$PrismaModel> | null
+    in?: $Enums.CategorieDepense[] | ListEnumCategorieDepenseFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.CategorieDepense[] | ListEnumCategorieDepenseFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumCategorieDepenseNullableFilter<$PrismaModel> | $Enums.CategorieDepense | null
+  }
+
+  export type EcritureComptableCountOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    type_ecriture?: SortOrder
+    categorie?: SortOrder
+    libelle?: SortOrder
+    montant?: SortOrder
+    date_ecriture?: SortOrder
+    reference?: SortOrder
+    facture_id?: SortOrder
+    utilisateur_id?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type EcritureComptableAvgOrderByAggregateInput = {
+    montant?: SortOrder
+  }
+
+  export type EcritureComptableMaxOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    type_ecriture?: SortOrder
+    categorie?: SortOrder
+    libelle?: SortOrder
+    montant?: SortOrder
+    date_ecriture?: SortOrder
+    reference?: SortOrder
+    facture_id?: SortOrder
+    utilisateur_id?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type EcritureComptableMinOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    type_ecriture?: SortOrder
+    categorie?: SortOrder
+    libelle?: SortOrder
+    montant?: SortOrder
+    date_ecriture?: SortOrder
+    reference?: SortOrder
+    facture_id?: SortOrder
+    utilisateur_id?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type EcritureComptableSumOrderByAggregateInput = {
+    montant?: SortOrder
+  }
+
+  export type EnumTypeEcritureWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TypeEcriture | EnumTypeEcritureFieldRefInput<$PrismaModel>
+    in?: $Enums.TypeEcriture[] | ListEnumTypeEcritureFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TypeEcriture[] | ListEnumTypeEcritureFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeEcritureWithAggregatesFilter<$PrismaModel> | $Enums.TypeEcriture
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTypeEcritureFilter<$PrismaModel>
+    _max?: NestedEnumTypeEcritureFilter<$PrismaModel>
+  }
+
+  export type EnumCategorieDepenseNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CategorieDepense | EnumCategorieDepenseFieldRefInput<$PrismaModel> | null
+    in?: $Enums.CategorieDepense[] | ListEnumCategorieDepenseFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.CategorieDepense[] | ListEnumCategorieDepenseFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumCategorieDepenseNullableWithAggregatesFilter<$PrismaModel> | $Enums.CategorieDepense | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumCategorieDepenseNullableFilter<$PrismaModel>
+    _max?: NestedEnumCategorieDepenseNullableFilter<$PrismaModel>
+  }
+
   export type UtilisateurCreateNestedManyWithoutHospitalInput = {
     create?: XOR<UtilisateurCreateWithoutHospitalInput, UtilisateurUncheckedCreateWithoutHospitalInput> | UtilisateurCreateWithoutHospitalInput[] | UtilisateurUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: UtilisateurCreateOrConnectWithoutHospitalInput | UtilisateurCreateOrConnectWithoutHospitalInput[]
@@ -21232,6 +22927,13 @@ export namespace Prisma {
     connect?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
   }
 
+  export type EcritureComptableCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<EcritureComptableCreateWithoutHospitalInput, EcritureComptableUncheckedCreateWithoutHospitalInput> | EcritureComptableCreateWithoutHospitalInput[] | EcritureComptableUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: EcritureComptableCreateOrConnectWithoutHospitalInput | EcritureComptableCreateOrConnectWithoutHospitalInput[]
+    createMany?: EcritureComptableCreateManyHospitalInputEnvelope
+    connect?: EcritureComptableWhereUniqueInput | EcritureComptableWhereUniqueInput[]
+  }
+
   export type UtilisateurUncheckedCreateNestedManyWithoutHospitalInput = {
     create?: XOR<UtilisateurCreateWithoutHospitalInput, UtilisateurUncheckedCreateWithoutHospitalInput> | UtilisateurCreateWithoutHospitalInput[] | UtilisateurUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: UtilisateurCreateOrConnectWithoutHospitalInput | UtilisateurCreateOrConnectWithoutHospitalInput[]
@@ -21286,6 +22988,13 @@ export namespace Prisma {
     connectOrCreate?: MouvementStockCreateOrConnectWithoutHospitalInput | MouvementStockCreateOrConnectWithoutHospitalInput[]
     createMany?: MouvementStockCreateManyHospitalInputEnvelope
     connect?: MouvementStockWhereUniqueInput | MouvementStockWhereUniqueInput[]
+  }
+
+  export type EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<EcritureComptableCreateWithoutHospitalInput, EcritureComptableUncheckedCreateWithoutHospitalInput> | EcritureComptableCreateWithoutHospitalInput[] | EcritureComptableUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: EcritureComptableCreateOrConnectWithoutHospitalInput | EcritureComptableCreateOrConnectWithoutHospitalInput[]
+    createMany?: EcritureComptableCreateManyHospitalInputEnvelope
+    connect?: EcritureComptableWhereUniqueInput | EcritureComptableWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -21416,6 +23125,20 @@ export namespace Prisma {
     deleteMany?: MouvementStockScalarWhereInput | MouvementStockScalarWhereInput[]
   }
 
+  export type EcritureComptableUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<EcritureComptableCreateWithoutHospitalInput, EcritureComptableUncheckedCreateWithoutHospitalInput> | EcritureComptableCreateWithoutHospitalInput[] | EcritureComptableUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: EcritureComptableCreateOrConnectWithoutHospitalInput | EcritureComptableCreateOrConnectWithoutHospitalInput[]
+    upsert?: EcritureComptableUpsertWithWhereUniqueWithoutHospitalInput | EcritureComptableUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: EcritureComptableCreateManyHospitalInputEnvelope
+    set?: EcritureComptableWhereUniqueInput | EcritureComptableWhereUniqueInput[]
+    disconnect?: EcritureComptableWhereUniqueInput | EcritureComptableWhereUniqueInput[]
+    delete?: EcritureComptableWhereUniqueInput | EcritureComptableWhereUniqueInput[]
+    connect?: EcritureComptableWhereUniqueInput | EcritureComptableWhereUniqueInput[]
+    update?: EcritureComptableUpdateWithWhereUniqueWithoutHospitalInput | EcritureComptableUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: EcritureComptableUpdateManyWithWhereWithoutHospitalInput | EcritureComptableUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: EcritureComptableScalarWhereInput | EcritureComptableScalarWhereInput[]
+  }
+
   export type UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput = {
     create?: XOR<UtilisateurCreateWithoutHospitalInput, UtilisateurUncheckedCreateWithoutHospitalInput> | UtilisateurCreateWithoutHospitalInput[] | UtilisateurUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: UtilisateurCreateOrConnectWithoutHospitalInput | UtilisateurCreateOrConnectWithoutHospitalInput[]
@@ -21526,6 +23249,20 @@ export namespace Prisma {
     update?: MouvementStockUpdateWithWhereUniqueWithoutHospitalInput | MouvementStockUpdateWithWhereUniqueWithoutHospitalInput[]
     updateMany?: MouvementStockUpdateManyWithWhereWithoutHospitalInput | MouvementStockUpdateManyWithWhereWithoutHospitalInput[]
     deleteMany?: MouvementStockScalarWhereInput | MouvementStockScalarWhereInput[]
+  }
+
+  export type EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<EcritureComptableCreateWithoutHospitalInput, EcritureComptableUncheckedCreateWithoutHospitalInput> | EcritureComptableCreateWithoutHospitalInput[] | EcritureComptableUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: EcritureComptableCreateOrConnectWithoutHospitalInput | EcritureComptableCreateOrConnectWithoutHospitalInput[]
+    upsert?: EcritureComptableUpsertWithWhereUniqueWithoutHospitalInput | EcritureComptableUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: EcritureComptableCreateManyHospitalInputEnvelope
+    set?: EcritureComptableWhereUniqueInput | EcritureComptableWhereUniqueInput[]
+    disconnect?: EcritureComptableWhereUniqueInput | EcritureComptableWhereUniqueInput[]
+    delete?: EcritureComptableWhereUniqueInput | EcritureComptableWhereUniqueInput[]
+    connect?: EcritureComptableWhereUniqueInput | EcritureComptableWhereUniqueInput[]
+    update?: EcritureComptableUpdateWithWhereUniqueWithoutHospitalInput | EcritureComptableUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: EcritureComptableUpdateManyWithWhereWithoutHospitalInput | EcritureComptableUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: EcritureComptableScalarWhereInput | EcritureComptableScalarWhereInput[]
   }
 
   export type HospitalCreateNestedOneWithoutUtilisateursInput = {
@@ -22372,6 +24109,28 @@ export namespace Prisma {
     update?: XOR<XOR<ArticleStockUpdateToOneWithWhereWithoutMouvementsInput, ArticleStockUpdateWithoutMouvementsInput>, ArticleStockUncheckedUpdateWithoutMouvementsInput>
   }
 
+  export type HospitalCreateNestedOneWithoutEcritures_comptablesInput = {
+    create?: XOR<HospitalCreateWithoutEcritures_comptablesInput, HospitalUncheckedCreateWithoutEcritures_comptablesInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutEcritures_comptablesInput
+    connect?: HospitalWhereUniqueInput
+  }
+
+  export type EnumTypeEcritureFieldUpdateOperationsInput = {
+    set?: $Enums.TypeEcriture
+  }
+
+  export type NullableEnumCategorieDepenseFieldUpdateOperationsInput = {
+    set?: $Enums.CategorieDepense | null
+  }
+
+  export type HospitalUpdateOneRequiredWithoutEcritures_comptablesNestedInput = {
+    create?: XOR<HospitalCreateWithoutEcritures_comptablesInput, HospitalUncheckedCreateWithoutEcritures_comptablesInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutEcritures_comptablesInput
+    upsert?: HospitalUpsertWithoutEcritures_comptablesInput
+    connect?: HospitalWhereUniqueInput
+    update?: XOR<XOR<HospitalUpdateToOneWithWhereWithoutEcritures_comptablesInput, HospitalUpdateWithoutEcritures_comptablesInput>, HospitalUncheckedUpdateWithoutEcritures_comptablesInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -22759,6 +24518,40 @@ export namespace Prisma {
     _max?: NestedEnumTypeMouvementFilter<$PrismaModel>
   }
 
+  export type NestedEnumTypeEcritureFilter<$PrismaModel = never> = {
+    equals?: $Enums.TypeEcriture | EnumTypeEcritureFieldRefInput<$PrismaModel>
+    in?: $Enums.TypeEcriture[] | ListEnumTypeEcritureFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TypeEcriture[] | ListEnumTypeEcritureFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeEcritureFilter<$PrismaModel> | $Enums.TypeEcriture
+  }
+
+  export type NestedEnumCategorieDepenseNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.CategorieDepense | EnumCategorieDepenseFieldRefInput<$PrismaModel> | null
+    in?: $Enums.CategorieDepense[] | ListEnumCategorieDepenseFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.CategorieDepense[] | ListEnumCategorieDepenseFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumCategorieDepenseNullableFilter<$PrismaModel> | $Enums.CategorieDepense | null
+  }
+
+  export type NestedEnumTypeEcritureWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TypeEcriture | EnumTypeEcritureFieldRefInput<$PrismaModel>
+    in?: $Enums.TypeEcriture[] | ListEnumTypeEcritureFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TypeEcriture[] | ListEnumTypeEcritureFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeEcritureWithAggregatesFilter<$PrismaModel> | $Enums.TypeEcriture
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTypeEcritureFilter<$PrismaModel>
+    _max?: NestedEnumTypeEcritureFilter<$PrismaModel>
+  }
+
+  export type NestedEnumCategorieDepenseNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CategorieDepense | EnumCategorieDepenseFieldRefInput<$PrismaModel> | null
+    in?: $Enums.CategorieDepense[] | ListEnumCategorieDepenseFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.CategorieDepense[] | ListEnumCategorieDepenseFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumCategorieDepenseNullableWithAggregatesFilter<$PrismaModel> | $Enums.CategorieDepense | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumCategorieDepenseNullableFilter<$PrismaModel>
+    _max?: NestedEnumCategorieDepenseNullableFilter<$PrismaModel>
+  }
+
   export type UtilisateurCreateWithoutHospitalInput = {
     id?: string
     supabase_uid?: string | null
@@ -23095,6 +24888,44 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type EcritureComptableCreateWithoutHospitalInput = {
+    id?: string
+    type_ecriture: $Enums.TypeEcriture
+    categorie?: $Enums.CategorieDepense | null
+    libelle: string
+    montant: number
+    date_ecriture?: Date | string
+    reference?: string | null
+    facture_id?: string | null
+    utilisateur_id?: string | null
+    notes?: string | null
+    created_at?: Date | string
+  }
+
+  export type EcritureComptableUncheckedCreateWithoutHospitalInput = {
+    id?: string
+    type_ecriture: $Enums.TypeEcriture
+    categorie?: $Enums.CategorieDepense | null
+    libelle: string
+    montant: number
+    date_ecriture?: Date | string
+    reference?: string | null
+    facture_id?: string | null
+    utilisateur_id?: string | null
+    notes?: string | null
+    created_at?: Date | string
+  }
+
+  export type EcritureComptableCreateOrConnectWithoutHospitalInput = {
+    where: EcritureComptableWhereUniqueInput
+    create: XOR<EcritureComptableCreateWithoutHospitalInput, EcritureComptableUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type EcritureComptableCreateManyHospitalInputEnvelope = {
+    data: EcritureComptableCreateManyHospitalInput | EcritureComptableCreateManyHospitalInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UtilisateurUpsertWithWhereUniqueWithoutHospitalInput = {
     where: UtilisateurWhereUniqueInput
     update: XOR<UtilisateurUpdateWithoutHospitalInput, UtilisateurUncheckedUpdateWithoutHospitalInput>
@@ -23376,6 +25207,40 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"MouvementStock"> | Date | string
   }
 
+  export type EcritureComptableUpsertWithWhereUniqueWithoutHospitalInput = {
+    where: EcritureComptableWhereUniqueInput
+    update: XOR<EcritureComptableUpdateWithoutHospitalInput, EcritureComptableUncheckedUpdateWithoutHospitalInput>
+    create: XOR<EcritureComptableCreateWithoutHospitalInput, EcritureComptableUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type EcritureComptableUpdateWithWhereUniqueWithoutHospitalInput = {
+    where: EcritureComptableWhereUniqueInput
+    data: XOR<EcritureComptableUpdateWithoutHospitalInput, EcritureComptableUncheckedUpdateWithoutHospitalInput>
+  }
+
+  export type EcritureComptableUpdateManyWithWhereWithoutHospitalInput = {
+    where: EcritureComptableScalarWhereInput
+    data: XOR<EcritureComptableUpdateManyMutationInput, EcritureComptableUncheckedUpdateManyWithoutHospitalInput>
+  }
+
+  export type EcritureComptableScalarWhereInput = {
+    AND?: EcritureComptableScalarWhereInput | EcritureComptableScalarWhereInput[]
+    OR?: EcritureComptableScalarWhereInput[]
+    NOT?: EcritureComptableScalarWhereInput | EcritureComptableScalarWhereInput[]
+    id?: StringFilter<"EcritureComptable"> | string
+    hospital_id?: StringFilter<"EcritureComptable"> | string
+    type_ecriture?: EnumTypeEcritureFilter<"EcritureComptable"> | $Enums.TypeEcriture
+    categorie?: EnumCategorieDepenseNullableFilter<"EcritureComptable"> | $Enums.CategorieDepense | null
+    libelle?: StringFilter<"EcritureComptable"> | string
+    montant?: FloatFilter<"EcritureComptable"> | number
+    date_ecriture?: DateTimeFilter<"EcritureComptable"> | Date | string
+    reference?: StringNullableFilter<"EcritureComptable"> | string | null
+    facture_id?: StringNullableFilter<"EcritureComptable"> | string | null
+    utilisateur_id?: StringNullableFilter<"EcritureComptable"> | string | null
+    notes?: StringNullableFilter<"EcritureComptable"> | string | null
+    created_at?: DateTimeFilter<"EcritureComptable"> | Date | string
+  }
+
   export type HospitalCreateWithoutUtilisateursInput = {
     id?: string
     nom: string
@@ -23394,6 +25259,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutUtilisateursInput = {
@@ -23414,6 +25280,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutUtilisateursInput = {
@@ -23588,6 +25455,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutUtilisateursInput = {
@@ -23608,6 +25476,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type ConsultationUpsertWithWhereUniqueWithoutMedecinInput = {
@@ -24019,6 +25888,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutPatientsInput = {
@@ -24039,6 +25909,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutPatientsInput = {
@@ -24130,6 +26001,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutPatientsInput = {
@@ -24150,6 +26022,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalCreateWithoutConsultationsInput = {
@@ -24170,6 +26043,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutConsultationsInput = {
@@ -24190,6 +26064,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutConsultationsInput = {
@@ -24383,6 +26258,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutConsultationsInput = {
@@ -24403,6 +26279,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutConsultationsInput = {
@@ -24690,6 +26567,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutFacturesInput = {
@@ -24710,6 +26588,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutFacturesInput = {
@@ -24866,6 +26745,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutFacturesInput = {
@@ -24886,6 +26766,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutFacturesInput = {
@@ -25123,6 +27004,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutExamens_laboInput = {
@@ -25143,6 +27025,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutExamens_laboInput = {
@@ -25267,6 +27150,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutExamens_laboInput = {
@@ -25287,6 +27171,7 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutExamens_laboInput = {
@@ -25407,6 +27292,7 @@ export namespace Prisma {
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutExamens_imagerieInput = {
@@ -25427,6 +27313,7 @@ export namespace Prisma {
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutExamens_imagerieInput = {
@@ -25551,6 +27438,7 @@ export namespace Prisma {
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutExamens_imagerieInput = {
@@ -25571,6 +27459,7 @@ export namespace Prisma {
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutExamens_imagerieInput = {
@@ -25691,6 +27580,7 @@ export namespace Prisma {
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutArticles_stockInput = {
@@ -25711,6 +27601,7 @@ export namespace Prisma {
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutArticles_stockInput = {
@@ -25781,6 +27672,7 @@ export namespace Prisma {
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutArticles_stockInput = {
@@ -25801,6 +27693,7 @@ export namespace Prisma {
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type MouvementStockUpsertWithWhereUniqueWithoutArticleInput = {
@@ -25837,6 +27730,7 @@ export namespace Prisma {
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutMouvements_stockInput = {
@@ -25857,6 +27751,7 @@ export namespace Prisma {
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutMouvements_stockInput = {
@@ -25932,6 +27827,7 @@ export namespace Prisma {
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutMouvements_stockInput = {
@@ -25952,6 +27848,7 @@ export namespace Prisma {
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type ArticleStockUpsertWithoutMouvementsInput = {
@@ -25997,6 +27894,106 @@ export namespace Prisma {
     est_actif?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HospitalCreateWithoutEcritures_comptablesInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    factures?: FactureCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalUncheckedCreateWithoutEcritures_comptablesInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalCreateOrConnectWithoutEcritures_comptablesInput = {
+    where: HospitalWhereUniqueInput
+    create: XOR<HospitalCreateWithoutEcritures_comptablesInput, HospitalUncheckedCreateWithoutEcritures_comptablesInput>
+  }
+
+  export type HospitalUpsertWithoutEcritures_comptablesInput = {
+    update: XOR<HospitalUpdateWithoutEcritures_comptablesInput, HospitalUncheckedUpdateWithoutEcritures_comptablesInput>
+    create: XOR<HospitalCreateWithoutEcritures_comptablesInput, HospitalUncheckedCreateWithoutEcritures_comptablesInput>
+    where?: HospitalWhereInput
+  }
+
+  export type HospitalUpdateToOneWithWhereWithoutEcritures_comptablesInput = {
+    where?: HospitalWhereInput
+    data: XOR<HospitalUpdateWithoutEcritures_comptablesInput, HospitalUncheckedUpdateWithoutEcritures_comptablesInput>
+  }
+
+  export type HospitalUpdateWithoutEcritures_comptablesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type HospitalUncheckedUpdateWithoutEcritures_comptablesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type UtilisateurCreateManyHospitalInput = {
@@ -26117,6 +28114,20 @@ export namespace Prisma {
     quantite_apres: number
     motif?: string | null
     utilisateur_id?: string | null
+    created_at?: Date | string
+  }
+
+  export type EcritureComptableCreateManyHospitalInput = {
+    id?: string
+    type_ecriture: $Enums.TypeEcriture
+    categorie?: $Enums.CategorieDepense | null
+    libelle: string
+    montant: number
+    date_ecriture?: Date | string
+    reference?: string | null
+    facture_id?: string | null
+    utilisateur_id?: string | null
+    notes?: string | null
     created_at?: Date | string
   }
 
@@ -26494,6 +28505,48 @@ export namespace Prisma {
     quantite_apres?: IntFieldUpdateOperationsInput | number
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EcritureComptableUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type_ecriture?: EnumTypeEcritureFieldUpdateOperationsInput | $Enums.TypeEcriture
+    categorie?: NullableEnumCategorieDepenseFieldUpdateOperationsInput | $Enums.CategorieDepense | null
+    libelle?: StringFieldUpdateOperationsInput | string
+    montant?: FloatFieldUpdateOperationsInput | number
+    date_ecriture?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EcritureComptableUncheckedUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type_ecriture?: EnumTypeEcritureFieldUpdateOperationsInput | $Enums.TypeEcriture
+    categorie?: NullableEnumCategorieDepenseFieldUpdateOperationsInput | $Enums.CategorieDepense | null
+    libelle?: StringFieldUpdateOperationsInput | string
+    montant?: FloatFieldUpdateOperationsInput | number
+    date_ecriture?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EcritureComptableUncheckedUpdateManyWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type_ecriture?: EnumTypeEcritureFieldUpdateOperationsInput | $Enums.TypeEcriture
+    categorie?: NullableEnumCategorieDepenseFieldUpdateOperationsInput | $Enums.CategorieDepense | null
+    libelle?: StringFieldUpdateOperationsInput | string
+    montant?: FloatFieldUpdateOperationsInput | number
+    date_ecriture?: DateTimeFieldUpdateOperationsInput | Date | string
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
