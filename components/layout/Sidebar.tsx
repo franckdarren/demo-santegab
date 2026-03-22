@@ -122,7 +122,7 @@ const navigation: NavItem[] = [
     comingSoon: false,
   },
   {
-  label: "Audit Trail",
+  label: "Audit",
   href: "/dashboard/audit",
   icon: ClipboardList,
   roles: ["ADMIN", "SUPER_ADMIN"],

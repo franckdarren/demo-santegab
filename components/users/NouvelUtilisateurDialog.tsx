@@ -133,7 +133,7 @@ export function NouvelUtilisateurDialog({
 
   return (
     <Dialog open={open} onOpenChange={close}>
-      <DialogContent className="!max-w-lg w-full p-0 overflow-hidden gap-0">
+      <DialogContent className="max-w-lg! w-full p-0 overflow-hidden gap-0">
         <DialogTitle className="sr-only">Nouvel utilisateur</DialogTitle>
 
         {succes ? (
