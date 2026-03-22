@@ -16,26 +16,26 @@ import { NouvelUtilisateurDialog } from "./NouvelUtilisateurDialog";
 import { ModifierUtilisateurDialog } from "./ModifierUtilisateurDialog";
 
 const ROLE_LABELS: Record<Role, string> = {
-  SUPER_ADMIN: "Super Admin",
-  ADMIN: "Administrateur",
-  MEDECIN: "Médecin",
-  INFIRMIER: "Infirmier(e)",
-  LABORANTIN: "Laborantin",
-  RADIOLOGUE: "Radiologue",
-  PHARMACIEN: "Pharmacien",
-  COMPTABLE: "Comptable",
+  SUPER_ADMIN:   "Super Admin",
+  ADMIN:         "Administrateur",
+  MEDECIN:       "Médecin",
+  INFIRMIER:     "Infirmier(e)",
+  LABORANTIN:    "Laborantin",
+  RADIOLOGUE:    "Radiologue",
+  PHARMACIEN:    "Pharmacien",
+  COMPTABLE:     "Comptable",
   ADMINISTRATIF: "Administratif",
 };
 
 const ROLE_COLORS: Record<Role, string> = {
-  SUPER_ADMIN: "bg-purple-100 text-purple-700",
-  ADMIN: "bg-blue-100 text-blue-700",
-  MEDECIN: "bg-green-100 text-green-700",
-  INFIRMIER: "bg-cyan-100 text-cyan-700",
-  LABORANTIN: "bg-yellow-100 text-yellow-700",
-  RADIOLOGUE: "bg-violet-100 text-violet-700",
-  PHARMACIEN: "bg-pink-100 text-pink-700",
-  COMPTABLE: "bg-orange-100 text-orange-700",
+  SUPER_ADMIN:   "bg-purple-100 text-purple-700",
+  ADMIN:         "bg-blue-100 text-blue-700",
+  MEDECIN:       "bg-green-100 text-green-700",
+  INFIRMIER:     "bg-cyan-100 text-cyan-700",
+  LABORANTIN:    "bg-yellow-100 text-yellow-700",
+  RADIOLOGUE:    "bg-violet-100 text-violet-700",
+  PHARMACIEN:    "bg-pink-100 text-pink-700",
+  COMPTABLE:     "bg-orange-100 text-orange-700",
   ADMINISTRATIF: "bg-gray-100 text-gray-700",
 };
 
@@ -54,18 +54,18 @@ interface UtilisateursListProps {
   utilisateurs: Utilisateur[];
   hospitalId: string;
   utilisateurConnecteId: string;
-  utilisateurConnecteNom: string;
+  utilisateurConnecteNom: string; // ← ajouté pour l'audit
 }
 
 export function UtilisateursList({
   utilisateurs,
   hospitalId,
   utilisateurConnecteId,
-  utilisateurConnecteNom,
+  utilisateurConnecteNom, // ← ajouté
 }: UtilisateursListProps) {
   const [dialogCreer, setDialogCreer] = useState(false);
 
-  const actifs = utilisateurs.filter((u) => u.est_actif);
+  const actifs   = utilisateurs.filter((u) => u.est_actif);
   const inactifs = utilisateurs.filter((u) => !u.est_actif);
 
   return (
@@ -113,7 +113,7 @@ export function UtilisateursList({
             <div className="divide-y divide-gray-100">
               {utilisateurs.map((u) => {
                 const nomComplet = `${u.prenom} ${u.nom}`;
-                const estMoi = u.id === utilisateurConnecteId;
+                const estMoi     = u.id === utilisateurConnecteId;
 
                 return (
                   <div
@@ -188,6 +188,8 @@ export function UtilisateursList({
         open={dialogCreer}
         onOpenChange={setDialogCreer}
         hospitalId={hospitalId}
+        adminId={utilisateurConnecteId}
+        adminNom={utilisateurConnecteNom}
       />
     </div>
   );

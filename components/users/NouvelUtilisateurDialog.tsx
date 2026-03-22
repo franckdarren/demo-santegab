@@ -4,7 +4,7 @@
 
 "use client";
 
-import { useState, useTransition } from "react"; 
+import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -33,6 +33,8 @@ interface NouvelUtilisateurDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   hospitalId: string;
+  adminId: string;  // ← ajouté pour l'audit
+  adminNom: string; // ← ajouté pour l'audit
 }
 
 function FieldError({ message }: { message?: string }) {
@@ -49,6 +51,8 @@ export function NouvelUtilisateurDialog({
   open,
   onOpenChange,
   hospitalId,
+  adminId,  // ← ajouté
+  adminNom, // ← ajouté
 }: NouvelUtilisateurDialogProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -58,10 +62,10 @@ export function NouvelUtilisateurDialog({
   const [role, setRole] = useState<Role>("MEDECIN");
 
   const [formData, setFormData] = useState({
-    nom: "",
-    prenom: "",
-    email: "",
-    telephone: "",
+    nom:          "",
+    prenom:       "",
+    email:        "",
+    telephone:    "",
     mot_de_passe: "",
   });
 
@@ -73,9 +77,9 @@ export function NouvelUtilisateurDialog({
 
   function valider(): boolean {
     const newErrors: Record<string, string> = {};
-    if (!formData.nom.trim()) newErrors.nom = "Le nom est obligatoire";
+    if (!formData.nom.trim())    newErrors.nom    = "Le nom est obligatoire";
     if (!formData.prenom.trim()) newErrors.prenom = "Le prénom est obligatoire";
-    if (!formData.email.trim()) newErrors.email = "L'email est obligatoire";
+    if (!formData.email.trim())  newErrors.email  = "L'email est obligatoire";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Email invalide";
     }
@@ -101,14 +105,20 @@ export function NouvelUtilisateurDialog({
 
     startTransition(async () => {
       try {
-        await creerUtilisateur(hospitalId, {
-          nom: formData.nom,
-          prenom: formData.prenom,
-          email: formData.email,
-          telephone: formData.telephone || undefined,
-          role,
-          mot_de_passe: formData.mot_de_passe,
-        });
+        // ← adminId + adminNom ajoutés
+        await creerUtilisateur(
+          hospitalId,
+          adminId,
+          adminNom,
+          {
+            nom:          formData.nom,
+            prenom:       formData.prenom,
+            email:        formData.email,
+            telephone:    formData.telephone || undefined,
+            role,
+            mot_de_passe: formData.mot_de_passe,
+          }
+        );
         setSucces(true);
         router.refresh();
         setTimeout(() => close(), 1500);

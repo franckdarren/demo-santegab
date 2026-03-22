@@ -176,7 +176,7 @@ export function ModifierUtilisateurDialog({
       </Button>
 
       <Dialog open={open} onOpenChange={close}>
-        <DialogContent className="!max-w-md w-full p-0 overflow-hidden gap-0">
+        <DialogContent className="max-w-md! w-full p-0 overflow-hidden gap-0">
           <DialogTitle className="sr-only">Modifier l'utilisateur</DialogTitle>
 
           {succes ? (
