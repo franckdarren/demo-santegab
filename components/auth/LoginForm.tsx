@@ -141,6 +141,13 @@ export function LoginForm() {
               {[
                 { email: "admin@elrapha.ga", role: "Administrateur" },
                 { email: "p.nguema@elrapha.ga", role: "Médecin" },
+                { email: "jp.obame@elrapha.ga", role: "Infirmier" },
+                { email: "c.ella@elrapha.ga", role: "Comptable" },
+                { email: "b.bourobou@elrapha.ga", role: "Laborantin" },
+                { email: "f.moussavou@elrapha.ga", role: "Pharmacien" },
+
+
+
               ].map((compte) => (
                 <button
                   key={compte.email}
