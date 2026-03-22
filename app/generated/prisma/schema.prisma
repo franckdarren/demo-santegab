@@ -114,6 +114,32 @@ enum CategorieDepense {
   AUTRE
 }
 
+enum TypeAction {
+  CREATION
+  MODIFICATION
+  SUPPRESSION
+  CONSULTATION
+  CONNEXION
+  DECONNEXION
+  EXPORT
+  QR_CODE_GENERATION
+  QR_CODE_ACCES
+}
+
+enum ModuleAction {
+  PATIENT
+  CONSULTATION
+  LABORATOIRE
+  IMAGERIE
+  PHARMACIE
+  STOCK
+  FACTURATION
+  COMPTABILITE
+  UTILISATEUR
+  CARNET_SANTE
+  AUTHENTIFICATION
+}
+
 // ============================================================
 // TABLE : hospitals
 // ============================================================
@@ -139,6 +165,7 @@ model Hospital {
   mouvements_stock     MouvementStock[]    @relation("HospitalMouvementsStock")
   ecritures_comptables EcritureComptable[] @relation("HospitalEcritures")
   qr_tokens            QrToken[]           @relation("HospitalQrTokens")
+  prismaaudit_trail    AuditTrail[]        @relation("HospitalAuditTrail")
 
   @@map("hospitals")
 }
@@ -486,4 +513,29 @@ model AuditLogCarnet {
 
   @@index([patient_id])
   @@map("audit_logs_carnet")
+}
+
+model AuditTrail {
+  id              String       @id @default(uuid())
+  hospital_id     String
+  utilisateur_id  String?
+  utilisateur_nom String?
+  type_action     TypeAction
+  module          ModuleAction
+  description     String
+  entite_id       String?
+  entite_nom      String?
+  ip_address      String?
+  user_agent      String?
+  metadonnees     Json?
+  created_at      DateTime     @default(now())
+
+  hospital Hospital @relation("HospitalAuditTrail", fields: [hospital_id], references: [id])
+
+  @@index([hospital_id])
+  @@index([utilisateur_id])
+  @@index([type_action])
+  @@index([module])
+  @@index([created_at])
+  @@map("audit_trail")
 }

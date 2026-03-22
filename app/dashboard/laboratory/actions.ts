@@ -8,6 +8,7 @@
 import { prisma } from "@/lib/prisma";
 import { createClient } from "@/lib/supabase/server";
 import { TypeExamenLabo, StatutExamen } from "@/app/generated/prisma/client";
+import { enregistrerAudit } from "@/lib/audit";
 
 // ============================================================
 // Liste des examens labo de l'hôpital
@@ -38,7 +39,7 @@ export async function getExamensLabo(
       medecin: true,
     },
     orderBy: [
-      { urgence: "desc" },       // Urgents en premier
+      { urgence: "desc" },
       { created_at: "desc" },
     ],
   });
@@ -49,6 +50,8 @@ export async function getExamensLabo(
 // ============================================================
 export async function creerExamenLabo(
   hospitalId: string,
+  utilisateurId: string,
+  utilisateurNom: string,
   data: {
     patient_id: string;
     medecin_id: string;
@@ -57,18 +60,44 @@ export async function creerExamenLabo(
     urgence?: boolean;
   }
 ) {
-  return prisma.examenLabo.create({
+  // Récupère le nom du patient pour l'audit
+  const patientHospital = await prisma.patientHospital.findFirst({
+    where: { hospital_id: hospitalId, patient_id: data.patient_id },
+    include: { patient: true },
+  });
+  const nomPatient = patientHospital
+    ? `${patientHospital.patient.prenom} ${patientHospital.patient.nom}`
+    : "Patient inconnu";
+
+  const examen = await prisma.examenLabo.create({
     data: {
       hospital_id: hospitalId,
-      patient_id: data.patient_id,
-      medecin_id: data.medecin_id,
+      patient_id:  data.patient_id,
+      medecin_id:  data.medecin_id,
       type_examen: data.type_examen,
-      notes: data.notes ?? null,
-      urgence: data.urgence ?? false,
-      statut: "EN_ATTENTE",
+      notes:       data.notes ?? null,
+      urgence:     data.urgence ?? false,
+      statut:      "EN_ATTENTE",
     },
     include: { patient: true, medecin: true },
   });
+
+  await enregistrerAudit({
+    hospitalId,
+    utilisateurId,
+    utilisateurNom,
+    typeAction:  "CREATION",
+    module:      "LABORATOIRE",
+    description: `Demande examen labo — ${data.type_examen} — ${nomPatient}${data.urgence ? " 🔴 URGENT" : ""}`,
+    entiteId:    examen.id,
+    entiteNom:   nomPatient,
+    metadonnees: {
+      type_examen: data.type_examen,
+      urgence:     data.urgence ?? false,
+    },
+  });
+
+  return examen;
 }
 
 // ============================================================
@@ -77,27 +106,45 @@ export async function creerExamenLabo(
 export async function saisirResultatsLabo(
   examenId: string,
   hospitalId: string,
+  utilisateurId: string,
+  utilisateurNom: string,
   data: {
     resultats: string;
     statut?: StatutExamen;
   }
 ) {
-  return prisma.examenLabo.update({
+  const examen = await prisma.examenLabo.update({
     where: { id: examenId, hospital_id: hospitalId },
     data: {
       resultats: data.resultats,
-      statut: data.statut ?? "RESULTAT_SAISI",
+      statut:    data.statut ?? "RESULTAT_SAISI",
     },
+    include: { patient: true },
   });
+
+  await enregistrerAudit({
+    hospitalId,
+    utilisateurId,
+    utilisateurNom,
+    typeAction:  "MODIFICATION",
+    module:      "LABORATOIRE",
+    description: `Saisie résultats labo — ${examen.patient.prenom} ${examen.patient.nom}`,
+    entiteId:    examenId,
+    entiteNom:   `${examen.patient.prenom} ${examen.patient.nom}`,
+    metadonnees: { statut: data.statut ?? "RESULTAT_SAISI" },
+  });
+
+  return examen;
 }
 
 // ============================================================
 // Upload PDF résultats vers Supabase Storage
-// Retourne l'URL publique signée du fichier
 // ============================================================
 export async function uploadResultatPDF(
   examenId: string,
   hospitalId: string,
+  utilisateurId: string,
+  utilisateurNom: string,
   formData: FormData
 ) {
   const file = formData.get("fichier") as File;
@@ -105,31 +152,43 @@ export async function uploadResultatPDF(
 
   const supabase = await createClient();
 
-  // Chemin unique dans le bucket : hospital_id/examen_id/nom_fichier
   const cheminFichier = `${hospitalId}/${examenId}/${Date.now()}_${file.name}`;
 
-  // Upload vers Supabase Storage
-  const { data, error } = await supabase.storage
+  const { error } = await supabase.storage
     .from("resultats-examens")
     .upload(cheminFichier, file, {
       contentType: file.type,
-      upsert: true,
+      upsert:      true,
     });
 
   if (error) throw new Error(`Upload échoué : ${error.message}`);
 
-  // Génère une URL signée valable 1 an (pour la démo)
   const { data: signedUrl } = await supabase.storage
     .from("resultats-examens")
     .createSignedUrl(cheminFichier, 365 * 24 * 60 * 60);
 
-  // Sauvegarde l'URL en base
-  await prisma.examenLabo.update({
+  const examen = await prisma.examenLabo.update({
     where: { id: examenId, hospital_id: hospitalId },
     data: {
       fichier_url: signedUrl?.signedUrl ?? null,
       fichier_nom: file.name,
-      statut: "RESULTAT_SAISI",
+      statut:      "RESULTAT_SAISI",
+    },
+    include: { patient: true },
+  });
+
+  await enregistrerAudit({
+    hospitalId,
+    utilisateurId,
+    utilisateurNom,
+    typeAction:  "MODIFICATION",
+    module:      "LABORATOIRE",
+    description: `Upload PDF résultats labo — ${examen.patient.prenom} ${examen.patient.nom} — ${file.name}`,
+    entiteId:    examenId,
+    entiteNom:   `${examen.patient.prenom} ${examen.patient.nom}`,
+    metadonnees: {
+      fichier_nom:  file.name,
+      fichier_size: file.size,
     },
   });
 
@@ -142,16 +201,32 @@ export async function uploadResultatPDF(
 export async function validerExamenLabo(
   examenId: string,
   hospitalId: string,
-  validateurId: string
+  validateurId: string,
+  validateurNom: string
 ) {
-  return prisma.examenLabo.update({
+  const examen = await prisma.examenLabo.update({
     where: { id: examenId, hospital_id: hospitalId },
     data: {
-      statut: "VALIDE",
+      statut:     "VALIDE",
       valide_par: validateurId,
-      valide_le: new Date(),
+      valide_le:  new Date(),
     },
+    include: { patient: true },
   });
+
+  await enregistrerAudit({
+    hospitalId,
+    utilisateurId:  validateurId,
+    utilisateurNom: validateurNom,
+    typeAction:     "MODIFICATION",
+    module:         "LABORATOIRE",
+    description:    `Validation examen labo — ${examen.patient.prenom} ${examen.patient.nom}`,
+    entiteId:       examenId,
+    entiteNom:      `${examen.patient.prenom} ${examen.patient.nom}`,
+    metadonnees:    { statut: "VALIDE" },
+  });
+
+  return examen;
 }
 
 // ============================================================
@@ -169,7 +244,11 @@ export async function getStatsLabo(hospitalId: string) {
       where: { hospital_id: hospitalId, statut: "VALIDE" },
     }),
     prisma.examenLabo.count({
-      where: { hospital_id: hospitalId, urgence: true, statut: { not: "VALIDE" } },
+      where: {
+        hospital_id: hospitalId,
+        urgence:     true,
+        statut:      { not: "VALIDE" },
+      },
     }),
   ]);
 

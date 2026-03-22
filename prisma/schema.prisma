@@ -114,6 +114,32 @@ enum CategorieDepense {
   AUTRE
 }
 
+enum TypeAction {
+  CREATION
+  MODIFICATION
+  SUPPRESSION
+  CONSULTATION
+  CONNEXION
+  DECONNEXION
+  EXPORT
+  QR_CODE_GENERATION
+  QR_CODE_ACCES
+}
+
+enum ModuleAction {
+  PATIENT
+  CONSULTATION
+  LABORATOIRE
+  IMAGERIE
+  PHARMACIE
+  STOCK
+  FACTURATION
+  COMPTABILITE
+  UTILISATEUR
+  CARNET_SANTE
+  AUTHENTIFICATION
+}
+
 // ============================================================
 // TABLE : hospitals
 // ============================================================
@@ -129,16 +155,17 @@ model Hospital {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  utilisateurs     Utilisateur[]
-  patients         PatientHospital[]
-  consultations    Consultation[]
-  factures         Facture[]
-  examens_labo     ExamenLabo[]      @relation("HospitalExamensLabo")
-  examens_imagerie ExamenImagerie[]  @relation("HospitalExamensImagerie")
-  articles_stock   ArticleStock[]    @relation("HospitalArticlesStock")
-  mouvements_stock MouvementStock[]  @relation("HospitalMouvementsStock")
+  utilisateurs         Utilisateur[]
+  patients             PatientHospital[]
+  consultations        Consultation[]
+  factures             Facture[]
+  examens_labo         ExamenLabo[]        @relation("HospitalExamensLabo")
+  examens_imagerie     ExamenImagerie[]    @relation("HospitalExamensImagerie")
+  articles_stock       ArticleStock[]      @relation("HospitalArticlesStock")
+  mouvements_stock     MouvementStock[]    @relation("HospitalMouvementsStock")
   ecritures_comptables EcritureComptable[] @relation("HospitalEcritures")
-  qr_tokens    QrToken[] @relation("HospitalQrTokens")
+  qr_tokens            QrToken[]           @relation("HospitalQrTokens")
+  prismaaudit_trail    AuditTrail[]        @relation("HospitalAuditTrail")
 
   @@map("hospitals")
 }
@@ -194,7 +221,7 @@ model Patient {
   factures         Facture[]         @relation("PatientFactures")
   examens_labo     ExamenLabo[]      @relation("PatientExamensLabo")
   examens_imagerie ExamenImagerie[]  @relation("PatientExamensImagerie")
-  qr_tokens    QrToken[] @relation("PatientQrTokens")
+  qr_tokens        QrToken[]         @relation("PatientQrTokens")
 
   @@map("patients")
 }
@@ -427,18 +454,18 @@ model MouvementStock {
 }
 
 model EcritureComptable {
-  id              String            @id @default(uuid())
-  hospital_id     String
-  type_ecriture   TypeEcriture
-  categorie       CategorieDepense?
-  libelle         String
-  montant         Float
-  date_ecriture   DateTime          @default(now())
-  reference       String?
-  facture_id      String?
-  utilisateur_id  String?
-  notes           String?
-  created_at      DateTime          @default(now())
+  id             String            @id @default(uuid())
+  hospital_id    String
+  type_ecriture  TypeEcriture
+  categorie      CategorieDepense?
+  libelle        String
+  montant        Float
+  date_ecriture  DateTime          @default(now())
+  reference      String?
+  facture_id     String?
+  utilisateur_id String?
+  notes          String?
+  created_at     DateTime          @default(now())
 
   hospital Hospital @relation("HospitalEcritures", fields: [hospital_id], references: [id])
 
@@ -447,7 +474,6 @@ model EcritureComptable {
   @@index([date_ecriture])
   @@map("ecritures_comptables")
 }
-
 
 // ============================================================
 // TABLE : qr_tokens
@@ -487,4 +513,29 @@ model AuditLogCarnet {
 
   @@index([patient_id])
   @@map("audit_logs_carnet")
+}
+
+model AuditTrail {
+  id              String       @id @default(uuid())
+  hospital_id     String
+  utilisateur_id  String?
+  utilisateur_nom String?
+  type_action     TypeAction
+  module          ModuleAction
+  description     String
+  entite_id       String?
+  entite_nom      String?
+  ip_address      String?
+  user_agent      String?
+  metadonnees     Json?
+  created_at      DateTime     @default(now())
+
+  hospital Hospital @relation("HospitalAuditTrail", fields: [hospital_id], references: [id])
+
+  @@index([hospital_id])
+  @@index([utilisateur_id])
+  @@index([type_action])
+  @@index([module])
+  @@index([created_at])
+  @@map("audit_trail")
 }

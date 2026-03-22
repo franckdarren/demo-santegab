@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { Role } from "@/app/generated/prisma/client";
 import { UsersRound } from "lucide-react";
 import { BookOpen } from "lucide-react";
+import { ClipboardList } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -120,6 +121,13 @@ const navigation: NavItem[] = [
     roles: ["ADMIN", "SUPER_ADMIN"],
     comingSoon: false,
   },
+  {
+  label: "Audit Trail",
+  href: "/dashboard/audit",
+  icon: ClipboardList,
+  roles: ["ADMIN", "SUPER_ADMIN"],
+  comingSoon: false,
+},
 ];
 
 interface AppSidebarProps {

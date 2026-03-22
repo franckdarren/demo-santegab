@@ -35,6 +35,7 @@ export default async function PatientPage({ params }: PatientPageProps) {
         patient={patient}
         hospitalId={utilisateur.hospital_id}
         medecinConnecteId={utilisateur.id}
+        medecinConnecteNom={`${utilisateur.prenom} ${utilisateur.nom}`}
         medecins={medecins}
       />
       <PatientTabs patient={patient} />

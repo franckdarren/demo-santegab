@@ -7,6 +7,7 @@
 import { prisma } from "@/lib/prisma";
 import { createClient } from "@/lib/supabase/server";
 import { TypeExamenImagerie, StatutExamen } from "@/app/generated/prisma/client";
+import { enregistrerAudit } from "@/lib/audit";
 
 export async function getExamensImagerie(
   hospitalId: string,
@@ -40,8 +41,13 @@ export async function getExamensImagerie(
   });
 }
 
+// ============================================================
+// Créer une demande d'examen imagerie
+// ============================================================
 export async function creerExamenImagerie(
   hospitalId: string,
+  utilisateurId: string,
+  utilisateurNom: string,
   data: {
     patient_id: string;
     medecin_id: string;
@@ -51,43 +57,98 @@ export async function creerExamenImagerie(
     urgence?: boolean;
   }
 ) {
-  return prisma.examenImagerie.create({
+  // Récupère le nom du patient pour l'audit
+  const patientHospital = await prisma.patientHospital.findFirst({
+    where: { hospital_id: hospitalId, patient_id: data.patient_id },
+    include: { patient: true },
+  });
+  const nomPatient = patientHospital
+    ? `${patientHospital.patient.prenom} ${patientHospital.patient.nom}`
+    : "Patient inconnu";
+
+  const examen = await prisma.examenImagerie.create({
     data: {
-      hospital_id: hospitalId,
-      patient_id: data.patient_id,
-      medecin_id: data.medecin_id,
-      type_examen: data.type_examen,
+      hospital_id:     hospitalId,
+      patient_id:      data.patient_id,
+      medecin_id:      data.medecin_id,
+      type_examen:     data.type_examen,
       zone_anatomique: data.zone_anatomique ?? null,
-      notes: data.notes ?? null,
-      urgence: data.urgence ?? false,
-      statut: "EN_ATTENTE",
+      notes:           data.notes ?? null,
+      urgence:         data.urgence ?? false,
+      statut:          "EN_ATTENTE",
     },
     include: { patient: true, medecin: true },
   });
+
+  await enregistrerAudit({
+    hospitalId,
+    utilisateurId,
+    utilisateurNom,
+    typeAction:  "CREATION",
+    module:      "IMAGERIE",
+    description: `Demande imagerie — ${data.type_examen}${data.zone_anatomique ? ` (${data.zone_anatomique})` : ""} — ${nomPatient}${data.urgence ? " 🔴 URGENT" : ""}`,
+    entiteId:    examen.id,
+    entiteNom:   nomPatient,
+    metadonnees: {
+      type_examen:     data.type_examen,
+      zone_anatomique: data.zone_anatomique ?? null,
+      urgence:         data.urgence ?? false,
+    },
+  });
+
+  return examen;
 }
 
+// ============================================================
+// Saisir les résultats d'un examen imagerie
+// ============================================================
 export async function saisirResultatsImagerie(
   examenId: string,
   hospitalId: string,
+  utilisateurId: string,
+  utilisateurNom: string,
   data: {
     resultats: string;
     zone_anatomique?: string;
     statut?: StatutExamen;
   }
 ) {
-  return prisma.examenImagerie.update({
+  const examen = await prisma.examenImagerie.update({
     where: { id: examenId, hospital_id: hospitalId },
     data: {
-      resultats: data.resultats,
+      resultats:       data.resultats,
       zone_anatomique: data.zone_anatomique ?? undefined,
-      statut: data.statut ?? "RESULTAT_SAISI",
+      statut:          data.statut ?? "RESULTAT_SAISI",
+    },
+    include: { patient: true },
+  });
+
+  await enregistrerAudit({
+    hospitalId,
+    utilisateurId,
+    utilisateurNom,
+    typeAction:  "MODIFICATION",
+    module:      "IMAGERIE",
+    description: `Saisie résultats imagerie — ${examen.patient.prenom} ${examen.patient.nom}`,
+    entiteId:    examenId,
+    entiteNom:   `${examen.patient.prenom} ${examen.patient.nom}`,
+    metadonnees: {
+      statut:          data.statut ?? "RESULTAT_SAISI",
+      zone_anatomique: data.zone_anatomique ?? null,
     },
   });
+
+  return examen;
 }
 
+// ============================================================
+// Upload fichier résultat imagerie
+// ============================================================
 export async function uploadResultatImagerie(
   examenId: string,
   hospitalId: string,
+  utilisateurId: string,
+  utilisateurNom: string,
   formData: FormData
 ) {
   const file = formData.get("fichier") as File;
@@ -100,7 +161,7 @@ export async function uploadResultatImagerie(
     .from("resultats-examens")
     .upload(cheminFichier, file, {
       contentType: file.type,
-      upsert: true,
+      upsert:      true,
     });
 
   if (error) throw new Error(`Upload échoué : ${error.message}`);
@@ -109,33 +170,71 @@ export async function uploadResultatImagerie(
     .from("resultats-examens")
     .createSignedUrl(cheminFichier, 365 * 24 * 60 * 60);
 
-  await prisma.examenImagerie.update({
+  const examen = await prisma.examenImagerie.update({
     where: { id: examenId, hospital_id: hospitalId },
     data: {
       fichier_url: signedUrl?.signedUrl ?? null,
       fichier_nom: file.name,
-      statut: "RESULTAT_SAISI",
+      statut:      "RESULTAT_SAISI",
+    },
+    include: { patient: true },
+  });
+
+  await enregistrerAudit({
+    hospitalId,
+    utilisateurId,
+    utilisateurNom,
+    typeAction:  "MODIFICATION",
+    module:      "IMAGERIE",
+    description: `Upload fichier imagerie — ${examen.patient.prenom} ${examen.patient.nom} — ${file.name}`,
+    entiteId:    examenId,
+    entiteNom:   `${examen.patient.prenom} ${examen.patient.nom}`,
+    metadonnees: {
+      fichier_nom:  file.name,
+      fichier_size: file.size,
     },
   });
 
   return signedUrl?.signedUrl;
 }
 
+// ============================================================
+// Valider un examen imagerie
+// ============================================================
 export async function validerExamenImagerie(
   examenId: string,
   hospitalId: string,
-  validateurId: string
+  validateurId: string,
+  validateurNom: string
 ) {
-  return prisma.examenImagerie.update({
+  const examen = await prisma.examenImagerie.update({
     where: { id: examenId, hospital_id: hospitalId },
     data: {
-      statut: "VALIDE",
+      statut:     "VALIDE",
       valide_par: validateurId,
-      valide_le: new Date(),
+      valide_le:  new Date(),
     },
+    include: { patient: true },
   });
+
+  await enregistrerAudit({
+    hospitalId,
+    utilisateurId:  validateurId,
+    utilisateurNom: validateurNom,
+    typeAction:     "MODIFICATION",
+    module:         "IMAGERIE",
+    description:    `Validation examen imagerie — ${examen.patient.prenom} ${examen.patient.nom}`,
+    entiteId:       examenId,
+    entiteNom:      `${examen.patient.prenom} ${examen.patient.nom}`,
+    metadonnees:    { statut: "VALIDE" },
+  });
+
+  return examen;
 }
 
+// ============================================================
+// Stats imagerie
+// ============================================================
 export async function getStatsImagerie(hospitalId: string) {
   const [enAttente, enCours, valides, urgents] = await Promise.all([
     prisma.examenImagerie.count({
@@ -150,8 +249,8 @@ export async function getStatsImagerie(hospitalId: string) {
     prisma.examenImagerie.count({
       where: {
         hospital_id: hospitalId,
-        urgence: true,
-        statut: { not: "VALIDE" },
+        urgence:     true,
+        statut:      { not: "VALIDE" },
       },
     }),
   ]);

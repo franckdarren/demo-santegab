@@ -8,6 +8,7 @@ import { prisma } from "@/lib/prisma";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { Role } from "@/app/generated/prisma/client";
+import { enregistrerAudit } from "@/lib/audit";
 
 // ============================================================
 // Créer un utilisateur + compte Supabase Auth
@@ -18,6 +19,8 @@ import { Role } from "@/app/generated/prisma/client";
 // ============================================================
 export async function creerUtilisateur(
   hospitalId: string,
+  adminId: string,
+  adminNom: string,
   data: {
     nom: string;
     prenom: string;
@@ -27,15 +30,13 @@ export async function creerUtilisateur(
     mot_de_passe: string;
   }
 ) {
-  // Client admin — utilise SUPABASE_SERVICE_ROLE_KEY
   const supabaseAdmin = createAdminClient();
 
   // 1. Crée le compte dans Supabase Auth
   const { data: authData, error: authError } =
     await supabaseAdmin.auth.admin.createUser({
-      email: data.email,
-      password: data.mot_de_passe,
-      // Confirme directement — pas d'email de vérification
+      email:         data.email,
+      password:      data.mot_de_passe,
       email_confirm: true,
     });
 
@@ -44,18 +45,35 @@ export async function creerUtilisateur(
   }
 
   // 2. Crée le profil en base de données
-  return prisma.utilisateur.create({
+  const utilisateur = await prisma.utilisateur.create({
     data: {
-      hospital_id: hospitalId,
+      hospital_id:  hospitalId,
       supabase_uid: authData.user?.id ?? null,
-      nom: data.nom.trim().toUpperCase(),
-      prenom: data.prenom.trim(),
-      email: data.email.toLowerCase(),
-      telephone: data.telephone ?? null,
-      role: data.role,
-      est_actif: true,
+      nom:          data.nom.trim().toUpperCase(),
+      prenom:       data.prenom.trim(),
+      email:        data.email.toLowerCase(),
+      telephone:    data.telephone ?? null,
+      role:         data.role,
+      est_actif:    true,
     },
   });
+
+  await enregistrerAudit({
+    hospitalId,
+    utilisateurId:  adminId,
+    utilisateurNom: adminNom,
+    typeAction:     "CREATION",
+    module:         "UTILISATEUR",
+    description:    `Création compte utilisateur — ${data.prenom} ${data.nom} (${data.role})`,
+    entiteId:       utilisateur.id,
+    entiteNom:      `${data.prenom} ${data.nom}`,
+    metadonnees: {
+      role:  data.role,
+      email: data.email,
+    },
+  });
+
+  return utilisateur;
 }
 
 // ============================================================
@@ -64,6 +82,8 @@ export async function creerUtilisateur(
 export async function modifierUtilisateur(
   utilisateurId: string,
   hospitalId: string,
+  adminId: string,
+  adminNom: string,
   data: {
     nom: string;
     prenom: string;
@@ -71,15 +91,32 @@ export async function modifierUtilisateur(
     role: Role;
   }
 ) {
-  return prisma.utilisateur.update({
+  const utilisateur = await prisma.utilisateur.update({
     where: { id: utilisateurId, hospital_id: hospitalId },
     data: {
-      nom: data.nom.trim().toUpperCase(),
-      prenom: data.prenom.trim(),
+      nom:       data.nom.trim().toUpperCase(),
+      prenom:    data.prenom.trim(),
       telephone: data.telephone ?? null,
-      role: data.role,
+      role:      data.role,
     },
   });
+
+  await enregistrerAudit({
+    hospitalId,
+    utilisateurId:  adminId,
+    utilisateurNom: adminNom,
+    typeAction:     "MODIFICATION",
+    module:         "UTILISATEUR",
+    description:    `Modification utilisateur — ${data.prenom} ${data.nom} (rôle : ${data.role})`,
+    entiteId:       utilisateurId,
+    entiteNom:      `${data.prenom} ${data.nom}`,
+    metadonnees: {
+      role:      data.role,
+      telephone: data.telephone ?? null,
+    },
+  });
+
+  return utilisateur;
 }
 
 // ============================================================
@@ -92,11 +129,12 @@ export async function modifierUtilisateur(
 export async function toggleActivationUtilisateur(
   utilisateurId: string,
   hospitalId: string,
-  estActif: boolean
+  estActif: boolean,
+  adminId: string,
+  adminNom: string
 ) {
   const supabaseAdmin = createAdminClient();
 
-  // Récupère le supabase_uid pour agir sur Auth
   const utilisateur = await prisma.utilisateur.findUnique({
     where: { id: utilisateurId },
   });
@@ -112,11 +150,24 @@ export async function toggleActivationUtilisateur(
     );
   }
 
-  // Met à jour le statut en base
-  return prisma.utilisateur.update({
+  const utilisateurMaj = await prisma.utilisateur.update({
     where: { id: utilisateurId, hospital_id: hospitalId },
-    data: { est_actif: estActif },
+    data:  { est_actif: estActif },
   });
+
+  await enregistrerAudit({
+    hospitalId,
+    utilisateurId:  adminId,
+    utilisateurNom: adminNom,
+    typeAction:     "MODIFICATION",
+    module:         "UTILISATEUR",
+    description:    `Compte ${estActif ? "réactivé" : "désactivé"} — ${utilisateur?.prenom} ${utilisateur?.nom}`,
+    entiteId:       utilisateurId,
+    entiteNom:      `${utilisateur?.prenom} ${utilisateur?.nom}`,
+    metadonnees:    { est_actif: estActif },
+  });
+
+  return utilisateurMaj;
 }
 
 // ============================================================
@@ -125,9 +176,12 @@ export async function toggleActivationUtilisateur(
 // Envoie un email de réinitialisation via Supabase Auth.
 // L'utilisateur clique sur le lien et choisit un nouveau mdp.
 // ============================================================
-export async function reinitialiserMotDePasse(email: string) {
-  // Client standard (pas admin) — reset password ne nécessite
-  // pas de droits élevés
+export async function reinitialiserMotDePasse(
+  email: string,
+  adminId: string,
+  adminNom: string,
+  hospitalId: string
+) {
   const supabase = await createClient();
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
@@ -135,4 +189,15 @@ export async function reinitialiserMotDePasse(email: string) {
   });
 
   if (error) throw new Error(error.message);
+
+  await enregistrerAudit({
+    hospitalId,
+    utilisateurId:  adminId,
+    utilisateurNom: adminNom,
+    typeAction:     "MODIFICATION",
+    module:         "UTILISATEUR",
+    description:    `Email de réinitialisation mot de passe envoyé — ${email}`,
+    entiteNom:      email,
+    metadonnees:    { email },
+  });
 }

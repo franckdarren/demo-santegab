@@ -7,7 +7,7 @@
 import { useState, useTransition } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { QrCode, Loader2, Check, Clock, ExternalLink } from "lucide-react";
+import { QrCode, Loader2, Clock, ExternalLink } from "lucide-react";
 import { genererQrCodePatient } from "@/app/dashboard/patients/qr-actions";
 import { QRCodeSVG } from "qrcode.react";
 
@@ -15,6 +15,7 @@ interface QrCodeButtonProps {
   patientId: string;
   hospitalId: string;
   utilisateurId: string;
+  utilisateurNom: string; // ← ajouté pour l'audit
   nomPatient: string;
 }
 
@@ -22,6 +23,7 @@ export function QrCodeButton({
   patientId,
   hospitalId,
   utilisateurId,
+  utilisateurNom,
   nomPatient,
 }: QrCodeButtonProps) {
   const [open, setOpen] = useState(false);
@@ -34,7 +36,8 @@ export function QrCodeButton({
         const token = await genererQrCodePatient(
           patientId,
           hospitalId,
-          utilisateurId
+          utilisateurId,
+          utilisateurNom  // ← transmis pour l'audit
         );
         const url = `${window.location.origin}/carnet/${token}`;
         setQrUrl(url);
@@ -127,6 +130,7 @@ export function QrCodeButton({
                   <button
                     type="button"
                     onClick={handleGenerer}
+                    disabled={isPending}
                     className="w-full text-xs text-gray-400 hover:text-gray-600 transition-colors text-center"
                   >
                     Regénérer un nouveau QR Code

@@ -15,7 +15,7 @@ import { Sexe } from "@/app/generated/prisma/client";
 import { ModifierPatientDialog } from "./ModifierPatientDialog";
 import { SupprimerPatientDialog } from "./SupprimerPatientDialog";
 import { NouvelleConsultationDepuisPatient } from "./NouvelleConsultationDepuisPatient";
-import { QrCodeButton } from "./QrCodeButton"; // ← seul ajout d'import
+import { QrCodeButton } from "./QrCodeButton";
 
 interface PatientHeaderProps {
   patient: {
@@ -38,6 +38,7 @@ interface PatientHeaderProps {
   };
   hospitalId: string;
   medecinConnecteId: string;
+  medecinConnecteNom: string; // ← ajouté pour l'audit QR Code
   medecins: Array<{ id: string; nom: string; prenom: string }>;
 }
 
@@ -45,6 +46,7 @@ export function PatientHeader({
   patient,
   hospitalId,
   medecinConnecteId,
+  medecinConnecteNom,
   medecins,
 }: PatientHeaderProps) {
   const nomComplet = `${patient.prenom} ${patient.nom}`;
@@ -115,11 +117,11 @@ export function PatientHeader({
                 Nouvelle consultation
               </Button>
 
-              {/* ← Bouton QR Code ajouté ici */}
               <QrCodeButton
                 patientId={patient.id}
                 hospitalId={hospitalId}
                 utilisateurId={medecinConnecteId}
+                utilisateurNom={medecinConnecteNom}
                 nomPatient={nomComplet}
               />
 
@@ -203,9 +205,9 @@ export function PatientHeader({
         medecinConnecteId={medecinConnecteId}
         medecins={medecins}
         patient={{
-          id: patient.id,
-          nom: patient.nom,
-          prenom: patient.prenom,
+          id:             patient.id,
+          nom:            patient.nom,
+          prenom:         patient.prenom,
           numero_dossier: patient.numero_dossier,
         }}
       />

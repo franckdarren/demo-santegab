@@ -88,6 +88,11 @@ export type QrToken = $Result.DefaultSelection<Prisma.$QrTokenPayload>
  * 
  */
 export type AuditLogCarnet = $Result.DefaultSelection<Prisma.$AuditLogCarnetPayload>
+/**
+ * Model AuditTrail
+ * 
+ */
+export type AuditTrail = $Result.DefaultSelection<Prisma.$AuditTrailPayload>
 
 /**
  * Enums
@@ -228,6 +233,38 @@ export const CategorieDepense: {
 
 export type CategorieDepense = (typeof CategorieDepense)[keyof typeof CategorieDepense]
 
+
+export const TypeAction: {
+  CREATION: 'CREATION',
+  MODIFICATION: 'MODIFICATION',
+  SUPPRESSION: 'SUPPRESSION',
+  CONSULTATION: 'CONSULTATION',
+  CONNEXION: 'CONNEXION',
+  DECONNEXION: 'DECONNEXION',
+  EXPORT: 'EXPORT',
+  QR_CODE_GENERATION: 'QR_CODE_GENERATION',
+  QR_CODE_ACCES: 'QR_CODE_ACCES'
+};
+
+export type TypeAction = (typeof TypeAction)[keyof typeof TypeAction]
+
+
+export const ModuleAction: {
+  PATIENT: 'PATIENT',
+  CONSULTATION: 'CONSULTATION',
+  LABORATOIRE: 'LABORATOIRE',
+  IMAGERIE: 'IMAGERIE',
+  PHARMACIE: 'PHARMACIE',
+  STOCK: 'STOCK',
+  FACTURATION: 'FACTURATION',
+  COMPTABILITE: 'COMPTABILITE',
+  UTILISATEUR: 'UTILISATEUR',
+  CARNET_SANTE: 'CARNET_SANTE',
+  AUTHENTIFICATION: 'AUTHENTIFICATION'
+};
+
+export type ModuleAction = (typeof ModuleAction)[keyof typeof ModuleAction]
+
 }
 
 export type Role = $Enums.Role
@@ -277,6 +314,14 @@ export const TypeEcriture: typeof $Enums.TypeEcriture
 export type CategorieDepense = $Enums.CategorieDepense
 
 export const CategorieDepense: typeof $Enums.CategorieDepense
+
+export type TypeAction = $Enums.TypeAction
+
+export const TypeAction: typeof $Enums.TypeAction
+
+export type ModuleAction = $Enums.ModuleAction
+
+export const ModuleAction: typeof $Enums.ModuleAction
 
 /**
  * ##  Prisma Client ʲˢ
@@ -548,6 +593,16 @@ export class PrismaClient<
     * ```
     */
   get auditLogCarnet(): Prisma.AuditLogCarnetDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.auditTrail`: Exposes CRUD operations for the **AuditTrail** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AuditTrails
+    * const auditTrails = await prisma.auditTrail.findMany()
+    * ```
+    */
+  get auditTrail(): Prisma.AuditTrailDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -996,7 +1051,8 @@ export namespace Prisma {
     MouvementStock: 'MouvementStock',
     EcritureComptable: 'EcritureComptable',
     QrToken: 'QrToken',
-    AuditLogCarnet: 'AuditLogCarnet'
+    AuditLogCarnet: 'AuditLogCarnet',
+    AuditTrail: 'AuditTrail'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1012,7 +1068,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "hospital" | "utilisateur" | "patient" | "patientHospital" | "consultation" | "prescription" | "facture" | "ligneFacture" | "examenLabo" | "examenImagerie" | "articleStock" | "mouvementStock" | "ecritureComptable" | "qrToken" | "auditLogCarnet"
+      modelProps: "hospital" | "utilisateur" | "patient" | "patientHospital" | "consultation" | "prescription" | "facture" | "ligneFacture" | "examenLabo" | "examenImagerie" | "articleStock" | "mouvementStock" | "ecritureComptable" | "qrToken" | "auditLogCarnet" | "auditTrail"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2126,6 +2182,80 @@ export namespace Prisma {
           }
         }
       }
+      AuditTrail: {
+        payload: Prisma.$AuditTrailPayload<ExtArgs>
+        fields: Prisma.AuditTrailFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AuditTrailFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AuditTrailFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailPayload>
+          }
+          findFirst: {
+            args: Prisma.AuditTrailFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AuditTrailFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailPayload>
+          }
+          findMany: {
+            args: Prisma.AuditTrailFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailPayload>[]
+          }
+          create: {
+            args: Prisma.AuditTrailCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailPayload>
+          }
+          createMany: {
+            args: Prisma.AuditTrailCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AuditTrailCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailPayload>[]
+          }
+          delete: {
+            args: Prisma.AuditTrailDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailPayload>
+          }
+          update: {
+            args: Prisma.AuditTrailUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailPayload>
+          }
+          deleteMany: {
+            args: Prisma.AuditTrailDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AuditTrailUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AuditTrailUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailPayload>[]
+          }
+          upsert: {
+            args: Prisma.AuditTrailUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailPayload>
+          }
+          aggregate: {
+            args: Prisma.AuditTrailAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAuditTrail>
+          }
+          groupBy: {
+            args: Prisma.AuditTrailGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AuditTrailGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AuditTrailCountArgs<ExtArgs>
+            result: $Utils.Optional<AuditTrailCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2249,6 +2379,7 @@ export namespace Prisma {
     ecritureComptable?: EcritureComptableOmit
     qrToken?: QrTokenOmit
     auditLogCarnet?: AuditLogCarnetOmit
+    auditTrail?: AuditTrailOmit
   }
 
   /* Types for Logging */
@@ -2339,6 +2470,7 @@ export namespace Prisma {
     mouvements_stock: number
     ecritures_comptables: number
     qr_tokens: number
+    prismaaudit_trail: number
   }
 
   export type HospitalCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2352,6 +2484,7 @@ export namespace Prisma {
     mouvements_stock?: boolean | HospitalCountOutputTypeCountMouvements_stockArgs
     ecritures_comptables?: boolean | HospitalCountOutputTypeCountEcritures_comptablesArgs
     qr_tokens?: boolean | HospitalCountOutputTypeCountQr_tokensArgs
+    prismaaudit_trail?: boolean | HospitalCountOutputTypeCountPrismaaudit_trailArgs
   }
 
   // Custom InputTypes
@@ -2433,6 +2566,13 @@ export namespace Prisma {
    */
   export type HospitalCountOutputTypeCountQr_tokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: QrTokenWhereInput
+  }
+
+  /**
+   * HospitalCountOutputType without action
+   */
+  export type HospitalCountOutputTypeCountPrismaaudit_trailArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuditTrailWhereInput
   }
 
 
@@ -2872,6 +3012,7 @@ export namespace Prisma {
     mouvements_stock?: boolean | Hospital$mouvements_stockArgs<ExtArgs>
     ecritures_comptables?: boolean | Hospital$ecritures_comptablesArgs<ExtArgs>
     qr_tokens?: boolean | Hospital$qr_tokensArgs<ExtArgs>
+    prismaaudit_trail?: boolean | Hospital$prismaaudit_trailArgs<ExtArgs>
     _count?: boolean | HospitalCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["hospital"]>
 
@@ -2926,6 +3067,7 @@ export namespace Prisma {
     mouvements_stock?: boolean | Hospital$mouvements_stockArgs<ExtArgs>
     ecritures_comptables?: boolean | Hospital$ecritures_comptablesArgs<ExtArgs>
     qr_tokens?: boolean | Hospital$qr_tokensArgs<ExtArgs>
+    prismaaudit_trail?: boolean | Hospital$prismaaudit_trailArgs<ExtArgs>
     _count?: boolean | HospitalCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type HospitalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2944,6 +3086,7 @@ export namespace Prisma {
       mouvements_stock: Prisma.$MouvementStockPayload<ExtArgs>[]
       ecritures_comptables: Prisma.$EcritureComptablePayload<ExtArgs>[]
       qr_tokens: Prisma.$QrTokenPayload<ExtArgs>[]
+      prismaaudit_trail: Prisma.$AuditTrailPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3360,6 +3503,7 @@ export namespace Prisma {
     mouvements_stock<T extends Hospital$mouvements_stockArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$mouvements_stockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MouvementStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ecritures_comptables<T extends Hospital$ecritures_comptablesArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$ecritures_comptablesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EcritureComptablePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     qr_tokens<T extends Hospital$qr_tokensArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$qr_tokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    prismaaudit_trail<T extends Hospital$prismaaudit_trailArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$prismaaudit_trailArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditTrailPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4029,6 +4173,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: QrTokenScalarFieldEnum | QrTokenScalarFieldEnum[]
+  }
+
+  /**
+   * Hospital.prismaaudit_trail
+   */
+  export type Hospital$prismaaudit_trailArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrail
+     */
+    select?: AuditTrailSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrail
+     */
+    omit?: AuditTrailOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailInclude<ExtArgs> | null
+    where?: AuditTrailWhereInput
+    orderBy?: AuditTrailOrderByWithRelationInput | AuditTrailOrderByWithRelationInput[]
+    cursor?: AuditTrailWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AuditTrailScalarFieldEnum | AuditTrailScalarFieldEnum[]
   }
 
   /**
@@ -20815,6 +20983,1169 @@ export namespace Prisma {
 
 
   /**
+   * Model AuditTrail
+   */
+
+  export type AggregateAuditTrail = {
+    _count: AuditTrailCountAggregateOutputType | null
+    _min: AuditTrailMinAggregateOutputType | null
+    _max: AuditTrailMaxAggregateOutputType | null
+  }
+
+  export type AuditTrailMinAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    utilisateur_id: string | null
+    utilisateur_nom: string | null
+    type_action: $Enums.TypeAction | null
+    module: $Enums.ModuleAction | null
+    description: string | null
+    entite_id: string | null
+    entite_nom: string | null
+    ip_address: string | null
+    user_agent: string | null
+    created_at: Date | null
+  }
+
+  export type AuditTrailMaxAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    utilisateur_id: string | null
+    utilisateur_nom: string | null
+    type_action: $Enums.TypeAction | null
+    module: $Enums.ModuleAction | null
+    description: string | null
+    entite_id: string | null
+    entite_nom: string | null
+    ip_address: string | null
+    user_agent: string | null
+    created_at: Date | null
+  }
+
+  export type AuditTrailCountAggregateOutputType = {
+    id: number
+    hospital_id: number
+    utilisateur_id: number
+    utilisateur_nom: number
+    type_action: number
+    module: number
+    description: number
+    entite_id: number
+    entite_nom: number
+    ip_address: number
+    user_agent: number
+    metadonnees: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type AuditTrailMinAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    utilisateur_id?: true
+    utilisateur_nom?: true
+    type_action?: true
+    module?: true
+    description?: true
+    entite_id?: true
+    entite_nom?: true
+    ip_address?: true
+    user_agent?: true
+    created_at?: true
+  }
+
+  export type AuditTrailMaxAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    utilisateur_id?: true
+    utilisateur_nom?: true
+    type_action?: true
+    module?: true
+    description?: true
+    entite_id?: true
+    entite_nom?: true
+    ip_address?: true
+    user_agent?: true
+    created_at?: true
+  }
+
+  export type AuditTrailCountAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    utilisateur_id?: true
+    utilisateur_nom?: true
+    type_action?: true
+    module?: true
+    description?: true
+    entite_id?: true
+    entite_nom?: true
+    ip_address?: true
+    user_agent?: true
+    metadonnees?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type AuditTrailAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AuditTrail to aggregate.
+     */
+    where?: AuditTrailWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditTrails to fetch.
+     */
+    orderBy?: AuditTrailOrderByWithRelationInput | AuditTrailOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AuditTrailWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditTrails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditTrails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AuditTrails
+    **/
+    _count?: true | AuditTrailCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AuditTrailMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AuditTrailMaxAggregateInputType
+  }
+
+  export type GetAuditTrailAggregateType<T extends AuditTrailAggregateArgs> = {
+        [P in keyof T & keyof AggregateAuditTrail]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAuditTrail[P]>
+      : GetScalarType<T[P], AggregateAuditTrail[P]>
+  }
+
+
+
+
+  export type AuditTrailGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuditTrailWhereInput
+    orderBy?: AuditTrailOrderByWithAggregationInput | AuditTrailOrderByWithAggregationInput[]
+    by: AuditTrailScalarFieldEnum[] | AuditTrailScalarFieldEnum
+    having?: AuditTrailScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AuditTrailCountAggregateInputType | true
+    _min?: AuditTrailMinAggregateInputType
+    _max?: AuditTrailMaxAggregateInputType
+  }
+
+  export type AuditTrailGroupByOutputType = {
+    id: string
+    hospital_id: string
+    utilisateur_id: string | null
+    utilisateur_nom: string | null
+    type_action: $Enums.TypeAction
+    module: $Enums.ModuleAction
+    description: string
+    entite_id: string | null
+    entite_nom: string | null
+    ip_address: string | null
+    user_agent: string | null
+    metadonnees: JsonValue | null
+    created_at: Date
+    _count: AuditTrailCountAggregateOutputType | null
+    _min: AuditTrailMinAggregateOutputType | null
+    _max: AuditTrailMaxAggregateOutputType | null
+  }
+
+  type GetAuditTrailGroupByPayload<T extends AuditTrailGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AuditTrailGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AuditTrailGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AuditTrailGroupByOutputType[P]>
+            : GetScalarType<T[P], AuditTrailGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AuditTrailSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    utilisateur_id?: boolean
+    utilisateur_nom?: boolean
+    type_action?: boolean
+    module?: boolean
+    description?: boolean
+    entite_id?: boolean
+    entite_nom?: boolean
+    ip_address?: boolean
+    user_agent?: boolean
+    metadonnees?: boolean
+    created_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["auditTrail"]>
+
+  export type AuditTrailSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    utilisateur_id?: boolean
+    utilisateur_nom?: boolean
+    type_action?: boolean
+    module?: boolean
+    description?: boolean
+    entite_id?: boolean
+    entite_nom?: boolean
+    ip_address?: boolean
+    user_agent?: boolean
+    metadonnees?: boolean
+    created_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["auditTrail"]>
+
+  export type AuditTrailSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    utilisateur_id?: boolean
+    utilisateur_nom?: boolean
+    type_action?: boolean
+    module?: boolean
+    description?: boolean
+    entite_id?: boolean
+    entite_nom?: boolean
+    ip_address?: boolean
+    user_agent?: boolean
+    metadonnees?: boolean
+    created_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["auditTrail"]>
+
+  export type AuditTrailSelectScalar = {
+    id?: boolean
+    hospital_id?: boolean
+    utilisateur_id?: boolean
+    utilisateur_nom?: boolean
+    type_action?: boolean
+    module?: boolean
+    description?: boolean
+    entite_id?: boolean
+    entite_nom?: boolean
+    ip_address?: boolean
+    user_agent?: boolean
+    metadonnees?: boolean
+    created_at?: boolean
+  }
+
+  export type AuditTrailOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "utilisateur_id" | "utilisateur_nom" | "type_action" | "module" | "description" | "entite_id" | "entite_nom" | "ip_address" | "user_agent" | "metadonnees" | "created_at", ExtArgs["result"]["auditTrail"]>
+  export type AuditTrailInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
+  export type AuditTrailIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
+  export type AuditTrailIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
+
+  export type $AuditTrailPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AuditTrail"
+    objects: {
+      hospital: Prisma.$HospitalPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      hospital_id: string
+      utilisateur_id: string | null
+      utilisateur_nom: string | null
+      type_action: $Enums.TypeAction
+      module: $Enums.ModuleAction
+      description: string
+      entite_id: string | null
+      entite_nom: string | null
+      ip_address: string | null
+      user_agent: string | null
+      metadonnees: Prisma.JsonValue | null
+      created_at: Date
+    }, ExtArgs["result"]["auditTrail"]>
+    composites: {}
+  }
+
+  type AuditTrailGetPayload<S extends boolean | null | undefined | AuditTrailDefaultArgs> = $Result.GetResult<Prisma.$AuditTrailPayload, S>
+
+  type AuditTrailCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AuditTrailFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AuditTrailCountAggregateInputType | true
+    }
+
+  export interface AuditTrailDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AuditTrail'], meta: { name: 'AuditTrail' } }
+    /**
+     * Find zero or one AuditTrail that matches the filter.
+     * @param {AuditTrailFindUniqueArgs} args - Arguments to find a AuditTrail
+     * @example
+     * // Get one AuditTrail
+     * const auditTrail = await prisma.auditTrail.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AuditTrailFindUniqueArgs>(args: SelectSubset<T, AuditTrailFindUniqueArgs<ExtArgs>>): Prisma__AuditTrailClient<$Result.GetResult<Prisma.$AuditTrailPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AuditTrail that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AuditTrailFindUniqueOrThrowArgs} args - Arguments to find a AuditTrail
+     * @example
+     * // Get one AuditTrail
+     * const auditTrail = await prisma.auditTrail.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AuditTrailFindUniqueOrThrowArgs>(args: SelectSubset<T, AuditTrailFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AuditTrailClient<$Result.GetResult<Prisma.$AuditTrailPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AuditTrail that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditTrailFindFirstArgs} args - Arguments to find a AuditTrail
+     * @example
+     * // Get one AuditTrail
+     * const auditTrail = await prisma.auditTrail.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AuditTrailFindFirstArgs>(args?: SelectSubset<T, AuditTrailFindFirstArgs<ExtArgs>>): Prisma__AuditTrailClient<$Result.GetResult<Prisma.$AuditTrailPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AuditTrail that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditTrailFindFirstOrThrowArgs} args - Arguments to find a AuditTrail
+     * @example
+     * // Get one AuditTrail
+     * const auditTrail = await prisma.auditTrail.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AuditTrailFindFirstOrThrowArgs>(args?: SelectSubset<T, AuditTrailFindFirstOrThrowArgs<ExtArgs>>): Prisma__AuditTrailClient<$Result.GetResult<Prisma.$AuditTrailPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AuditTrails that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditTrailFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AuditTrails
+     * const auditTrails = await prisma.auditTrail.findMany()
+     * 
+     * // Get first 10 AuditTrails
+     * const auditTrails = await prisma.auditTrail.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const auditTrailWithIdOnly = await prisma.auditTrail.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AuditTrailFindManyArgs>(args?: SelectSubset<T, AuditTrailFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditTrailPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AuditTrail.
+     * @param {AuditTrailCreateArgs} args - Arguments to create a AuditTrail.
+     * @example
+     * // Create one AuditTrail
+     * const AuditTrail = await prisma.auditTrail.create({
+     *   data: {
+     *     // ... data to create a AuditTrail
+     *   }
+     * })
+     * 
+     */
+    create<T extends AuditTrailCreateArgs>(args: SelectSubset<T, AuditTrailCreateArgs<ExtArgs>>): Prisma__AuditTrailClient<$Result.GetResult<Prisma.$AuditTrailPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AuditTrails.
+     * @param {AuditTrailCreateManyArgs} args - Arguments to create many AuditTrails.
+     * @example
+     * // Create many AuditTrails
+     * const auditTrail = await prisma.auditTrail.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AuditTrailCreateManyArgs>(args?: SelectSubset<T, AuditTrailCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AuditTrails and returns the data saved in the database.
+     * @param {AuditTrailCreateManyAndReturnArgs} args - Arguments to create many AuditTrails.
+     * @example
+     * // Create many AuditTrails
+     * const auditTrail = await prisma.auditTrail.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AuditTrails and only return the `id`
+     * const auditTrailWithIdOnly = await prisma.auditTrail.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AuditTrailCreateManyAndReturnArgs>(args?: SelectSubset<T, AuditTrailCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditTrailPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AuditTrail.
+     * @param {AuditTrailDeleteArgs} args - Arguments to delete one AuditTrail.
+     * @example
+     * // Delete one AuditTrail
+     * const AuditTrail = await prisma.auditTrail.delete({
+     *   where: {
+     *     // ... filter to delete one AuditTrail
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AuditTrailDeleteArgs>(args: SelectSubset<T, AuditTrailDeleteArgs<ExtArgs>>): Prisma__AuditTrailClient<$Result.GetResult<Prisma.$AuditTrailPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AuditTrail.
+     * @param {AuditTrailUpdateArgs} args - Arguments to update one AuditTrail.
+     * @example
+     * // Update one AuditTrail
+     * const auditTrail = await prisma.auditTrail.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AuditTrailUpdateArgs>(args: SelectSubset<T, AuditTrailUpdateArgs<ExtArgs>>): Prisma__AuditTrailClient<$Result.GetResult<Prisma.$AuditTrailPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AuditTrails.
+     * @param {AuditTrailDeleteManyArgs} args - Arguments to filter AuditTrails to delete.
+     * @example
+     * // Delete a few AuditTrails
+     * const { count } = await prisma.auditTrail.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AuditTrailDeleteManyArgs>(args?: SelectSubset<T, AuditTrailDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AuditTrails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditTrailUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AuditTrails
+     * const auditTrail = await prisma.auditTrail.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AuditTrailUpdateManyArgs>(args: SelectSubset<T, AuditTrailUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AuditTrails and returns the data updated in the database.
+     * @param {AuditTrailUpdateManyAndReturnArgs} args - Arguments to update many AuditTrails.
+     * @example
+     * // Update many AuditTrails
+     * const auditTrail = await prisma.auditTrail.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AuditTrails and only return the `id`
+     * const auditTrailWithIdOnly = await prisma.auditTrail.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AuditTrailUpdateManyAndReturnArgs>(args: SelectSubset<T, AuditTrailUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditTrailPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AuditTrail.
+     * @param {AuditTrailUpsertArgs} args - Arguments to update or create a AuditTrail.
+     * @example
+     * // Update or create a AuditTrail
+     * const auditTrail = await prisma.auditTrail.upsert({
+     *   create: {
+     *     // ... data to create a AuditTrail
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AuditTrail we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AuditTrailUpsertArgs>(args: SelectSubset<T, AuditTrailUpsertArgs<ExtArgs>>): Prisma__AuditTrailClient<$Result.GetResult<Prisma.$AuditTrailPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AuditTrails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditTrailCountArgs} args - Arguments to filter AuditTrails to count.
+     * @example
+     * // Count the number of AuditTrails
+     * const count = await prisma.auditTrail.count({
+     *   where: {
+     *     // ... the filter for the AuditTrails we want to count
+     *   }
+     * })
+    **/
+    count<T extends AuditTrailCountArgs>(
+      args?: Subset<T, AuditTrailCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AuditTrailCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AuditTrail.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditTrailAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AuditTrailAggregateArgs>(args: Subset<T, AuditTrailAggregateArgs>): Prisma.PrismaPromise<GetAuditTrailAggregateType<T>>
+
+    /**
+     * Group by AuditTrail.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditTrailGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AuditTrailGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AuditTrailGroupByArgs['orderBy'] }
+        : { orderBy?: AuditTrailGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AuditTrailGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAuditTrailGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AuditTrail model
+   */
+  readonly fields: AuditTrailFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AuditTrail.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AuditTrailClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AuditTrail model
+   */
+  interface AuditTrailFieldRefs {
+    readonly id: FieldRef<"AuditTrail", 'String'>
+    readonly hospital_id: FieldRef<"AuditTrail", 'String'>
+    readonly utilisateur_id: FieldRef<"AuditTrail", 'String'>
+    readonly utilisateur_nom: FieldRef<"AuditTrail", 'String'>
+    readonly type_action: FieldRef<"AuditTrail", 'TypeAction'>
+    readonly module: FieldRef<"AuditTrail", 'ModuleAction'>
+    readonly description: FieldRef<"AuditTrail", 'String'>
+    readonly entite_id: FieldRef<"AuditTrail", 'String'>
+    readonly entite_nom: FieldRef<"AuditTrail", 'String'>
+    readonly ip_address: FieldRef<"AuditTrail", 'String'>
+    readonly user_agent: FieldRef<"AuditTrail", 'String'>
+    readonly metadonnees: FieldRef<"AuditTrail", 'Json'>
+    readonly created_at: FieldRef<"AuditTrail", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AuditTrail findUnique
+   */
+  export type AuditTrailFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrail
+     */
+    select?: AuditTrailSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrail
+     */
+    omit?: AuditTrailOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailInclude<ExtArgs> | null
+    /**
+     * Filter, which AuditTrail to fetch.
+     */
+    where: AuditTrailWhereUniqueInput
+  }
+
+  /**
+   * AuditTrail findUniqueOrThrow
+   */
+  export type AuditTrailFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrail
+     */
+    select?: AuditTrailSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrail
+     */
+    omit?: AuditTrailOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailInclude<ExtArgs> | null
+    /**
+     * Filter, which AuditTrail to fetch.
+     */
+    where: AuditTrailWhereUniqueInput
+  }
+
+  /**
+   * AuditTrail findFirst
+   */
+  export type AuditTrailFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrail
+     */
+    select?: AuditTrailSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrail
+     */
+    omit?: AuditTrailOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailInclude<ExtArgs> | null
+    /**
+     * Filter, which AuditTrail to fetch.
+     */
+    where?: AuditTrailWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditTrails to fetch.
+     */
+    orderBy?: AuditTrailOrderByWithRelationInput | AuditTrailOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AuditTrails.
+     */
+    cursor?: AuditTrailWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditTrails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditTrails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuditTrails.
+     */
+    distinct?: AuditTrailScalarFieldEnum | AuditTrailScalarFieldEnum[]
+  }
+
+  /**
+   * AuditTrail findFirstOrThrow
+   */
+  export type AuditTrailFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrail
+     */
+    select?: AuditTrailSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrail
+     */
+    omit?: AuditTrailOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailInclude<ExtArgs> | null
+    /**
+     * Filter, which AuditTrail to fetch.
+     */
+    where?: AuditTrailWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditTrails to fetch.
+     */
+    orderBy?: AuditTrailOrderByWithRelationInput | AuditTrailOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AuditTrails.
+     */
+    cursor?: AuditTrailWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditTrails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditTrails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuditTrails.
+     */
+    distinct?: AuditTrailScalarFieldEnum | AuditTrailScalarFieldEnum[]
+  }
+
+  /**
+   * AuditTrail findMany
+   */
+  export type AuditTrailFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrail
+     */
+    select?: AuditTrailSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrail
+     */
+    omit?: AuditTrailOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailInclude<ExtArgs> | null
+    /**
+     * Filter, which AuditTrails to fetch.
+     */
+    where?: AuditTrailWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditTrails to fetch.
+     */
+    orderBy?: AuditTrailOrderByWithRelationInput | AuditTrailOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AuditTrails.
+     */
+    cursor?: AuditTrailWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditTrails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditTrails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuditTrails.
+     */
+    distinct?: AuditTrailScalarFieldEnum | AuditTrailScalarFieldEnum[]
+  }
+
+  /**
+   * AuditTrail create
+   */
+  export type AuditTrailCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrail
+     */
+    select?: AuditTrailSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrail
+     */
+    omit?: AuditTrailOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AuditTrail.
+     */
+    data: XOR<AuditTrailCreateInput, AuditTrailUncheckedCreateInput>
+  }
+
+  /**
+   * AuditTrail createMany
+   */
+  export type AuditTrailCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AuditTrails.
+     */
+    data: AuditTrailCreateManyInput | AuditTrailCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AuditTrail createManyAndReturn
+   */
+  export type AuditTrailCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrail
+     */
+    select?: AuditTrailSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrail
+     */
+    omit?: AuditTrailOmit<ExtArgs> | null
+    /**
+     * The data used to create many AuditTrails.
+     */
+    data: AuditTrailCreateManyInput | AuditTrailCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AuditTrail update
+   */
+  export type AuditTrailUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrail
+     */
+    select?: AuditTrailSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrail
+     */
+    omit?: AuditTrailOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AuditTrail.
+     */
+    data: XOR<AuditTrailUpdateInput, AuditTrailUncheckedUpdateInput>
+    /**
+     * Choose, which AuditTrail to update.
+     */
+    where: AuditTrailWhereUniqueInput
+  }
+
+  /**
+   * AuditTrail updateMany
+   */
+  export type AuditTrailUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AuditTrails.
+     */
+    data: XOR<AuditTrailUpdateManyMutationInput, AuditTrailUncheckedUpdateManyInput>
+    /**
+     * Filter which AuditTrails to update
+     */
+    where?: AuditTrailWhereInput
+    /**
+     * Limit how many AuditTrails to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AuditTrail updateManyAndReturn
+   */
+  export type AuditTrailUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrail
+     */
+    select?: AuditTrailSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrail
+     */
+    omit?: AuditTrailOmit<ExtArgs> | null
+    /**
+     * The data used to update AuditTrails.
+     */
+    data: XOR<AuditTrailUpdateManyMutationInput, AuditTrailUncheckedUpdateManyInput>
+    /**
+     * Filter which AuditTrails to update
+     */
+    where?: AuditTrailWhereInput
+    /**
+     * Limit how many AuditTrails to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AuditTrail upsert
+   */
+  export type AuditTrailUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrail
+     */
+    select?: AuditTrailSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrail
+     */
+    omit?: AuditTrailOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AuditTrail to update in case it exists.
+     */
+    where: AuditTrailWhereUniqueInput
+    /**
+     * In case the AuditTrail found by the `where` argument doesn't exist, create a new AuditTrail with this data.
+     */
+    create: XOR<AuditTrailCreateInput, AuditTrailUncheckedCreateInput>
+    /**
+     * In case the AuditTrail was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AuditTrailUpdateInput, AuditTrailUncheckedUpdateInput>
+  }
+
+  /**
+   * AuditTrail delete
+   */
+  export type AuditTrailDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrail
+     */
+    select?: AuditTrailSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrail
+     */
+    omit?: AuditTrailOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailInclude<ExtArgs> | null
+    /**
+     * Filter which AuditTrail to delete.
+     */
+    where: AuditTrailWhereUniqueInput
+  }
+
+  /**
+   * AuditTrail deleteMany
+   */
+  export type AuditTrailDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AuditTrails to delete
+     */
+    where?: AuditTrailWhereInput
+    /**
+     * Limit how many AuditTrails to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AuditTrail without action
+   */
+  export type AuditTrailDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrail
+     */
+    select?: AuditTrailSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrail
+     */
+    omit?: AuditTrailOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -21091,12 +22422,39 @@ export namespace Prisma {
   export type AuditLogCarnetScalarFieldEnum = (typeof AuditLogCarnetScalarFieldEnum)[keyof typeof AuditLogCarnetScalarFieldEnum]
 
 
+  export const AuditTrailScalarFieldEnum: {
+    id: 'id',
+    hospital_id: 'hospital_id',
+    utilisateur_id: 'utilisateur_id',
+    utilisateur_nom: 'utilisateur_nom',
+    type_action: 'type_action',
+    module: 'module',
+    description: 'description',
+    entite_id: 'entite_id',
+    entite_nom: 'entite_nom',
+    ip_address: 'ip_address',
+    user_agent: 'user_agent',
+    metadonnees: 'metadonnees',
+    created_at: 'created_at'
+  };
+
+  export type AuditTrailScalarFieldEnum = (typeof AuditTrailScalarFieldEnum)[keyof typeof AuditTrailScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -21113,6 +22471,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -21349,6 +22716,48 @@ export namespace Prisma {
    */
   export type ListEnumCategorieDepenseFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategorieDepense[]'>
     
+
+
+  /**
+   * Reference to a field of type 'TypeAction'
+   */
+  export type EnumTypeActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TypeAction'>
+    
+
+
+  /**
+   * Reference to a field of type 'TypeAction[]'
+   */
+  export type ListEnumTypeActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TypeAction[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ModuleAction'
+   */
+  export type EnumModuleActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ModuleAction'>
+    
+
+
+  /**
+   * Reference to a field of type 'ModuleAction[]'
+   */
+  export type ListEnumModuleActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ModuleAction[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
   /**
    * Deep Input Types
    */
@@ -21378,6 +22787,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockListRelationFilter
     ecritures_comptables?: EcritureComptableListRelationFilter
     qr_tokens?: QrTokenListRelationFilter
+    prismaaudit_trail?: AuditTrailListRelationFilter
   }
 
   export type HospitalOrderByWithRelationInput = {
@@ -21401,6 +22811,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockOrderByRelationAggregateInput
     ecritures_comptables?: EcritureComptableOrderByRelationAggregateInput
     qr_tokens?: QrTokenOrderByRelationAggregateInput
+    prismaaudit_trail?: AuditTrailOrderByRelationAggregateInput
   }
 
   export type HospitalWhereUniqueInput = Prisma.AtLeast<{
@@ -21427,6 +22838,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockListRelationFilter
     ecritures_comptables?: EcritureComptableListRelationFilter
     qr_tokens?: QrTokenListRelationFilter
+    prismaaudit_trail?: AuditTrailListRelationFilter
   }, "id">
 
   export type HospitalOrderByWithAggregationInput = {
@@ -22777,6 +24189,101 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"AuditLogCarnet"> | Date | string
   }
 
+  export type AuditTrailWhereInput = {
+    AND?: AuditTrailWhereInput | AuditTrailWhereInput[]
+    OR?: AuditTrailWhereInput[]
+    NOT?: AuditTrailWhereInput | AuditTrailWhereInput[]
+    id?: StringFilter<"AuditTrail"> | string
+    hospital_id?: StringFilter<"AuditTrail"> | string
+    utilisateur_id?: StringNullableFilter<"AuditTrail"> | string | null
+    utilisateur_nom?: StringNullableFilter<"AuditTrail"> | string | null
+    type_action?: EnumTypeActionFilter<"AuditTrail"> | $Enums.TypeAction
+    module?: EnumModuleActionFilter<"AuditTrail"> | $Enums.ModuleAction
+    description?: StringFilter<"AuditTrail"> | string
+    entite_id?: StringNullableFilter<"AuditTrail"> | string | null
+    entite_nom?: StringNullableFilter<"AuditTrail"> | string | null
+    ip_address?: StringNullableFilter<"AuditTrail"> | string | null
+    user_agent?: StringNullableFilter<"AuditTrail"> | string | null
+    metadonnees?: JsonNullableFilter<"AuditTrail">
+    created_at?: DateTimeFilter<"AuditTrail"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+  }
+
+  export type AuditTrailOrderByWithRelationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    utilisateur_id?: SortOrderInput | SortOrder
+    utilisateur_nom?: SortOrderInput | SortOrder
+    type_action?: SortOrder
+    module?: SortOrder
+    description?: SortOrder
+    entite_id?: SortOrderInput | SortOrder
+    entite_nom?: SortOrderInput | SortOrder
+    ip_address?: SortOrderInput | SortOrder
+    user_agent?: SortOrderInput | SortOrder
+    metadonnees?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    hospital?: HospitalOrderByWithRelationInput
+  }
+
+  export type AuditTrailWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AuditTrailWhereInput | AuditTrailWhereInput[]
+    OR?: AuditTrailWhereInput[]
+    NOT?: AuditTrailWhereInput | AuditTrailWhereInput[]
+    hospital_id?: StringFilter<"AuditTrail"> | string
+    utilisateur_id?: StringNullableFilter<"AuditTrail"> | string | null
+    utilisateur_nom?: StringNullableFilter<"AuditTrail"> | string | null
+    type_action?: EnumTypeActionFilter<"AuditTrail"> | $Enums.TypeAction
+    module?: EnumModuleActionFilter<"AuditTrail"> | $Enums.ModuleAction
+    description?: StringFilter<"AuditTrail"> | string
+    entite_id?: StringNullableFilter<"AuditTrail"> | string | null
+    entite_nom?: StringNullableFilter<"AuditTrail"> | string | null
+    ip_address?: StringNullableFilter<"AuditTrail"> | string | null
+    user_agent?: StringNullableFilter<"AuditTrail"> | string | null
+    metadonnees?: JsonNullableFilter<"AuditTrail">
+    created_at?: DateTimeFilter<"AuditTrail"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+  }, "id">
+
+  export type AuditTrailOrderByWithAggregationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    utilisateur_id?: SortOrderInput | SortOrder
+    utilisateur_nom?: SortOrderInput | SortOrder
+    type_action?: SortOrder
+    module?: SortOrder
+    description?: SortOrder
+    entite_id?: SortOrderInput | SortOrder
+    entite_nom?: SortOrderInput | SortOrder
+    ip_address?: SortOrderInput | SortOrder
+    user_agent?: SortOrderInput | SortOrder
+    metadonnees?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    _count?: AuditTrailCountOrderByAggregateInput
+    _max?: AuditTrailMaxOrderByAggregateInput
+    _min?: AuditTrailMinOrderByAggregateInput
+  }
+
+  export type AuditTrailScalarWhereWithAggregatesInput = {
+    AND?: AuditTrailScalarWhereWithAggregatesInput | AuditTrailScalarWhereWithAggregatesInput[]
+    OR?: AuditTrailScalarWhereWithAggregatesInput[]
+    NOT?: AuditTrailScalarWhereWithAggregatesInput | AuditTrailScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AuditTrail"> | string
+    hospital_id?: StringWithAggregatesFilter<"AuditTrail"> | string
+    utilisateur_id?: StringNullableWithAggregatesFilter<"AuditTrail"> | string | null
+    utilisateur_nom?: StringNullableWithAggregatesFilter<"AuditTrail"> | string | null
+    type_action?: EnumTypeActionWithAggregatesFilter<"AuditTrail"> | $Enums.TypeAction
+    module?: EnumModuleActionWithAggregatesFilter<"AuditTrail"> | $Enums.ModuleAction
+    description?: StringWithAggregatesFilter<"AuditTrail"> | string
+    entite_id?: StringNullableWithAggregatesFilter<"AuditTrail"> | string | null
+    entite_nom?: StringNullableWithAggregatesFilter<"AuditTrail"> | string | null
+    ip_address?: StringNullableWithAggregatesFilter<"AuditTrail"> | string | null
+    user_agent?: StringNullableWithAggregatesFilter<"AuditTrail"> | string | null
+    metadonnees?: JsonNullableWithAggregatesFilter<"AuditTrail">
+    created_at?: DateTimeWithAggregatesFilter<"AuditTrail"> | Date | string
+  }
+
   export type HospitalCreateInput = {
     id?: string
     nom: string
@@ -22798,6 +24305,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateInput = {
@@ -22821,6 +24329,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUpdateInput = {
@@ -22844,6 +24353,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateInput = {
@@ -22867,6 +24377,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalCreateManyInput = {
@@ -24372,6 +25883,117 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AuditTrailCreateInput = {
+    id?: string
+    utilisateur_id?: string | null
+    utilisateur_nom?: string | null
+    type_action: $Enums.TypeAction
+    module: $Enums.ModuleAction
+    description: string
+    entite_id?: string | null
+    entite_nom?: string | null
+    ip_address?: string | null
+    user_agent?: string | null
+    metadonnees?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutPrismaaudit_trailInput
+  }
+
+  export type AuditTrailUncheckedCreateInput = {
+    id?: string
+    hospital_id: string
+    utilisateur_id?: string | null
+    utilisateur_nom?: string | null
+    type_action: $Enums.TypeAction
+    module: $Enums.ModuleAction
+    description: string
+    entite_id?: string | null
+    entite_nom?: string | null
+    ip_address?: string | null
+    user_agent?: string | null
+    metadonnees?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+  }
+
+  export type AuditTrailUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    type_action?: EnumTypeActionFieldUpdateOperationsInput | $Enums.TypeAction
+    module?: EnumModuleActionFieldUpdateOperationsInput | $Enums.ModuleAction
+    description?: StringFieldUpdateOperationsInput | string
+    entite_id?: NullableStringFieldUpdateOperationsInput | string | null
+    entite_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_agent?: NullableStringFieldUpdateOperationsInput | string | null
+    metadonnees?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutPrismaaudit_trailNestedInput
+  }
+
+  export type AuditTrailUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    type_action?: EnumTypeActionFieldUpdateOperationsInput | $Enums.TypeAction
+    module?: EnumModuleActionFieldUpdateOperationsInput | $Enums.ModuleAction
+    description?: StringFieldUpdateOperationsInput | string
+    entite_id?: NullableStringFieldUpdateOperationsInput | string | null
+    entite_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_agent?: NullableStringFieldUpdateOperationsInput | string | null
+    metadonnees?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditTrailCreateManyInput = {
+    id?: string
+    hospital_id: string
+    utilisateur_id?: string | null
+    utilisateur_nom?: string | null
+    type_action: $Enums.TypeAction
+    module: $Enums.ModuleAction
+    description: string
+    entite_id?: string | null
+    entite_nom?: string | null
+    ip_address?: string | null
+    user_agent?: string | null
+    metadonnees?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+  }
+
+  export type AuditTrailUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    type_action?: EnumTypeActionFieldUpdateOperationsInput | $Enums.TypeAction
+    module?: EnumModuleActionFieldUpdateOperationsInput | $Enums.ModuleAction
+    description?: StringFieldUpdateOperationsInput | string
+    entite_id?: NullableStringFieldUpdateOperationsInput | string | null
+    entite_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_agent?: NullableStringFieldUpdateOperationsInput | string | null
+    metadonnees?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditTrailUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    type_action?: EnumTypeActionFieldUpdateOperationsInput | $Enums.TypeAction
+    module?: EnumModuleActionFieldUpdateOperationsInput | $Enums.ModuleAction
+    description?: StringFieldUpdateOperationsInput | string
+    entite_id?: NullableStringFieldUpdateOperationsInput | string | null
+    entite_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_agent?: NullableStringFieldUpdateOperationsInput | string | null
+    metadonnees?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -24478,6 +26100,12 @@ export namespace Prisma {
     none?: QrTokenWhereInput
   }
 
+  export type AuditTrailListRelationFilter = {
+    every?: AuditTrailWhereInput
+    some?: AuditTrailWhereInput
+    none?: AuditTrailWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -24520,6 +26148,10 @@ export namespace Prisma {
   }
 
   export type QrTokenOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AuditTrailOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -25686,6 +27318,135 @@ export namespace Prisma {
     created_at?: SortOrder
   }
 
+  export type EnumTypeActionFilter<$PrismaModel = never> = {
+    equals?: $Enums.TypeAction | EnumTypeActionFieldRefInput<$PrismaModel>
+    in?: $Enums.TypeAction[] | ListEnumTypeActionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TypeAction[] | ListEnumTypeActionFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeActionFilter<$PrismaModel> | $Enums.TypeAction
+  }
+
+  export type EnumModuleActionFilter<$PrismaModel = never> = {
+    equals?: $Enums.ModuleAction | EnumModuleActionFieldRefInput<$PrismaModel>
+    in?: $Enums.ModuleAction[] | ListEnumModuleActionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ModuleAction[] | ListEnumModuleActionFieldRefInput<$PrismaModel>
+    not?: NestedEnumModuleActionFilter<$PrismaModel> | $Enums.ModuleAction
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type AuditTrailCountOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    utilisateur_id?: SortOrder
+    utilisateur_nom?: SortOrder
+    type_action?: SortOrder
+    module?: SortOrder
+    description?: SortOrder
+    entite_id?: SortOrder
+    entite_nom?: SortOrder
+    ip_address?: SortOrder
+    user_agent?: SortOrder
+    metadonnees?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type AuditTrailMaxOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    utilisateur_id?: SortOrder
+    utilisateur_nom?: SortOrder
+    type_action?: SortOrder
+    module?: SortOrder
+    description?: SortOrder
+    entite_id?: SortOrder
+    entite_nom?: SortOrder
+    ip_address?: SortOrder
+    user_agent?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type AuditTrailMinOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    utilisateur_id?: SortOrder
+    utilisateur_nom?: SortOrder
+    type_action?: SortOrder
+    module?: SortOrder
+    description?: SortOrder
+    entite_id?: SortOrder
+    entite_nom?: SortOrder
+    ip_address?: SortOrder
+    user_agent?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type EnumTypeActionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TypeAction | EnumTypeActionFieldRefInput<$PrismaModel>
+    in?: $Enums.TypeAction[] | ListEnumTypeActionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TypeAction[] | ListEnumTypeActionFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeActionWithAggregatesFilter<$PrismaModel> | $Enums.TypeAction
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTypeActionFilter<$PrismaModel>
+    _max?: NestedEnumTypeActionFilter<$PrismaModel>
+  }
+
+  export type EnumModuleActionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ModuleAction | EnumModuleActionFieldRefInput<$PrismaModel>
+    in?: $Enums.ModuleAction[] | ListEnumModuleActionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ModuleAction[] | ListEnumModuleActionFieldRefInput<$PrismaModel>
+    not?: NestedEnumModuleActionWithAggregatesFilter<$PrismaModel> | $Enums.ModuleAction
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumModuleActionFilter<$PrismaModel>
+    _max?: NestedEnumModuleActionFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
   export type UtilisateurCreateNestedManyWithoutHospitalInput = {
     create?: XOR<UtilisateurCreateWithoutHospitalInput, UtilisateurUncheckedCreateWithoutHospitalInput> | UtilisateurCreateWithoutHospitalInput[] | UtilisateurUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: UtilisateurCreateOrConnectWithoutHospitalInput | UtilisateurCreateOrConnectWithoutHospitalInput[]
@@ -25756,6 +27517,13 @@ export namespace Prisma {
     connect?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
   }
 
+  export type AuditTrailCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<AuditTrailCreateWithoutHospitalInput, AuditTrailUncheckedCreateWithoutHospitalInput> | AuditTrailCreateWithoutHospitalInput[] | AuditTrailUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: AuditTrailCreateOrConnectWithoutHospitalInput | AuditTrailCreateOrConnectWithoutHospitalInput[]
+    createMany?: AuditTrailCreateManyHospitalInputEnvelope
+    connect?: AuditTrailWhereUniqueInput | AuditTrailWhereUniqueInput[]
+  }
+
   export type UtilisateurUncheckedCreateNestedManyWithoutHospitalInput = {
     create?: XOR<UtilisateurCreateWithoutHospitalInput, UtilisateurUncheckedCreateWithoutHospitalInput> | UtilisateurCreateWithoutHospitalInput[] | UtilisateurUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: UtilisateurCreateOrConnectWithoutHospitalInput | UtilisateurCreateOrConnectWithoutHospitalInput[]
@@ -25824,6 +27592,13 @@ export namespace Prisma {
     connectOrCreate?: QrTokenCreateOrConnectWithoutHospitalInput | QrTokenCreateOrConnectWithoutHospitalInput[]
     createMany?: QrTokenCreateManyHospitalInputEnvelope
     connect?: QrTokenWhereUniqueInput | QrTokenWhereUniqueInput[]
+  }
+
+  export type AuditTrailUncheckedCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<AuditTrailCreateWithoutHospitalInput, AuditTrailUncheckedCreateWithoutHospitalInput> | AuditTrailCreateWithoutHospitalInput[] | AuditTrailUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: AuditTrailCreateOrConnectWithoutHospitalInput | AuditTrailCreateOrConnectWithoutHospitalInput[]
+    createMany?: AuditTrailCreateManyHospitalInputEnvelope
+    connect?: AuditTrailWhereUniqueInput | AuditTrailWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -25982,6 +27757,20 @@ export namespace Prisma {
     deleteMany?: QrTokenScalarWhereInput | QrTokenScalarWhereInput[]
   }
 
+  export type AuditTrailUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<AuditTrailCreateWithoutHospitalInput, AuditTrailUncheckedCreateWithoutHospitalInput> | AuditTrailCreateWithoutHospitalInput[] | AuditTrailUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: AuditTrailCreateOrConnectWithoutHospitalInput | AuditTrailCreateOrConnectWithoutHospitalInput[]
+    upsert?: AuditTrailUpsertWithWhereUniqueWithoutHospitalInput | AuditTrailUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: AuditTrailCreateManyHospitalInputEnvelope
+    set?: AuditTrailWhereUniqueInput | AuditTrailWhereUniqueInput[]
+    disconnect?: AuditTrailWhereUniqueInput | AuditTrailWhereUniqueInput[]
+    delete?: AuditTrailWhereUniqueInput | AuditTrailWhereUniqueInput[]
+    connect?: AuditTrailWhereUniqueInput | AuditTrailWhereUniqueInput[]
+    update?: AuditTrailUpdateWithWhereUniqueWithoutHospitalInput | AuditTrailUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: AuditTrailUpdateManyWithWhereWithoutHospitalInput | AuditTrailUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: AuditTrailScalarWhereInput | AuditTrailScalarWhereInput[]
+  }
+
   export type UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput = {
     create?: XOR<UtilisateurCreateWithoutHospitalInput, UtilisateurUncheckedCreateWithoutHospitalInput> | UtilisateurCreateWithoutHospitalInput[] | UtilisateurUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: UtilisateurCreateOrConnectWithoutHospitalInput | UtilisateurCreateOrConnectWithoutHospitalInput[]
@@ -26120,6 +27909,20 @@ export namespace Prisma {
     update?: QrTokenUpdateWithWhereUniqueWithoutHospitalInput | QrTokenUpdateWithWhereUniqueWithoutHospitalInput[]
     updateMany?: QrTokenUpdateManyWithWhereWithoutHospitalInput | QrTokenUpdateManyWithWhereWithoutHospitalInput[]
     deleteMany?: QrTokenScalarWhereInput | QrTokenScalarWhereInput[]
+  }
+
+  export type AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<AuditTrailCreateWithoutHospitalInput, AuditTrailUncheckedCreateWithoutHospitalInput> | AuditTrailCreateWithoutHospitalInput[] | AuditTrailUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: AuditTrailCreateOrConnectWithoutHospitalInput | AuditTrailCreateOrConnectWithoutHospitalInput[]
+    upsert?: AuditTrailUpsertWithWhereUniqueWithoutHospitalInput | AuditTrailUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: AuditTrailCreateManyHospitalInputEnvelope
+    set?: AuditTrailWhereUniqueInput | AuditTrailWhereUniqueInput[]
+    disconnect?: AuditTrailWhereUniqueInput | AuditTrailWhereUniqueInput[]
+    delete?: AuditTrailWhereUniqueInput | AuditTrailWhereUniqueInput[]
+    connect?: AuditTrailWhereUniqueInput | AuditTrailWhereUniqueInput[]
+    update?: AuditTrailUpdateWithWhereUniqueWithoutHospitalInput | AuditTrailUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: AuditTrailUpdateManyWithWhereWithoutHospitalInput | AuditTrailUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: AuditTrailScalarWhereInput | AuditTrailScalarWhereInput[]
   }
 
   export type HospitalCreateNestedOneWithoutUtilisateursInput = {
@@ -27058,6 +28861,28 @@ export namespace Prisma {
     update?: XOR<XOR<HospitalUpdateToOneWithWhereWithoutQr_tokensInput, HospitalUpdateWithoutQr_tokensInput>, HospitalUncheckedUpdateWithoutQr_tokensInput>
   }
 
+  export type HospitalCreateNestedOneWithoutPrismaaudit_trailInput = {
+    create?: XOR<HospitalCreateWithoutPrismaaudit_trailInput, HospitalUncheckedCreateWithoutPrismaaudit_trailInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutPrismaaudit_trailInput
+    connect?: HospitalWhereUniqueInput
+  }
+
+  export type EnumTypeActionFieldUpdateOperationsInput = {
+    set?: $Enums.TypeAction
+  }
+
+  export type EnumModuleActionFieldUpdateOperationsInput = {
+    set?: $Enums.ModuleAction
+  }
+
+  export type HospitalUpdateOneRequiredWithoutPrismaaudit_trailNestedInput = {
+    create?: XOR<HospitalCreateWithoutPrismaaudit_trailInput, HospitalUncheckedCreateWithoutPrismaaudit_trailInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutPrismaaudit_trailInput
+    upsert?: HospitalUpsertWithoutPrismaaudit_trailInput
+    connect?: HospitalWhereUniqueInput
+    update?: XOR<XOR<HospitalUpdateToOneWithWhereWithoutPrismaaudit_trailInput, HospitalUpdateWithoutPrismaaudit_trailInput>, HospitalUncheckedUpdateWithoutPrismaaudit_trailInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -27479,6 +29304,63 @@ export namespace Prisma {
     _max?: NestedEnumCategorieDepenseNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumTypeActionFilter<$PrismaModel = never> = {
+    equals?: $Enums.TypeAction | EnumTypeActionFieldRefInput<$PrismaModel>
+    in?: $Enums.TypeAction[] | ListEnumTypeActionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TypeAction[] | ListEnumTypeActionFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeActionFilter<$PrismaModel> | $Enums.TypeAction
+  }
+
+  export type NestedEnumModuleActionFilter<$PrismaModel = never> = {
+    equals?: $Enums.ModuleAction | EnumModuleActionFieldRefInput<$PrismaModel>
+    in?: $Enums.ModuleAction[] | ListEnumModuleActionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ModuleAction[] | ListEnumModuleActionFieldRefInput<$PrismaModel>
+    not?: NestedEnumModuleActionFilter<$PrismaModel> | $Enums.ModuleAction
+  }
+
+  export type NestedEnumTypeActionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TypeAction | EnumTypeActionFieldRefInput<$PrismaModel>
+    in?: $Enums.TypeAction[] | ListEnumTypeActionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TypeAction[] | ListEnumTypeActionFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeActionWithAggregatesFilter<$PrismaModel> | $Enums.TypeAction
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTypeActionFilter<$PrismaModel>
+    _max?: NestedEnumTypeActionFilter<$PrismaModel>
+  }
+
+  export type NestedEnumModuleActionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ModuleAction | EnumModuleActionFieldRefInput<$PrismaModel>
+    in?: $Enums.ModuleAction[] | ListEnumModuleActionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ModuleAction[] | ListEnumModuleActionFieldRefInput<$PrismaModel>
+    not?: NestedEnumModuleActionWithAggregatesFilter<$PrismaModel> | $Enums.ModuleAction
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumModuleActionFilter<$PrismaModel>
+    _max?: NestedEnumModuleActionFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
   export type UtilisateurCreateWithoutHospitalInput = {
     id?: string
     supabase_uid?: string | null
@@ -27883,6 +29765,46 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AuditTrailCreateWithoutHospitalInput = {
+    id?: string
+    utilisateur_id?: string | null
+    utilisateur_nom?: string | null
+    type_action: $Enums.TypeAction
+    module: $Enums.ModuleAction
+    description: string
+    entite_id?: string | null
+    entite_nom?: string | null
+    ip_address?: string | null
+    user_agent?: string | null
+    metadonnees?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+  }
+
+  export type AuditTrailUncheckedCreateWithoutHospitalInput = {
+    id?: string
+    utilisateur_id?: string | null
+    utilisateur_nom?: string | null
+    type_action: $Enums.TypeAction
+    module: $Enums.ModuleAction
+    description: string
+    entite_id?: string | null
+    entite_nom?: string | null
+    ip_address?: string | null
+    user_agent?: string | null
+    metadonnees?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+  }
+
+  export type AuditTrailCreateOrConnectWithoutHospitalInput = {
+    where: AuditTrailWhereUniqueInput
+    create: XOR<AuditTrailCreateWithoutHospitalInput, AuditTrailUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type AuditTrailCreateManyHospitalInputEnvelope = {
+    data: AuditTrailCreateManyHospitalInput | AuditTrailCreateManyHospitalInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UtilisateurUpsertWithWhereUniqueWithoutHospitalInput = {
     where: UtilisateurWhereUniqueInput
     update: XOR<UtilisateurUpdateWithoutHospitalInput, UtilisateurUncheckedUpdateWithoutHospitalInput>
@@ -28228,6 +30150,41 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"QrToken"> | Date | string
   }
 
+  export type AuditTrailUpsertWithWhereUniqueWithoutHospitalInput = {
+    where: AuditTrailWhereUniqueInput
+    update: XOR<AuditTrailUpdateWithoutHospitalInput, AuditTrailUncheckedUpdateWithoutHospitalInput>
+    create: XOR<AuditTrailCreateWithoutHospitalInput, AuditTrailUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type AuditTrailUpdateWithWhereUniqueWithoutHospitalInput = {
+    where: AuditTrailWhereUniqueInput
+    data: XOR<AuditTrailUpdateWithoutHospitalInput, AuditTrailUncheckedUpdateWithoutHospitalInput>
+  }
+
+  export type AuditTrailUpdateManyWithWhereWithoutHospitalInput = {
+    where: AuditTrailScalarWhereInput
+    data: XOR<AuditTrailUpdateManyMutationInput, AuditTrailUncheckedUpdateManyWithoutHospitalInput>
+  }
+
+  export type AuditTrailScalarWhereInput = {
+    AND?: AuditTrailScalarWhereInput | AuditTrailScalarWhereInput[]
+    OR?: AuditTrailScalarWhereInput[]
+    NOT?: AuditTrailScalarWhereInput | AuditTrailScalarWhereInput[]
+    id?: StringFilter<"AuditTrail"> | string
+    hospital_id?: StringFilter<"AuditTrail"> | string
+    utilisateur_id?: StringNullableFilter<"AuditTrail"> | string | null
+    utilisateur_nom?: StringNullableFilter<"AuditTrail"> | string | null
+    type_action?: EnumTypeActionFilter<"AuditTrail"> | $Enums.TypeAction
+    module?: EnumModuleActionFilter<"AuditTrail"> | $Enums.ModuleAction
+    description?: StringFilter<"AuditTrail"> | string
+    entite_id?: StringNullableFilter<"AuditTrail"> | string | null
+    entite_nom?: StringNullableFilter<"AuditTrail"> | string | null
+    ip_address?: StringNullableFilter<"AuditTrail"> | string | null
+    user_agent?: StringNullableFilter<"AuditTrail"> | string | null
+    metadonnees?: JsonNullableFilter<"AuditTrail">
+    created_at?: DateTimeFilter<"AuditTrail"> | Date | string
+  }
+
   export type HospitalCreateWithoutUtilisateursInput = {
     id?: string
     nom: string
@@ -28248,6 +30205,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutUtilisateursInput = {
@@ -28270,6 +30228,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutUtilisateursInput = {
@@ -28446,6 +30405,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutUtilisateursInput = {
@@ -28468,6 +30428,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type ConsultationUpsertWithWhereUniqueWithoutMedecinInput = {
@@ -28929,6 +30890,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutPatientsInput = {
@@ -28951,6 +30913,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutPatientsInput = {
@@ -29046,6 +31009,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutPatientsInput = {
@@ -29068,6 +31032,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalCreateWithoutConsultationsInput = {
@@ -29090,6 +31055,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutConsultationsInput = {
@@ -29112,6 +31078,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutConsultationsInput = {
@@ -29309,6 +31276,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutConsultationsInput = {
@@ -29331,6 +31299,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutConsultationsInput = {
@@ -29622,6 +31591,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutFacturesInput = {
@@ -29644,6 +31614,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutFacturesInput = {
@@ -29804,6 +31775,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutFacturesInput = {
@@ -29826,6 +31798,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutFacturesInput = {
@@ -30067,6 +32040,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutExamens_laboInput = {
@@ -30089,6 +32063,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutExamens_laboInput = {
@@ -30217,6 +32192,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutExamens_laboInput = {
@@ -30239,6 +32215,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutExamens_laboInput = {
@@ -30363,6 +32340,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutExamens_imagerieInput = {
@@ -30385,6 +32363,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutExamens_imagerieInput = {
@@ -30513,6 +32492,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutExamens_imagerieInput = {
@@ -30535,6 +32515,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutExamens_imagerieInput = {
@@ -30659,6 +32640,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutArticles_stockInput = {
@@ -30681,6 +32663,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutArticles_stockInput = {
@@ -30753,6 +32736,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutArticles_stockInput = {
@@ -30775,6 +32759,7 @@ export namespace Prisma {
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type MouvementStockUpsertWithWhereUniqueWithoutArticleInput = {
@@ -30813,6 +32798,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutMouvements_stockInput = {
@@ -30835,6 +32821,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutMouvements_stockInput = {
@@ -30912,6 +32899,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutMouvements_stockInput = {
@@ -30934,6 +32922,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type ArticleStockUpsertWithoutMouvementsInput = {
@@ -31001,6 +32990,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutEcritures_comptablesInput = {
@@ -31023,6 +33013,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutEcritures_comptablesInput = {
@@ -31061,6 +33052,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutEcritures_comptablesInput = {
@@ -31083,6 +33075,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientCreateWithoutQr_tokensInput = {
@@ -31156,6 +33149,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutQr_tokensInput = {
@@ -31178,6 +33172,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
+    prismaaudit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutQr_tokensInput = {
@@ -31273,6 +33268,7 @@ export namespace Prisma {
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutQr_tokensInput = {
@@ -31295,6 +33291,115 @@ export namespace Prisma {
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
+    prismaaudit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type HospitalCreateWithoutPrismaaudit_trailInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    factures?: FactureCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalUncheckedCreateWithoutPrismaaudit_trailInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalCreateOrConnectWithoutPrismaaudit_trailInput = {
+    where: HospitalWhereUniqueInput
+    create: XOR<HospitalCreateWithoutPrismaaudit_trailInput, HospitalUncheckedCreateWithoutPrismaaudit_trailInput>
+  }
+
+  export type HospitalUpsertWithoutPrismaaudit_trailInput = {
+    update: XOR<HospitalUpdateWithoutPrismaaudit_trailInput, HospitalUncheckedUpdateWithoutPrismaaudit_trailInput>
+    create: XOR<HospitalCreateWithoutPrismaaudit_trailInput, HospitalUncheckedCreateWithoutPrismaaudit_trailInput>
+    where?: HospitalWhereInput
+  }
+
+  export type HospitalUpdateToOneWithWhereWithoutPrismaaudit_trailInput = {
+    where?: HospitalWhereInput
+    data: XOR<HospitalUpdateWithoutPrismaaudit_trailInput, HospitalUncheckedUpdateWithoutPrismaaudit_trailInput>
+  }
+
+  export type HospitalUpdateWithoutPrismaaudit_trailInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type HospitalUncheckedUpdateWithoutPrismaaudit_trailInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type UtilisateurCreateManyHospitalInput = {
@@ -31439,6 +33544,21 @@ export namespace Prisma {
     expire_le: Date | string
     cree_par: string
     est_actif?: boolean
+    created_at?: Date | string
+  }
+
+  export type AuditTrailCreateManyHospitalInput = {
+    id?: string
+    utilisateur_id?: string | null
+    utilisateur_nom?: string | null
+    type_action: $Enums.TypeAction
+    module: $Enums.ModuleAction
+    description: string
+    entite_id?: string | null
+    entite_nom?: string | null
+    ip_address?: string | null
+    user_agent?: string | null
+    metadonnees?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
   }
 
@@ -31888,6 +34008,51 @@ export namespace Prisma {
     expire_le?: DateTimeFieldUpdateOperationsInput | Date | string
     cree_par?: StringFieldUpdateOperationsInput | string
     est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditTrailUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    type_action?: EnumTypeActionFieldUpdateOperationsInput | $Enums.TypeAction
+    module?: EnumModuleActionFieldUpdateOperationsInput | $Enums.ModuleAction
+    description?: StringFieldUpdateOperationsInput | string
+    entite_id?: NullableStringFieldUpdateOperationsInput | string | null
+    entite_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_agent?: NullableStringFieldUpdateOperationsInput | string | null
+    metadonnees?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditTrailUncheckedUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    type_action?: EnumTypeActionFieldUpdateOperationsInput | $Enums.TypeAction
+    module?: EnumModuleActionFieldUpdateOperationsInput | $Enums.ModuleAction
+    description?: StringFieldUpdateOperationsInput | string
+    entite_id?: NullableStringFieldUpdateOperationsInput | string | null
+    entite_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_agent?: NullableStringFieldUpdateOperationsInput | string | null
+    metadonnees?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditTrailUncheckedUpdateManyWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    utilisateur_id?: NullableStringFieldUpdateOperationsInput | string | null
+    utilisateur_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    type_action?: EnumTypeActionFieldUpdateOperationsInput | $Enums.TypeAction
+    module?: EnumModuleActionFieldUpdateOperationsInput | $Enums.ModuleAction
+    description?: StringFieldUpdateOperationsInput | string
+    entite_id?: NullableStringFieldUpdateOperationsInput | string | null
+    entite_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_agent?: NullableStringFieldUpdateOperationsInput | string | null
+    metadonnees?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

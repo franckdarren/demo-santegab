@@ -338,9 +338,30 @@ exports.Prisma.AuditLogCarnetScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.AuditTrailScalarFieldEnum = {
+  id: 'id',
+  hospital_id: 'hospital_id',
+  utilisateur_id: 'utilisateur_id',
+  utilisateur_nom: 'utilisateur_nom',
+  type_action: 'type_action',
+  module: 'module',
+  description: 'description',
+  entite_id: 'entite_id',
+  entite_nom: 'entite_nom',
+  ip_address: 'ip_address',
+  user_agent: 'user_agent',
+  metadonnees: 'metadonnees',
+  created_at: 'created_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -351,6 +372,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.Role = exports.$Enums.Role = {
   SUPER_ADMIN: 'SUPER_ADMIN',
@@ -452,6 +479,32 @@ exports.CategorieDepense = exports.$Enums.CategorieDepense = {
   AUTRE: 'AUTRE'
 };
 
+exports.TypeAction = exports.$Enums.TypeAction = {
+  CREATION: 'CREATION',
+  MODIFICATION: 'MODIFICATION',
+  SUPPRESSION: 'SUPPRESSION',
+  CONSULTATION: 'CONSULTATION',
+  CONNEXION: 'CONNEXION',
+  DECONNEXION: 'DECONNEXION',
+  EXPORT: 'EXPORT',
+  QR_CODE_GENERATION: 'QR_CODE_GENERATION',
+  QR_CODE_ACCES: 'QR_CODE_ACCES'
+};
+
+exports.ModuleAction = exports.$Enums.ModuleAction = {
+  PATIENT: 'PATIENT',
+  CONSULTATION: 'CONSULTATION',
+  LABORATOIRE: 'LABORATOIRE',
+  IMAGERIE: 'IMAGERIE',
+  PHARMACIE: 'PHARMACIE',
+  STOCK: 'STOCK',
+  FACTURATION: 'FACTURATION',
+  COMPTABILITE: 'COMPTABILITE',
+  UTILISATEUR: 'UTILISATEUR',
+  CARNET_SANTE: 'CARNET_SANTE',
+  AUTHENTIFICATION: 'AUTHENTIFICATION'
+};
+
 exports.Prisma.ModelName = {
   Hospital: 'Hospital',
   Utilisateur: 'Utilisateur',
@@ -467,7 +520,8 @@ exports.Prisma.ModelName = {
   MouvementStock: 'MouvementStock',
   EcritureComptable: 'EcritureComptable',
   QrToken: 'QrToken',
-  AuditLogCarnet: 'AuditLogCarnet'
+  AuditLogCarnet: 'AuditLogCarnet',
+  AuditTrail: 'AuditTrail'
 };
 
 /**

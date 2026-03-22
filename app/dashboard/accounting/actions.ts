@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { startOfMonth, endOfMonth, subMonths, startOfYear } from "date-fns";
 import { TypeEcriture, CategorieDepense } from "@/app/generated/prisma/client";
+import { enregistrerAudit } from "@/lib/audit";
 
 // ============================================================
 // Liste des écritures comptables
@@ -157,11 +158,15 @@ export async function getDepensesParCategorie(hospitalId: string) {
 }
 
 // ============================================================
-// Créer une écriture comptable (dépense manuelle)
+// Créer une écriture comptable
+//
+// On enregistre l'audit APRÈS la création pour tracer
+// qui a ajouté quelle écriture et quand.
 // ============================================================
 export async function creerEcriture(
   hospitalId: string,
   utilisateurId: string,
+  utilisateurNom: string,
   data: {
     type_ecriture: TypeEcriture;
     libelle: string;
@@ -172,19 +177,38 @@ export async function creerEcriture(
     date_ecriture?: string;
   }
 ) {
-  return prisma.ecritureComptable.create({
+  const ecriture = await prisma.ecritureComptable.create({
     data: {
-      hospital_id: hospitalId,
+      hospital_id:   hospitalId,
       utilisateur_id: utilisateurId,
       type_ecriture: data.type_ecriture,
-      libelle: data.libelle,
-      montant: data.montant,
-      categorie: data.categorie ?? null,
-      reference: data.reference ?? null,
-      notes: data.notes ?? null,
+      libelle:       data.libelle,
+      montant:       data.montant,
+      categorie:     data.categorie ?? null,
+      reference:     data.reference ?? null,
+      notes:         data.notes ?? null,
       date_ecriture: data.date_ecriture
         ? new Date(data.date_ecriture)
         : new Date(),
     },
   });
+
+  await enregistrerAudit({
+    hospitalId,
+    utilisateurId,
+    utilisateurNom,
+    typeAction:  "CREATION",
+    module:      "COMPTABILITE",
+    description: `Écriture ${data.type_ecriture === "RECETTE" ? "recette" : "dépense"} — ${data.libelle} (${data.montant.toLocaleString("fr-FR")} XAF)`,
+    entiteId:    ecriture.id,
+    entiteNom:   data.libelle,
+    metadonnees: {
+      type_ecriture: data.type_ecriture,
+      montant:       data.montant,
+      reference:     data.reference ?? null,
+      categorie:     data.categorie ?? null,
+    },
+  });
+
+  return ecriture;
 }

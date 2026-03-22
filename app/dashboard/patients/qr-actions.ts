@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { genererQrToken } from "@/lib/qr-token";
 import { headers } from "next/headers";
+import { enregistrerAudit } from "@/lib/audit";
 
 // ============================================================
 // Génère un QR Code pour un patient
@@ -11,14 +12,15 @@ import { headers } from "next/headers";
 export async function genererQrCodePatient(
   patientId: string,
   hospitalId: string,
-  creePar: string
+  creePar: string,
+  createurNom: string
 ) {
   // 1. Invalide les anciens tokens actifs
   await prisma.qrToken.updateMany({
     where: {
-      patient_id: patientId,
+      patient_id:  patientId,
       hospital_id: hospitalId,
-      est_actif: true,
+      est_actif:   true,
     },
     data: { est_actif: false },
   });
@@ -33,12 +35,36 @@ export async function genererQrCodePatient(
   // 3. Sauvegarde en base
   await prisma.qrToken.create({
     data: {
-      patient_id: patientId,
+      patient_id:  patientId,
       hospital_id: hospitalId,
       token,
-      expire_le: expireAt,
-      cree_par: creePar,
-      est_actif: true,
+      expire_le:   expireAt,
+      cree_par:    creePar,
+      est_actif:   true,
+    },
+  });
+
+  // 4. Récupère le nom du patient pour l'audit
+  const patient = await prisma.patient.findUnique({
+    where:  { id: patientId },
+    select: { nom: true, prenom: true },
+  });
+  const nomPatient = patient
+    ? `${patient.prenom} ${patient.nom}`
+    : "Patient inconnu";
+
+  await enregistrerAudit({
+    hospitalId,
+    utilisateurId:  creePar,
+    utilisateurNom: createurNom,
+    typeAction:     "QR_CODE_GENERATION",
+    module:         "CARNET_SANTE",
+    description:    `Génération QR Code carnet de santé — ${nomPatient}`,
+    entiteId:       patientId,
+    entiteNom:      nomPatient,
+    metadonnees: {
+      expire_le:  expireAt.toISOString(),
+      patient_id: patientId,
     },
   });
 
@@ -48,15 +74,19 @@ export async function genererQrCodePatient(
 // ============================================================
 // Récupère les données du carnet de santé via token QR
 // + enregistre l'accès dans l'audit log (traçabilité légale)
+//
+// Chaque accès est doublement tracé :
+// - dans audit_logs_carnet (table dédiée carnet)
+// - dans audit_trail (journal global)
 // ============================================================
 export async function getCarnetParToken(token: string) {
   const headersList = await headers();
-  const ip = headersList.get("x-forwarded-for") ?? "inconnue";
+  const ip        = headersList.get("x-forwarded-for") ?? "inconnue";
   const userAgent = headersList.get("user-agent") ?? "inconnu";
 
   // 1. Vérifie que le token existe en base et est actif
   const qrToken = await prisma.qrToken.findUnique({
-    where: { token },
+    where:   { token },
     include: { patient: true },
   });
 
@@ -68,44 +98,63 @@ export async function getCarnetParToken(token: string) {
     return { erreur: "Token expiré — demandez un nouveau QR Code" };
   }
 
-  // 2. Enregistre l'accès dans l'audit log
+  const nomPatient = `${qrToken.patient.prenom} ${qrToken.patient.nom}`;
+
+  // 2. Enregistre l'accès dans l'audit log dédié carnet
   await prisma.auditLogCarnet.create({
     data: {
-      patient_id: qrToken.patient_id,
+      patient_id:  qrToken.patient_id,
       hospital_id: qrToken.hospital_id,
       accessed_by: "QR_CODE_PUBLIC",
-      ip_address: ip,
-      user_agent: userAgent,
-      type_acces: "QR_CODE",
+      ip_address:  ip,
+      user_agent:  userAgent,
+      type_acces:  "QR_CODE",
     },
   });
 
-  // 3. Récupère les données médicales du patient
+  // 3. Enregistre aussi dans le journal global audit_trail
+  await enregistrerAudit({
+    hospitalId:     qrToken.hospital_id,
+    utilisateurId:  undefined,
+    utilisateurNom: "Accès public",
+    typeAction:     "QR_CODE_ACCES",
+    module:         "CARNET_SANTE",
+    description:    `Accès carnet de santé via QR Code — ${nomPatient}`,
+    entiteId:       qrToken.patient_id,
+    entiteNom:      nomPatient,
+    metadonnees: {
+      ip_address:  ip,
+      user_agent:  userAgent,
+      token_id:    qrToken.id,
+    },
+  });
+
+  // 4. Récupère les données médicales du patient
   const patient = await prisma.patient.findUnique({
     where: { id: qrToken.patient_id },
     include: {
       consultations: {
-        where: { hospital_id: qrToken.hospital_id },
+        where:   { hospital_id: qrToken.hospital_id },
         orderBy: { date_consultation: "desc" },
-        take: 5,
+        take:    5,
         include: {
-          medecin: { select: { nom: true, prenom: true } },
+          medecin:       { select: { nom: true, prenom: true } },
           prescriptions: true,
         },
       },
       examens_labo: {
         where: {
           hospital_id: qrToken.hospital_id,
-          statut: "VALIDE",
+          statut:      "VALIDE",
         },
         orderBy: { created_at: "desc" },
-        take: 5,
+        take:    5,
         include: {
           medecin: { select: { nom: true, prenom: true } },
         },
       },
       hospitalisations: {
-        where: { hospital_id: qrToken.hospital_id },
+        where:   { hospital_id: qrToken.hospital_id },
         include: {
           hospital: {
             select: { nom: true, ville: true, telephone: true },
