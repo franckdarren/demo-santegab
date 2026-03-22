@@ -50,6 +50,7 @@ interface NouvelleDemandeImagerieDialogProps {
   onOpenChange: (open: boolean) => void;
   hospitalId: string;
   medecinConnecteId: string;
+  medecinConnecteNom: string;
   medecins: Medecin[];
   patients: PatientHospital[];
 }
@@ -69,6 +70,7 @@ export function NouvelleDemandeImagerieDialog({
   onOpenChange,
   hospitalId,
   medecinConnecteId,
+  medecinConnecteNom,
   medecins,
   patients,
 }: NouvelleDemandeImagerieDialogProps) {
@@ -109,7 +111,11 @@ export function NouvelleDemandeImagerieDialog({
 
     startTransition(async () => {
       try {
-        await creerExamenImagerie(hospitalId, {
+        await creerExamenImagerie(
+          hospitalId, 
+          medecinConnecteId, 
+          medecinConnecteNom, 
+          {
           patient_id: patientId,
           medecin_id: medecinId,
           type_examen: typeExamen,

@@ -77,6 +77,7 @@ interface ExamensImagerieListProps {
   patients: PatientHospital[];
   hospitalId: string;
   utilisateurId: string;
+  utilisateurNom: string;
   searchQuery: string;
 }
 
@@ -86,6 +87,7 @@ export function ExamensImagerieList({
   patients,
   hospitalId,
   utilisateurId,
+  utilisateurNom,
   searchQuery,
 }: ExamensImagerieListProps) {
   const router = useRouter();
@@ -247,6 +249,7 @@ export function ExamensImagerieList({
         medecins={medecins}
         patients={patients}
         medecinConnecteId={utilisateurId}
+        medecinConnecteNom={utilisateurNom}
       />
 
       {examenSelectionne && (
@@ -254,6 +257,7 @@ export function ExamensImagerieList({
           examen={examenSelectionne}
           hospitalId={hospitalId}
           utilisateurId={utilisateurId}
+          utilisateurNom={utilisateurNom}
           open={!!examenSelectionne}
           onOpenChange={(open) => {
             if (!open) setExamenSelectionne(null);

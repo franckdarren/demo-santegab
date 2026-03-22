@@ -62,6 +62,7 @@ interface ExamenImagerieDetailDialogProps {
     examen: ExamenImagerie;
     hospitalId: string;
     utilisateurId: string;
+    utilisateurNom: string;
     open: boolean;
     onOpenChange: (open: boolean) => void;
 }
@@ -70,6 +71,7 @@ export function ExamenImagerieDetailDialog({
     examen,
     hospitalId,
     utilisateurId,
+    utilisateurNom,
     open,
     onOpenChange,
 }: ExamenImagerieDetailDialogProps) {
@@ -93,11 +95,16 @@ export function ExamenImagerieDetailDialog({
     function handleSauvegarder() {
         startTransition(async () => {
             try {
-                await saisirResultatsImagerie(examen.id, hospitalId, {
-                    resultats,
-                    zone_anatomique: zoneAnatomique || undefined,
-                    statut: statut as StatutExamen,
-                });
+                await saisirResultatsImagerie(
+                    examen.id,
+                    hospitalId,
+                    utilisateurId,
+                    utilisateurNom,
+                    {
+                        resultats,
+                        zone_anatomique: zoneAnatomique || undefined,
+                        statut: statut as StatutExamen,
+                    });
                 setSucces("Résultats enregistrés !");
                 router.refresh();
                 setTimeout(() => {
@@ -117,7 +124,13 @@ export function ExamenImagerieDetailDialog({
         try {
             const formData = new FormData();
             formData.append("fichier", fichierSelectionne);
-            await uploadResultatImagerie(examen.id, hospitalId, formData);
+            await uploadResultatImagerie(
+                examen.id,
+                hospitalId,
+                utilisateurId,
+                utilisateurNom,
+                formData
+            );
             setSucces("PDF uploadé avec succès !");
             router.refresh();
             setTimeout(() => {
@@ -134,7 +147,7 @@ export function ExamenImagerieDetailDialog({
     function handleValider() {
         startTransition(async () => {
             try {
-                await validerExamenImagerie(examen.id, hospitalId, utilisateurId);
+                await validerExamenImagerie(examen.id, hospitalId, utilisateurId, utilisateurNom);
                 setSucces("Examen validé !");
                 router.refresh();
                 setTimeout(() => {
