@@ -42,6 +42,7 @@ export default async function UsersPage() {
         utilisateurs={utilisateurs}
         hospitalId={utilisateur.hospital_id}
         utilisateurConnecteId={utilisateur.id}
+        utilisateurConnecteNom={`${utilisateur.prenom} ${utilisateur.nom}`}
       />
     </div>
   );

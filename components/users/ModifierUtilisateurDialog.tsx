@@ -51,11 +51,15 @@ interface Utilisateur {
 interface ModifierUtilisateurDialogProps {
   utilisateur: Utilisateur;
   hospitalId: string;
+  adminId: string;
+  adminNom: string;
 }
 
 export function ModifierUtilisateurDialog({
   utilisateur,
   hospitalId,
+  adminId,
+  adminNom,
 }: ModifierUtilisateurDialogProps) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -67,8 +71,8 @@ export function ModifierUtilisateurDialog({
 
   const [role, setRole] = useState<Role>(utilisateur.role);
   const [formData, setFormData] = useState({
-    nom: utilisateur.nom,
-    prenom: utilisateur.prenom,
+    nom:       utilisateur.nom,
+    prenom:    utilisateur.prenom,
     telephone: utilisateur.telephone ?? "",
   });
 
@@ -82,7 +86,7 @@ export function ModifierUtilisateurDialog({
 
   function valider(): boolean {
     const newErrors: Record<string, string> = {};
-    if (!formData.nom.trim()) newErrors.nom = "Le nom est obligatoire";
+    if (!formData.nom.trim())    newErrors.nom    = "Le nom est obligatoire";
     if (!formData.prenom.trim()) newErrors.prenom = "Le prénom est obligatoire";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -99,12 +103,18 @@ export function ModifierUtilisateurDialog({
 
     startTransition(async () => {
       try {
-        await modifierUtilisateur(utilisateur.id, hospitalId, {
-          nom: formData.nom,
-          prenom: formData.prenom,
-          telephone: formData.telephone || undefined,
-          role,
-        });
+        await modifierUtilisateur(
+          utilisateur.id,
+          hospitalId,
+          adminId,
+          adminNom,
+          {
+            nom:       formData.nom,
+            prenom:    formData.prenom,
+            telephone: formData.telephone || undefined,
+            role,
+          }
+        );
         setSucces("Modifications enregistrées !");
         router.refresh();
         setTimeout(() => close(), 1200);
@@ -118,10 +128,13 @@ export function ModifierUtilisateurDialog({
   function handleToggleActivation() {
     startTransitionToggle(async () => {
       try {
+        // ← adminId + adminNom ajoutés
         await toggleActivationUtilisateur(
           utilisateur.id,
           hospitalId,
-          !utilisateur.est_actif
+          !utilisateur.est_actif,
+          adminId,
+          adminNom
         );
         router.refresh();
         close();
@@ -134,7 +147,13 @@ export function ModifierUtilisateurDialog({
   function handleResetPassword() {
     startTransitionReset(async () => {
       try {
-        await reinitialiserMotDePasse(utilisateur.email);
+        // ← adminId + adminNom + hospitalId ajoutés
+        await reinitialiserMotDePasse(
+          utilisateur.email,
+          adminId,
+          adminNom,
+          hospitalId
+        );
         setSucces("Email de réinitialisation envoyé !");
         setTimeout(() => setSucces(null), 3000);
       } catch (error) {
