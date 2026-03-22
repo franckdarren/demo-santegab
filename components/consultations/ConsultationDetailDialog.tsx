@@ -61,6 +61,8 @@ interface Consultation {
 interface ConsultationDetailDialogProps {
     consultation: Consultation;
     hospitalId: string;
+    utilisateurId: string;
+    utilisateurNom: string;
     open: boolean;
     onOpenChange: (open: boolean) => void;
 }
@@ -68,6 +70,8 @@ interface ConsultationDetailDialogProps {
 export function ConsultationDetailDialog({
     consultation,
     hospitalId,
+    utilisateurId,
+    utilisateurNom,
     open,
     onOpenChange,
 }: ConsultationDetailDialogProps) {
@@ -105,14 +109,19 @@ export function ConsultationDetailDialog({
     function handleSave() {
         startTransition(async () => {
             try {
-                await updateConsultation(consultation.id, hospitalId, {
-                    ...formData,
-                    poids_kg: formData.poids_kg ? Number(formData.poids_kg) : undefined,
-                    taille_cm: formData.taille_cm ? Number(formData.taille_cm) : undefined,
-                    temperature: formData.temperature ? Number(formData.temperature) : undefined,
-                    statut,
-                    prescriptions: prescriptions.filter((p) => p.medicament.trim()),
-                });
+                await updateConsultation(
+                    consultation.id,
+                    hospitalId,
+                    utilisateurId,
+                    utilisateurNom,
+                    {
+                        ...formData,
+                        poids_kg: formData.poids_kg ? Number(formData.poids_kg) : undefined,
+                        taille_cm: formData.taille_cm ? Number(formData.taille_cm) : undefined,
+                        temperature: formData.temperature ? Number(formData.temperature) : undefined,
+                        statut,
+                        prescriptions: prescriptions.filter((p) => p.medicament.trim()),
+                    });
                 setSucces(true);
                 router.refresh();
                 setTimeout(() => {
