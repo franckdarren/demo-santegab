@@ -82,6 +82,7 @@ interface ExamensLaboListProps {
   patients: PatientHospital[];
   hospitalId: string;
   utilisateurId: string;
+  utilisateurNom: string;
   searchQuery: string;
 }
 
@@ -91,6 +92,7 @@ export function ExamensLaboList({
   patients,
   hospitalId,
   utilisateurId,
+  utilisateurNom,
   searchQuery,
 }: ExamensLaboListProps) {
   const router = useRouter();
@@ -258,6 +260,7 @@ export function ExamensLaboList({
         medecins={medecins}
         patients={patients}
         medecinConnecteId={utilisateurId}
+        medecinConnecteNom={utilisateurNom}
       />
 
       {/* Dialog détail examen */}
@@ -266,6 +269,7 @@ export function ExamensLaboList({
           examen={examenSelectionne}
           hospitalId={hospitalId}
           utilisateurId={utilisateurId}
+          utilisateurNom={utilisateurNom}
           open={!!examenSelectionne}
           onOpenChange={(open) => {
             if (!open) setExamenSelectionne(null);

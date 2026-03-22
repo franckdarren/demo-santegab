@@ -20,14 +20,14 @@ const selectClass =
   "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring";
 
 const TYPES_EXAMEN: { value: TypeExamenLabo; label: string }[] = [
-  { value: "BILAN_SANGUIN",  label: "Bilan sanguin" },
+  { value: "BILAN_SANGUIN", label: "Bilan sanguin" },
   { value: "BILAN_URINAIRE", label: "Bilan urinaire" },
-  { value: "BACTERIOLOGIE",  label: "Bactériologie" },
-  { value: "PARASITOLOGIE",  label: "Parasitologie" },
-  { value: "SEROLOGIE",      label: "Sérologie" },
-  { value: "BIOCHIMIE",      label: "Biochimie" },
-  { value: "HEMATOLOGIE",    label: "Hématologie" },
-  { value: "AUTRE",          label: "Autre" },
+  { value: "BACTERIOLOGIE", label: "Bactériologie" },
+  { value: "PARASITOLOGIE", label: "Parasitologie" },
+  { value: "SEROLOGIE", label: "Sérologie" },
+  { value: "BIOCHIMIE", label: "Biochimie" },
+  { value: "HEMATOLOGIE", label: "Hématologie" },
+  { value: "AUTRE", label: "Autre" },
 ];
 
 interface Medecin {
@@ -50,6 +50,7 @@ interface NouvelleDemandeLaboDialogProps {
   onOpenChange: (open: boolean) => void;
   hospitalId: string;
   medecinConnecteId: string;
+  medecinConnecteNom: string;
   medecins: Medecin[];
   patients: PatientHospital[];
 }
@@ -69,6 +70,7 @@ export function NouvelleDemandeLaboDialog({
   onOpenChange,
   hospitalId,
   medecinConnecteId,
+  medecinConnecteNom,
   medecins,
   patients,
 }: NouvelleDemandeLaboDialogProps) {
@@ -107,7 +109,7 @@ export function NouvelleDemandeLaboDialog({
 
     startTransition(async () => {
       try {
-        await creerExamenLabo(hospitalId, {
+        await creerExamenLabo(hospitalId, medecinConnecteId, medecinConnecteNom, {
           patient_id: patientId,
           medecin_id: medecinId,
           type_examen: typeExamen,

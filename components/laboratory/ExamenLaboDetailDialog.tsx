@@ -62,6 +62,7 @@ interface ExamenLaboDetailDialogProps {
     examen: ExamenLabo;
     hospitalId: string;
     utilisateurId: string;
+    utilisateurNom: string;
     open: boolean;
     onOpenChange: (open: boolean) => void;
 }
@@ -70,6 +71,7 @@ export function ExamenLaboDetailDialog({
     examen,
     hospitalId,
     utilisateurId,
+    utilisateurNom,
     open,
     onOpenChange,
 }: ExamenLaboDetailDialogProps) {
@@ -92,10 +94,15 @@ export function ExamenLaboDetailDialog({
     function handleSauvegarder() {
         startTransition(async () => {
             try {
-                await saisirResultatsLabo(examen.id, hospitalId, {
-                    resultats,
-                    statut: statut as StatutExamen,
-                });
+                await saisirResultatsLabo(
+                    examen.id,
+                    hospitalId,
+                    utilisateurId,
+                    utilisateurNom,
+                    {
+                        resultats,
+                        statut: statut as StatutExamen,
+                    });
                 setSucces("Résultats enregistrés !");
                 router.refresh();
                 setTimeout(() => {
@@ -115,7 +122,8 @@ export function ExamenLaboDetailDialog({
         try {
             const formData = new FormData();
             formData.append("fichier", fichierSelectionne);
-            await uploadResultatPDF(examen.id, hospitalId, formData);
+            await uploadResultatPDF(examen.id, hospitalId, utilisateurId,
+                utilisateurNom, formData);
             setSucces("PDF uploadé avec succès !");
             router.refresh();
             setTimeout(() => {
@@ -132,7 +140,8 @@ export function ExamenLaboDetailDialog({
     function handleValider() {
         startTransition(async () => {
             try {
-                await validerExamenLabo(examen.id, hospitalId, utilisateurId);
+                await validerExamenLabo(examen.id, hospitalId, utilisateurId,
+                    utilisateurNom,);
                 setSucces("Examen validé !");
                 router.refresh();
                 setTimeout(() => {

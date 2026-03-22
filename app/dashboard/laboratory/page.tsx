@@ -50,6 +50,7 @@ export default async function LaboPage({ searchParams }: LaboPageProps) {
         patients={patients}
         hospitalId={utilisateur.hospital_id}
         utilisateurId={utilisateur.id}
+        utilisateurNom={`${utilisateur.prenom} ${utilisateur.nom}`}
         searchQuery={q ?? ""}
       />
     </div>
