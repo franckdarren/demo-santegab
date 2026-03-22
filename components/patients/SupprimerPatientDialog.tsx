@@ -23,12 +23,16 @@ interface SupprimerPatientDialogProps {
   patientId: string;
   nomPatient: string;
   hospitalId: string;
+  utilisateurId: string;
+  utilisateurNom: string;
 }
 
 export function SupprimerPatientDialog({
   patientId,
   nomPatient,
   hospitalId,
+  utilisateurId,
+  utilisateurNom,
 }: SupprimerPatientDialogProps) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -36,21 +40,27 @@ export function SupprimerPatientDialog({
   const [erreur, setErreur] = useState<string | null>(null);
 
   function handleSupprimer() {
-  setErreur(null);
+    setErreur(null);
 
-  startTransition(async () => {
-    try {
-      await supprimerPatient(patientId, hospitalId);
-      // On ferme d'abord le dialog puis on redirige
-      // router.refresh() seul après push cause un blocage
-      setOpen(false);
-      window.location.href = "/dashboard/patients";
-    } catch (error) {
-      setErreur("Une erreur est survenue lors de la suppression. Veuillez réessayer.");
-      console.error("Erreur suppression :", error);
-    }
-  });
-}
+    startTransition(async () => {
+      try {
+        await supprimerPatient(
+          patientId,
+          hospitalId,
+          utilisateurId,
+          utilisateurNom,
+          nomPatient
+        );
+        // On ferme d'abord le dialog puis on redirige
+        // router.refresh() seul après push cause un blocage
+        setOpen(false);
+        window.location.href = "/dashboard/patients";
+      } catch (error) {
+        setErreur("Une erreur est survenue lors de la suppression. Veuillez réessayer.");
+        console.error("Erreur suppression :", error);
+      }
+    });
+  }
 
   function handleClose() {
     // Ne ferme pas si une suppression est en cours

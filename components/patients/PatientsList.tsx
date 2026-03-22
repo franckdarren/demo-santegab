@@ -32,9 +32,17 @@ interface PatientsListProps {
   patients: Patient[];
   searchQuery: string;
   hospitalId: string;
+  utilisateurId: string;  // ← ajouté
+  utilisateurNom: string; // ← ajouté
 }
 
-export function PatientsList({ patients, searchQuery, hospitalId }: PatientsListProps) {
+export function PatientsList({
+  patients,
+  searchQuery,
+  hospitalId,
+  utilisateurId,  // ← ajouté
+  utilisateurNom, // ← ajouté
+}: PatientsListProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [search, setSearch] = useState(searchQuery);
@@ -53,7 +61,7 @@ export function PatientsList({ patients, searchQuery, hospitalId }: PatientsList
   return (
     <div className="space-y-4">
 
-      {/* Barre de recherche + bouton nouveau patient */}
+      {/* Barre de recherche + bouton */}
       <div className="flex gap-3">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -67,8 +75,6 @@ export function PatientsList({ patients, searchQuery, hospitalId }: PatientsList
             <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 animate-spin" />
           )}
         </div>
-
-        {/* Bouton qui ouvre le dialog */}
         <Button
           onClick={() => setDialogOuvert(true)}
           className="bg-blue-700 hover:bg-blue-800 text-white shrink-0"
@@ -163,6 +169,8 @@ export function PatientsList({ patients, searchQuery, hospitalId }: PatientsList
       {/* Dialog création patient */}
       <NouveauPatientDialog
         hospitalId={hospitalId}
+        utilisateurId={utilisateurId}
+        utilisateurNom={utilisateurNom}
         open={dialogOuvert}
         onOpenChange={setDialogOuvert}
       />

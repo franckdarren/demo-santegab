@@ -38,7 +38,9 @@ interface PatientHeaderProps {
   };
   hospitalId: string;
   medecinConnecteId: string;
-  medecinConnecteNom: string; // ← ajouté pour l'audit QR Code
+  medecinConnecteNom: string;
+  utilisateurId: string;  // ← pour audit modifier/supprimer
+  utilisateurNom: string; // ← pour audit modifier/supprimer
   medecins: Array<{ id: string; nom: string; prenom: string }>;
 }
 
@@ -47,6 +49,8 @@ export function PatientHeader({
   hospitalId,
   medecinConnecteId,
   medecinConnecteNom,
+  utilisateurId,
+  utilisateurNom,
   medecins,
 }: PatientHeaderProps) {
   const nomComplet = `${patient.prenom} ${patient.nom}`;
@@ -105,9 +109,12 @@ export function PatientHeader({
               </div>
             </div>
 
-            {/* Actions */}
+            {/* ------------------------------------------------ */}
+            {/* ACTIONS                                           */}
+            {/* ------------------------------------------------ */}
             <div className="flex gap-2 shrink-0 flex-wrap">
 
+              {/* Nouvelle consultation */}
               <Button
                 type="button"
                 onClick={() => setDialogConsultation(true)}
@@ -117,6 +124,7 @@ export function PatientHeader({
                 Nouvelle consultation
               </Button>
 
+              {/* QR Code carnet de santé */}
               <QrCodeButton
                 patientId={patient.id}
                 hospitalId={hospitalId}
@@ -125,15 +133,21 @@ export function PatientHeader({
                 nomPatient={nomComplet}
               />
 
+              {/* Modifier patient — avec audit */}
               <ModifierPatientDialog
                 patient={patient}
                 hospitalId={hospitalId}
+                utilisateurId={utilisateurId}
+                utilisateurNom={utilisateurNom}
               />
 
+              {/* Supprimer patient — avec audit */}
               <SupprimerPatientDialog
                 patientId={patient.id}
                 nomPatient={nomComplet}
                 hospitalId={hospitalId}
+                utilisateurId={utilisateurId}
+                utilisateurNom={utilisateurNom}
               />
             </div>
           </div>
@@ -198,11 +212,13 @@ export function PatientHeader({
         </CardContent>
       </Card>
 
+      {/* Dialog nouvelle consultation — avec audit */}
       <NouvelleConsultationDepuisPatient
         open={dialogConsultation}
         onOpenChange={setDialogConsultation}
         hospitalId={hospitalId}
         medecinConnecteId={medecinConnecteId}
+        medecinConnecteNom={medecinConnecteNom}
         medecins={medecins}
         patient={{
           id:             patient.id,

@@ -40,6 +40,7 @@ interface NouvelleConsultationDepuisPatientProps {
     onOpenChange: (open: boolean) => void;
     hospitalId: string;
     medecinConnecteId: string;
+    medecinConnecteNom: string;
     medecins: Medecin[];
     patient: {
         id: string;
@@ -64,6 +65,7 @@ export function NouvelleConsultationDepuisPatient({
     onOpenChange,
     hospitalId,
     medecinConnecteId,
+    medecinConnecteNom,
     medecins,
     patient,
 }: NouvelleConsultationDepuisPatientProps) {
@@ -123,7 +125,7 @@ export function NouvelleConsultationDepuisPatient({
 
         startTransition(async () => {
             try {
-                await creerConsultation(hospitalId, medecinId, {
+                await creerConsultation(hospitalId, medecinId, medecinConnecteNom, {
                     patient_id: patient.id,
                     motif: formData.motif || undefined,
                     diagnostic: formData.diagnostic || undefined,

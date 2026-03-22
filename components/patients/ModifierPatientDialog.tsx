@@ -44,6 +44,8 @@ interface ModifierPatientDialogProps {
     taux_couverture: number | null;
   };
   hospitalId: string;
+  utilisateurId: string;
+  utilisateurNom: string;
 }
 
 function FieldError({ message }: { message?: string }) {
@@ -59,6 +61,8 @@ function FieldError({ message }: { message?: string }) {
 export function ModifierPatientDialog({
   patient,
   hospitalId,
+  utilisateurId,
+  utilisateurNom,
 }: ModifierPatientDialogProps) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -115,7 +119,11 @@ export function ModifierPatientDialog({
 
     startTransition(async () => {
       try {
-        await modifierPatient(patient.id, hospitalId, {
+        await modifierPatient(
+          patient.id, 
+          hospitalId, 
+          utilisateurId,
+          utilisateurNom, {
           ...formData,
           sexe: sexe as "MASCULIN" | "FEMININ" | undefined,
           groupe_sanguin: groupeSanguin || undefined,

@@ -12,9 +12,9 @@ import { cn } from "@/lib/utils";
 import { creerPatient } from "@/app/dashboard/patients/actions";
 
 const STEPS = [
-  { id: 1, title: "Identité",  desc: "Informations personnelles" },
-  { id: 2, title: "Contact",   desc: "Coordonnées du patient" },
-  { id: 3, title: "Médical",   desc: "Santé & assurance" },
+  { id: 1, title: "Identité", desc: "Informations personnelles" },
+  { id: 2, title: "Contact", desc: "Coordonnées du patient" },
+  { id: 3, title: "Médical", desc: "Santé & assurance" },
 ];
 
 const GROUPES_SANGUINS = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
@@ -54,6 +54,8 @@ interface FormErrors {
 interface NouveauPatientDialogProps {
   hospitalId: string;
   open: boolean;
+  utilisateurId: string;
+  utilisateurNom: string;
   onOpenChange: (open: boolean) => void;
 }
 
@@ -72,6 +74,8 @@ function FieldError({ message }: { message?: string }) {
 
 export function NouveauPatientDialog({
   hospitalId,
+  utilisateurId,
+  utilisateurNom,
   open,
   onOpenChange,
 }: NouveauPatientDialogProps) {
@@ -184,7 +188,8 @@ export function NouveauPatientDialog({
 
     startTransition(async () => {
       try {
-        await creerPatient(hospitalId, {
+        await creerPatient(hospitalId, utilisateurId,
+          utilisateurNom, {
           nom: formData.nom,
           prenom: formData.prenom,
           date_naissance: formData.date_naissance || undefined,
@@ -244,9 +249,9 @@ export function NouveauPatientDialog({
                 >
                   <div className={cn(
                     "w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 transition-colors",
-                    step > s.id   && "bg-green-400 text-white",
+                    step > s.id && "bg-green-400 text-white",
                     step === s.id && "bg-cyan-400 text-blue-950",
-                    step < s.id   && "bg-white/10 text-white/40"
+                    step < s.id && "bg-white/10 text-white/40"
                   )}>
                     {step > s.id ? <Check size={13} /> : s.id}
                   </div>

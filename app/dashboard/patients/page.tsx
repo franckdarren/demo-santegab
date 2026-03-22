@@ -37,6 +37,8 @@ export default async function PatientsPage({ searchParams }: PatientsPageProps) 
         patients={patients}
         searchQuery={q ?? ""}
         hospitalId={utilisateur.hospital_id}
+        utilisateurId={utilisateur.id}
+        utilisateurNom={`${utilisateur.prenom} ${utilisateur.nom}`}
       />
     </div>
   );
