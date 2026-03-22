@@ -18,10 +18,10 @@ import { NouvelleFactureDialog } from "./NouvelleFactureDialog";
 import { FactureDetailDialog } from "./FactureDetailDialog";
 
 const STATUT_CONFIG: Record<StatutFacture, { label: string; color: string }> = {
-  EN_ATTENTE:          { label: "En attente",  color: "bg-orange-100 text-orange-700" },
-  PARTIELLEMENT_PAYEE: { label: "Partiel",      color: "bg-yellow-100 text-yellow-700" },
-  PAYEE:               { label: "Payée",        color: "bg-green-100 text-green-700" },
-  ANNULEE:             { label: "Annulée",      color: "bg-red-100 text-red-700" },
+  EN_ATTENTE:          { label: "En attente", color: "bg-orange-100 text-orange-700" },
+  PARTIELLEMENT_PAYEE: { label: "Partiel",    color: "bg-yellow-100 text-yellow-700" },
+  PAYEE:               { label: "Payée",      color: "bg-green-100 text-green-700" },
+  ANNULEE:             { label: "Annulée",    color: "bg-red-100 text-red-700" },
 };
 
 const FILTRES = [
@@ -79,6 +79,8 @@ interface FacturesListProps {
   patients: PatientHospital[];
   hospitalId: string;
   hospital: Hospital;
+  utilisateurId: string;  // ← ajouté pour l'audit
+  utilisateurNom: string; // ← ajouté pour l'audit
   searchQuery: string;
 }
 
@@ -87,6 +89,8 @@ export function FacturesList({
   patients,
   hospitalId,
   hospital,
+  utilisateurId,  // ← ajouté
+  utilisateurNom, // ← ajouté
   searchQuery,
 }: FacturesListProps) {
   const router = useRouter();
@@ -180,7 +184,7 @@ export function FacturesList({
           ) : (
             <div className="divide-y divide-gray-100">
               {facturesFiltrees.map((facture) => {
-                const statut = STATUT_CONFIG[facture.statut];
+                const statut    = STATUT_CONFIG[facture.statut];
                 const nomPatient = `${facture.patient.prenom} ${facture.patient.nom}`;
 
                 return (
@@ -252,6 +256,8 @@ export function FacturesList({
         onOpenChange={setDialogCreer}
         hospitalId={hospitalId}
         patients={patients}
+        utilisateurId={utilisateurId}
+        utilisateurNom={utilisateurNom}
       />
 
       {/* Dialog détail facture */}
@@ -260,6 +266,8 @@ export function FacturesList({
           facture={factureSelectionnee}
           hospitalId={hospitalId}
           hospital={hospital}
+          utilisateurId={utilisateurId}
+          utilisateurNom={utilisateurNom}
           open={!!factureSelectionnee}
           onOpenChange={(open) => {
             if (!open) setFactureSelectionnee(null);

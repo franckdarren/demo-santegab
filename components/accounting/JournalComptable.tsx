@@ -257,7 +257,7 @@ export function JournalComptable({
 
                     {/* Montant */}
                     <p className={cn(
-                      "text-sm font-bold shrink-0 min-w-[100px] text-right",
+                      "text-sm font-bold shrink-0 min-w-25 text-right",
                       e.type_ecriture === "RECETTE"
                         ? "text-green-600"
                         : "text-red-600"
@@ -283,7 +283,7 @@ export function JournalComptable({
 
       {/* Dialog nouvelle écriture */}
       <Dialog open={dialogOpen} onOpenChange={closeDialog}>
-        <DialogContent className="!max-w-lg w-full p-0 overflow-hidden gap-0">
+        <DialogContent className="max-w-lg! w-full p-0 overflow-hidden gap-0">
           <DialogTitle className="sr-only">Nouvelle écriture</DialogTitle>
 
           {succes ? (

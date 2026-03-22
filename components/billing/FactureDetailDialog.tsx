@@ -21,9 +21,9 @@ const selectClass =
 
 const STATUT_CONFIG: Record<StatutFacture, { label: string; color: string }> = {
   EN_ATTENTE:          { label: "En attente", color: "bg-orange-100 text-orange-700" },
-  PARTIELLEMENT_PAYEE: { label: "Partiel",     color: "bg-yellow-100 text-yellow-700" },
-  PAYEE:               { label: "Payée",       color: "bg-green-100 text-green-700" },
-  ANNULEE:             { label: "Annulée",     color: "bg-red-100 text-red-700" },
+  PARTIELLEMENT_PAYEE: { label: "Partiel",    color: "bg-yellow-100 text-yellow-700" },
+  PAYEE:               { label: "Payée",      color: "bg-green-100 text-green-700" },
+  ANNULEE:             { label: "Annulée",    color: "bg-red-100 text-red-700" },
 };
 
 const MODES_PAIEMENT = [
@@ -58,7 +58,6 @@ interface Facture {
   } | null;
 }
 
-// Props hôpital nécessaires pour le PDF
 interface Hospital {
   nom: string;
   adresse?: string | null;
@@ -71,6 +70,8 @@ interface FactureDetailDialogProps {
   facture: Facture;
   hospitalId: string;
   hospital: Hospital;
+  utilisateurId: string;  // ← ajouté pour l'audit
+  utilisateurNom: string; // ← ajouté pour l'audit
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
@@ -79,6 +80,8 @@ export function FactureDetailDialog({
   facture,
   hospitalId,
   hospital,
+  utilisateurId,  // ← ajouté
+  utilisateurNom, // ← ajouté
   open,
   onOpenChange,
 }: FactureDetailDialogProps) {
@@ -88,15 +91,22 @@ export function FactureDetailDialog({
   const [confirmation, setConfirmation] = useState<"payer" | "annuler" | null>(null);
   const [succes, setSucces] = useState<"paye" | "annule" | null>(null);
 
-  const nomPatient = `${facture.patient.prenom} ${facture.patient.nom}`;
+  const nomPatient   = `${facture.patient.prenom} ${facture.patient.nom}`;
   const statutConfig = STATUT_CONFIG[facture.statut];
-  const peutPayer = facture.statut === "EN_ATTENTE" || facture.statut === "PARTIELLEMENT_PAYEE";
-  const peutAnnuler = facture.statut === "EN_ATTENTE";
+  const peutPayer    = facture.statut === "EN_ATTENTE" || facture.statut === "PARTIELLEMENT_PAYEE";
+  const peutAnnuler  = facture.statut === "EN_ATTENTE";
 
   function handlePayer() {
     startTransition(async () => {
       try {
-        await payerFacture(facture.id, hospitalId, modePaiement);
+        // ← utilisateurId + utilisateurNom ajoutés
+        await payerFacture(
+          facture.id,
+          hospitalId,
+          modePaiement,
+          utilisateurId,
+          utilisateurNom
+        );
         setSucces("paye");
         router.refresh();
         setTimeout(() => {
@@ -113,7 +123,13 @@ export function FactureDetailDialog({
   function handleAnnuler() {
     startTransition(async () => {
       try {
-        await annulerFacture(facture.id, hospitalId);
+        // ← utilisateurId + utilisateurNom ajoutés
+        await annulerFacture(
+          facture.id,
+          hospitalId,
+          utilisateurId,
+          utilisateurNom
+        );
         setSucces("annule");
         router.refresh();
         setTimeout(() => {
@@ -151,9 +167,7 @@ export function FactureDetailDialog({
         ) : (
           <div className="flex flex-col">
 
-            {/* ------------------------------------------------ */}
-            {/* HEADER                                            */}
-            {/* ------------------------------------------------ */}
+            {/* Header */}
             <div className="shrink-0 px-6 py-4 border-b bg-gray-50 flex items-center justify-between">
               <div>
                 <h2 className="text-base font-semibold text-gray-900">
@@ -177,9 +191,7 @@ export function FactureDetailDialog({
               </div>
             </div>
 
-            {/* ------------------------------------------------ */}
-            {/* CONTENU                                           */}
-            {/* ------------------------------------------------ */}
+            {/* Contenu */}
             <div className="overflow-y-auto p-6 space-y-5 max-h-[55vh]">
 
               {/* Tableau des actes */}
@@ -307,18 +319,15 @@ export function FactureDetailDialog({
               )}
             </div>
 
-            {/* ------------------------------------------------ */}
-            {/* FOOTER — 2 lignes : PDF en haut, actions en bas  */}
-            {/* ------------------------------------------------ */}
+            {/* Footer */}
             <div className="shrink-0 flex flex-col gap-3 px-6 py-4 border-t bg-gray-50">
 
-              {/* Ligne 1 — bouton PDF toujours visible */}
+              {/* Ligne 1 — bouton PDF */}
               <DownloadFacturePDF facture={facture} hospital={hospital} />
 
-              {/* Ligne 2 — actions paiement / annulation */}
+              {/* Ligne 2 — actions */}
               <div className="flex justify-between items-center">
 
-                {/* Gauche — annuler la facture */}
                 <div>
                   {peutAnnuler && !confirmation && (
                     <Button
@@ -333,9 +342,7 @@ export function FactureDetailDialog({
                   )}
                 </div>
 
-                {/* Droite — paiement */}
                 <div className="flex gap-2">
-
                   {confirmation && (
                     <Button
                       type="button"
@@ -414,7 +421,6 @@ export function FactureDetailDialog({
                 </div>
               </div>
             </div>
-
           </div>
         )}
       </DialogContent>

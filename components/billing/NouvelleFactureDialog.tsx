@@ -51,6 +51,8 @@ interface NouvelleFactureDialogProps {
   onOpenChange: (open: boolean) => void;
   hospitalId: string;
   patients: PatientHospital[];
+  utilisateurId: string;  // ← ajouté pour l'audit
+  utilisateurNom: string; // ← ajouté pour l'audit
 }
 
 function FieldError({ message }: { message?: string }) {
@@ -68,6 +70,8 @@ export function NouvelleFactureDialog({
   onOpenChange,
   hospitalId,
   patients,
+  utilisateurId,  // ← ajouté
+  utilisateurNom, // ← ajouté
 }: NouvelleFactureDialogProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -79,18 +83,13 @@ export function NouvelleFactureDialog({
     { description: "Consultation générale", quantite: 1, prix_unitaire: 20000 },
   ]);
 
-  // Récupère assurance du patient sélectionné
   const patientSelectionne = patients.find((p) => p.patient.id === patientId);
   const tauxAssurance = patientSelectionne?.taux_couverture ?? 0;
-  const assuranceNom = patientSelectionne?.assurance_nom ?? null;
+  const assuranceNom  = patientSelectionne?.assurance_nom ?? null;
 
-  // Calculs en temps réel
-  const montantTotal = lignes.reduce(
-    (sum, l) => sum + l.quantite * l.prix_unitaire,
-    0
-  );
+  const montantTotal     = lignes.reduce((sum, l) => sum + l.quantite * l.prix_unitaire, 0);
   const montantAssurance = Math.round(montantTotal * (tauxAssurance / 100));
-  const montantPatient = montantTotal - montantAssurance;
+  const montantPatient   = montantTotal - montantAssurance;
 
   function ajouterLigne() {
     setLignes((prev) => [
@@ -146,10 +145,11 @@ export function NouvelleFactureDialog({
 
     startTransition(async () => {
       try {
-        await creerFacture(hospitalId, {
-          patient_id: patientId,
+        // ← utilisateurId + utilisateurNom ajoutés pour l'audit
+        await creerFacture(hospitalId, utilisateurId, utilisateurNom, {
+          patient_id:     patientId,
           lignes,
-          notes: notes || undefined,
+          notes:          notes || undefined,
           taux_assurance: tauxAssurance,
         });
         setSucces(true);
@@ -224,7 +224,6 @@ export function NouvelleFactureDialog({
                   </select>
                   <FieldError message={errors.patient} />
 
-                  {/* Badge assurance si patient sélectionné */}
                   {assuranceNom && (
                     <div className="flex items-center gap-2 p-2 bg-blue-50 rounded-lg">
                       <p className="text-xs text-blue-700">
@@ -269,7 +268,6 @@ export function NouvelleFactureDialog({
                     </button>
                   </div>
 
-                  {/* En-têtes colonnes */}
                   <div className="grid grid-cols-12 gap-2 px-1">
                     <p className="col-span-6 text-xs text-gray-400">Description</p>
                     <p className="col-span-2 text-xs text-gray-400 text-center">Qté</p>
@@ -350,7 +348,6 @@ export function NouvelleFactureDialog({
                   Récapitulatif
                 </p>
 
-                {/* Détail lignes */}
                 <div className="space-y-2 flex-1">
                   {lignes.map((l, i) => (
                     <div key={i} className="flex justify-between text-xs">
@@ -366,7 +363,6 @@ export function NouvelleFactureDialog({
 
                 <Separator />
 
-                {/* Totaux */}
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Total</span>

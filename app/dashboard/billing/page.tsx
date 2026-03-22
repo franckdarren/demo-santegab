@@ -15,13 +15,8 @@ interface BillingPageProps {
 }
 
 export default async function BillingPage({ searchParams }: BillingPageProps) {
-  // --------------------------------------------------------
-  // Auth
-  // --------------------------------------------------------
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
   const utilisateur = await prisma.utilisateur.findFirst({
@@ -31,9 +26,6 @@ export default async function BillingPage({ searchParams }: BillingPageProps) {
 
   const { q } = await searchParams;
 
-  // --------------------------------------------------------
-  // Données en parallèle
-  // --------------------------------------------------------
   const [factures, stats, patients, hospital] = await Promise.all([
     getFactures(utilisateur.hospital_id, q),
     getStatsFacturation(utilisateur.hospital_id),
@@ -52,10 +44,8 @@ export default async function BillingPage({ searchParams }: BillingPageProps) {
         </p>
       </div>
 
-      {/* KPIs */}
       <BillingStats stats={stats} />
 
-      {/* Liste des factures */}
       <FacturesList
         factures={factures}
         patients={patients}
@@ -67,6 +57,9 @@ export default async function BillingPage({ searchParams }: BillingPageProps) {
           telephone: hospital?.telephone ?? null,
           email:     hospital?.email     ?? null,
         }}
+        // ← Ajoutés pour la traçabilité audit
+        utilisateurId={utilisateur.id}
+        utilisateurNom={`${utilisateur.prenom} ${utilisateur.nom}`}
         searchQuery={q ?? ""}
       />
     </div>
