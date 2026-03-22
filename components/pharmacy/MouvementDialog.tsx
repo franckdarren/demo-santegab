@@ -29,6 +29,7 @@ interface MouvementDialogProps {
   article: Article;
   hospitalId: string;
   utilisateurId: string;
+  utilisateurNom: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
@@ -38,6 +39,7 @@ export function MouvementDialog({
   hospitalId,
   utilisateurId,
   open,
+  utilisateurNom,
   onOpenChange,
 }: MouvementDialogProps) {
   const router = useRouter();
@@ -80,7 +82,7 @@ export function MouvementDialog({
 
     startTransition(async () => {
       try {
-        await enregistrerMouvement(hospitalId, utilisateurId, {
+        await enregistrerMouvement(hospitalId, utilisateurId, utilisateurNom, {
           article_id: article.id,
           type_mouvement: typeMouvement,
           quantite: quantiteNum,

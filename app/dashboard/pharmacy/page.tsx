@@ -47,6 +47,7 @@ export default async function PharmacyPage({ searchParams }: PharmacyPageProps) 
         mouvements={mouvements}
         hospitalId={utilisateur.hospital_id}
         utilisateurId={utilisateur.id}
+        utilisateurNom={`${utilisateur.prenom} ${utilisateur.nom}`} // ← ajouté
         searchQuery={q ?? ""}
       />
     </div>

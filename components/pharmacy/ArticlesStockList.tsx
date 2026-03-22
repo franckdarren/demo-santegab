@@ -16,24 +16,24 @@ import { HistoriqueDialog } from "./HistoriqueDialog";
 import { ModifierArticleDialog } from "./ModifierArticleDialog";
 
 const CATEGORIE_LABELS: Record<CategorieArticle, string> = {
-  MEDICAMENT:  "Médicament",
+  MEDICAMENT: "Médicament",
   CONSOMMABLE: "Consommable",
-  EQUIPEMENT:  "Équipement",
-  AUTRE:       "Autre",
+  EQUIPEMENT: "Équipement",
+  AUTRE: "Autre",
 };
 
 const CATEGORIE_COLORS: Record<CategorieArticle, string> = {
-  MEDICAMENT:  "bg-blue-100 text-blue-700",
+  MEDICAMENT: "bg-blue-100 text-blue-700",
   CONSOMMABLE: "bg-cyan-100 text-cyan-700",
-  EQUIPEMENT:  "bg-purple-100 text-purple-700",
-  AUTRE:       "bg-gray-100 text-gray-700",
+  EQUIPEMENT: "bg-purple-100 text-purple-700",
+  AUTRE: "bg-gray-100 text-gray-700",
 };
 
 const FILTRES = [
-  { label: "Tous",         value: "" },
-  { label: "Médicaments",  value: "MEDICAMENT" },
+  { label: "Tous", value: "" },
+  { label: "Médicaments", value: "MEDICAMENT" },
   { label: "Consommables", value: "CONSOMMABLE" },
-  { label: "⚠️ Alertes",   value: "ALERTE" },
+  { label: "⚠️ Alertes", value: "ALERTE" },
 ];
 
 interface Article {
@@ -72,6 +72,7 @@ interface ArticlesStockListProps {
   mouvements: Mouvement[];
   hospitalId: string;
   utilisateurId: string;
+  utilisateurNom: string;
   searchQuery: string;
 }
 
@@ -80,6 +81,7 @@ export function ArticlesStockList({
   mouvements,
   hospitalId,
   utilisateurId,
+  utilisateurNom,
   searchQuery,
 }: ArticlesStockListProps) {
   const router = useRouter();
@@ -212,8 +214,8 @@ export function ArticlesStockList({
                   enRupture
                     ? "border-red-200 bg-red-50/30"
                     : enAlerte
-                    ? "border-orange-200 bg-orange-50/30"
-                    : "border-gray-200"
+                      ? "border-orange-200 bg-orange-50/30"
+                      : "border-gray-200"
                 )}
               >
                 <CardContent className="p-4 space-y-3">
@@ -257,8 +259,8 @@ export function ArticlesStockList({
                         enRupture
                           ? "text-red-600"
                           : enAlerte
-                          ? "text-orange-600"
-                          : "text-gray-900"
+                            ? "text-orange-600"
+                            : "text-gray-900"
                       )}>
                         {article.quantite_stock} {article.unite}s
                       </span>
@@ -306,6 +308,8 @@ export function ArticlesStockList({
                     <ModifierArticleDialog
                       article={article}
                       hospitalId={hospitalId}
+                      utilisateurId={utilisateurId}
+                      utilisateurNom={utilisateurNom}
                     />
                   </div>
                 </CardContent>
@@ -320,6 +324,8 @@ export function ArticlesStockList({
         open={dialogNouvel}
         onOpenChange={setDialogNouvel}
         hospitalId={hospitalId}
+        utilisateurId={utilisateurId}
+        utilisateurNom={utilisateurNom}
       />
 
       {/* Dialog mouvement de stock */}
@@ -328,6 +334,7 @@ export function ArticlesStockList({
           article={articleSelectionne}
           hospitalId={hospitalId}
           utilisateurId={utilisateurId}
+          utilisateurNom={utilisateurNom}
           open={!!articleSelectionne}
           onOpenChange={(open) => {
             if (!open) setArticleSelectionne(null);

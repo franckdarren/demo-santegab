@@ -24,6 +24,8 @@ interface NouvelArticleDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   hospitalId: string;
+  utilisateurId: string;
+  utilisateurNom: string;
 }
 
 function FieldError({ message }: { message?: string }) {
@@ -40,6 +42,8 @@ export function NouvelArticleDialog({
   open,
   onOpenChange,
   hospitalId,
+  utilisateurId,
+  utilisateurNom,
 }: NouvelArticleDialogProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -94,7 +98,8 @@ export function NouvelArticleDialog({
 
     startTransition(async () => {
       try {
-        await creerArticleStock(hospitalId, {
+        await creerArticleStock(hospitalId, utilisateurId,
+          utilisateurNom, {
           nom: formData.nom,
           categorie,
           description: formData.description || undefined,

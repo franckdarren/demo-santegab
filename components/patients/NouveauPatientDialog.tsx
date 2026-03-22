@@ -221,10 +221,10 @@ export function NouveauPatientDialog({
 
   return (
     <Dialog open={open} onOpenChange={close}>
-      <DialogContent className="!max-w-3xl w-full p-0 overflow-hidden gap-0">
+      <DialogContent className="max-w-3xl! w-full p-0 overflow-hidden gap-0">
         <DialogTitle className="sr-only">Nouveau patient</DialogTitle>
 
-        <div className="flex min-h-[540px]">
+        <div className="flex min-h-135">
 
           {/* -------------------------------------------------- */}
           {/* SIDEBAR GAUCHE                                      */}

@@ -37,6 +37,8 @@ interface Article {
 interface ModifierArticleDialogProps {
   article: Article;
   hospitalId: string;
+  utilisateurId: string;
+  utilisateurNom: string;
 }
 
 function FieldError({ message }: { message?: string }) {
@@ -52,6 +54,8 @@ function FieldError({ message }: { message?: string }) {
 export function ModifierArticleDialog({
   article,
   hospitalId,
+  utilisateurId,
+  utilisateurNom,
 }: ModifierArticleDialogProps) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -104,7 +108,8 @@ export function ModifierArticleDialog({
 
     startTransition(async () => {
       try {
-        await modifierArticleStock(article.id, hospitalId, {
+        await modifierArticleStock(article.id, hospitalId, utilisateurId,
+          utilisateurNom, {
           nom: formData.nom,
           categorie,
           description: formData.description || undefined,
@@ -127,7 +132,8 @@ export function ModifierArticleDialog({
   function handleSupprimer() {
     startTransitionDelete(async () => {
       try {
-        await supprimerArticleStock(article.id, hospitalId);
+        await supprimerArticleStock(article.id, hospitalId, utilisateurId,
+          utilisateurNom);
         router.refresh();
         close();
       } catch (error) {
