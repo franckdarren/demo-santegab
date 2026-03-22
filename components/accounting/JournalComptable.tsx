@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
@@ -19,10 +19,14 @@ import {
 } from "@/app/generated/prisma/client";
 import { creerEcriture } from "@/app/dashboard/accounting/actions";
 
-const TYPE_CONFIG: Record<TypeEcriture, { label: string; color: string; icon: React.ElementType }> = {
-  RECETTE:     { label: "Recette",     color: "bg-green-100 text-green-700",  icon: TrendingUp },
-  DEPENSE:     { label: "Dépense",     color: "bg-red-100 text-red-700",      icon: TrendingDown },
-  AJUSTEMENT:  { label: "Ajustement",  color: "bg-blue-100 text-blue-700",    icon: TrendingUp },
+const TYPE_CONFIG: Record<TypeEcriture, {
+  label: string;
+  color: string;
+  icon: React.ElementType;
+}> = {
+  RECETTE:    { label: "Recette",    color: "bg-green-100 text-green-700", icon: TrendingUp },
+  DEPENSE:    { label: "Dépense",    color: "bg-red-100 text-red-700",     icon: TrendingDown },
+  AJUSTEMENT: { label: "Ajustement", color: "bg-blue-100 text-blue-700",   icon: TrendingUp },
 };
 
 const CATEGORIE_LABELS: Record<CategorieDepense, string> = {
@@ -56,6 +60,7 @@ interface JournalComptableProps {
   ecritures: Ecriture[];
   hospitalId: string;
   utilisateurId: string;
+  utilisateurNom: string; // ← ajouté pour l'audit
 }
 
 function FieldError({ message }: { message?: string }) {
@@ -72,6 +77,7 @@ export function JournalComptable({
   ecritures,
   hospitalId,
   utilisateurId,
+  utilisateurNom, // ← ajouté pour l'audit
 }: JournalComptableProps) {
   const router = useRouter();
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -83,10 +89,10 @@ export function JournalComptable({
   const [typeEcriture, setTypeEcriture] = useState<TypeEcriture>("DEPENSE");
   const [categorie, setCategorie] = useState<CategorieDepense | "">("");
   const [formData, setFormData] = useState({
-    libelle: "",
-    montant: "",
-    reference: "",
-    notes: "",
+    libelle:       "",
+    montant:       "",
+    reference:     "",
+    notes:         "",
     date_ecriture: new Date().toISOString().split("T")[0],
   });
 
@@ -100,7 +106,9 @@ export function JournalComptable({
 
   function valider(): boolean {
     const newErrors: Record<string, string> = {};
-    if (!formData.libelle.trim()) newErrors.libelle = "Le libellé est obligatoire";
+    if (!formData.libelle.trim()) {
+      newErrors.libelle = "Le libellé est obligatoire";
+    }
     if (!formData.montant || Number(formData.montant) <= 0) {
       newErrors.montant = "Le montant doit être supérieur à 0";
     }
@@ -125,13 +133,14 @@ export function JournalComptable({
 
     startTransition(async () => {
       try {
-        await creerEcriture(hospitalId, utilisateurId, {
+        // ← utilisateurNom ajouté en 3ème argument
+        await creerEcriture(hospitalId, utilisateurId, utilisateurNom, {
           type_ecriture: typeEcriture,
-          libelle: formData.libelle,
-          montant: Number(formData.montant),
-          categorie: categorie as CategorieDepense || undefined,
-          reference: formData.reference || undefined,
-          notes: formData.notes || undefined,
+          libelle:       formData.libelle,
+          montant:       Number(formData.montant),
+          categorie:     categorie as CategorieDepense || undefined,
+          reference:     formData.reference || undefined,
+          notes:         formData.notes || undefined,
           date_ecriture: formData.date_ecriture,
         });
         setSucces(true);
@@ -174,7 +183,7 @@ export function JournalComptable({
       {/* Filtres */}
       <div className="flex gap-2">
         {[
-          { label: "Toutes", value: "" },
+          { label: "Toutes",   value: "" },
           { label: "Recettes", value: "RECETTE" },
           { label: "Dépenses", value: "DEPENSE" },
         ].map((f) => (
@@ -330,7 +339,9 @@ export function JournalComptable({
 
                 {/* Libellé */}
                 <div className="space-y-1.5">
-                  <Label>Libellé <span className="text-red-500">*</span></Label>
+                  <Label>
+                    Libellé <span className="text-red-500">*</span>
+                  </Label>
                   <Input
                     name="libelle"
                     placeholder="Ex: Salaires personnel Mars 2025"
@@ -344,7 +355,9 @@ export function JournalComptable({
                 {/* Montant + Date */}
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1.5">
-                    <Label>Montant (XAF) <span className="text-red-500">*</span></Label>
+                    <Label>
+                      Montant (XAF) <span className="text-red-500">*</span>
+                    </Label>
                     <Input
                       name="montant"
                       type="number"
@@ -367,7 +380,7 @@ export function JournalComptable({
                   </div>
                 </div>
 
-                {/* Catégorie (si dépense) */}
+                {/* Catégorie si dépense */}
                 {typeEcriture === "DEPENSE" && (
                   <div className="space-y-1.5">
                     <Label>Catégorie</Label>
@@ -386,7 +399,7 @@ export function JournalComptable({
                   </div>
                 )}
 
-                {/* Référence + Notes */}
+                {/* Référence */}
                 <div className="space-y-1.5">
                   <Label>Référence</Label>
                   <Input
@@ -397,6 +410,7 @@ export function JournalComptable({
                   />
                 </div>
 
+                {/* Notes */}
                 <div className="space-y-1.5">
                   <Label>Notes</Label>
                   <Input

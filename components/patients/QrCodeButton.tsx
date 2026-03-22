@@ -71,7 +71,7 @@ export function QrCodeButton({
       </Button>
 
       <Dialog open={open} onOpenChange={handleFermer}>
-        <DialogContent className="!max-w-sm w-full p-0 overflow-hidden gap-0 [&>button:first-of-type]:hidden">
+        <DialogContent className="max-w-sm! w-full p-0 overflow-hidden gap-0 [&>button:first-of-type]:hidden">
           <DialogTitle className="sr-only">QR Code carnet de santé</DialogTitle>
 
           <div className="flex flex-col">

@@ -53,6 +53,7 @@ export default async function AccountingPage() {
         ecritures={ecritures}
         hospitalId={utilisateur.hospital_id}
         utilisateurId={utilisateur.id}
+        utilisateurNom={`${utilisateur.prenom} ${utilisateur.nom}`}
       />
     </div>
   );
