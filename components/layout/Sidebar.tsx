@@ -12,7 +12,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Role } from "@/app/generated/prisma/client";
-import { UsersRound } from "lucide-react";
+import { Bed, UsersRound } from "lucide-react";
 import { BookOpen } from "lucide-react";
 import { ClipboardList } from "lucide-react";
 import {
@@ -128,6 +128,13 @@ const navigation: NavItem[] = [
   roles: ["ADMIN", "SUPER_ADMIN"],
   comingSoon: false,
 },
+{
+  label: "Hospitalisation",
+  href: "/dashboard/hospitalisation",
+  icon: Bed,
+  roles: ["ADMIN", "SUPER_ADMIN"],
+  comingSoon: true,
+},
 ];
 
 interface AppSidebarProps {
@@ -220,13 +227,13 @@ export function AppSidebar({ role, hospitalNom }: AppSidebarProps) {
                     <SidebarMenuItem key={item.href}>
                       <SidebarMenuButton
                         disabled
-                        className="text-blue-400/40 cursor-not-allowed hover:bg-transparent hover:text-blue-400/40"
+                        className="text-blue-400/90 cursor-not-allowed hover:bg-transparent hover:text-blue-400/40"
                       >
                         <Icon className="h-4 w-4" />
                         <span className="flex-1">{item.label}</span>
                         <Badge
                           variant="outline"
-                          className="text-[10px] border-blue-700/50 text-blue-500/50 py-0 px-1.5 ml-auto"
+                          className="text-[10px] border-blue-700/50 text-blue-500/90 py-0 px-1.5 ml-auto"
                         >
                           Bientôt
                         </Badge>
