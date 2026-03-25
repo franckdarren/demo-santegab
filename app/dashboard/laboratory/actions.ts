@@ -1,22 +1,12 @@
-// ============================================================
-// ACTIONS LABORATOIRE
-// Toutes les requêtes filtrées par hospital_id (multi-tenant)
-// ============================================================
-
 "use server";
 
 import { prisma } from "@/lib/prisma";
 import { createClient } from "@/lib/supabase/server";
 import { TypeExamenLabo, StatutExamen } from "@/app/generated/prisma/client";
 import { enregistrerAudit } from "@/lib/audit";
+import { TARIFS_LABO } from "@/lib/tarifs";
 
-// ============================================================
-// Liste des examens labo de l'hôpital
-// ============================================================
-export async function getExamensLabo(
-  hospitalId: string,
-  search?: string
-) {
+export async function getExamensLabo(hospitalId: string, search?: string) {
   return prisma.examenLabo.findMany({
     where: {
       hospital_id: hospitalId,
@@ -25,7 +15,7 @@ export async function getExamensLabo(
           {
             patient: {
               OR: [
-                { nom: { contains: search, mode: "insensitive" } },
+                { nom:    { contains: search, mode: "insensitive" } },
                 { prenom: { contains: search, mode: "insensitive" } },
               ],
             },
@@ -34,53 +24,92 @@ export async function getExamensLabo(
         ],
       }),
     },
-    include: {
-      patient: true,
-      medecin: true,
-    },
-    orderBy: [
-      { urgence: "desc" },
-      { created_at: "desc" },
-    ],
+    include: { patient: true, medecin: true },
+    orderBy: [{ urgence: "desc" }, { created_at: "desc" }],
   });
 }
 
 // ============================================================
 // Créer une demande d'examen labo
+//
+// La facture est générée immédiatement à la création si
+// un tarif est défini pour ce type d'examen.
+// Le patient sait immédiatement ce qu'il doit payer.
 // ============================================================
 export async function creerExamenLabo(
   hospitalId: string,
   utilisateurId: string,
   utilisateurNom: string,
   data: {
-    patient_id: string;
-    medecin_id: string;
+    patient_id:  string;
+    medecin_id:  string;
     type_examen: TypeExamenLabo;
-    notes?: string;
-    urgence?: boolean;
+    notes?:      string;
+    urgence?:    boolean;
   }
 ) {
-  // Récupère le nom du patient pour l'audit
   const patientHospital = await prisma.patientHospital.findFirst({
-    where: { hospital_id: hospitalId, patient_id: data.patient_id },
+    where:   { hospital_id: hospitalId, patient_id: data.patient_id },
     include: { patient: true },
   });
   const nomPatient = patientHospital
     ? `${patientHospital.patient.prenom} ${patientHospital.patient.nom}`
     : "Patient inconnu";
 
+  // Récupère le tarif suggéré pour ce type d'examen
+  const tarifParDefaut = TARIFS_LABO[data.type_examen] ?? null;
+
+  // Crée l'examen
   const examen = await prisma.examenLabo.create({
     data: {
-      hospital_id: hospitalId,
-      patient_id:  data.patient_id,
-      medecin_id:  data.medecin_id,
-      type_examen: data.type_examen,
-      notes:       data.notes ?? null,
-      urgence:     data.urgence ?? false,
-      statut:      "EN_ATTENTE",
+      hospital_id:   hospitalId,
+      patient_id:    data.patient_id,
+      medecin_id:    data.medecin_id,
+      type_examen:   data.type_examen,
+      notes:         data.notes ?? null,
+      urgence:       data.urgence ?? false,
+      statut:        "EN_ATTENTE",
+      prix_unitaire: tarifParDefaut,
     },
     include: { patient: true, medecin: true },
   });
+
+  // Génère la facture immédiatement si un tarif existe
+  if (tarifParDefaut && tarifParDefaut > 0) {
+    const tauxCouverture   = patientHospital?.taux_couverture ?? 0;
+    const montantAssurance = Math.round(tarifParDefaut * (tauxCouverture / 100));
+    const montantPatient   = tarifParDefaut - montantAssurance;
+
+    const count = await prisma.facture.count({ where: { hospital_id: hospitalId } });
+    const numeroFacture = `FAC-LABO-${new Date().getFullYear()}-${String(count + 1).padStart(5, "0")}`;
+
+    const facture = await prisma.facture.create({
+      data: {
+        hospital_id:       hospitalId,
+        patient_id:        data.patient_id,
+        numero_facture:    numeroFacture,
+        statut:            "EN_ATTENTE",
+        montant_total:     tarifParDefaut,
+        montant_assurance: montantAssurance,
+        montant_patient:   montantPatient,
+        notes:             `Examen laboratoire — ${data.type_examen}${data.urgence ? " 🔴 URGENT" : ""}`,
+        lignes: {
+          create: [{
+            description:   `Examen labo — ${data.type_examen}`,
+            quantite:      1,
+            prix_unitaire: tarifParDefaut,
+            montant_total: tarifParDefaut,
+          }],
+        },
+      },
+    });
+
+    // Lie la facture à l'examen
+    await prisma.examenLabo.update({
+      where: { id: examen.id },
+      data:  { facture_id: facture.id },
+    });
+  }
 
   await enregistrerAudit({
     hospitalId,
@@ -92,8 +121,9 @@ export async function creerExamenLabo(
     entiteId:    examen.id,
     entiteNom:   nomPatient,
     metadonnees: {
-      type_examen: data.type_examen,
-      urgence:     data.urgence ?? false,
+      type_examen:    data.type_examen,
+      urgence:        data.urgence ?? false,
+      tarif_applique: tarifParDefaut,
     },
   });
 
@@ -101,7 +131,8 @@ export async function creerExamenLabo(
 }
 
 // ============================================================
-// Saisir les résultats d'un examen (texte)
+// Saisir les résultats — ne recrée pas la facture si elle
+// existe déjà. Permet de modifier le tarif si nécessaire.
 // ============================================================
 export async function saisirResultatsLabo(
   examenId: string,
@@ -109,18 +140,59 @@ export async function saisirResultatsLabo(
   utilisateurId: string,
   utilisateurNom: string,
   data: {
-    resultats: string;
-    statut?: StatutExamen;
+    resultats:      string;
+    statut?:        StatutExamen;
+    prix_unitaire?: number;
   }
 ) {
   const examen = await prisma.examenLabo.update({
     where: { id: examenId, hospital_id: hospitalId },
     data: {
-      resultats: data.resultats,
-      statut:    data.statut ?? "RESULTAT_SAISI",
+      resultats:     data.resultats,
+      statut:        data.statut ?? "RESULTAT_SAISI",
+      prix_unitaire: data.prix_unitaire ?? undefined,
     },
     include: { patient: true },
   });
+
+  // Crée la facture uniquement si pas encore créée et tarif fourni
+  if (data.prix_unitaire && data.prix_unitaire > 0 && !examen.facture_id) {
+    const patientHospital = await prisma.patientHospital.findFirst({
+      where: { patient_id: examen.patient_id, hospital_id: hospitalId },
+    });
+    const tauxCouverture   = patientHospital?.taux_couverture ?? 0;
+    const montantAssurance = Math.round(data.prix_unitaire * (tauxCouverture / 100));
+    const montantPatient   = data.prix_unitaire - montantAssurance;
+
+    const count = await prisma.facture.count({ where: { hospital_id: hospitalId } });
+    const numeroFacture = `FAC-LABO-${new Date().getFullYear()}-${String(count + 1).padStart(5, "0")}`;
+
+    const facture = await prisma.facture.create({
+      data: {
+        hospital_id:       hospitalId,
+        patient_id:        examen.patient_id,
+        numero_facture:    numeroFacture,
+        statut:            "EN_ATTENTE",
+        montant_total:     data.prix_unitaire,
+        montant_assurance: montantAssurance,
+        montant_patient:   montantPatient,
+        notes:             `Examen laboratoire — ${examen.type_examen}`,
+        lignes: {
+          create: [{
+            description:   `Examen labo — ${examen.type_examen}`,
+            quantite:      1,
+            prix_unitaire: data.prix_unitaire,
+            montant_total: data.prix_unitaire,
+          }],
+        },
+      },
+    });
+
+    await prisma.examenLabo.update({
+      where: { id: examenId },
+      data:  { facture_id: facture.id },
+    });
+  }
 
   await enregistrerAudit({
     hospitalId,
@@ -131,14 +203,14 @@ export async function saisirResultatsLabo(
     description: `Saisie résultats labo — ${examen.patient.prenom} ${examen.patient.nom}`,
     entiteId:    examenId,
     entiteNom:   `${examen.patient.prenom} ${examen.patient.nom}`,
-    metadonnees: { statut: data.statut ?? "RESULTAT_SAISI" },
+    metadonnees: { statut: data.statut ?? "RESULTAT_SAISI", prix_unitaire: data.prix_unitaire ?? null },
   });
 
   return examen;
 }
 
 // ============================================================
-// Upload PDF résultats vers Supabase Storage
+// Upload PDF résultats
 // ============================================================
 export async function uploadResultatPDF(
   examenId: string,
@@ -151,15 +223,11 @@ export async function uploadResultatPDF(
   if (!file) throw new Error("Aucun fichier fourni");
 
   const supabase = await createClient();
-
   const cheminFichier = `${hospitalId}/${examenId}/${Date.now()}_${file.name}`;
 
   const { error } = await supabase.storage
     .from("resultats-examens")
-    .upload(cheminFichier, file, {
-      contentType: file.type,
-      upsert:      true,
-    });
+    .upload(cheminFichier, file, { contentType: file.type, upsert: true });
 
   if (error) throw new Error(`Upload échoué : ${error.message}`);
 
@@ -183,20 +251,17 @@ export async function uploadResultatPDF(
     utilisateurNom,
     typeAction:  "MODIFICATION",
     module:      "LABORATOIRE",
-    description: `Upload PDF résultats labo — ${examen.patient.prenom} ${examen.patient.nom} — ${file.name}`,
+    description: `Upload PDF résultats labo — ${examen.patient.prenom} ${examen.patient.nom}`,
     entiteId:    examenId,
     entiteNom:   `${examen.patient.prenom} ${examen.patient.nom}`,
-    metadonnees: {
-      fichier_nom:  file.name,
-      fichier_size: file.size,
-    },
+    metadonnees: { fichier_nom: file.name, fichier_size: file.size },
   });
 
   return signedUrl?.signedUrl;
 }
 
 // ============================================================
-// Valider un examen (responsable labo)
+// Valider un examen
 // ============================================================
 export async function validerExamenLabo(
   examenId: string,
@@ -229,28 +294,12 @@ export async function validerExamenLabo(
   return examen;
 }
 
-// ============================================================
-// Stats pour le header de la page
-// ============================================================
 export async function getStatsLabo(hospitalId: string) {
   const [enAttente, enCours, valides, urgents] = await Promise.all([
-    prisma.examenLabo.count({
-      where: { hospital_id: hospitalId, statut: "EN_ATTENTE" },
-    }),
-    prisma.examenLabo.count({
-      where: { hospital_id: hospitalId, statut: "EN_COURS" },
-    }),
-    prisma.examenLabo.count({
-      where: { hospital_id: hospitalId, statut: "VALIDE" },
-    }),
-    prisma.examenLabo.count({
-      where: {
-        hospital_id: hospitalId,
-        urgence:     true,
-        statut:      { not: "VALIDE" },
-      },
-    }),
+    prisma.examenLabo.count({ where: { hospital_id: hospitalId, statut: "EN_ATTENTE" } }),
+    prisma.examenLabo.count({ where: { hospital_id: hospitalId, statut: "EN_COURS" } }),
+    prisma.examenLabo.count({ where: { hospital_id: hospitalId, statut: "VALIDE" } }),
+    prisma.examenLabo.count({ where: { hospital_id: hospitalId, urgence: true, statut: { not: "VALIDE" } } }),
   ]);
-
   return { enAttente, enCours, valides, urgents };
 }

@@ -1,18 +1,12 @@
-// ============================================================
-// ACTIONS IMAGERIE — Identique au labo avec types spécifiques
-// ============================================================
-
 "use server";
 
 import { prisma } from "@/lib/prisma";
 import { createClient } from "@/lib/supabase/server";
 import { TypeExamenImagerie, StatutExamen } from "@/app/generated/prisma/client";
 import { enregistrerAudit } from "@/lib/audit";
+import { TARIFS_IMAGERIE } from "@/lib/tarifs";
 
-export async function getExamensImagerie(
-  hospitalId: string,
-  search?: string
-) {
+export async function getExamensImagerie(hospitalId: string, search?: string) {
   return prisma.examenImagerie.findMany({
     where: {
       hospital_id: hospitalId,
@@ -21,7 +15,7 @@ export async function getExamensImagerie(
           {
             patient: {
               OR: [
-                { nom: { contains: search, mode: "insensitive" } },
+                { nom:    { contains: search, mode: "insensitive" } },
                 { prenom: { contains: search, mode: "insensitive" } },
               ],
             },
@@ -30,41 +24,36 @@ export async function getExamensImagerie(
         ],
       }),
     },
-    include: {
-      patient: true,
-      medecin: true,
-    },
-    orderBy: [
-      { urgence: "desc" },
-      { created_at: "desc" },
-    ],
+    include: { patient: true, medecin: true },
+    orderBy: [{ urgence: "desc" }, { created_at: "desc" }],
   });
 }
 
 // ============================================================
-// Créer une demande d'examen imagerie
+// Créer une demande imagerie + facture immédiate
 // ============================================================
 export async function creerExamenImagerie(
   hospitalId: string,
   utilisateurId: string,
   utilisateurNom: string,
   data: {
-    patient_id: string;
-    medecin_id: string;
-    type_examen: TypeExamenImagerie;
+    patient_id:       string;
+    medecin_id:       string;
+    type_examen:      TypeExamenImagerie;
     zone_anatomique?: string;
-    notes?: string;
-    urgence?: boolean;
+    notes?:           string;
+    urgence?:         boolean;
   }
 ) {
-  // Récupère le nom du patient pour l'audit
   const patientHospital = await prisma.patientHospital.findFirst({
-    where: { hospital_id: hospitalId, patient_id: data.patient_id },
+    where:   { hospital_id: hospitalId, patient_id: data.patient_id },
     include: { patient: true },
   });
   const nomPatient = patientHospital
     ? `${patientHospital.patient.prenom} ${patientHospital.patient.nom}`
     : "Patient inconnu";
+
+  const tarifParDefaut = TARIFS_IMAGERIE[data.type_examen] ?? null;
 
   const examen = await prisma.examenImagerie.create({
     data: {
@@ -76,9 +65,46 @@ export async function creerExamenImagerie(
       notes:           data.notes ?? null,
       urgence:         data.urgence ?? false,
       statut:          "EN_ATTENTE",
+      prix_unitaire:   tarifParDefaut,
     },
     include: { patient: true, medecin: true },
   });
+
+  // Facture immédiate si tarif disponible
+  if (tarifParDefaut && tarifParDefaut > 0) {
+    const tauxCouverture   = patientHospital?.taux_couverture ?? 0;
+    const montantAssurance = Math.round(tarifParDefaut * (tauxCouverture / 100));
+    const montantPatient   = tarifParDefaut - montantAssurance;
+
+    const count = await prisma.facture.count({ where: { hospital_id: hospitalId } });
+    const numeroFacture = `FAC-IMG-${new Date().getFullYear()}-${String(count + 1).padStart(5, "0")}`;
+
+    const facture = await prisma.facture.create({
+      data: {
+        hospital_id:       hospitalId,
+        patient_id:        data.patient_id,
+        numero_facture:    numeroFacture,
+        statut:            "EN_ATTENTE",
+        montant_total:     tarifParDefaut,
+        montant_assurance: montantAssurance,
+        montant_patient:   montantPatient,
+        notes:             `Imagerie — ${data.type_examen}${data.zone_anatomique ? ` (${data.zone_anatomique})` : ""}${data.urgence ? " 🔴 URGENT" : ""}`,
+        lignes: {
+          create: [{
+            description:   `Imagerie — ${data.type_examen}${data.zone_anatomique ? ` (${data.zone_anatomique})` : ""}`,
+            quantite:      1,
+            prix_unitaire: tarifParDefaut,
+            montant_total: tarifParDefaut,
+          }],
+        },
+      },
+    });
+
+    await prisma.examenImagerie.update({
+      where: { id: examen.id },
+      data:  { facture_id: facture.id },
+    });
+  }
 
   await enregistrerAudit({
     hospitalId,
@@ -93,6 +119,7 @@ export async function creerExamenImagerie(
       type_examen:     data.type_examen,
       zone_anatomique: data.zone_anatomique ?? null,
       urgence:         data.urgence ?? false,
+      tarif_applique:  tarifParDefaut,
     },
   });
 
@@ -100,7 +127,7 @@ export async function creerExamenImagerie(
 }
 
 // ============================================================
-// Saisir les résultats d'un examen imagerie
+// Saisir résultats imagerie
 // ============================================================
 export async function saisirResultatsImagerie(
   examenId: string,
@@ -108,9 +135,10 @@ export async function saisirResultatsImagerie(
   utilisateurId: string,
   utilisateurNom: string,
   data: {
-    resultats: string;
+    resultats:        string;
     zone_anatomique?: string;
-    statut?: StatutExamen;
+    statut?:          StatutExamen;
+    prix_unitaire?:   number;
   }
 ) {
   const examen = await prisma.examenImagerie.update({
@@ -119,9 +147,49 @@ export async function saisirResultatsImagerie(
       resultats:       data.resultats,
       zone_anatomique: data.zone_anatomique ?? undefined,
       statut:          data.statut ?? "RESULTAT_SAISI",
+      prix_unitaire:   data.prix_unitaire ?? undefined,
     },
     include: { patient: true },
   });
+
+  // Crée la facture si pas encore créée et tarif fourni
+  if (data.prix_unitaire && data.prix_unitaire > 0 && !examen.facture_id) {
+    const patientHospital = await prisma.patientHospital.findFirst({
+      where: { patient_id: examen.patient_id, hospital_id: hospitalId },
+    });
+    const tauxCouverture   = patientHospital?.taux_couverture ?? 0;
+    const montantAssurance = Math.round(data.prix_unitaire * (tauxCouverture / 100));
+    const montantPatient   = data.prix_unitaire - montantAssurance;
+
+    const count = await prisma.facture.count({ where: { hospital_id: hospitalId } });
+    const numeroFacture = `FAC-IMG-${new Date().getFullYear()}-${String(count + 1).padStart(5, "0")}`;
+
+    const facture = await prisma.facture.create({
+      data: {
+        hospital_id:       hospitalId,
+        patient_id:        examen.patient_id,
+        numero_facture:    numeroFacture,
+        statut:            "EN_ATTENTE",
+        montant_total:     data.prix_unitaire,
+        montant_assurance: montantAssurance,
+        montant_patient:   montantPatient,
+        notes:             `Imagerie — ${examen.type_examen}`,
+        lignes: {
+          create: [{
+            description:   `Imagerie — ${examen.type_examen}`,
+            quantite:      1,
+            prix_unitaire: data.prix_unitaire,
+            montant_total: data.prix_unitaire,
+          }],
+        },
+      },
+    });
+
+    await prisma.examenImagerie.update({
+      where: { id: examenId },
+      data:  { facture_id: facture.id },
+    });
+  }
 
   await enregistrerAudit({
     hospitalId,
@@ -132,17 +200,14 @@ export async function saisirResultatsImagerie(
     description: `Saisie résultats imagerie — ${examen.patient.prenom} ${examen.patient.nom}`,
     entiteId:    examenId,
     entiteNom:   `${examen.patient.prenom} ${examen.patient.nom}`,
-    metadonnees: {
-      statut:          data.statut ?? "RESULTAT_SAISI",
-      zone_anatomique: data.zone_anatomique ?? null,
-    },
+    metadonnees: { statut: data.statut ?? "RESULTAT_SAISI", zone_anatomique: data.zone_anatomique ?? null, prix_unitaire: data.prix_unitaire ?? null },
   });
 
   return examen;
 }
 
 // ============================================================
-// Upload fichier résultat imagerie
+// Upload fichier imagerie
 // ============================================================
 export async function uploadResultatImagerie(
   examenId: string,
@@ -159,10 +224,7 @@ export async function uploadResultatImagerie(
 
   const { error } = await supabase.storage
     .from("resultats-examens")
-    .upload(cheminFichier, file, {
-      contentType: file.type,
-      upsert:      true,
-    });
+    .upload(cheminFichier, file, { contentType: file.type, upsert: true });
 
   if (error) throw new Error(`Upload échoué : ${error.message}`);
 
@@ -186,13 +248,10 @@ export async function uploadResultatImagerie(
     utilisateurNom,
     typeAction:  "MODIFICATION",
     module:      "IMAGERIE",
-    description: `Upload fichier imagerie — ${examen.patient.prenom} ${examen.patient.nom} — ${file.name}`,
+    description: `Upload fichier imagerie — ${examen.patient.prenom} ${examen.patient.nom}`,
     entiteId:    examenId,
     entiteNom:   `${examen.patient.prenom} ${examen.patient.nom}`,
-    metadonnees: {
-      fichier_nom:  file.name,
-      fichier_size: file.size,
-    },
+    metadonnees: { fichier_nom: file.name, fichier_size: file.size },
   });
 
   return signedUrl?.signedUrl;
@@ -209,11 +268,7 @@ export async function validerExamenImagerie(
 ) {
   const examen = await prisma.examenImagerie.update({
     where: { id: examenId, hospital_id: hospitalId },
-    data: {
-      statut:     "VALIDE",
-      valide_par: validateurId,
-      valide_le:  new Date(),
-    },
+    data: { statut: "VALIDE", valide_par: validateurId, valide_le: new Date() },
     include: { patient: true },
   });
 
@@ -232,28 +287,12 @@ export async function validerExamenImagerie(
   return examen;
 }
 
-// ============================================================
-// Stats imagerie
-// ============================================================
 export async function getStatsImagerie(hospitalId: string) {
   const [enAttente, enCours, valides, urgents] = await Promise.all([
-    prisma.examenImagerie.count({
-      where: { hospital_id: hospitalId, statut: "EN_ATTENTE" },
-    }),
-    prisma.examenImagerie.count({
-      where: { hospital_id: hospitalId, statut: "EN_COURS" },
-    }),
-    prisma.examenImagerie.count({
-      where: { hospital_id: hospitalId, statut: "VALIDE" },
-    }),
-    prisma.examenImagerie.count({
-      where: {
-        hospital_id: hospitalId,
-        urgence:     true,
-        statut:      { not: "VALIDE" },
-      },
-    }),
+    prisma.examenImagerie.count({ where: { hospital_id: hospitalId, statut: "EN_ATTENTE" } }),
+    prisma.examenImagerie.count({ where: { hospital_id: hospitalId, statut: "EN_COURS" } }),
+    prisma.examenImagerie.count({ where: { hospital_id: hospitalId, statut: "VALIDE" } }),
+    prisma.examenImagerie.count({ where: { hospital_id: hospitalId, urgence: true, statut: { not: "VALIDE" } } }),
   ]);
-
   return { enAttente, enCours, valides, urgents };
 }

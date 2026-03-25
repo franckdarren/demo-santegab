@@ -10,15 +10,16 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import {
     Check, Loader2, X, Pencil,
-    Upload, FileText, CheckCircle, AlertTriangle,
+    Upload, FileText, CheckCircle, AlertTriangle, Receipt,
 } from "lucide-react";
-import { cn, formatDate, formatTime } from "@/lib/utils";
+import { cn, formatDate, formatTime, formatCurrency } from "@/lib/utils";
 import {
     saisirResultatsImagerie,
     uploadResultatImagerie,
     validerExamenImagerie,
 } from "@/app/dashboard/imaging/actions";
 import { StatutExamen } from "@/app/generated/prisma/client";
+import { TARIFS_IMAGERIE } from "@/lib/tarifs";
 
 const STATUT_CONFIG: Record<StatutExamen, { label: string; color: string }> = {
     EN_ATTENTE: { label: "En attente", color: "bg-orange-100 text-orange-700" },
@@ -52,6 +53,8 @@ interface ExamenImagerie {
     valide_le: Date | null;
     notes: string | null;
     zone_anatomique: string | null;
+    prix_unitaire: number | null; // ← ajouté
+    facture_id: string | null;   // ← ajouté
     created_at: Date;
     updated_at: Date;
     patient: { id: string; nom: string; prenom: string; numero_dossier: string };
@@ -87,10 +90,18 @@ export function ExamenImagerieDetailDialog({
     const [statut, setStatut] = useState(examen.statut);
     const [fichierSelectionne, setFichierSelectionne] = useState<File | null>(null);
 
+    // Tarif — pré-rempli avec la valeur existante ou le tarif suggéré
+    const [prixUnitaire, setPrixUnitaire] = useState<string>(
+        examen.prix_unitaire?.toString() ??
+        TARIFS_IMAGERIE[examen.type_examen]?.toString() ??
+        ""
+    );
+
     const statutConfig = STATUT_CONFIG[examen.statut];
     const nomPatient = `${examen.patient.prenom} ${examen.patient.nom}`;
     const peutSaisir = examen.statut !== "VALIDE" && examen.statut !== "ANNULE";
     const peutValider = examen.statut === "RESULTAT_SAISI";
+    const tarifSuggere = TARIFS_IMAGERIE[examen.type_examen];
 
     function handleSauvegarder() {
         startTransition(async () => {
@@ -104,7 +115,9 @@ export function ExamenImagerieDetailDialog({
                         resultats,
                         zone_anatomique: zoneAnatomique || undefined,
                         statut: statut as StatutExamen,
-                    });
+                        prix_unitaire: prixUnitaire ? Number(prixUnitaire) : undefined,
+                    }
+                );
                 setSucces("Résultats enregistrés !");
                 router.refresh();
                 setTimeout(() => {
@@ -125,18 +138,11 @@ export function ExamenImagerieDetailDialog({
             const formData = new FormData();
             formData.append("fichier", fichierSelectionne);
             await uploadResultatImagerie(
-                examen.id,
-                hospitalId,
-                utilisateurId,
-                utilisateurNom,
-                formData
+                examen.id, hospitalId, utilisateurId, utilisateurNom, formData
             );
             setSucces("PDF uploadé avec succès !");
             router.refresh();
-            setTimeout(() => {
-                setSucces(null);
-                onOpenChange(false);
-            }, 1200);
+            setTimeout(() => { setSucces(null); onOpenChange(false); }, 1200);
         } catch (error) {
             console.error(error);
         } finally {
@@ -147,13 +153,12 @@ export function ExamenImagerieDetailDialog({
     function handleValider() {
         startTransition(async () => {
             try {
-                await validerExamenImagerie(examen.id, hospitalId, utilisateurId, utilisateurNom);
+                await validerExamenImagerie(
+                    examen.id, hospitalId, utilisateurId, utilisateurNom
+                );
                 setSucces("Examen validé !");
                 router.refresh();
-                setTimeout(() => {
-                    setSucces(null);
-                    onOpenChange(false);
-                }, 1200);
+                setTimeout(() => { setSucces(null); onOpenChange(false); }, 1200);
             } catch (error) {
                 console.error(error);
             }
@@ -195,8 +200,7 @@ export function ExamenImagerieDetailDialog({
                                     )}
                                 </div>
                                 <p className="text-xs text-gray-400 mt-0.5">
-                                    {nomPatient} · Dr. {examen.medecin.nom} ·{" "}
-                                    {formatDate(examen.created_at)}
+                                    {nomPatient} · Dr. {examen.medecin.nom} · {formatDate(examen.created_at)}
                                 </p>
                             </div>
                             <div className="flex items-center gap-2">
@@ -246,18 +250,44 @@ export function ExamenImagerieDetailDialog({
                                     <p className="text-sm font-semibold text-gray-800">
                                         {formatDate(examen.created_at)}
                                     </p>
-                                    <p className="text-xs text-gray-400">
-                                        {formatTime(examen.created_at)}
-                                    </p>
+                                    <p className="text-xs text-gray-400">{formatTime(examen.created_at)}</p>
+                                </div>
+                            </div>
+
+                            {/* Tarif + statut facturation */}
+                            <div className={cn(
+                                "p-3 rounded-lg border flex items-center justify-between gap-4",
+                                examen.facture_id
+                                    ? "bg-green-50 border-green-200"
+                                    : "bg-amber-50 border-amber-200"
+                            )}>
+                                <div className="flex items-center gap-2">
+                                    <Receipt className={cn(
+                                        "h-4 w-4 shrink-0",
+                                        examen.facture_id ? "text-green-600" : "text-amber-600"
+                                    )} />
+                                    <div>
+                                        <p className={cn(
+                                            "text-xs font-semibold",
+                                            examen.facture_id ? "text-green-700" : "text-amber-700"
+                                        )}>
+                                            {examen.facture_id ? "✅ Facture générée" : "⏳ Pas encore facturé"}
+                                        </p>
+                                        <p className="text-xs text-gray-500">
+                                            {examen.prix_unitaire
+                                                ? `Tarif : ${formatCurrency(examen.prix_unitaire)}`
+                                                : tarifSuggere
+                                                    ? `Tarif suggéré : ${formatCurrency(tarifSuggere)}`
+                                                    : "Aucun tarif défini"}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
 
                             {/* Notes */}
                             {examen.notes && (
                                 <div className="p-3 bg-blue-50 rounded-lg border border-blue-100">
-                                    <p className="text-xs font-semibold text-blue-700 mb-1">
-                                        Notes cliniques
-                                    </p>
+                                    <p className="text-xs font-semibold text-blue-700 mb-1">Notes cliniques</p>
                                     <p className="text-sm text-blue-800">{examen.notes}</p>
                                 </div>
                             )}
@@ -293,6 +323,34 @@ export function ExamenImagerieDetailDialog({
                                                 />
                                             </div>
                                         </div>
+
+                                        {/* ---------------------------------------- */}
+                                        {/* TARIF — génère la facture automatiquement */}
+                                        {/* ---------------------------------------- */}
+                                        {!examen.facture_id && (
+                                            <div className="space-y-1.5">
+                                                <Label className="flex items-center gap-2">
+                                                    Tarif de l'examen (XAF)
+                                                    {tarifSuggere && (
+                                                        <span className="text-xs text-gray-400 font-normal">
+                                                            — Suggéré : {formatCurrency(tarifSuggere)}
+                                                        </span>
+                                                    )}
+                                                </Label>
+                                                <Input
+                                                    type="number"
+                                                    min={0}
+                                                    placeholder={tarifSuggere?.toString() ?? "0"}
+                                                    value={prixUnitaire}
+                                                    onChange={(e) => setPrixUnitaire(e.target.value)}
+                                                    className="text-sm"
+                                                />
+                                                <p className="text-xs text-gray-400">
+                                                    💡 Une facture sera automatiquement créée à la sauvegarde.
+                                                </p>
+                                            </div>
+                                        )}
+
                                         <div className="space-y-1.5">
                                             <Label>Compte rendu radiologique</Label>
                                             <Textarea
@@ -312,9 +370,7 @@ export function ExamenImagerieDetailDialog({
                                             </pre>
                                         </div>
                                     ) : (
-                                        <p className="text-sm text-gray-400 italic">
-                                            Aucun compte rendu saisi
-                                        </p>
+                                        <p className="text-sm text-gray-400 italic">Aucun compte rendu saisi</p>
                                     )
                                 )}
                             </div>
@@ -394,15 +450,9 @@ export function ExamenImagerieDetailDialog({
                                                 className="w-full bg-blue-700 hover:bg-blue-800 text-white"
                                             >
                                                 {uploadProgress ? (
-                                                    <>
-                                                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                                                        Upload en cours...
-                                                    </>
+                                                    <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Upload en cours...</>
                                                 ) : (
-                                                    <>
-                                                        <Upload className="h-4 w-4 mr-1.5" />
-                                                        Uploader le fichier
-                                                    </>
+                                                    <><Upload className="h-4 w-4 mr-1.5" />Uploader le fichier</>
                                                 )}
                                             </Button>
                                         )}
@@ -413,12 +463,9 @@ export function ExamenImagerieDetailDialog({
                             {/* Validation */}
                             {examen.statut === "VALIDE" && examen.valide_le && (
                                 <div className="p-3 bg-green-50 rounded-lg border border-green-200">
-                                    <p className="text-sm font-semibold text-green-700 mb-0.5">
-                                        ✅ Validé
-                                    </p>
+                                    <p className="text-sm font-semibold text-green-700 mb-0.5">✅ Validé</p>
                                     <p className="text-xs text-green-600">
-                                        Le {formatDate(examen.valide_le)} à{" "}
-                                        {formatTime(examen.valide_le)}
+                                        Le {formatDate(examen.valide_le)} à {formatTime(examen.valide_le)}
                                     </p>
                                 </div>
                             )}
@@ -429,9 +476,7 @@ export function ExamenImagerieDetailDialog({
                             <Button
                                 type="button"
                                 variant="ghost"
-                                onClick={() =>
-                                    modeEdition ? setModeEdition(false) : onOpenChange(false)
-                                }
+                                onClick={() => modeEdition ? setModeEdition(false) : onOpenChange(false)}
                                 className="text-gray-500"
                             >
                                 {modeEdition ? "Annuler" : "Fermer"}
@@ -446,15 +491,9 @@ export function ExamenImagerieDetailDialog({
                                         className="bg-green-600 hover:bg-green-700 text-white"
                                     >
                                         {isPending ? (
-                                            <>
-                                                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                                                Validation...
-                                            </>
+                                            <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Validation...</>
                                         ) : (
-                                            <>
-                                                <CheckCircle className="h-4 w-4 mr-1.5" />
-                                                Valider l'examen
-                                            </>
+                                            <><CheckCircle className="h-4 w-4 mr-1.5" />Valider l'examen</>
                                         )}
                                     </Button>
                                 )}
@@ -467,15 +506,9 @@ export function ExamenImagerieDetailDialog({
                                         className="bg-blue-700 hover:bg-blue-800 text-white"
                                     >
                                         {isPending ? (
-                                            <>
-                                                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                                                Sauvegarde...
-                                            </>
+                                            <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Sauvegarde...</>
                                         ) : (
-                                            <>
-                                                <Check className="h-4 w-4 mr-1.5" />
-                                                Sauvegarder
-                                            </>
+                                            <><Check className="h-4 w-4 mr-1.5" />Sauvegarder</>
                                         )}
                                     </Button>
                                 )}
@@ -484,6 +517,6 @@ export function ExamenImagerieDetailDialog({
                     </div>
                 )}
             </DialogContent>
-        </Dialog >
+        </Dialog>
     );
 }

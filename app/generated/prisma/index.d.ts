@@ -2738,10 +2738,14 @@ export namespace Prisma {
 
   export type FactureCountOutputType = {
     lignes: number
+    examens_labo: number
+    examens_imagerie: number
   }
 
   export type FactureCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     lignes?: boolean | FactureCountOutputTypeCountLignesArgs
+    examens_labo?: boolean | FactureCountOutputTypeCountExamens_laboArgs
+    examens_imagerie?: boolean | FactureCountOutputTypeCountExamens_imagerieArgs
   }
 
   // Custom InputTypes
@@ -2760,6 +2764,20 @@ export namespace Prisma {
    */
   export type FactureCountOutputTypeCountLignesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LigneFactureWhereInput
+  }
+
+  /**
+   * FactureCountOutputType without action
+   */
+  export type FactureCountOutputTypeCountExamens_laboArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExamenLaboWhereInput
+  }
+
+  /**
+   * FactureCountOutputType without action
+   */
+  export type FactureCountOutputTypeCountExamens_imagerieArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExamenImagerieWhereInput
   }
 
 
@@ -10648,6 +10666,8 @@ export namespace Prisma {
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     consultation?: boolean | Facture$consultationArgs<ExtArgs>
     lignes?: boolean | Facture$lignesArgs<ExtArgs>
+    examens_labo?: boolean | Facture$examens_laboArgs<ExtArgs>
+    examens_imagerie?: boolean | Facture$examens_imagerieArgs<ExtArgs>
     _count?: boolean | FactureCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["facture"]>
 
@@ -10714,6 +10734,8 @@ export namespace Prisma {
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     consultation?: boolean | Facture$consultationArgs<ExtArgs>
     lignes?: boolean | Facture$lignesArgs<ExtArgs>
+    examens_labo?: boolean | Facture$examens_laboArgs<ExtArgs>
+    examens_imagerie?: boolean | Facture$examens_imagerieArgs<ExtArgs>
     _count?: boolean | FactureCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type FactureIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10734,6 +10756,8 @@ export namespace Prisma {
       patient: Prisma.$PatientPayload<ExtArgs>
       consultation: Prisma.$ConsultationPayload<ExtArgs> | null
       lignes: Prisma.$LigneFacturePayload<ExtArgs>[]
+      examens_labo: Prisma.$ExamenLaboPayload<ExtArgs>[]
+      examens_imagerie: Prisma.$ExamenImageriePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11148,6 +11172,8 @@ export namespace Prisma {
     patient<T extends PatientDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PatientDefaultArgs<ExtArgs>>): Prisma__PatientClient<$Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     consultation<T extends Facture$consultationArgs<ExtArgs> = {}>(args?: Subset<T, Facture$consultationArgs<ExtArgs>>): Prisma__ConsultationClient<$Result.GetResult<Prisma.$ConsultationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     lignes<T extends Facture$lignesArgs<ExtArgs> = {}>(args?: Subset<T, Facture$lignesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LigneFacturePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    examens_labo<T extends Facture$examens_laboArgs<ExtArgs> = {}>(args?: Subset<T, Facture$examens_laboArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenLaboPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    examens_imagerie<T extends Facture$examens_imagerieArgs<ExtArgs> = {}>(args?: Subset<T, Facture$examens_imagerieArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenImageriePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11632,6 +11658,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LigneFactureScalarFieldEnum | LigneFactureScalarFieldEnum[]
+  }
+
+  /**
+   * Facture.examens_labo
+   */
+  export type Facture$examens_laboArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenLabo
+     */
+    select?: ExamenLaboSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenLabo
+     */
+    omit?: ExamenLaboOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenLaboInclude<ExtArgs> | null
+    where?: ExamenLaboWhereInput
+    orderBy?: ExamenLaboOrderByWithRelationInput | ExamenLaboOrderByWithRelationInput[]
+    cursor?: ExamenLaboWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExamenLaboScalarFieldEnum | ExamenLaboScalarFieldEnum[]
+  }
+
+  /**
+   * Facture.examens_imagerie
+   */
+  export type Facture$examens_imagerieArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenImagerie
+     */
+    select?: ExamenImagerieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenImagerie
+     */
+    omit?: ExamenImagerieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenImagerieInclude<ExtArgs> | null
+    where?: ExamenImagerieWhereInput
+    orderBy?: ExamenImagerieOrderByWithRelationInput | ExamenImagerieOrderByWithRelationInput[]
+    cursor?: ExamenImagerieWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExamenImagerieScalarFieldEnum | ExamenImagerieScalarFieldEnum[]
   }
 
   /**
@@ -12790,8 +12864,18 @@ export namespace Prisma {
 
   export type AggregateExamenLabo = {
     _count: ExamenLaboCountAggregateOutputType | null
+    _avg: ExamenLaboAvgAggregateOutputType | null
+    _sum: ExamenLaboSumAggregateOutputType | null
     _min: ExamenLaboMinAggregateOutputType | null
     _max: ExamenLaboMaxAggregateOutputType | null
+  }
+
+  export type ExamenLaboAvgAggregateOutputType = {
+    prix_unitaire: number | null
+  }
+
+  export type ExamenLaboSumAggregateOutputType = {
+    prix_unitaire: number | null
   }
 
   export type ExamenLaboMinAggregateOutputType = {
@@ -12808,6 +12892,8 @@ export namespace Prisma {
     valide_le: Date | null
     notes: string | null
     urgence: boolean | null
+    prix_unitaire: number | null
+    facture_id: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -12826,6 +12912,8 @@ export namespace Prisma {
     valide_le: Date | null
     notes: string | null
     urgence: boolean | null
+    prix_unitaire: number | null
+    facture_id: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -12844,11 +12932,21 @@ export namespace Prisma {
     valide_le: number
     notes: number
     urgence: number
+    prix_unitaire: number
+    facture_id: number
     created_at: number
     updated_at: number
     _all: number
   }
 
+
+  export type ExamenLaboAvgAggregateInputType = {
+    prix_unitaire?: true
+  }
+
+  export type ExamenLaboSumAggregateInputType = {
+    prix_unitaire?: true
+  }
 
   export type ExamenLaboMinAggregateInputType = {
     id?: true
@@ -12864,6 +12962,8 @@ export namespace Prisma {
     valide_le?: true
     notes?: true
     urgence?: true
+    prix_unitaire?: true
+    facture_id?: true
     created_at?: true
     updated_at?: true
   }
@@ -12882,6 +12982,8 @@ export namespace Prisma {
     valide_le?: true
     notes?: true
     urgence?: true
+    prix_unitaire?: true
+    facture_id?: true
     created_at?: true
     updated_at?: true
   }
@@ -12900,6 +13002,8 @@ export namespace Prisma {
     valide_le?: true
     notes?: true
     urgence?: true
+    prix_unitaire?: true
+    facture_id?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -12943,6 +13047,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ExamenLaboAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ExamenLaboSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ExamenLaboMinAggregateInputType
@@ -12973,6 +13089,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ExamenLaboCountAggregateInputType | true
+    _avg?: ExamenLaboAvgAggregateInputType
+    _sum?: ExamenLaboSumAggregateInputType
     _min?: ExamenLaboMinAggregateInputType
     _max?: ExamenLaboMaxAggregateInputType
   }
@@ -12991,9 +13109,13 @@ export namespace Prisma {
     valide_le: Date | null
     notes: string | null
     urgence: boolean
+    prix_unitaire: number | null
+    facture_id: string | null
     created_at: Date
     updated_at: Date
     _count: ExamenLaboCountAggregateOutputType | null
+    _avg: ExamenLaboAvgAggregateOutputType | null
+    _sum: ExamenLaboSumAggregateOutputType | null
     _min: ExamenLaboMinAggregateOutputType | null
     _max: ExamenLaboMaxAggregateOutputType | null
   }
@@ -13026,11 +13148,14 @@ export namespace Prisma {
     valide_le?: boolean
     notes?: boolean
     urgence?: boolean
+    prix_unitaire?: boolean
+    facture_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    facture?: boolean | ExamenLabo$factureArgs<ExtArgs>
   }, ExtArgs["result"]["examenLabo"]>
 
   export type ExamenLaboSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -13047,11 +13172,14 @@ export namespace Prisma {
     valide_le?: boolean
     notes?: boolean
     urgence?: boolean
+    prix_unitaire?: boolean
+    facture_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    facture?: boolean | ExamenLabo$factureArgs<ExtArgs>
   }, ExtArgs["result"]["examenLabo"]>
 
   export type ExamenLaboSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -13068,11 +13196,14 @@ export namespace Prisma {
     valide_le?: boolean
     notes?: boolean
     urgence?: boolean
+    prix_unitaire?: boolean
+    facture_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    facture?: boolean | ExamenLabo$factureArgs<ExtArgs>
   }, ExtArgs["result"]["examenLabo"]>
 
   export type ExamenLaboSelectScalar = {
@@ -13089,25 +13220,30 @@ export namespace Prisma {
     valide_le?: boolean
     notes?: boolean
     urgence?: boolean
+    prix_unitaire?: boolean
+    facture_id?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type ExamenLaboOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "patient_id" | "medecin_id" | "type_examen" | "statut" | "resultats" | "fichier_url" | "fichier_nom" | "valide_par" | "valide_le" | "notes" | "urgence" | "created_at" | "updated_at", ExtArgs["result"]["examenLabo"]>
+  export type ExamenLaboOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "patient_id" | "medecin_id" | "type_examen" | "statut" | "resultats" | "fichier_url" | "fichier_nom" | "valide_par" | "valide_le" | "notes" | "urgence" | "prix_unitaire" | "facture_id" | "created_at" | "updated_at", ExtArgs["result"]["examenLabo"]>
   export type ExamenLaboInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    facture?: boolean | ExamenLabo$factureArgs<ExtArgs>
   }
   export type ExamenLaboIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    facture?: boolean | ExamenLabo$factureArgs<ExtArgs>
   }
   export type ExamenLaboIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    facture?: boolean | ExamenLabo$factureArgs<ExtArgs>
   }
 
   export type $ExamenLaboPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13116,6 +13252,7 @@ export namespace Prisma {
       hospital: Prisma.$HospitalPayload<ExtArgs>
       patient: Prisma.$PatientPayload<ExtArgs>
       medecin: Prisma.$UtilisateurPayload<ExtArgs>
+      facture: Prisma.$FacturePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -13131,6 +13268,8 @@ export namespace Prisma {
       valide_le: Date | null
       notes: string | null
       urgence: boolean
+      prix_unitaire: number | null
+      facture_id: string | null
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["examenLabo"]>
@@ -13530,6 +13669,7 @@ export namespace Prisma {
     hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     patient<T extends PatientDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PatientDefaultArgs<ExtArgs>>): Prisma__PatientClient<$Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     medecin<T extends UtilisateurDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UtilisateurDefaultArgs<ExtArgs>>): Prisma__UtilisateurClient<$Result.GetResult<Prisma.$UtilisateurPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    facture<T extends ExamenLabo$factureArgs<ExtArgs> = {}>(args?: Subset<T, ExamenLabo$factureArgs<ExtArgs>>): Prisma__FactureClient<$Result.GetResult<Prisma.$FacturePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13572,6 +13712,8 @@ export namespace Prisma {
     readonly valide_le: FieldRef<"ExamenLabo", 'DateTime'>
     readonly notes: FieldRef<"ExamenLabo", 'String'>
     readonly urgence: FieldRef<"ExamenLabo", 'Boolean'>
+    readonly prix_unitaire: FieldRef<"ExamenLabo", 'Float'>
+    readonly facture_id: FieldRef<"ExamenLabo", 'String'>
     readonly created_at: FieldRef<"ExamenLabo", 'DateTime'>
     readonly updated_at: FieldRef<"ExamenLabo", 'DateTime'>
   }
@@ -13975,6 +14117,25 @@ export namespace Prisma {
   }
 
   /**
+   * ExamenLabo.facture
+   */
+  export type ExamenLabo$factureArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Facture
+     */
+    select?: FactureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Facture
+     */
+    omit?: FactureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FactureInclude<ExtArgs> | null
+    where?: FactureWhereInput
+  }
+
+  /**
    * ExamenLabo without action
    */
   export type ExamenLaboDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13999,8 +14160,18 @@ export namespace Prisma {
 
   export type AggregateExamenImagerie = {
     _count: ExamenImagerieCountAggregateOutputType | null
+    _avg: ExamenImagerieAvgAggregateOutputType | null
+    _sum: ExamenImagerieSumAggregateOutputType | null
     _min: ExamenImagerieMinAggregateOutputType | null
     _max: ExamenImagerieMaxAggregateOutputType | null
+  }
+
+  export type ExamenImagerieAvgAggregateOutputType = {
+    prix_unitaire: number | null
+  }
+
+  export type ExamenImagerieSumAggregateOutputType = {
+    prix_unitaire: number | null
   }
 
   export type ExamenImagerieMinAggregateOutputType = {
@@ -14018,6 +14189,8 @@ export namespace Prisma {
     notes: string | null
     urgence: boolean | null
     zone_anatomique: string | null
+    prix_unitaire: number | null
+    facture_id: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -14037,6 +14210,8 @@ export namespace Prisma {
     notes: string | null
     urgence: boolean | null
     zone_anatomique: string | null
+    prix_unitaire: number | null
+    facture_id: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -14056,11 +14231,21 @@ export namespace Prisma {
     notes: number
     urgence: number
     zone_anatomique: number
+    prix_unitaire: number
+    facture_id: number
     created_at: number
     updated_at: number
     _all: number
   }
 
+
+  export type ExamenImagerieAvgAggregateInputType = {
+    prix_unitaire?: true
+  }
+
+  export type ExamenImagerieSumAggregateInputType = {
+    prix_unitaire?: true
+  }
 
   export type ExamenImagerieMinAggregateInputType = {
     id?: true
@@ -14077,6 +14262,8 @@ export namespace Prisma {
     notes?: true
     urgence?: true
     zone_anatomique?: true
+    prix_unitaire?: true
+    facture_id?: true
     created_at?: true
     updated_at?: true
   }
@@ -14096,6 +14283,8 @@ export namespace Prisma {
     notes?: true
     urgence?: true
     zone_anatomique?: true
+    prix_unitaire?: true
+    facture_id?: true
     created_at?: true
     updated_at?: true
   }
@@ -14115,6 +14304,8 @@ export namespace Prisma {
     notes?: true
     urgence?: true
     zone_anatomique?: true
+    prix_unitaire?: true
+    facture_id?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -14158,6 +14349,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ExamenImagerieAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ExamenImagerieSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ExamenImagerieMinAggregateInputType
@@ -14188,6 +14391,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ExamenImagerieCountAggregateInputType | true
+    _avg?: ExamenImagerieAvgAggregateInputType
+    _sum?: ExamenImagerieSumAggregateInputType
     _min?: ExamenImagerieMinAggregateInputType
     _max?: ExamenImagerieMaxAggregateInputType
   }
@@ -14207,9 +14412,13 @@ export namespace Prisma {
     notes: string | null
     urgence: boolean
     zone_anatomique: string | null
+    prix_unitaire: number | null
+    facture_id: string | null
     created_at: Date
     updated_at: Date
     _count: ExamenImagerieCountAggregateOutputType | null
+    _avg: ExamenImagerieAvgAggregateOutputType | null
+    _sum: ExamenImagerieSumAggregateOutputType | null
     _min: ExamenImagerieMinAggregateOutputType | null
     _max: ExamenImagerieMaxAggregateOutputType | null
   }
@@ -14243,11 +14452,14 @@ export namespace Prisma {
     notes?: boolean
     urgence?: boolean
     zone_anatomique?: boolean
+    prix_unitaire?: boolean
+    facture_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    facture?: boolean | ExamenImagerie$factureArgs<ExtArgs>
   }, ExtArgs["result"]["examenImagerie"]>
 
   export type ExamenImagerieSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -14265,11 +14477,14 @@ export namespace Prisma {
     notes?: boolean
     urgence?: boolean
     zone_anatomique?: boolean
+    prix_unitaire?: boolean
+    facture_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    facture?: boolean | ExamenImagerie$factureArgs<ExtArgs>
   }, ExtArgs["result"]["examenImagerie"]>
 
   export type ExamenImagerieSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -14287,11 +14502,14 @@ export namespace Prisma {
     notes?: boolean
     urgence?: boolean
     zone_anatomique?: boolean
+    prix_unitaire?: boolean
+    facture_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    facture?: boolean | ExamenImagerie$factureArgs<ExtArgs>
   }, ExtArgs["result"]["examenImagerie"]>
 
   export type ExamenImagerieSelectScalar = {
@@ -14309,25 +14527,30 @@ export namespace Prisma {
     notes?: boolean
     urgence?: boolean
     zone_anatomique?: boolean
+    prix_unitaire?: boolean
+    facture_id?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type ExamenImagerieOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "patient_id" | "medecin_id" | "type_examen" | "statut" | "resultats" | "fichier_url" | "fichier_nom" | "valide_par" | "valide_le" | "notes" | "urgence" | "zone_anatomique" | "created_at" | "updated_at", ExtArgs["result"]["examenImagerie"]>
+  export type ExamenImagerieOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "patient_id" | "medecin_id" | "type_examen" | "statut" | "resultats" | "fichier_url" | "fichier_nom" | "valide_par" | "valide_le" | "notes" | "urgence" | "zone_anatomique" | "prix_unitaire" | "facture_id" | "created_at" | "updated_at", ExtArgs["result"]["examenImagerie"]>
   export type ExamenImagerieInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    facture?: boolean | ExamenImagerie$factureArgs<ExtArgs>
   }
   export type ExamenImagerieIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    facture?: boolean | ExamenImagerie$factureArgs<ExtArgs>
   }
   export type ExamenImagerieIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    facture?: boolean | ExamenImagerie$factureArgs<ExtArgs>
   }
 
   export type $ExamenImageriePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14336,6 +14559,7 @@ export namespace Prisma {
       hospital: Prisma.$HospitalPayload<ExtArgs>
       patient: Prisma.$PatientPayload<ExtArgs>
       medecin: Prisma.$UtilisateurPayload<ExtArgs>
+      facture: Prisma.$FacturePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -14352,6 +14576,8 @@ export namespace Prisma {
       notes: string | null
       urgence: boolean
       zone_anatomique: string | null
+      prix_unitaire: number | null
+      facture_id: string | null
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["examenImagerie"]>
@@ -14751,6 +14977,7 @@ export namespace Prisma {
     hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     patient<T extends PatientDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PatientDefaultArgs<ExtArgs>>): Prisma__PatientClient<$Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     medecin<T extends UtilisateurDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UtilisateurDefaultArgs<ExtArgs>>): Prisma__UtilisateurClient<$Result.GetResult<Prisma.$UtilisateurPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    facture<T extends ExamenImagerie$factureArgs<ExtArgs> = {}>(args?: Subset<T, ExamenImagerie$factureArgs<ExtArgs>>): Prisma__FactureClient<$Result.GetResult<Prisma.$FacturePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14794,6 +15021,8 @@ export namespace Prisma {
     readonly notes: FieldRef<"ExamenImagerie", 'String'>
     readonly urgence: FieldRef<"ExamenImagerie", 'Boolean'>
     readonly zone_anatomique: FieldRef<"ExamenImagerie", 'String'>
+    readonly prix_unitaire: FieldRef<"ExamenImagerie", 'Float'>
+    readonly facture_id: FieldRef<"ExamenImagerie", 'String'>
     readonly created_at: FieldRef<"ExamenImagerie", 'DateTime'>
     readonly updated_at: FieldRef<"ExamenImagerie", 'DateTime'>
   }
@@ -15194,6 +15423,25 @@ export namespace Prisma {
      * Limit how many ExamenImageries to delete.
      */
     limit?: number
+  }
+
+  /**
+   * ExamenImagerie.facture
+   */
+  export type ExamenImagerie$factureArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Facture
+     */
+    select?: FactureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Facture
+     */
+    omit?: FactureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FactureInclude<ExtArgs> | null
+    where?: FactureWhereInput
   }
 
   /**
@@ -22311,6 +22559,8 @@ export namespace Prisma {
     valide_le: 'valide_le',
     notes: 'notes',
     urgence: 'urgence',
+    prix_unitaire: 'prix_unitaire',
+    facture_id: 'facture_id',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -22333,6 +22583,8 @@ export namespace Prisma {
     notes: 'notes',
     urgence: 'urgence',
     zone_anatomique: 'zone_anatomique',
+    prix_unitaire: 'prix_unitaire',
+    facture_id: 'facture_id',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -23384,6 +23636,8 @@ export namespace Prisma {
     patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
     consultation?: XOR<ConsultationNullableScalarRelationFilter, ConsultationWhereInput> | null
     lignes?: LigneFactureListRelationFilter
+    examens_labo?: ExamenLaboListRelationFilter
+    examens_imagerie?: ExamenImagerieListRelationFilter
   }
 
   export type FactureOrderByWithRelationInput = {
@@ -23405,6 +23659,8 @@ export namespace Prisma {
     patient?: PatientOrderByWithRelationInput
     consultation?: ConsultationOrderByWithRelationInput
     lignes?: LigneFactureOrderByRelationAggregateInput
+    examens_labo?: ExamenLaboOrderByRelationAggregateInput
+    examens_imagerie?: ExamenImagerieOrderByRelationAggregateInput
   }
 
   export type FactureWhereUniqueInput = Prisma.AtLeast<{
@@ -23429,6 +23685,8 @@ export namespace Prisma {
     patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
     consultation?: XOR<ConsultationNullableScalarRelationFilter, ConsultationWhereInput> | null
     lignes?: LigneFactureListRelationFilter
+    examens_labo?: ExamenLaboListRelationFilter
+    examens_imagerie?: ExamenImagerieListRelationFilter
   }, "id" | "consultation_id" | "numero_facture">
 
   export type FactureOrderByWithAggregationInput = {
@@ -23557,11 +23815,14 @@ export namespace Prisma {
     valide_le?: DateTimeNullableFilter<"ExamenLabo"> | Date | string | null
     notes?: StringNullableFilter<"ExamenLabo"> | string | null
     urgence?: BoolFilter<"ExamenLabo"> | boolean
+    prix_unitaire?: FloatNullableFilter<"ExamenLabo"> | number | null
+    facture_id?: StringNullableFilter<"ExamenLabo"> | string | null
     created_at?: DateTimeFilter<"ExamenLabo"> | Date | string
     updated_at?: DateTimeFilter<"ExamenLabo"> | Date | string
     hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
     patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
     medecin?: XOR<UtilisateurScalarRelationFilter, UtilisateurWhereInput>
+    facture?: XOR<FactureNullableScalarRelationFilter, FactureWhereInput> | null
   }
 
   export type ExamenLaboOrderByWithRelationInput = {
@@ -23578,11 +23839,14 @@ export namespace Prisma {
     valide_le?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
     urgence?: SortOrder
+    prix_unitaire?: SortOrderInput | SortOrder
+    facture_id?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     hospital?: HospitalOrderByWithRelationInput
     patient?: PatientOrderByWithRelationInput
     medecin?: UtilisateurOrderByWithRelationInput
+    facture?: FactureOrderByWithRelationInput
   }
 
   export type ExamenLaboWhereUniqueInput = Prisma.AtLeast<{
@@ -23602,11 +23866,14 @@ export namespace Prisma {
     valide_le?: DateTimeNullableFilter<"ExamenLabo"> | Date | string | null
     notes?: StringNullableFilter<"ExamenLabo"> | string | null
     urgence?: BoolFilter<"ExamenLabo"> | boolean
+    prix_unitaire?: FloatNullableFilter<"ExamenLabo"> | number | null
+    facture_id?: StringNullableFilter<"ExamenLabo"> | string | null
     created_at?: DateTimeFilter<"ExamenLabo"> | Date | string
     updated_at?: DateTimeFilter<"ExamenLabo"> | Date | string
     hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
     patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
     medecin?: XOR<UtilisateurScalarRelationFilter, UtilisateurWhereInput>
+    facture?: XOR<FactureNullableScalarRelationFilter, FactureWhereInput> | null
   }, "id">
 
   export type ExamenLaboOrderByWithAggregationInput = {
@@ -23623,11 +23890,15 @@ export namespace Prisma {
     valide_le?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
     urgence?: SortOrder
+    prix_unitaire?: SortOrderInput | SortOrder
+    facture_id?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: ExamenLaboCountOrderByAggregateInput
+    _avg?: ExamenLaboAvgOrderByAggregateInput
     _max?: ExamenLaboMaxOrderByAggregateInput
     _min?: ExamenLaboMinOrderByAggregateInput
+    _sum?: ExamenLaboSumOrderByAggregateInput
   }
 
   export type ExamenLaboScalarWhereWithAggregatesInput = {
@@ -23647,6 +23918,8 @@ export namespace Prisma {
     valide_le?: DateTimeNullableWithAggregatesFilter<"ExamenLabo"> | Date | string | null
     notes?: StringNullableWithAggregatesFilter<"ExamenLabo"> | string | null
     urgence?: BoolWithAggregatesFilter<"ExamenLabo"> | boolean
+    prix_unitaire?: FloatNullableWithAggregatesFilter<"ExamenLabo"> | number | null
+    facture_id?: StringNullableWithAggregatesFilter<"ExamenLabo"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"ExamenLabo"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"ExamenLabo"> | Date | string
   }
@@ -23669,11 +23942,14 @@ export namespace Prisma {
     notes?: StringNullableFilter<"ExamenImagerie"> | string | null
     urgence?: BoolFilter<"ExamenImagerie"> | boolean
     zone_anatomique?: StringNullableFilter<"ExamenImagerie"> | string | null
+    prix_unitaire?: FloatNullableFilter<"ExamenImagerie"> | number | null
+    facture_id?: StringNullableFilter<"ExamenImagerie"> | string | null
     created_at?: DateTimeFilter<"ExamenImagerie"> | Date | string
     updated_at?: DateTimeFilter<"ExamenImagerie"> | Date | string
     hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
     patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
     medecin?: XOR<UtilisateurScalarRelationFilter, UtilisateurWhereInput>
+    facture?: XOR<FactureNullableScalarRelationFilter, FactureWhereInput> | null
   }
 
   export type ExamenImagerieOrderByWithRelationInput = {
@@ -23691,11 +23967,14 @@ export namespace Prisma {
     notes?: SortOrderInput | SortOrder
     urgence?: SortOrder
     zone_anatomique?: SortOrderInput | SortOrder
+    prix_unitaire?: SortOrderInput | SortOrder
+    facture_id?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     hospital?: HospitalOrderByWithRelationInput
     patient?: PatientOrderByWithRelationInput
     medecin?: UtilisateurOrderByWithRelationInput
+    facture?: FactureOrderByWithRelationInput
   }
 
   export type ExamenImagerieWhereUniqueInput = Prisma.AtLeast<{
@@ -23716,11 +23995,14 @@ export namespace Prisma {
     notes?: StringNullableFilter<"ExamenImagerie"> | string | null
     urgence?: BoolFilter<"ExamenImagerie"> | boolean
     zone_anatomique?: StringNullableFilter<"ExamenImagerie"> | string | null
+    prix_unitaire?: FloatNullableFilter<"ExamenImagerie"> | number | null
+    facture_id?: StringNullableFilter<"ExamenImagerie"> | string | null
     created_at?: DateTimeFilter<"ExamenImagerie"> | Date | string
     updated_at?: DateTimeFilter<"ExamenImagerie"> | Date | string
     hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
     patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
     medecin?: XOR<UtilisateurScalarRelationFilter, UtilisateurWhereInput>
+    facture?: XOR<FactureNullableScalarRelationFilter, FactureWhereInput> | null
   }, "id">
 
   export type ExamenImagerieOrderByWithAggregationInput = {
@@ -23738,11 +24020,15 @@ export namespace Prisma {
     notes?: SortOrderInput | SortOrder
     urgence?: SortOrder
     zone_anatomique?: SortOrderInput | SortOrder
+    prix_unitaire?: SortOrderInput | SortOrder
+    facture_id?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: ExamenImagerieCountOrderByAggregateInput
+    _avg?: ExamenImagerieAvgOrderByAggregateInput
     _max?: ExamenImagerieMaxOrderByAggregateInput
     _min?: ExamenImagerieMinOrderByAggregateInput
+    _sum?: ExamenImagerieSumOrderByAggregateInput
   }
 
   export type ExamenImagerieScalarWhereWithAggregatesInput = {
@@ -23763,6 +24049,8 @@ export namespace Prisma {
     notes?: StringNullableWithAggregatesFilter<"ExamenImagerie"> | string | null
     urgence?: BoolWithAggregatesFilter<"ExamenImagerie"> | boolean
     zone_anatomique?: StringNullableWithAggregatesFilter<"ExamenImagerie"> | string | null
+    prix_unitaire?: FloatNullableWithAggregatesFilter<"ExamenImagerie"> | number | null
+    facture_id?: StringNullableWithAggregatesFilter<"ExamenImagerie"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"ExamenImagerie"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"ExamenImagerie"> | Date | string
   }
@@ -24990,6 +25278,8 @@ export namespace Prisma {
     patient: PatientCreateNestedOneWithoutFacturesInput
     consultation?: ConsultationCreateNestedOneWithoutFactureInput
     lignes?: LigneFactureCreateNestedManyWithoutFactureInput
+    examens_labo?: ExamenLaboCreateNestedManyWithoutFactureInput
+    examens_imagerie?: ExamenImagerieCreateNestedManyWithoutFactureInput
   }
 
   export type FactureUncheckedCreateInput = {
@@ -25008,6 +25298,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     lignes?: LigneFactureUncheckedCreateNestedManyWithoutFactureInput
+    examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutFactureInput
+    examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutFactureInput
   }
 
   export type FactureUpdateInput = {
@@ -25026,6 +25318,8 @@ export namespace Prisma {
     patient?: PatientUpdateOneRequiredWithoutFacturesNestedInput
     consultation?: ConsultationUpdateOneWithoutFactureNestedInput
     lignes?: LigneFactureUpdateManyWithoutFactureNestedInput
+    examens_labo?: ExamenLaboUpdateManyWithoutFactureNestedInput
+    examens_imagerie?: ExamenImagerieUpdateManyWithoutFactureNestedInput
   }
 
   export type FactureUncheckedUpdateInput = {
@@ -25044,6 +25338,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     lignes?: LigneFactureUncheckedUpdateManyWithoutFactureNestedInput
+    examens_labo?: ExamenLaboUncheckedUpdateManyWithoutFactureNestedInput
+    examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutFactureNestedInput
   }
 
   export type FactureCreateManyInput = {
@@ -25174,11 +25470,13 @@ export namespace Prisma {
     valide_le?: Date | string | null
     notes?: string | null
     urgence?: boolean
+    prix_unitaire?: number | null
     created_at?: Date | string
     updated_at?: Date | string
     hospital: HospitalCreateNestedOneWithoutExamens_laboInput
     patient: PatientCreateNestedOneWithoutExamens_laboInput
     medecin: UtilisateurCreateNestedOneWithoutExamens_labo_prescritsInput
+    facture?: FactureCreateNestedOneWithoutExamens_laboInput
   }
 
   export type ExamenLaboUncheckedCreateInput = {
@@ -25195,6 +25493,8 @@ export namespace Prisma {
     valide_le?: Date | string | null
     notes?: string | null
     urgence?: boolean
+    prix_unitaire?: number | null
+    facture_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -25210,11 +25510,13 @@ export namespace Prisma {
     valide_le?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     hospital?: HospitalUpdateOneRequiredWithoutExamens_laboNestedInput
     patient?: PatientUpdateOneRequiredWithoutExamens_laboNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutExamens_labo_prescritsNestedInput
+    facture?: FactureUpdateOneWithoutExamens_laboNestedInput
   }
 
   export type ExamenLaboUncheckedUpdateInput = {
@@ -25231,6 +25533,8 @@ export namespace Prisma {
     valide_le?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25249,6 +25553,8 @@ export namespace Prisma {
     valide_le?: Date | string | null
     notes?: string | null
     urgence?: boolean
+    prix_unitaire?: number | null
+    facture_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -25264,6 +25570,7 @@ export namespace Prisma {
     valide_le?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25282,6 +25589,8 @@ export namespace Prisma {
     valide_le?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25298,11 +25607,13 @@ export namespace Prisma {
     notes?: string | null
     urgence?: boolean
     zone_anatomique?: string | null
+    prix_unitaire?: number | null
     created_at?: Date | string
     updated_at?: Date | string
     hospital: HospitalCreateNestedOneWithoutExamens_imagerieInput
     patient: PatientCreateNestedOneWithoutExamens_imagerieInput
     medecin: UtilisateurCreateNestedOneWithoutExamens_imagerie_prescritsInput
+    facture?: FactureCreateNestedOneWithoutExamens_imagerieInput
   }
 
   export type ExamenImagerieUncheckedCreateInput = {
@@ -25320,6 +25631,8 @@ export namespace Prisma {
     notes?: string | null
     urgence?: boolean
     zone_anatomique?: string | null
+    prix_unitaire?: number | null
+    facture_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -25336,11 +25649,13 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
     zone_anatomique?: NullableStringFieldUpdateOperationsInput | string | null
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     hospital?: HospitalUpdateOneRequiredWithoutExamens_imagerieNestedInput
     patient?: PatientUpdateOneRequiredWithoutExamens_imagerieNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutExamens_imagerie_prescritsNestedInput
+    facture?: FactureUpdateOneWithoutExamens_imagerieNestedInput
   }
 
   export type ExamenImagerieUncheckedUpdateInput = {
@@ -25358,6 +25673,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
     zone_anatomique?: NullableStringFieldUpdateOperationsInput | string | null
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25377,6 +25694,8 @@ export namespace Prisma {
     notes?: string | null
     urgence?: boolean
     zone_anatomique?: string | null
+    prix_unitaire?: number | null
+    facture_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -25393,6 +25712,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
     zone_anatomique?: NullableStringFieldUpdateOperationsInput | string | null
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25412,6 +25732,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
     zone_anatomique?: NullableStringFieldUpdateOperationsInput | string | null
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -26878,8 +27200,14 @@ export namespace Prisma {
     valide_le?: SortOrder
     notes?: SortOrder
     urgence?: SortOrder
+    prix_unitaire?: SortOrder
+    facture_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type ExamenLaboAvgOrderByAggregateInput = {
+    prix_unitaire?: SortOrder
   }
 
   export type ExamenLaboMaxOrderByAggregateInput = {
@@ -26896,6 +27224,8 @@ export namespace Prisma {
     valide_le?: SortOrder
     notes?: SortOrder
     urgence?: SortOrder
+    prix_unitaire?: SortOrder
+    facture_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -26914,8 +27244,14 @@ export namespace Prisma {
     valide_le?: SortOrder
     notes?: SortOrder
     urgence?: SortOrder
+    prix_unitaire?: SortOrder
+    facture_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type ExamenLaboSumOrderByAggregateInput = {
+    prix_unitaire?: SortOrder
   }
 
   export type EnumTypeExamenLaboWithAggregatesFilter<$PrismaModel = never> = {
@@ -26960,8 +27296,14 @@ export namespace Prisma {
     notes?: SortOrder
     urgence?: SortOrder
     zone_anatomique?: SortOrder
+    prix_unitaire?: SortOrder
+    facture_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type ExamenImagerieAvgOrderByAggregateInput = {
+    prix_unitaire?: SortOrder
   }
 
   export type ExamenImagerieMaxOrderByAggregateInput = {
@@ -26979,6 +27321,8 @@ export namespace Prisma {
     notes?: SortOrder
     urgence?: SortOrder
     zone_anatomique?: SortOrder
+    prix_unitaire?: SortOrder
+    facture_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -26998,8 +27342,14 @@ export namespace Prisma {
     notes?: SortOrder
     urgence?: SortOrder
     zone_anatomique?: SortOrder
+    prix_unitaire?: SortOrder
+    facture_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type ExamenImagerieSumOrderByAggregateInput = {
+    prix_unitaire?: SortOrder
   }
 
   export type EnumTypeExamenImagerieWithAggregatesFilter<$PrismaModel = never> = {
@@ -28524,11 +28874,39 @@ export namespace Prisma {
     connect?: LigneFactureWhereUniqueInput | LigneFactureWhereUniqueInput[]
   }
 
+  export type ExamenLaboCreateNestedManyWithoutFactureInput = {
+    create?: XOR<ExamenLaboCreateWithoutFactureInput, ExamenLaboUncheckedCreateWithoutFactureInput> | ExamenLaboCreateWithoutFactureInput[] | ExamenLaboUncheckedCreateWithoutFactureInput[]
+    connectOrCreate?: ExamenLaboCreateOrConnectWithoutFactureInput | ExamenLaboCreateOrConnectWithoutFactureInput[]
+    createMany?: ExamenLaboCreateManyFactureInputEnvelope
+    connect?: ExamenLaboWhereUniqueInput | ExamenLaboWhereUniqueInput[]
+  }
+
+  export type ExamenImagerieCreateNestedManyWithoutFactureInput = {
+    create?: XOR<ExamenImagerieCreateWithoutFactureInput, ExamenImagerieUncheckedCreateWithoutFactureInput> | ExamenImagerieCreateWithoutFactureInput[] | ExamenImagerieUncheckedCreateWithoutFactureInput[]
+    connectOrCreate?: ExamenImagerieCreateOrConnectWithoutFactureInput | ExamenImagerieCreateOrConnectWithoutFactureInput[]
+    createMany?: ExamenImagerieCreateManyFactureInputEnvelope
+    connect?: ExamenImagerieWhereUniqueInput | ExamenImagerieWhereUniqueInput[]
+  }
+
   export type LigneFactureUncheckedCreateNestedManyWithoutFactureInput = {
     create?: XOR<LigneFactureCreateWithoutFactureInput, LigneFactureUncheckedCreateWithoutFactureInput> | LigneFactureCreateWithoutFactureInput[] | LigneFactureUncheckedCreateWithoutFactureInput[]
     connectOrCreate?: LigneFactureCreateOrConnectWithoutFactureInput | LigneFactureCreateOrConnectWithoutFactureInput[]
     createMany?: LigneFactureCreateManyFactureInputEnvelope
     connect?: LigneFactureWhereUniqueInput | LigneFactureWhereUniqueInput[]
+  }
+
+  export type ExamenLaboUncheckedCreateNestedManyWithoutFactureInput = {
+    create?: XOR<ExamenLaboCreateWithoutFactureInput, ExamenLaboUncheckedCreateWithoutFactureInput> | ExamenLaboCreateWithoutFactureInput[] | ExamenLaboUncheckedCreateWithoutFactureInput[]
+    connectOrCreate?: ExamenLaboCreateOrConnectWithoutFactureInput | ExamenLaboCreateOrConnectWithoutFactureInput[]
+    createMany?: ExamenLaboCreateManyFactureInputEnvelope
+    connect?: ExamenLaboWhereUniqueInput | ExamenLaboWhereUniqueInput[]
+  }
+
+  export type ExamenImagerieUncheckedCreateNestedManyWithoutFactureInput = {
+    create?: XOR<ExamenImagerieCreateWithoutFactureInput, ExamenImagerieUncheckedCreateWithoutFactureInput> | ExamenImagerieCreateWithoutFactureInput[] | ExamenImagerieUncheckedCreateWithoutFactureInput[]
+    connectOrCreate?: ExamenImagerieCreateOrConnectWithoutFactureInput | ExamenImagerieCreateOrConnectWithoutFactureInput[]
+    createMany?: ExamenImagerieCreateManyFactureInputEnvelope
+    connect?: ExamenImagerieWhereUniqueInput | ExamenImagerieWhereUniqueInput[]
   }
 
   export type EnumStatutFactureFieldUpdateOperationsInput = {
@@ -28587,6 +28965,34 @@ export namespace Prisma {
     deleteMany?: LigneFactureScalarWhereInput | LigneFactureScalarWhereInput[]
   }
 
+  export type ExamenLaboUpdateManyWithoutFactureNestedInput = {
+    create?: XOR<ExamenLaboCreateWithoutFactureInput, ExamenLaboUncheckedCreateWithoutFactureInput> | ExamenLaboCreateWithoutFactureInput[] | ExamenLaboUncheckedCreateWithoutFactureInput[]
+    connectOrCreate?: ExamenLaboCreateOrConnectWithoutFactureInput | ExamenLaboCreateOrConnectWithoutFactureInput[]
+    upsert?: ExamenLaboUpsertWithWhereUniqueWithoutFactureInput | ExamenLaboUpsertWithWhereUniqueWithoutFactureInput[]
+    createMany?: ExamenLaboCreateManyFactureInputEnvelope
+    set?: ExamenLaboWhereUniqueInput | ExamenLaboWhereUniqueInput[]
+    disconnect?: ExamenLaboWhereUniqueInput | ExamenLaboWhereUniqueInput[]
+    delete?: ExamenLaboWhereUniqueInput | ExamenLaboWhereUniqueInput[]
+    connect?: ExamenLaboWhereUniqueInput | ExamenLaboWhereUniqueInput[]
+    update?: ExamenLaboUpdateWithWhereUniqueWithoutFactureInput | ExamenLaboUpdateWithWhereUniqueWithoutFactureInput[]
+    updateMany?: ExamenLaboUpdateManyWithWhereWithoutFactureInput | ExamenLaboUpdateManyWithWhereWithoutFactureInput[]
+    deleteMany?: ExamenLaboScalarWhereInput | ExamenLaboScalarWhereInput[]
+  }
+
+  export type ExamenImagerieUpdateManyWithoutFactureNestedInput = {
+    create?: XOR<ExamenImagerieCreateWithoutFactureInput, ExamenImagerieUncheckedCreateWithoutFactureInput> | ExamenImagerieCreateWithoutFactureInput[] | ExamenImagerieUncheckedCreateWithoutFactureInput[]
+    connectOrCreate?: ExamenImagerieCreateOrConnectWithoutFactureInput | ExamenImagerieCreateOrConnectWithoutFactureInput[]
+    upsert?: ExamenImagerieUpsertWithWhereUniqueWithoutFactureInput | ExamenImagerieUpsertWithWhereUniqueWithoutFactureInput[]
+    createMany?: ExamenImagerieCreateManyFactureInputEnvelope
+    set?: ExamenImagerieWhereUniqueInput | ExamenImagerieWhereUniqueInput[]
+    disconnect?: ExamenImagerieWhereUniqueInput | ExamenImagerieWhereUniqueInput[]
+    delete?: ExamenImagerieWhereUniqueInput | ExamenImagerieWhereUniqueInput[]
+    connect?: ExamenImagerieWhereUniqueInput | ExamenImagerieWhereUniqueInput[]
+    update?: ExamenImagerieUpdateWithWhereUniqueWithoutFactureInput | ExamenImagerieUpdateWithWhereUniqueWithoutFactureInput[]
+    updateMany?: ExamenImagerieUpdateManyWithWhereWithoutFactureInput | ExamenImagerieUpdateManyWithWhereWithoutFactureInput[]
+    deleteMany?: ExamenImagerieScalarWhereInput | ExamenImagerieScalarWhereInput[]
+  }
+
   export type LigneFactureUncheckedUpdateManyWithoutFactureNestedInput = {
     create?: XOR<LigneFactureCreateWithoutFactureInput, LigneFactureUncheckedCreateWithoutFactureInput> | LigneFactureCreateWithoutFactureInput[] | LigneFactureUncheckedCreateWithoutFactureInput[]
     connectOrCreate?: LigneFactureCreateOrConnectWithoutFactureInput | LigneFactureCreateOrConnectWithoutFactureInput[]
@@ -28599,6 +29005,34 @@ export namespace Prisma {
     update?: LigneFactureUpdateWithWhereUniqueWithoutFactureInput | LigneFactureUpdateWithWhereUniqueWithoutFactureInput[]
     updateMany?: LigneFactureUpdateManyWithWhereWithoutFactureInput | LigneFactureUpdateManyWithWhereWithoutFactureInput[]
     deleteMany?: LigneFactureScalarWhereInput | LigneFactureScalarWhereInput[]
+  }
+
+  export type ExamenLaboUncheckedUpdateManyWithoutFactureNestedInput = {
+    create?: XOR<ExamenLaboCreateWithoutFactureInput, ExamenLaboUncheckedCreateWithoutFactureInput> | ExamenLaboCreateWithoutFactureInput[] | ExamenLaboUncheckedCreateWithoutFactureInput[]
+    connectOrCreate?: ExamenLaboCreateOrConnectWithoutFactureInput | ExamenLaboCreateOrConnectWithoutFactureInput[]
+    upsert?: ExamenLaboUpsertWithWhereUniqueWithoutFactureInput | ExamenLaboUpsertWithWhereUniqueWithoutFactureInput[]
+    createMany?: ExamenLaboCreateManyFactureInputEnvelope
+    set?: ExamenLaboWhereUniqueInput | ExamenLaboWhereUniqueInput[]
+    disconnect?: ExamenLaboWhereUniqueInput | ExamenLaboWhereUniqueInput[]
+    delete?: ExamenLaboWhereUniqueInput | ExamenLaboWhereUniqueInput[]
+    connect?: ExamenLaboWhereUniqueInput | ExamenLaboWhereUniqueInput[]
+    update?: ExamenLaboUpdateWithWhereUniqueWithoutFactureInput | ExamenLaboUpdateWithWhereUniqueWithoutFactureInput[]
+    updateMany?: ExamenLaboUpdateManyWithWhereWithoutFactureInput | ExamenLaboUpdateManyWithWhereWithoutFactureInput[]
+    deleteMany?: ExamenLaboScalarWhereInput | ExamenLaboScalarWhereInput[]
+  }
+
+  export type ExamenImagerieUncheckedUpdateManyWithoutFactureNestedInput = {
+    create?: XOR<ExamenImagerieCreateWithoutFactureInput, ExamenImagerieUncheckedCreateWithoutFactureInput> | ExamenImagerieCreateWithoutFactureInput[] | ExamenImagerieUncheckedCreateWithoutFactureInput[]
+    connectOrCreate?: ExamenImagerieCreateOrConnectWithoutFactureInput | ExamenImagerieCreateOrConnectWithoutFactureInput[]
+    upsert?: ExamenImagerieUpsertWithWhereUniqueWithoutFactureInput | ExamenImagerieUpsertWithWhereUniqueWithoutFactureInput[]
+    createMany?: ExamenImagerieCreateManyFactureInputEnvelope
+    set?: ExamenImagerieWhereUniqueInput | ExamenImagerieWhereUniqueInput[]
+    disconnect?: ExamenImagerieWhereUniqueInput | ExamenImagerieWhereUniqueInput[]
+    delete?: ExamenImagerieWhereUniqueInput | ExamenImagerieWhereUniqueInput[]
+    connect?: ExamenImagerieWhereUniqueInput | ExamenImagerieWhereUniqueInput[]
+    update?: ExamenImagerieUpdateWithWhereUniqueWithoutFactureInput | ExamenImagerieUpdateWithWhereUniqueWithoutFactureInput[]
+    updateMany?: ExamenImagerieUpdateManyWithWhereWithoutFactureInput | ExamenImagerieUpdateManyWithWhereWithoutFactureInput[]
+    deleteMany?: ExamenImagerieScalarWhereInput | ExamenImagerieScalarWhereInput[]
   }
 
   export type FactureCreateNestedOneWithoutLignesInput = {
@@ -28641,6 +29075,12 @@ export namespace Prisma {
     connect?: UtilisateurWhereUniqueInput
   }
 
+  export type FactureCreateNestedOneWithoutExamens_laboInput = {
+    create?: XOR<FactureCreateWithoutExamens_laboInput, FactureUncheckedCreateWithoutExamens_laboInput>
+    connectOrCreate?: FactureCreateOrConnectWithoutExamens_laboInput
+    connect?: FactureWhereUniqueInput
+  }
+
   export type EnumTypeExamenLaboFieldUpdateOperationsInput = {
     set?: $Enums.TypeExamenLabo
   }
@@ -28673,6 +29113,16 @@ export namespace Prisma {
     update?: XOR<XOR<UtilisateurUpdateToOneWithWhereWithoutExamens_labo_prescritsInput, UtilisateurUpdateWithoutExamens_labo_prescritsInput>, UtilisateurUncheckedUpdateWithoutExamens_labo_prescritsInput>
   }
 
+  export type FactureUpdateOneWithoutExamens_laboNestedInput = {
+    create?: XOR<FactureCreateWithoutExamens_laboInput, FactureUncheckedCreateWithoutExamens_laboInput>
+    connectOrCreate?: FactureCreateOrConnectWithoutExamens_laboInput
+    upsert?: FactureUpsertWithoutExamens_laboInput
+    disconnect?: FactureWhereInput | boolean
+    delete?: FactureWhereInput | boolean
+    connect?: FactureWhereUniqueInput
+    update?: XOR<XOR<FactureUpdateToOneWithWhereWithoutExamens_laboInput, FactureUpdateWithoutExamens_laboInput>, FactureUncheckedUpdateWithoutExamens_laboInput>
+  }
+
   export type HospitalCreateNestedOneWithoutExamens_imagerieInput = {
     create?: XOR<HospitalCreateWithoutExamens_imagerieInput, HospitalUncheckedCreateWithoutExamens_imagerieInput>
     connectOrCreate?: HospitalCreateOrConnectWithoutExamens_imagerieInput
@@ -28689,6 +29139,12 @@ export namespace Prisma {
     create?: XOR<UtilisateurCreateWithoutExamens_imagerie_prescritsInput, UtilisateurUncheckedCreateWithoutExamens_imagerie_prescritsInput>
     connectOrCreate?: UtilisateurCreateOrConnectWithoutExamens_imagerie_prescritsInput
     connect?: UtilisateurWhereUniqueInput
+  }
+
+  export type FactureCreateNestedOneWithoutExamens_imagerieInput = {
+    create?: XOR<FactureCreateWithoutExamens_imagerieInput, FactureUncheckedCreateWithoutExamens_imagerieInput>
+    connectOrCreate?: FactureCreateOrConnectWithoutExamens_imagerieInput
+    connect?: FactureWhereUniqueInput
   }
 
   export type EnumTypeExamenImagerieFieldUpdateOperationsInput = {
@@ -28717,6 +29173,16 @@ export namespace Prisma {
     upsert?: UtilisateurUpsertWithoutExamens_imagerie_prescritsInput
     connect?: UtilisateurWhereUniqueInput
     update?: XOR<XOR<UtilisateurUpdateToOneWithWhereWithoutExamens_imagerie_prescritsInput, UtilisateurUpdateWithoutExamens_imagerie_prescritsInput>, UtilisateurUncheckedUpdateWithoutExamens_imagerie_prescritsInput>
+  }
+
+  export type FactureUpdateOneWithoutExamens_imagerieNestedInput = {
+    create?: XOR<FactureCreateWithoutExamens_imagerieInput, FactureUncheckedCreateWithoutExamens_imagerieInput>
+    connectOrCreate?: FactureCreateOrConnectWithoutExamens_imagerieInput
+    upsert?: FactureUpsertWithoutExamens_imagerieInput
+    disconnect?: FactureWhereInput | boolean
+    delete?: FactureWhereInput | boolean
+    connect?: FactureWhereUniqueInput
+    update?: XOR<XOR<FactureUpdateToOneWithWhereWithoutExamens_imagerieInput, FactureUpdateWithoutExamens_imagerieInput>, FactureUncheckedUpdateWithoutExamens_imagerieInput>
   }
 
   export type HospitalCreateNestedOneWithoutArticles_stockInput = {
@@ -29500,6 +29966,8 @@ export namespace Prisma {
     patient: PatientCreateNestedOneWithoutFacturesInput
     consultation?: ConsultationCreateNestedOneWithoutFactureInput
     lignes?: LigneFactureCreateNestedManyWithoutFactureInput
+    examens_labo?: ExamenLaboCreateNestedManyWithoutFactureInput
+    examens_imagerie?: ExamenImagerieCreateNestedManyWithoutFactureInput
   }
 
   export type FactureUncheckedCreateWithoutHospitalInput = {
@@ -29517,6 +29985,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     lignes?: LigneFactureUncheckedCreateNestedManyWithoutFactureInput
+    examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutFactureInput
+    examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutFactureInput
   }
 
   export type FactureCreateOrConnectWithoutHospitalInput = {
@@ -29540,10 +30010,12 @@ export namespace Prisma {
     valide_le?: Date | string | null
     notes?: string | null
     urgence?: boolean
+    prix_unitaire?: number | null
     created_at?: Date | string
     updated_at?: Date | string
     patient: PatientCreateNestedOneWithoutExamens_laboInput
     medecin: UtilisateurCreateNestedOneWithoutExamens_labo_prescritsInput
+    facture?: FactureCreateNestedOneWithoutExamens_laboInput
   }
 
   export type ExamenLaboUncheckedCreateWithoutHospitalInput = {
@@ -29559,6 +30031,8 @@ export namespace Prisma {
     valide_le?: Date | string | null
     notes?: string | null
     urgence?: boolean
+    prix_unitaire?: number | null
+    facture_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -29585,10 +30059,12 @@ export namespace Prisma {
     notes?: string | null
     urgence?: boolean
     zone_anatomique?: string | null
+    prix_unitaire?: number | null
     created_at?: Date | string
     updated_at?: Date | string
     patient: PatientCreateNestedOneWithoutExamens_imagerieInput
     medecin: UtilisateurCreateNestedOneWithoutExamens_imagerie_prescritsInput
+    facture?: FactureCreateNestedOneWithoutExamens_imagerieInput
   }
 
   export type ExamenImagerieUncheckedCreateWithoutHospitalInput = {
@@ -29605,6 +30081,8 @@ export namespace Prisma {
     notes?: string | null
     urgence?: boolean
     zone_anatomique?: string | null
+    prix_unitaire?: number | null
+    facture_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -29976,6 +30454,8 @@ export namespace Prisma {
     valide_le?: DateTimeNullableFilter<"ExamenLabo"> | Date | string | null
     notes?: StringNullableFilter<"ExamenLabo"> | string | null
     urgence?: BoolFilter<"ExamenLabo"> | boolean
+    prix_unitaire?: FloatNullableFilter<"ExamenLabo"> | number | null
+    facture_id?: StringNullableFilter<"ExamenLabo"> | string | null
     created_at?: DateTimeFilter<"ExamenLabo"> | Date | string
     updated_at?: DateTimeFilter<"ExamenLabo"> | Date | string
   }
@@ -30014,6 +30494,8 @@ export namespace Prisma {
     notes?: StringNullableFilter<"ExamenImagerie"> | string | null
     urgence?: BoolFilter<"ExamenImagerie"> | boolean
     zone_anatomique?: StringNullableFilter<"ExamenImagerie"> | string | null
+    prix_unitaire?: FloatNullableFilter<"ExamenImagerie"> | number | null
+    facture_id?: StringNullableFilter<"ExamenImagerie"> | string | null
     created_at?: DateTimeFilter<"ExamenImagerie"> | Date | string
     updated_at?: DateTimeFilter<"ExamenImagerie"> | Date | string
   }
@@ -30295,10 +30777,12 @@ export namespace Prisma {
     valide_le?: Date | string | null
     notes?: string | null
     urgence?: boolean
+    prix_unitaire?: number | null
     created_at?: Date | string
     updated_at?: Date | string
     hospital: HospitalCreateNestedOneWithoutExamens_laboInput
     patient: PatientCreateNestedOneWithoutExamens_laboInput
+    facture?: FactureCreateNestedOneWithoutExamens_laboInput
   }
 
   export type ExamenLaboUncheckedCreateWithoutMedecinInput = {
@@ -30314,6 +30798,8 @@ export namespace Prisma {
     valide_le?: Date | string | null
     notes?: string | null
     urgence?: boolean
+    prix_unitaire?: number | null
+    facture_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -30340,10 +30826,12 @@ export namespace Prisma {
     notes?: string | null
     urgence?: boolean
     zone_anatomique?: string | null
+    prix_unitaire?: number | null
     created_at?: Date | string
     updated_at?: Date | string
     hospital: HospitalCreateNestedOneWithoutExamens_imagerieInput
     patient: PatientCreateNestedOneWithoutExamens_imagerieInput
+    facture?: FactureCreateNestedOneWithoutExamens_imagerieInput
   }
 
   export type ExamenImagerieUncheckedCreateWithoutMedecinInput = {
@@ -30360,6 +30848,8 @@ export namespace Prisma {
     notes?: string | null
     urgence?: boolean
     zone_anatomique?: string | null
+    prix_unitaire?: number | null
+    facture_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -30574,6 +31064,8 @@ export namespace Prisma {
     hospital: HospitalCreateNestedOneWithoutFacturesInput
     consultation?: ConsultationCreateNestedOneWithoutFactureInput
     lignes?: LigneFactureCreateNestedManyWithoutFactureInput
+    examens_labo?: ExamenLaboCreateNestedManyWithoutFactureInput
+    examens_imagerie?: ExamenImagerieCreateNestedManyWithoutFactureInput
   }
 
   export type FactureUncheckedCreateWithoutPatientInput = {
@@ -30591,6 +31083,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     lignes?: LigneFactureUncheckedCreateNestedManyWithoutFactureInput
+    examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutFactureInput
+    examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutFactureInput
   }
 
   export type FactureCreateOrConnectWithoutPatientInput = {
@@ -30614,10 +31108,12 @@ export namespace Prisma {
     valide_le?: Date | string | null
     notes?: string | null
     urgence?: boolean
+    prix_unitaire?: number | null
     created_at?: Date | string
     updated_at?: Date | string
     hospital: HospitalCreateNestedOneWithoutExamens_laboInput
     medecin: UtilisateurCreateNestedOneWithoutExamens_labo_prescritsInput
+    facture?: FactureCreateNestedOneWithoutExamens_laboInput
   }
 
   export type ExamenLaboUncheckedCreateWithoutPatientInput = {
@@ -30633,6 +31129,8 @@ export namespace Prisma {
     valide_le?: Date | string | null
     notes?: string | null
     urgence?: boolean
+    prix_unitaire?: number | null
+    facture_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -30659,10 +31157,12 @@ export namespace Prisma {
     notes?: string | null
     urgence?: boolean
     zone_anatomique?: string | null
+    prix_unitaire?: number | null
     created_at?: Date | string
     updated_at?: Date | string
     hospital: HospitalCreateNestedOneWithoutExamens_imagerieInput
     medecin: UtilisateurCreateNestedOneWithoutExamens_imagerie_prescritsInput
+    facture?: FactureCreateNestedOneWithoutExamens_imagerieInput
   }
 
   export type ExamenImagerieUncheckedCreateWithoutPatientInput = {
@@ -30679,6 +31179,8 @@ export namespace Prisma {
     notes?: string | null
     urgence?: boolean
     zone_anatomique?: string | null
+    prix_unitaire?: number | null
+    facture_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -31221,6 +31723,8 @@ export namespace Prisma {
     hospital: HospitalCreateNestedOneWithoutFacturesInput
     patient: PatientCreateNestedOneWithoutFacturesInput
     lignes?: LigneFactureCreateNestedManyWithoutFactureInput
+    examens_labo?: ExamenLaboCreateNestedManyWithoutFactureInput
+    examens_imagerie?: ExamenImagerieCreateNestedManyWithoutFactureInput
   }
 
   export type FactureUncheckedCreateWithoutConsultationInput = {
@@ -31238,6 +31742,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     lignes?: LigneFactureUncheckedCreateNestedManyWithoutFactureInput
+    examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutFactureInput
+    examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutFactureInput
   }
 
   export type FactureCreateOrConnectWithoutConsultationInput = {
@@ -31460,6 +31966,8 @@ export namespace Prisma {
     hospital?: HospitalUpdateOneRequiredWithoutFacturesNestedInput
     patient?: PatientUpdateOneRequiredWithoutFacturesNestedInput
     lignes?: LigneFactureUpdateManyWithoutFactureNestedInput
+    examens_labo?: ExamenLaboUpdateManyWithoutFactureNestedInput
+    examens_imagerie?: ExamenImagerieUpdateManyWithoutFactureNestedInput
   }
 
   export type FactureUncheckedUpdateWithoutConsultationInput = {
@@ -31477,6 +31985,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     lignes?: LigneFactureUncheckedUpdateManyWithoutFactureNestedInput
+    examens_labo?: ExamenLaboUncheckedUpdateManyWithoutFactureNestedInput
+    examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutFactureNestedInput
   }
 
   export type ConsultationCreateWithoutPrescriptionsInput = {
@@ -31744,6 +32254,104 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ExamenLaboCreateWithoutFactureInput = {
+    id?: string
+    type_examen: $Enums.TypeExamenLabo
+    statut?: $Enums.StatutExamen
+    resultats?: string | null
+    fichier_url?: string | null
+    fichier_nom?: string | null
+    valide_par?: string | null
+    valide_le?: Date | string | null
+    notes?: string | null
+    urgence?: boolean
+    prix_unitaire?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutExamens_laboInput
+    patient: PatientCreateNestedOneWithoutExamens_laboInput
+    medecin: UtilisateurCreateNestedOneWithoutExamens_labo_prescritsInput
+  }
+
+  export type ExamenLaboUncheckedCreateWithoutFactureInput = {
+    id?: string
+    hospital_id: string
+    patient_id: string
+    medecin_id: string
+    type_examen: $Enums.TypeExamenLabo
+    statut?: $Enums.StatutExamen
+    resultats?: string | null
+    fichier_url?: string | null
+    fichier_nom?: string | null
+    valide_par?: string | null
+    valide_le?: Date | string | null
+    notes?: string | null
+    urgence?: boolean
+    prix_unitaire?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ExamenLaboCreateOrConnectWithoutFactureInput = {
+    where: ExamenLaboWhereUniqueInput
+    create: XOR<ExamenLaboCreateWithoutFactureInput, ExamenLaboUncheckedCreateWithoutFactureInput>
+  }
+
+  export type ExamenLaboCreateManyFactureInputEnvelope = {
+    data: ExamenLaboCreateManyFactureInput | ExamenLaboCreateManyFactureInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ExamenImagerieCreateWithoutFactureInput = {
+    id?: string
+    type_examen: $Enums.TypeExamenImagerie
+    statut?: $Enums.StatutExamen
+    resultats?: string | null
+    fichier_url?: string | null
+    fichier_nom?: string | null
+    valide_par?: string | null
+    valide_le?: Date | string | null
+    notes?: string | null
+    urgence?: boolean
+    zone_anatomique?: string | null
+    prix_unitaire?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutExamens_imagerieInput
+    patient: PatientCreateNestedOneWithoutExamens_imagerieInput
+    medecin: UtilisateurCreateNestedOneWithoutExamens_imagerie_prescritsInput
+  }
+
+  export type ExamenImagerieUncheckedCreateWithoutFactureInput = {
+    id?: string
+    hospital_id: string
+    patient_id: string
+    medecin_id: string
+    type_examen: $Enums.TypeExamenImagerie
+    statut?: $Enums.StatutExamen
+    resultats?: string | null
+    fichier_url?: string | null
+    fichier_nom?: string | null
+    valide_par?: string | null
+    valide_le?: Date | string | null
+    notes?: string | null
+    urgence?: boolean
+    zone_anatomique?: string | null
+    prix_unitaire?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ExamenImagerieCreateOrConnectWithoutFactureInput = {
+    where: ExamenImagerieWhereUniqueInput
+    create: XOR<ExamenImagerieCreateWithoutFactureInput, ExamenImagerieUncheckedCreateWithoutFactureInput>
+  }
+
+  export type ExamenImagerieCreateManyFactureInputEnvelope = {
+    data: ExamenImagerieCreateManyFactureInput | ExamenImagerieCreateManyFactureInput[]
+    skipDuplicates?: boolean
+  }
+
   export type HospitalUpsertWithoutFacturesInput = {
     update: XOR<HospitalUpdateWithoutFacturesInput, HospitalUncheckedUpdateWithoutFacturesInput>
     create: XOR<HospitalCreateWithoutFacturesInput, HospitalUncheckedCreateWithoutFacturesInput>
@@ -31936,6 +32544,38 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"LigneFacture"> | Date | string
   }
 
+  export type ExamenLaboUpsertWithWhereUniqueWithoutFactureInput = {
+    where: ExamenLaboWhereUniqueInput
+    update: XOR<ExamenLaboUpdateWithoutFactureInput, ExamenLaboUncheckedUpdateWithoutFactureInput>
+    create: XOR<ExamenLaboCreateWithoutFactureInput, ExamenLaboUncheckedCreateWithoutFactureInput>
+  }
+
+  export type ExamenLaboUpdateWithWhereUniqueWithoutFactureInput = {
+    where: ExamenLaboWhereUniqueInput
+    data: XOR<ExamenLaboUpdateWithoutFactureInput, ExamenLaboUncheckedUpdateWithoutFactureInput>
+  }
+
+  export type ExamenLaboUpdateManyWithWhereWithoutFactureInput = {
+    where: ExamenLaboScalarWhereInput
+    data: XOR<ExamenLaboUpdateManyMutationInput, ExamenLaboUncheckedUpdateManyWithoutFactureInput>
+  }
+
+  export type ExamenImagerieUpsertWithWhereUniqueWithoutFactureInput = {
+    where: ExamenImagerieWhereUniqueInput
+    update: XOR<ExamenImagerieUpdateWithoutFactureInput, ExamenImagerieUncheckedUpdateWithoutFactureInput>
+    create: XOR<ExamenImagerieCreateWithoutFactureInput, ExamenImagerieUncheckedCreateWithoutFactureInput>
+  }
+
+  export type ExamenImagerieUpdateWithWhereUniqueWithoutFactureInput = {
+    where: ExamenImagerieWhereUniqueInput
+    data: XOR<ExamenImagerieUpdateWithoutFactureInput, ExamenImagerieUncheckedUpdateWithoutFactureInput>
+  }
+
+  export type ExamenImagerieUpdateManyWithWhereWithoutFactureInput = {
+    where: ExamenImagerieScalarWhereInput
+    data: XOR<ExamenImagerieUpdateManyMutationInput, ExamenImagerieUncheckedUpdateManyWithoutFactureInput>
+  }
+
   export type FactureCreateWithoutLignesInput = {
     id?: string
     numero_facture: string
@@ -31951,6 +32591,8 @@ export namespace Prisma {
     hospital: HospitalCreateNestedOneWithoutFacturesInput
     patient: PatientCreateNestedOneWithoutFacturesInput
     consultation?: ConsultationCreateNestedOneWithoutFactureInput
+    examens_labo?: ExamenLaboCreateNestedManyWithoutFactureInput
+    examens_imagerie?: ExamenImagerieCreateNestedManyWithoutFactureInput
   }
 
   export type FactureUncheckedCreateWithoutLignesInput = {
@@ -31968,6 +32610,8 @@ export namespace Prisma {
     notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutFactureInput
+    examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutFactureInput
   }
 
   export type FactureCreateOrConnectWithoutLignesInput = {
@@ -32001,6 +32645,8 @@ export namespace Prisma {
     hospital?: HospitalUpdateOneRequiredWithoutFacturesNestedInput
     patient?: PatientUpdateOneRequiredWithoutFacturesNestedInput
     consultation?: ConsultationUpdateOneWithoutFactureNestedInput
+    examens_labo?: ExamenLaboUpdateManyWithoutFactureNestedInput
+    examens_imagerie?: ExamenImagerieUpdateManyWithoutFactureNestedInput
   }
 
   export type FactureUncheckedUpdateWithoutLignesInput = {
@@ -32018,6 +32664,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    examens_labo?: ExamenLaboUncheckedUpdateManyWithoutFactureNestedInput
+    examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutFactureNestedInput
   }
 
   export type HospitalCreateWithoutExamens_laboInput = {
@@ -32159,6 +32807,49 @@ export namespace Prisma {
   export type UtilisateurCreateOrConnectWithoutExamens_labo_prescritsInput = {
     where: UtilisateurWhereUniqueInput
     create: XOR<UtilisateurCreateWithoutExamens_labo_prescritsInput, UtilisateurUncheckedCreateWithoutExamens_labo_prescritsInput>
+  }
+
+  export type FactureCreateWithoutExamens_laboInput = {
+    id?: string
+    numero_facture: string
+    statut?: $Enums.StatutFacture
+    montant_total: number
+    montant_assurance?: number
+    montant_patient: number
+    mode_paiement?: $Enums.ModePaiement | null
+    date_paiement?: Date | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutFacturesInput
+    patient: PatientCreateNestedOneWithoutFacturesInput
+    consultation?: ConsultationCreateNestedOneWithoutFactureInput
+    lignes?: LigneFactureCreateNestedManyWithoutFactureInput
+    examens_imagerie?: ExamenImagerieCreateNestedManyWithoutFactureInput
+  }
+
+  export type FactureUncheckedCreateWithoutExamens_laboInput = {
+    id?: string
+    hospital_id: string
+    patient_id: string
+    consultation_id?: string | null
+    numero_facture: string
+    statut?: $Enums.StatutFacture
+    montant_total: number
+    montant_assurance?: number
+    montant_patient: number
+    mode_paiement?: $Enums.ModePaiement | null
+    date_paiement?: Date | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    lignes?: LigneFactureUncheckedCreateNestedManyWithoutFactureInput
+    examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutFactureInput
+  }
+
+  export type FactureCreateOrConnectWithoutExamens_laboInput = {
+    where: FactureWhereUniqueInput
+    create: XOR<FactureCreateWithoutExamens_laboInput, FactureUncheckedCreateWithoutExamens_laboInput>
   }
 
   export type HospitalUpsertWithoutExamens_laboInput = {
@@ -32320,6 +33011,55 @@ export namespace Prisma {
     examens_imagerie_prescrits?: ExamenImagerieUncheckedUpdateManyWithoutMedecinNestedInput
   }
 
+  export type FactureUpsertWithoutExamens_laboInput = {
+    update: XOR<FactureUpdateWithoutExamens_laboInput, FactureUncheckedUpdateWithoutExamens_laboInput>
+    create: XOR<FactureCreateWithoutExamens_laboInput, FactureUncheckedCreateWithoutExamens_laboInput>
+    where?: FactureWhereInput
+  }
+
+  export type FactureUpdateToOneWithWhereWithoutExamens_laboInput = {
+    where?: FactureWhereInput
+    data: XOR<FactureUpdateWithoutExamens_laboInput, FactureUncheckedUpdateWithoutExamens_laboInput>
+  }
+
+  export type FactureUpdateWithoutExamens_laboInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero_facture?: StringFieldUpdateOperationsInput | string
+    statut?: EnumStatutFactureFieldUpdateOperationsInput | $Enums.StatutFacture
+    montant_total?: FloatFieldUpdateOperationsInput | number
+    montant_assurance?: FloatFieldUpdateOperationsInput | number
+    montant_patient?: FloatFieldUpdateOperationsInput | number
+    mode_paiement?: NullableEnumModePaiementFieldUpdateOperationsInput | $Enums.ModePaiement | null
+    date_paiement?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutFacturesNestedInput
+    patient?: PatientUpdateOneRequiredWithoutFacturesNestedInput
+    consultation?: ConsultationUpdateOneWithoutFactureNestedInput
+    lignes?: LigneFactureUpdateManyWithoutFactureNestedInput
+    examens_imagerie?: ExamenImagerieUpdateManyWithoutFactureNestedInput
+  }
+
+  export type FactureUncheckedUpdateWithoutExamens_laboInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    consultation_id?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_facture?: StringFieldUpdateOperationsInput | string
+    statut?: EnumStatutFactureFieldUpdateOperationsInput | $Enums.StatutFacture
+    montant_total?: FloatFieldUpdateOperationsInput | number
+    montant_assurance?: FloatFieldUpdateOperationsInput | number
+    montant_patient?: FloatFieldUpdateOperationsInput | number
+    mode_paiement?: NullableEnumModePaiementFieldUpdateOperationsInput | $Enums.ModePaiement | null
+    date_paiement?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    lignes?: LigneFactureUncheckedUpdateManyWithoutFactureNestedInput
+    examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutFactureNestedInput
+  }
+
   export type HospitalCreateWithoutExamens_imagerieInput = {
     id?: string
     nom: string
@@ -32459,6 +33199,49 @@ export namespace Prisma {
   export type UtilisateurCreateOrConnectWithoutExamens_imagerie_prescritsInput = {
     where: UtilisateurWhereUniqueInput
     create: XOR<UtilisateurCreateWithoutExamens_imagerie_prescritsInput, UtilisateurUncheckedCreateWithoutExamens_imagerie_prescritsInput>
+  }
+
+  export type FactureCreateWithoutExamens_imagerieInput = {
+    id?: string
+    numero_facture: string
+    statut?: $Enums.StatutFacture
+    montant_total: number
+    montant_assurance?: number
+    montant_patient: number
+    mode_paiement?: $Enums.ModePaiement | null
+    date_paiement?: Date | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutFacturesInput
+    patient: PatientCreateNestedOneWithoutFacturesInput
+    consultation?: ConsultationCreateNestedOneWithoutFactureInput
+    lignes?: LigneFactureCreateNestedManyWithoutFactureInput
+    examens_labo?: ExamenLaboCreateNestedManyWithoutFactureInput
+  }
+
+  export type FactureUncheckedCreateWithoutExamens_imagerieInput = {
+    id?: string
+    hospital_id: string
+    patient_id: string
+    consultation_id?: string | null
+    numero_facture: string
+    statut?: $Enums.StatutFacture
+    montant_total: number
+    montant_assurance?: number
+    montant_patient: number
+    mode_paiement?: $Enums.ModePaiement | null
+    date_paiement?: Date | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    lignes?: LigneFactureUncheckedCreateNestedManyWithoutFactureInput
+    examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutFactureInput
+  }
+
+  export type FactureCreateOrConnectWithoutExamens_imagerieInput = {
+    where: FactureWhereUniqueInput
+    create: XOR<FactureCreateWithoutExamens_imagerieInput, FactureUncheckedCreateWithoutExamens_imagerieInput>
   }
 
   export type HospitalUpsertWithoutExamens_imagerieInput = {
@@ -32618,6 +33401,55 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     consultations?: ConsultationUncheckedUpdateManyWithoutMedecinNestedInput
     examens_labo_prescrits?: ExamenLaboUncheckedUpdateManyWithoutMedecinNestedInput
+  }
+
+  export type FactureUpsertWithoutExamens_imagerieInput = {
+    update: XOR<FactureUpdateWithoutExamens_imagerieInput, FactureUncheckedUpdateWithoutExamens_imagerieInput>
+    create: XOR<FactureCreateWithoutExamens_imagerieInput, FactureUncheckedCreateWithoutExamens_imagerieInput>
+    where?: FactureWhereInput
+  }
+
+  export type FactureUpdateToOneWithWhereWithoutExamens_imagerieInput = {
+    where?: FactureWhereInput
+    data: XOR<FactureUpdateWithoutExamens_imagerieInput, FactureUncheckedUpdateWithoutExamens_imagerieInput>
+  }
+
+  export type FactureUpdateWithoutExamens_imagerieInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero_facture?: StringFieldUpdateOperationsInput | string
+    statut?: EnumStatutFactureFieldUpdateOperationsInput | $Enums.StatutFacture
+    montant_total?: FloatFieldUpdateOperationsInput | number
+    montant_assurance?: FloatFieldUpdateOperationsInput | number
+    montant_patient?: FloatFieldUpdateOperationsInput | number
+    mode_paiement?: NullableEnumModePaiementFieldUpdateOperationsInput | $Enums.ModePaiement | null
+    date_paiement?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutFacturesNestedInput
+    patient?: PatientUpdateOneRequiredWithoutFacturesNestedInput
+    consultation?: ConsultationUpdateOneWithoutFactureNestedInput
+    lignes?: LigneFactureUpdateManyWithoutFactureNestedInput
+    examens_labo?: ExamenLaboUpdateManyWithoutFactureNestedInput
+  }
+
+  export type FactureUncheckedUpdateWithoutExamens_imagerieInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    consultation_id?: NullableStringFieldUpdateOperationsInput | string | null
+    numero_facture?: StringFieldUpdateOperationsInput | string
+    statut?: EnumStatutFactureFieldUpdateOperationsInput | $Enums.StatutFacture
+    montant_total?: FloatFieldUpdateOperationsInput | number
+    montant_assurance?: FloatFieldUpdateOperationsInput | number
+    montant_patient?: FloatFieldUpdateOperationsInput | number
+    mode_paiement?: NullableEnumModePaiementFieldUpdateOperationsInput | $Enums.ModePaiement | null
+    date_paiement?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    lignes?: LigneFactureUncheckedUpdateManyWithoutFactureNestedInput
+    examens_labo?: ExamenLaboUncheckedUpdateManyWithoutFactureNestedInput
   }
 
   export type HospitalCreateWithoutArticles_stockInput = {
@@ -33473,6 +34305,8 @@ export namespace Prisma {
     valide_le?: Date | string | null
     notes?: string | null
     urgence?: boolean
+    prix_unitaire?: number | null
+    facture_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -33491,6 +34325,8 @@ export namespace Prisma {
     notes?: string | null
     urgence?: boolean
     zone_anatomique?: string | null
+    prix_unitaire?: number | null
+    facture_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -33713,6 +34549,8 @@ export namespace Prisma {
     patient?: PatientUpdateOneRequiredWithoutFacturesNestedInput
     consultation?: ConsultationUpdateOneWithoutFactureNestedInput
     lignes?: LigneFactureUpdateManyWithoutFactureNestedInput
+    examens_labo?: ExamenLaboUpdateManyWithoutFactureNestedInput
+    examens_imagerie?: ExamenImagerieUpdateManyWithoutFactureNestedInput
   }
 
   export type FactureUncheckedUpdateWithoutHospitalInput = {
@@ -33730,6 +34568,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     lignes?: LigneFactureUncheckedUpdateManyWithoutFactureNestedInput
+    examens_labo?: ExamenLaboUncheckedUpdateManyWithoutFactureNestedInput
+    examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutFactureNestedInput
   }
 
   export type FactureUncheckedUpdateManyWithoutHospitalInput = {
@@ -33759,10 +34599,12 @@ export namespace Prisma {
     valide_le?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     patient?: PatientUpdateOneRequiredWithoutExamens_laboNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutExamens_labo_prescritsNestedInput
+    facture?: FactureUpdateOneWithoutExamens_laboNestedInput
   }
 
   export type ExamenLaboUncheckedUpdateWithoutHospitalInput = {
@@ -33778,6 +34620,8 @@ export namespace Prisma {
     valide_le?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -33795,6 +34639,8 @@ export namespace Prisma {
     valide_le?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -33811,10 +34657,12 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
     zone_anatomique?: NullableStringFieldUpdateOperationsInput | string | null
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     patient?: PatientUpdateOneRequiredWithoutExamens_imagerieNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutExamens_imagerie_prescritsNestedInput
+    facture?: FactureUpdateOneWithoutExamens_imagerieNestedInput
   }
 
   export type ExamenImagerieUncheckedUpdateWithoutHospitalInput = {
@@ -33831,6 +34679,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
     zone_anatomique?: NullableStringFieldUpdateOperationsInput | string | null
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -33849,6 +34699,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
     zone_anatomique?: NullableStringFieldUpdateOperationsInput | string | null
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -34086,6 +34938,8 @@ export namespace Prisma {
     valide_le?: Date | string | null
     notes?: string | null
     urgence?: boolean
+    prix_unitaire?: number | null
+    facture_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -34104,6 +34958,8 @@ export namespace Prisma {
     notes?: string | null
     urgence?: boolean
     zone_anatomique?: string | null
+    prix_unitaire?: number | null
+    facture_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -34174,10 +35030,12 @@ export namespace Prisma {
     valide_le?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     hospital?: HospitalUpdateOneRequiredWithoutExamens_laboNestedInput
     patient?: PatientUpdateOneRequiredWithoutExamens_laboNestedInput
+    facture?: FactureUpdateOneWithoutExamens_laboNestedInput
   }
 
   export type ExamenLaboUncheckedUpdateWithoutMedecinInput = {
@@ -34193,6 +35051,8 @@ export namespace Prisma {
     valide_le?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -34210,6 +35070,8 @@ export namespace Prisma {
     valide_le?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -34226,10 +35088,12 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
     zone_anatomique?: NullableStringFieldUpdateOperationsInput | string | null
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     hospital?: HospitalUpdateOneRequiredWithoutExamens_imagerieNestedInput
     patient?: PatientUpdateOneRequiredWithoutExamens_imagerieNestedInput
+    facture?: FactureUpdateOneWithoutExamens_imagerieNestedInput
   }
 
   export type ExamenImagerieUncheckedUpdateWithoutMedecinInput = {
@@ -34246,6 +35110,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
     zone_anatomique?: NullableStringFieldUpdateOperationsInput | string | null
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -34264,6 +35130,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
     zone_anatomique?: NullableStringFieldUpdateOperationsInput | string | null
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -34325,6 +35193,8 @@ export namespace Prisma {
     valide_le?: Date | string | null
     notes?: string | null
     urgence?: boolean
+    prix_unitaire?: number | null
+    facture_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -34343,6 +35213,8 @@ export namespace Prisma {
     notes?: string | null
     urgence?: boolean
     zone_anatomique?: string | null
+    prix_unitaire?: number | null
+    facture_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -34460,6 +35332,8 @@ export namespace Prisma {
     hospital?: HospitalUpdateOneRequiredWithoutFacturesNestedInput
     consultation?: ConsultationUpdateOneWithoutFactureNestedInput
     lignes?: LigneFactureUpdateManyWithoutFactureNestedInput
+    examens_labo?: ExamenLaboUpdateManyWithoutFactureNestedInput
+    examens_imagerie?: ExamenImagerieUpdateManyWithoutFactureNestedInput
   }
 
   export type FactureUncheckedUpdateWithoutPatientInput = {
@@ -34477,6 +35351,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     lignes?: LigneFactureUncheckedUpdateManyWithoutFactureNestedInput
+    examens_labo?: ExamenLaboUncheckedUpdateManyWithoutFactureNestedInput
+    examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutFactureNestedInput
   }
 
   export type FactureUncheckedUpdateManyWithoutPatientInput = {
@@ -34506,10 +35382,12 @@ export namespace Prisma {
     valide_le?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     hospital?: HospitalUpdateOneRequiredWithoutExamens_laboNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutExamens_labo_prescritsNestedInput
+    facture?: FactureUpdateOneWithoutExamens_laboNestedInput
   }
 
   export type ExamenLaboUncheckedUpdateWithoutPatientInput = {
@@ -34525,6 +35403,8 @@ export namespace Prisma {
     valide_le?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -34542,6 +35422,8 @@ export namespace Prisma {
     valide_le?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -34558,10 +35440,12 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
     zone_anatomique?: NullableStringFieldUpdateOperationsInput | string | null
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     hospital?: HospitalUpdateOneRequiredWithoutExamens_imagerieNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutExamens_imagerie_prescritsNestedInput
+    facture?: FactureUpdateOneWithoutExamens_imagerieNestedInput
   }
 
   export type ExamenImagerieUncheckedUpdateWithoutPatientInput = {
@@ -34578,6 +35462,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
     zone_anatomique?: NullableStringFieldUpdateOperationsInput | string | null
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -34596,6 +35482,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     urgence?: BoolFieldUpdateOperationsInput | boolean
     zone_anatomique?: NullableStringFieldUpdateOperationsInput | string | null
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -34679,6 +35567,45 @@ export namespace Prisma {
     created_at?: Date | string
   }
 
+  export type ExamenLaboCreateManyFactureInput = {
+    id?: string
+    hospital_id: string
+    patient_id: string
+    medecin_id: string
+    type_examen: $Enums.TypeExamenLabo
+    statut?: $Enums.StatutExamen
+    resultats?: string | null
+    fichier_url?: string | null
+    fichier_nom?: string | null
+    valide_par?: string | null
+    valide_le?: Date | string | null
+    notes?: string | null
+    urgence?: boolean
+    prix_unitaire?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ExamenImagerieCreateManyFactureInput = {
+    id?: string
+    hospital_id: string
+    patient_id: string
+    medecin_id: string
+    type_examen: $Enums.TypeExamenImagerie
+    statut?: $Enums.StatutExamen
+    resultats?: string | null
+    fichier_url?: string | null
+    fichier_nom?: string | null
+    valide_par?: string | null
+    valide_le?: Date | string | null
+    notes?: string | null
+    urgence?: boolean
+    zone_anatomique?: string | null
+    prix_unitaire?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
   export type LigneFactureUpdateWithoutFactureInput = {
     id?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -34704,6 +35631,123 @@ export namespace Prisma {
     prix_unitaire?: FloatFieldUpdateOperationsInput | number
     montant_total?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExamenLaboUpdateWithoutFactureInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type_examen?: EnumTypeExamenLaboFieldUpdateOperationsInput | $Enums.TypeExamenLabo
+    statut?: EnumStatutExamenFieldUpdateOperationsInput | $Enums.StatutExamen
+    resultats?: NullableStringFieldUpdateOperationsInput | string | null
+    fichier_url?: NullableStringFieldUpdateOperationsInput | string | null
+    fichier_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    valide_par?: NullableStringFieldUpdateOperationsInput | string | null
+    valide_le?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    urgence?: BoolFieldUpdateOperationsInput | boolean
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutExamens_laboNestedInput
+    patient?: PatientUpdateOneRequiredWithoutExamens_laboNestedInput
+    medecin?: UtilisateurUpdateOneRequiredWithoutExamens_labo_prescritsNestedInput
+  }
+
+  export type ExamenLaboUncheckedUpdateWithoutFactureInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    medecin_id?: StringFieldUpdateOperationsInput | string
+    type_examen?: EnumTypeExamenLaboFieldUpdateOperationsInput | $Enums.TypeExamenLabo
+    statut?: EnumStatutExamenFieldUpdateOperationsInput | $Enums.StatutExamen
+    resultats?: NullableStringFieldUpdateOperationsInput | string | null
+    fichier_url?: NullableStringFieldUpdateOperationsInput | string | null
+    fichier_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    valide_par?: NullableStringFieldUpdateOperationsInput | string | null
+    valide_le?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    urgence?: BoolFieldUpdateOperationsInput | boolean
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExamenLaboUncheckedUpdateManyWithoutFactureInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    medecin_id?: StringFieldUpdateOperationsInput | string
+    type_examen?: EnumTypeExamenLaboFieldUpdateOperationsInput | $Enums.TypeExamenLabo
+    statut?: EnumStatutExamenFieldUpdateOperationsInput | $Enums.StatutExamen
+    resultats?: NullableStringFieldUpdateOperationsInput | string | null
+    fichier_url?: NullableStringFieldUpdateOperationsInput | string | null
+    fichier_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    valide_par?: NullableStringFieldUpdateOperationsInput | string | null
+    valide_le?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    urgence?: BoolFieldUpdateOperationsInput | boolean
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExamenImagerieUpdateWithoutFactureInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type_examen?: EnumTypeExamenImagerieFieldUpdateOperationsInput | $Enums.TypeExamenImagerie
+    statut?: EnumStatutExamenFieldUpdateOperationsInput | $Enums.StatutExamen
+    resultats?: NullableStringFieldUpdateOperationsInput | string | null
+    fichier_url?: NullableStringFieldUpdateOperationsInput | string | null
+    fichier_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    valide_par?: NullableStringFieldUpdateOperationsInput | string | null
+    valide_le?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    urgence?: BoolFieldUpdateOperationsInput | boolean
+    zone_anatomique?: NullableStringFieldUpdateOperationsInput | string | null
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutExamens_imagerieNestedInput
+    patient?: PatientUpdateOneRequiredWithoutExamens_imagerieNestedInput
+    medecin?: UtilisateurUpdateOneRequiredWithoutExamens_imagerie_prescritsNestedInput
+  }
+
+  export type ExamenImagerieUncheckedUpdateWithoutFactureInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    medecin_id?: StringFieldUpdateOperationsInput | string
+    type_examen?: EnumTypeExamenImagerieFieldUpdateOperationsInput | $Enums.TypeExamenImagerie
+    statut?: EnumStatutExamenFieldUpdateOperationsInput | $Enums.StatutExamen
+    resultats?: NullableStringFieldUpdateOperationsInput | string | null
+    fichier_url?: NullableStringFieldUpdateOperationsInput | string | null
+    fichier_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    valide_par?: NullableStringFieldUpdateOperationsInput | string | null
+    valide_le?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    urgence?: BoolFieldUpdateOperationsInput | boolean
+    zone_anatomique?: NullableStringFieldUpdateOperationsInput | string | null
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExamenImagerieUncheckedUpdateManyWithoutFactureInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    medecin_id?: StringFieldUpdateOperationsInput | string
+    type_examen?: EnumTypeExamenImagerieFieldUpdateOperationsInput | $Enums.TypeExamenImagerie
+    statut?: EnumStatutExamenFieldUpdateOperationsInput | $Enums.StatutExamen
+    resultats?: NullableStringFieldUpdateOperationsInput | string | null
+    fichier_url?: NullableStringFieldUpdateOperationsInput | string | null
+    fichier_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    valide_par?: NullableStringFieldUpdateOperationsInput | string | null
+    valide_le?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    urgence?: BoolFieldUpdateOperationsInput | boolean
+    zone_anatomique?: NullableStringFieldUpdateOperationsInput | string | null
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MouvementStockCreateManyArticleInput = {

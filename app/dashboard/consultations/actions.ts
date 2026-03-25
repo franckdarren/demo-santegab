@@ -7,6 +7,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { enregistrerAudit } from "@/lib/audit";
+import { TARIF_CONSULTATION } from "@/lib/tarifs";
 
 // ============================================================
 // Liste des consultations de l'hôpital
@@ -23,21 +24,21 @@ export async function getConsultations(
           {
             patient: {
               OR: [
-                { nom: { contains: search, mode: "insensitive" } },
+                { nom:    { contains: search, mode: "insensitive" } },
                 { prenom: { contains: search, mode: "insensitive" } },
               ],
             },
           },
-          { motif: { contains: search, mode: "insensitive" } },
-          { diagnostic: { contains: search, mode: "insensitive" } },
+          { motif:       { contains: search, mode: "insensitive" } },
+          { diagnostic:  { contains: search, mode: "insensitive" } },
         ],
       }),
     },
     include: {
-      patient:      true,
-      medecin:      true,
+      patient:       true,
+      medecin:       true,
       prescriptions: true,
-      facture:      true,
+      facture:       true,
     },
     orderBy: { date_consultation: "desc" },
   });
@@ -69,53 +70,60 @@ export async function getPatientsHospital(hospitalId: string) {
 }
 
 // ============================================================
-// Créer une consultation
+// Créer une consultation + facture automatique
+//
+// Dès qu'une consultation est créée, une facture EN_ATTENTE
+// est générée automatiquement avec le tarif de base.
+// Le caissier voit immédiatement la facture à encaisser.
+// La part assurance est calculée automatiquement selon
+// le taux de couverture du patient dans cet établissement.
 // ============================================================
 export async function creerConsultation(
   hospitalId: string,
   medecinId: string,
   medecinNom: string,
   data: {
-    patient_id: string;
-    motif?: string;
-    diagnostic?: string;
-    notes?: string;
-    tension?: string;
-    poids_kg?: number;
-    taille_cm?: number;
-    temperature?: number;
-    statut?: "EN_ATTENTE" | "EN_COURS" | "TERMINEE" | "ANNULEE";
+    patient_id:    string;
+    motif?:        string;
+    diagnostic?:   string;
+    notes?:        string;
+    tension?:      string;
+    poids_kg?:     number;
+    taille_cm?:    number;
+    temperature?:  number;
+    statut?:       "EN_ATTENTE" | "EN_COURS" | "TERMINEE" | "ANNULEE";
     prescriptions?: Array<{
-      medicament: string;
-      dosage?: string;
-      frequence?: string;
-      duree?: string;
+      medicament:    string;
+      dosage?:       string;
+      frequence?:    string;
+      duree?:        string;
       instructions?: string;
     }>;
   }
 ) {
-  // Récupère le nom du patient pour l'audit
+  // Récupère le patient + son assurance dans cet établissement
   const patientHospital = await prisma.patientHospital.findFirst({
-    where: { hospital_id: hospitalId, patient_id: data.patient_id },
+    where:   { hospital_id: hospitalId, patient_id: data.patient_id },
     include: { patient: true },
   });
   const nomPatient = patientHospital
     ? `${patientHospital.patient.prenom} ${patientHospital.patient.nom}`
     : "Patient inconnu";
 
+  // 1. Crée la consultation avec ses prescriptions
   const consultation = await prisma.consultation.create({
     data: {
       hospital_id:  hospitalId,
       patient_id:   data.patient_id,
       medecin_id:   medecinId,
       statut:       data.statut ?? "EN_ATTENTE",
-      motif:        data.motif ?? null,
-      diagnostic:   data.diagnostic ?? null,
-      notes:        data.notes ?? null,
-      tension:      data.tension ?? null,
-      poids_kg:     data.poids_kg ?? null,
-      taille_cm:    data.taille_cm ?? null,
-      temperature:  data.temperature ?? null,
+      motif:        data.motif        ?? null,
+      diagnostic:   data.diagnostic   ?? null,
+      notes:        data.notes        ?? null,
+      tension:      data.tension      ?? null,
+      poids_kg:     data.poids_kg     ?? null,
+      taille_cm:    data.taille_cm    ?? null,
+      temperature:  data.temperature  ?? null,
       prescriptions: {
         create: data.prescriptions ?? [],
       },
@@ -124,6 +132,45 @@ export async function creerConsultation(
       patient:       true,
       medecin:       true,
       prescriptions: true,
+    },
+  });
+
+  // --------------------------------------------------------
+  // 2. Génère la facture automatiquement
+  //
+  // Une consultation = une facture EN_ATTENTE immédiate.
+  // Calcul : tarif de base - part assurance = part patient.
+  // Le caissier n'a qu'à encaisser sans ressaisir le montant.
+  // --------------------------------------------------------
+  const tauxCouverture   = patientHospital?.taux_couverture ?? 0;
+  const montantAssurance = Math.round(TARIF_CONSULTATION * (tauxCouverture / 100));
+  const montantPatient   = TARIF_CONSULTATION - montantAssurance;
+
+  // Numéro de facture séquentiel unique par établissement
+  const count = await prisma.facture.count({
+    where: { hospital_id: hospitalId },
+  });
+  const numeroFacture = `FAC-${new Date().getFullYear()}-${String(count + 1).padStart(5, "0")}`;
+
+  await prisma.facture.create({
+    data: {
+      hospital_id:       hospitalId,
+      patient_id:        data.patient_id,
+      consultation_id:   consultation.id,
+      numero_facture:    numeroFacture,
+      statut:            "EN_ATTENTE",
+      montant_total:     TARIF_CONSULTATION,
+      montant_assurance: montantAssurance,
+      montant_patient:   montantPatient,
+      notes:             `Consultation — ${data.motif ?? "Consultation médicale"}`,
+      lignes: {
+        create: [{
+          description:   `Consultation médicale — Dr. ${medecinNom}`,
+          quantite:      1,
+          prix_unitaire: TARIF_CONSULTATION,
+          montant_total: TARIF_CONSULTATION,
+        }],
+      },
     },
   });
 
@@ -137,9 +184,11 @@ export async function creerConsultation(
     entiteId:       consultation.id,
     entiteNom:      nomPatient,
     metadonnees: {
-      motif:      data.motif ?? null,
-      statut:     data.statut ?? "EN_ATTENTE",
+      motif:            data.motif ?? null,
+      statut:           data.statut ?? "EN_ATTENTE",
       nb_prescriptions: (data.prescriptions ?? []).length,
+      facture_generee:  numeroFacture,
+      montant_patient:  montantPatient,
     },
   });
 
@@ -157,8 +206,8 @@ export async function updateStatutConsultation(
   utilisateurNom: string
 ) {
   const consultation = await prisma.consultation.update({
-    where: { id: consultationId, hospital_id: hospitalId },
-    data:  { statut },
+    where:   { id: consultationId, hospital_id: hospitalId },
+    data:    { statut },
     include: { patient: true },
   });
 
@@ -186,18 +235,18 @@ export async function updateConsultation(
   utilisateurId: string,
   utilisateurNom: string,
   data: {
-    diagnostic?: string;
-    notes?: string;
-    tension?: string;
-    poids_kg?: number;
-    taille_cm?: number;
+    diagnostic?:  string;
+    notes?:       string;
+    tension?:     string;
+    poids_kg?:    number;
+    taille_cm?:   number;
     temperature?: number;
-    statut?: "EN_ATTENTE" | "EN_COURS" | "TERMINEE" | "ANNULEE";
+    statut?:      "EN_ATTENTE" | "EN_COURS" | "TERMINEE" | "ANNULEE";
     prescriptions?: Array<{
       medicament: string;
-      dosage?: string;
+      dosage?:    string;
       frequence?: string;
-      duree?: string;
+      duree?:     string;
     }>;
   }
 ) {
@@ -209,13 +258,13 @@ export async function updateConsultation(
   const consultation = await prisma.consultation.update({
     where: { id: consultationId, hospital_id: hospitalId },
     data: {
-      diagnostic:  data.diagnostic ?? null,
-      notes:       data.notes ?? null,
-      tension:     data.tension ?? null,
-      poids_kg:    data.poids_kg ?? null,
-      taille_cm:   data.taille_cm ?? null,
+      diagnostic:  data.diagnostic  ?? null,
+      notes:       data.notes       ?? null,
+      tension:     data.tension     ?? null,
+      poids_kg:    data.poids_kg    ?? null,
+      taille_cm:   data.taille_cm   ?? null,
       temperature: data.temperature ?? null,
-      statut:      data.statut ?? "TERMINEE",
+      statut:      data.statut      ?? "TERMINEE",
       prescriptions: {
         create: data.prescriptions ?? [],
       },

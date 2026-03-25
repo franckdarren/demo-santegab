@@ -299,7 +299,7 @@ model Prescription {
 }
 
 // ============================================================
-// TABLE : factures
+// TABLE : factures — ajout des relations inverses
 // ============================================================
 model Facture {
   id                String        @id @default(uuid())
@@ -317,10 +317,12 @@ model Facture {
   created_at        DateTime      @default(now())
   updated_at        DateTime      @updatedAt
 
-  hospital     Hospital       @relation(fields: [hospital_id], references: [id])
-  patient      Patient        @relation("PatientFactures", fields: [patient_id], references: [id])
-  consultation Consultation?  @relation(fields: [consultation_id], references: [id])
-  lignes       LigneFacture[]
+  hospital         Hospital         @relation(fields: [hospital_id], references: [id])
+  patient          Patient          @relation("PatientFactures", fields: [patient_id], references: [id])
+  consultation     Consultation?    @relation(fields: [consultation_id], references: [id])
+  lignes           LigneFacture[]
+  examens_labo     ExamenLabo[]     @relation("FactureExamensLabo")     // ← NOUVEAU
+  examens_imagerie ExamenImagerie[] @relation("FactureExamensImagerie") // ← NOUVEAU
 
   @@index([hospital_id])
   @@index([patient_id])
@@ -349,28 +351,32 @@ model LigneFacture {
 // TABLE : examens_labo
 // ============================================================
 model ExamenLabo {
-  id          String         @id @default(uuid())
-  hospital_id String
-  patient_id  String
-  medecin_id  String
-  type_examen TypeExamenLabo
-  statut      StatutExamen   @default(EN_ATTENTE)
-  resultats   String?
-  fichier_url String?
-  fichier_nom String?
-  valide_par  String?
-  valide_le   DateTime?
-  notes       String?
-  urgence     Boolean        @default(false)
-  created_at  DateTime       @default(now())
-  updated_at  DateTime       @updatedAt
+  id            String         @id @default(uuid())
+  hospital_id   String
+  patient_id    String
+  medecin_id    String
+  type_examen   TypeExamenLabo
+  statut        StatutExamen   @default(EN_ATTENTE)
+  resultats     String?
+  fichier_url   String?
+  fichier_nom   String?
+  valide_par    String?
+  valide_le     DateTime?
+  notes         String?
+  urgence       Boolean        @default(false)
+  prix_unitaire Float?         // ← NOUVEAU — tarif de l'examen en XAF
+  facture_id    String?        // ← NOUVEAU — lien vers la facture générée
+  created_at    DateTime       @default(now())
+  updated_at    DateTime       @updatedAt
 
   hospital Hospital    @relation("HospitalExamensLabo", fields: [hospital_id], references: [id])
   patient  Patient     @relation("PatientExamensLabo", fields: [patient_id], references: [id])
   medecin  Utilisateur @relation("MedecinExamensLabo", fields: [medecin_id], references: [id])
+  facture  Facture?    @relation("FactureExamensLabo", fields: [facture_id], references: [id])
 
   @@index([hospital_id])
   @@index([patient_id])
+  @@index([facture_id])
   @@map("examens_labo")
 }
 
@@ -392,17 +398,22 @@ model ExamenImagerie {
   notes           String?
   urgence         Boolean            @default(false)
   zone_anatomique String?
+  prix_unitaire   Float?             // ← NOUVEAU — tarif de l'examen en XAF
+  facture_id      String?            // ← NOUVEAU — lien vers la facture générée
   created_at      DateTime           @default(now())
   updated_at      DateTime           @updatedAt
 
   hospital Hospital    @relation("HospitalExamensImagerie", fields: [hospital_id], references: [id])
   patient  Patient     @relation("PatientExamensImagerie", fields: [patient_id], references: [id])
   medecin  Utilisateur @relation("MedecinExamensImagerie", fields: [medecin_id], references: [id])
+  facture  Facture?    @relation("FactureExamensImagerie", fields: [facture_id], references: [id])
 
   @@index([hospital_id])
   @@index([patient_id])
+  @@index([facture_id])
   @@map("examens_imagerie")
 }
+
 
 // ============================================================
 // TABLE : articles_stock

@@ -5,19 +5,21 @@ import { useRouter } from "next/navigation";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import {
     Check, Loader2, X, Pencil,
-    Upload, FileText, CheckCircle, AlertTriangle,
+    Upload, FileText, CheckCircle, AlertTriangle, Receipt,
 } from "lucide-react";
-import { cn, formatDate, formatTime } from "@/lib/utils";
+import { cn, formatDate, formatTime, formatCurrency } from "@/lib/utils";
 import {
     saisirResultatsLabo,
     uploadResultatPDF,
     validerExamenLabo,
 } from "@/app/dashboard/laboratory/actions";
 import { StatutExamen } from "@/app/generated/prisma/client";
+import { TARIFS_LABO } from "@/lib/tarifs";
 
 const STATUT_CONFIG: Record<StatutExamen, { label: string; color: string }> = {
     EN_ATTENTE: { label: "En attente", color: "bg-orange-100 text-orange-700" },
@@ -52,6 +54,8 @@ interface ExamenLabo {
     valide_par: string | null;
     valide_le: Date | null;
     notes: string | null;
+    prix_unitaire: number | null; // ← ajouté
+    facture_id: string | null;   // ← ajouté
     created_at: Date;
     updated_at: Date;
     patient: { id: string; nom: string; prenom: string; numero_dossier: string };
@@ -86,10 +90,18 @@ export function ExamenLaboDetailDialog({
     const [statut, setStatut] = useState(examen.statut);
     const [fichierSelectionne, setFichierSelectionne] = useState<File | null>(null);
 
+    // Tarif — pré-rempli avec la valeur existante ou le tarif suggéré
+    const [prixUnitaire, setPrixUnitaire] = useState<string>(
+        examen.prix_unitaire?.toString() ??
+        TARIFS_LABO[examen.type_examen]?.toString() ??
+        ""
+    );
+
     const statutConfig = STATUT_CONFIG[examen.statut];
     const nomPatient = `${examen.patient.prenom} ${examen.patient.nom}`;
     const peutSaisir = examen.statut !== "VALIDE" && examen.statut !== "ANNULE";
     const peutValider = examen.statut === "RESULTAT_SAISI";
+    const tarifSuggere = TARIFS_LABO[examen.type_examen];
 
     function handleSauvegarder() {
         startTransition(async () => {
@@ -102,7 +114,9 @@ export function ExamenLaboDetailDialog({
                     {
                         resultats,
                         statut: statut as StatutExamen,
-                    });
+                        prix_unitaire: prixUnitaire ? Number(prixUnitaire) : undefined,
+                    }
+                );
                 setSucces("Résultats enregistrés !");
                 router.refresh();
                 setTimeout(() => {
@@ -122,14 +136,12 @@ export function ExamenLaboDetailDialog({
         try {
             const formData = new FormData();
             formData.append("fichier", fichierSelectionne);
-            await uploadResultatPDF(examen.id, hospitalId, utilisateurId,
-                utilisateurNom, formData);
+            await uploadResultatPDF(
+                examen.id, hospitalId, utilisateurId, utilisateurNom, formData
+            );
             setSucces("PDF uploadé avec succès !");
             router.refresh();
-            setTimeout(() => {
-                setSucces(null);
-                onOpenChange(false);
-            }, 1200);
+            setTimeout(() => { setSucces(null); onOpenChange(false); }, 1200);
         } catch (error) {
             console.error(error);
         } finally {
@@ -140,14 +152,12 @@ export function ExamenLaboDetailDialog({
     function handleValider() {
         startTransition(async () => {
             try {
-                await validerExamenLabo(examen.id, hospitalId, utilisateurId,
-                    utilisateurNom,);
+                await validerExamenLabo(
+                    examen.id, hospitalId, utilisateurId, utilisateurNom
+                );
                 setSucces("Examen validé !");
                 router.refresh();
-                setTimeout(() => {
-                    setSucces(null);
-                    onOpenChange(false);
-                }, 1200);
+                setTimeout(() => { setSucces(null); onOpenChange(false); }, 1200);
             } catch (error) {
                 console.error(error);
             }
@@ -169,9 +179,7 @@ export function ExamenLaboDetailDialog({
                 ) : (
                     <div className="flex flex-col">
 
-                        {/* ------------------------------------------------ */}
-                        {/* HEADER                                            */}
-                        {/* ------------------------------------------------ */}
+                        {/* Header */}
                         <div className="shrink-0 px-6 py-4 border-b bg-gray-50 flex items-center justify-between">
                             <div>
                                 <div className="flex items-center gap-2">
@@ -186,8 +194,7 @@ export function ExamenLaboDetailDialog({
                                     )}
                                 </div>
                                 <p className="text-xs text-gray-400 mt-0.5">
-                                    {nomPatient} · Dr. {examen.medecin.nom} ·{" "}
-                                    {formatDate(examen.created_at)}
+                                    {nomPatient} · Dr. {examen.medecin.nom} · {formatDate(examen.created_at)}
                                 </p>
                             </div>
                             <div className="flex items-center gap-2">
@@ -216,9 +223,7 @@ export function ExamenLaboDetailDialog({
                             </div>
                         </div>
 
-                        {/* ------------------------------------------------ */}
-                        {/* CONTENU                                           */}
-                        {/* ------------------------------------------------ */}
+                        {/* Contenu */}
                         <div className="overflow-y-auto p-6 space-y-5 max-h-[60vh]">
 
                             {/* Infos générales */}
@@ -239,18 +244,44 @@ export function ExamenLaboDetailDialog({
                                     <p className="text-sm font-semibold text-gray-800">
                                         {formatDate(examen.created_at)}
                                     </p>
-                                    <p className="text-xs text-gray-400">
-                                        {formatTime(examen.created_at)}
-                                    </p>
+                                    <p className="text-xs text-gray-400">{formatTime(examen.created_at)}</p>
+                                </div>
+                            </div>
+
+                            {/* Tarif + statut facturation — toujours visible */}
+                            <div className={cn(
+                                "p-3 rounded-lg border flex items-center justify-between gap-4",
+                                examen.facture_id
+                                    ? "bg-green-50 border-green-200"
+                                    : "bg-amber-50 border-amber-200"
+                            )}>
+                                <div className="flex items-center gap-2">
+                                    <Receipt className={cn(
+                                        "h-4 w-4 shrink-0",
+                                        examen.facture_id ? "text-green-600" : "text-amber-600"
+                                    )} />
+                                    <div>
+                                        <p className={cn(
+                                            "text-xs font-semibold",
+                                            examen.facture_id ? "text-green-700" : "text-amber-700"
+                                        )}>
+                                            {examen.facture_id ? "✅ Facture générée" : "⏳ Pas encore facturé"}
+                                        </p>
+                                        <p className="text-xs text-gray-500">
+                                            {examen.prix_unitaire
+                                                ? `Tarif : ${formatCurrency(examen.prix_unitaire)}`
+                                                : tarifSuggere
+                                                    ? `Tarif suggéré : ${formatCurrency(tarifSuggere)}`
+                                                    : "Aucun tarif défini"}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
 
                             {/* Notes cliniques */}
                             {examen.notes && (
                                 <div className="p-3 bg-blue-50 rounded-lg border border-blue-100">
-                                    <p className="text-xs font-semibold text-blue-700 mb-1">
-                                        Notes cliniques
-                                    </p>
+                                    <p className="text-xs font-semibold text-blue-700 mb-1">Notes cliniques</p>
                                     <p className="text-sm text-blue-800">{examen.notes}</p>
                                 </div>
                             )}
@@ -263,6 +294,8 @@ export function ExamenLaboDetailDialog({
 
                                 {modeEdition ? (
                                     <div className="space-y-3">
+
+                                        {/* Statut */}
                                         <div className="space-y-1.5">
                                             <Label>Statut</Label>
                                             <select
@@ -275,6 +308,37 @@ export function ExamenLaboDetailDialog({
                                                 <option value="ANNULE">Annuler</option>
                                             </select>
                                         </div>
+
+                                        {/* ---------------------------------------- */}
+                                        {/* TARIF — champ clé pour la facturation     */}
+                                        {/* Une facture est créée automatiquement     */}
+                                        {/* dès qu'un tarif est saisi et sauvegardé   */}
+                                        {/* ---------------------------------------- */}
+                                        {!examen.facture_id && (
+                                            <div className="space-y-1.5">
+                                                <Label className="flex items-center gap-2">
+                                                    Tarif de l'examen (XAF)
+                                                    {tarifSuggere && (
+                                                        <span className="text-xs text-gray-400 font-normal">
+                                                            — Suggéré : {formatCurrency(tarifSuggere)}
+                                                        </span>
+                                                    )}
+                                                </Label>
+                                                <Input
+                                                    type="number"
+                                                    min={0}
+                                                    placeholder={tarifSuggere?.toString() ?? "0"}
+                                                    value={prixUnitaire}
+                                                    onChange={(e) => setPrixUnitaire(e.target.value)}
+                                                    className="text-sm"
+                                                />
+                                                <p className="text-xs text-gray-400">
+                                                    💡 Une facture sera automatiquement créée à la sauvegarde.
+                                                </p>
+                                            </div>
+                                        )}
+
+                                        {/* Résultats texte */}
                                         <div className="space-y-1.5">
                                             <Label>Résultats (texte)</Label>
                                             <Textarea
@@ -294,9 +358,7 @@ export function ExamenLaboDetailDialog({
                                             </pre>
                                         </div>
                                     ) : (
-                                        <p className="text-sm text-gray-400 italic">
-                                            Aucun résultat saisi
-                                        </p>
+                                        <p className="text-sm text-gray-400 italic">Aucun résultat saisi</p>
                                     )
                                 )}
                             </div>
@@ -308,9 +370,6 @@ export function ExamenLaboDetailDialog({
                                 </p>
 
                                 {examen.fichier_url ? (
-                                    // ============================================================
-                                    // Fichier déjà uploadé — affiche le lien d'ouverture
-                                    // ============================================================
                                     <div className="flex items-center gap-3 p-3 bg-green-50 rounded-lg border border-green-200">
                                         <FileText className="h-5 w-5 text-green-600 shrink-0" />
                                         <div className="flex-1 min-w-0">
@@ -319,7 +378,6 @@ export function ExamenLaboDetailDialog({
                                             </p>
                                             <p className="text-xs text-green-600">Fichier disponible</p>
                                         </div>
-                                        {/* Balise <a> complète — ouvre le PDF dans un nouvel onglet */}
                                         <a
                                             href={examen.fichier_url}
                                             target="_blank"
@@ -330,9 +388,6 @@ export function ExamenLaboDetailDialog({
                                         </a>
                                     </div>
                                 ) : (
-                                    // ============================================================
-                                    // Pas encore de fichier — zone d'upload
-                                    // ============================================================
                                     <div className="space-y-2">
                                         <div
                                             className={cn(
@@ -402,27 +457,20 @@ export function ExamenLaboDetailDialog({
                             {/* Info validation */}
                             {examen.statut === "VALIDE" && examen.valide_le && (
                                 <div className="p-3 bg-green-50 rounded-lg border border-green-200">
-                                    <p className="text-sm font-semibold text-green-700 mb-0.5">
-                                        ✅ Validé
-                                    </p>
+                                    <p className="text-sm font-semibold text-green-700 mb-0.5">✅ Validé</p>
                                     <p className="text-xs text-green-600">
-                                        Le {formatDate(examen.valide_le)} à{" "}
-                                        {formatTime(examen.valide_le)}
+                                        Le {formatDate(examen.valide_le)} à {formatTime(examen.valide_le)}
                                     </p>
                                 </div>
                             )}
                         </div>
 
-                        {/* ------------------------------------------------ */}
-                        {/* FOOTER                                            */}
-                        {/* ------------------------------------------------ */}
+                        {/* Footer */}
                         <div className="shrink-0 flex justify-between items-center px-6 py-4 border-t bg-gray-50">
                             <Button
                                 type="button"
                                 variant="ghost"
-                                onClick={() =>
-                                    modeEdition ? setModeEdition(false) : onOpenChange(false)
-                                }
+                                onClick={() => modeEdition ? setModeEdition(false) : onOpenChange(false)}
                                 className="text-gray-500"
                             >
                                 {modeEdition ? "Annuler" : "Fermer"}
@@ -437,15 +485,9 @@ export function ExamenLaboDetailDialog({
                                         className="bg-green-600 hover:bg-green-700 text-white"
                                     >
                                         {isPending ? (
-                                            <>
-                                                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                                                Validation...
-                                            </>
+                                            <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Validation...</>
                                         ) : (
-                                            <>
-                                                <CheckCircle className="h-4 w-4 mr-1.5" />
-                                                Valider l'examen
-                                            </>
+                                            <><CheckCircle className="h-4 w-4 mr-1.5" />Valider l'examen</>
                                         )}
                                     </Button>
                                 )}
@@ -458,15 +500,9 @@ export function ExamenLaboDetailDialog({
                                         className="bg-blue-700 hover:bg-blue-800 text-white"
                                     >
                                         {isPending ? (
-                                            <>
-                                                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                                                Sauvegarde...
-                                            </>
+                                            <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Sauvegarde...</>
                                         ) : (
-                                            <>
-                                                <Check className="h-4 w-4 mr-1.5" />
-                                                Sauvegarder
-                                            </>
+                                            <><Check className="h-4 w-4 mr-1.5" />Sauvegarder</>
                                         )}
                                     </Button>
                                 )}

@@ -248,6 +248,8 @@ exports.Prisma.ExamenLaboScalarFieldEnum = {
   valide_le: 'valide_le',
   notes: 'notes',
   urgence: 'urgence',
+  prix_unitaire: 'prix_unitaire',
+  facture_id: 'facture_id',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -267,6 +269,8 @@ exports.Prisma.ExamenImagerieScalarFieldEnum = {
   notes: 'notes',
   urgence: 'urgence',
   zone_anatomique: 'zone_anatomique',
+  prix_unitaire: 'prix_unitaire',
+  facture_id: 'facture_id',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
