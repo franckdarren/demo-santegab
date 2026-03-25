@@ -50,6 +50,8 @@ interface ExamenImagerie {
   valide_le: Date | null;
   notes: string | null;
   zone_anatomique: string | null;
+  prix_unitaire: number | null;
+  facture_id: string | null;
   created_at: Date;
   updated_at: Date;
   patient: { id: string; nom: string; prenom: string; numero_dossier: string };

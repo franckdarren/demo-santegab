@@ -81,7 +81,7 @@ async function main() {
       prisma.utilisateur.create({
         data: {
           hospital_id: hospital.id,
-          nom: "Mba",
+          nom: "Mbagou",
           prenom: "Dr. Sandrine",
           email: "s.mba@elrapha.ga",
           role: "MEDECIN",
@@ -105,6 +105,26 @@ async function main() {
           prenom: "Christelle",
           email: "c.ella@elrapha.ga",
           role: "COMPTABLE",
+          telephone: "+241 06 98 76 54",
+        },
+      }),
+      prisma.utilisateur.create({
+        data: {
+          hospital_id: hospital.id,
+          nom: "BOUROBOU",
+          prenom: "Brice",
+          email: "b.bourobou@elrapha.ga",
+          role: "LABORANTIN",
+          telephone: "+241 06 98 76 54",
+        },
+      }),
+      prisma.utilisateur.create({
+        data: {
+          hospital_id: hospital.id,
+          nom: "Franck",
+          prenom: "MOUSSAVOU",
+          email: "f.moussavou@elrapha.ga",
+          role: "PHARMACIEN",
           telephone: "+241 06 98 76 54",
         },
       }),
