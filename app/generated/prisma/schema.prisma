@@ -1,9 +1,7 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider = "prisma-client-js"
-  output   = "../app/generated/prisma"
+  provider   = "prisma-client-js"
+  output     = "../app/generated/prisma"
+  engineType = "client"
 }
 
 datasource db {
@@ -138,6 +136,31 @@ enum ModuleAction {
   UTILISATEUR
   CARNET_SANTE
   AUTHENTIFICATION
+  HOSPITALISATION
+}
+
+// ============================================================
+// NOUVEAUX ENUMS — Module Hospitalisation
+// ============================================================
+
+enum StatutHospitalisation {
+  EN_COURS
+  SORTIE
+  ANNULEE
+}
+
+enum StatutLigneHospitalisation {
+  SERVI
+  EN_ATTENTE
+  ANNULE
+}
+
+enum TypeLigneHospitalisation {
+  CHAMBRE
+  MEDICAMENT
+  ACTE_INFIRMIER
+  EXAMEN
+  AUTRE
 }
 
 // ============================================================
@@ -165,7 +188,9 @@ model Hospital {
   mouvements_stock     MouvementStock[]    @relation("HospitalMouvementsStock")
   ecritures_comptables EcritureComptable[] @relation("HospitalEcritures")
   qr_tokens            QrToken[]           @relation("HospitalQrTokens")
-  prismaaudit_trail    AuditTrail[]        @relation("HospitalAuditTrail")
+  audit_trail          AuditTrail[]        @relation("HospitalAuditTrail")
+  chambres             Chambre[]           @relation("HospitalChambres")
+  hospitalisations     Hospitalisation[]   @relation("HospitalHospitalisations")
 
   @@map("hospitals")
 }
@@ -187,10 +212,11 @@ model Utilisateur {
   created_at   DateTime @default(now())
   updated_at   DateTime @updatedAt
 
-  hospital                   Hospital         @relation(fields: [hospital_id], references: [id])
-  consultations              Consultation[]   @relation("MedecinConsultations")
-  examens_labo_prescrits     ExamenLabo[]     @relation("MedecinExamensLabo")
-  examens_imagerie_prescrits ExamenImagerie[] @relation("MedecinExamensImagerie")
+  hospital                     Hospital          @relation(fields: [hospital_id], references: [id])
+  consultations                Consultation[]    @relation("MedecinConsultations")
+  examens_labo_prescrits       ExamenLabo[]      @relation("MedecinExamensLabo")
+  examens_imagerie_prescrits   ExamenImagerie[]  @relation("MedecinExamensImagerie")
+  hospitalisations_responsable Hospitalisation[] @relation("MedecinHospitalisations")
 
   @@index([hospital_id])
   @@map("utilisateurs")
@@ -222,6 +248,7 @@ model Patient {
   examens_labo     ExamenLabo[]      @relation("PatientExamensLabo")
   examens_imagerie ExamenImagerie[]  @relation("PatientExamensImagerie")
   qr_tokens        QrToken[]         @relation("PatientQrTokens")
+  sejours          Hospitalisation[] @relation("PatientHospitalisations")
 
   @@map("patients")
 }
@@ -299,7 +326,7 @@ model Prescription {
 }
 
 // ============================================================
-// TABLE : factures — ajout des relations inverses
+// TABLE : factures
 // ============================================================
 model Facture {
   id                String        @id @default(uuid())
@@ -321,8 +348,9 @@ model Facture {
   patient          Patient          @relation("PatientFactures", fields: [patient_id], references: [id])
   consultation     Consultation?    @relation(fields: [consultation_id], references: [id])
   lignes           LigneFacture[]
-  examens_labo     ExamenLabo[]     @relation("FactureExamensLabo") // ← NOUVEAU
-  examens_imagerie ExamenImagerie[] @relation("FactureExamensImagerie") // ← NOUVEAU
+  examens_labo     ExamenLabo[]     @relation("FactureExamensLabo")
+  examens_imagerie ExamenImagerie[] @relation("FactureExamensImagerie")
+  hospitalisation  Hospitalisation? @relation("FactureHospitalisation")
 
   @@index([hospital_id])
   @@index([patient_id])
@@ -364,8 +392,8 @@ model ExamenLabo {
   valide_le     DateTime?
   notes         String?
   urgence       Boolean        @default(false)
-  prix_unitaire Float? // ← NOUVEAU — tarif de l'examen en XAF
-  facture_id    String? // ← NOUVEAU — lien vers la facture générée
+  prix_unitaire Float?
+  facture_id    String?
   created_at    DateTime       @default(now())
   updated_at    DateTime       @updatedAt
 
@@ -398,8 +426,8 @@ model ExamenImagerie {
   notes           String?
   urgence         Boolean            @default(false)
   zone_anatomique String?
-  prix_unitaire   Float? // ← NOUVEAU — tarif de l'examen en XAF
-  facture_id      String? // ← NOUVEAU — lien vers la facture générée
+  prix_unitaire   Float?
+  facture_id      String?
   created_at      DateTime           @default(now())
   updated_at      DateTime           @updatedAt
 
@@ -433,8 +461,9 @@ model ArticleStock {
   created_at      DateTime         @default(now())
   updated_at      DateTime         @updatedAt
 
-  hospital   Hospital         @relation("HospitalArticlesStock", fields: [hospital_id], references: [id])
-  mouvements MouvementStock[] @relation("ArticleMouvements")
+  hospital               Hospital               @relation("HospitalArticlesStock", fields: [hospital_id], references: [id])
+  mouvements             MouvementStock[]       @relation("ArticleMouvements")
+  lignes_hospitalisation LigneHospitalisation[] @relation("ArticleLignesHospitalisation")
 
   @@index([hospital_id])
   @@map("articles_stock")
@@ -463,6 +492,9 @@ model MouvementStock {
   @@map("mouvements_stock")
 }
 
+// ============================================================
+// TABLE : ecritures_comptables
+// ============================================================
 model EcritureComptable {
   id             String            @id @default(uuid())
   hospital_id    String
@@ -487,7 +519,6 @@ model EcritureComptable {
 
 // ============================================================
 // TABLE : qr_tokens
-// Tokens temporaires pour accès QR Code carnet de santé
 // ============================================================
 model QrToken {
   id          String   @id @default(uuid())
@@ -509,7 +540,6 @@ model QrToken {
 
 // ============================================================
 // TABLE : audit_logs_carnet
-// Chaque accès au carnet est tracé — obligation légale
 // ============================================================
 model AuditLogCarnet {
   id          String   @id @default(uuid())
@@ -525,6 +555,9 @@ model AuditLogCarnet {
   @@map("audit_logs_carnet")
 }
 
+// ============================================================
+// TABLE : audit_trail
+// ============================================================
 model AuditTrail {
   id              String       @id @default(uuid())
   hospital_id     String
@@ -548,4 +581,86 @@ model AuditTrail {
   @@index([module])
   @@index([created_at])
   @@map("audit_trail")
+}
+
+// ============================================================
+// TABLE : chambres
+// Chaque établissement configure ses chambres et tarifs
+// ============================================================
+model Chambre {
+  id              String   @id @default(uuid())
+  hospital_id     String
+  numero          String
+  type_chambre    String   @default("COMMUNE")
+  prix_journalier Float    @default(0)
+  est_disponible  Boolean  @default(true)
+  description     String?
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+
+  hospital         Hospital          @relation("HospitalChambres", fields: [hospital_id], references: [id])
+  hospitalisations Hospitalisation[] @relation("ChambreHospitalisations")
+
+  @@index([hospital_id])
+  @@map("chambres")
+}
+
+// ============================================================
+// TABLE : hospitalisations
+// ============================================================
+model Hospitalisation {
+  id              String                @id @default(uuid())
+  hospital_id     String
+  patient_id      String
+  medecin_id      String
+  chambre_id      String?
+  statut          StatutHospitalisation @default(EN_COURS)
+  date_entree     DateTime              @default(now())
+  date_sortie     DateTime?
+  motif_admission String?
+  diagnostic      String?
+  notes           String?
+  facture_id      String?               @unique
+  created_at      DateTime              @default(now())
+  updated_at      DateTime              @updatedAt
+
+  hospital Hospital               @relation("HospitalHospitalisations", fields: [hospital_id], references: [id])
+  patient  Patient                @relation("PatientHospitalisations", fields: [patient_id], references: [id])
+  medecin  Utilisateur            @relation("MedecinHospitalisations", fields: [medecin_id], references: [id])
+  chambre  Chambre?               @relation("ChambreHospitalisations", fields: [chambre_id], references: [id])
+  facture  Facture?               @relation("FactureHospitalisation", fields: [facture_id], references: [id])
+  lignes   LigneHospitalisation[] @relation("HospitalisationLignes")
+
+  @@index([hospital_id])
+  @@index([patient_id])
+  @@map("hospitalisations")
+}
+
+// ============================================================
+// TABLE : lignes_hospitalisation
+//
+// Chaque consommation pendant le séjour est une ligne :
+// chambre journalière, médicament, acte infirmier, examen.
+// La somme de ces lignes forme la facture d'hospitalisation.
+// ============================================================
+model LigneHospitalisation {
+  id                 String                     @id @default(uuid())
+  hospitalisation_id String
+  type_ligne         TypeLigneHospitalisation
+  statut             StatutLigneHospitalisation @default(SERVI)
+  description        String
+  quantite           Int                        @default(1)
+  prix_unitaire      Float
+  montant_total      Float
+  article_stock_id   String?
+  prescrit_par       String?
+  notes              String?
+  date_ligne         DateTime                   @default(now())
+  created_at         DateTime                   @default(now())
+
+  hospitalisation Hospitalisation @relation("HospitalisationLignes", fields: [hospitalisation_id], references: [id], onDelete: Cascade)
+  article_stock   ArticleStock?   @relation("ArticleLignesHospitalisation", fields: [article_stock_id], references: [id])
+
+  @@index([hospitalisation_id])
+  @@map("lignes_hospitalisation")
 }

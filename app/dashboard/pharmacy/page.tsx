@@ -26,7 +26,11 @@ export default async function PharmacyPage({ searchParams }: PharmacyPageProps) 
   const { q } = await searchParams;
 
   const [articles, stats, mouvements] = await Promise.all([
-    getArticlesStock(utilisateur.hospital_id, q),
+    // ← search + mouvements activés pour la page pharmacie
+    getArticlesStock(utilisateur.hospital_id, {
+      search:         q,
+      avecMouvements: true,
+    }),
     getStatsPharmacieAction(utilisateur.hospital_id),
     getMouvementsStock(utilisateur.hospital_id),
   ]);
@@ -47,7 +51,7 @@ export default async function PharmacyPage({ searchParams }: PharmacyPageProps) 
         mouvements={mouvements}
         hospitalId={utilisateur.hospital_id}
         utilisateurId={utilisateur.id}
-        utilisateurNom={`${utilisateur.prenom} ${utilisateur.nom}`} // ← ajouté
+        utilisateurNom={`${utilisateur.prenom} ${utilisateur.nom}`}
         searchQuery={q ?? ""}
       />
     </div>

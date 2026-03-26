@@ -358,6 +358,51 @@ exports.Prisma.AuditTrailScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.ChambreScalarFieldEnum = {
+  id: 'id',
+  hospital_id: 'hospital_id',
+  numero: 'numero',
+  type_chambre: 'type_chambre',
+  prix_journalier: 'prix_journalier',
+  est_disponible: 'est_disponible',
+  description: 'description',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.HospitalisationScalarFieldEnum = {
+  id: 'id',
+  hospital_id: 'hospital_id',
+  patient_id: 'patient_id',
+  medecin_id: 'medecin_id',
+  chambre_id: 'chambre_id',
+  statut: 'statut',
+  date_entree: 'date_entree',
+  date_sortie: 'date_sortie',
+  motif_admission: 'motif_admission',
+  diagnostic: 'diagnostic',
+  notes: 'notes',
+  facture_id: 'facture_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.LigneHospitalisationScalarFieldEnum = {
+  id: 'id',
+  hospitalisation_id: 'hospitalisation_id',
+  type_ligne: 'type_ligne',
+  statut: 'statut',
+  description: 'description',
+  quantite: 'quantite',
+  prix_unitaire: 'prix_unitaire',
+  montant_total: 'montant_total',
+  article_stock_id: 'article_stock_id',
+  prescrit_par: 'prescrit_par',
+  notes: 'notes',
+  date_ligne: 'date_ligne',
+  created_at: 'created_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -506,7 +551,28 @@ exports.ModuleAction = exports.$Enums.ModuleAction = {
   COMPTABILITE: 'COMPTABILITE',
   UTILISATEUR: 'UTILISATEUR',
   CARNET_SANTE: 'CARNET_SANTE',
-  AUTHENTIFICATION: 'AUTHENTIFICATION'
+  AUTHENTIFICATION: 'AUTHENTIFICATION',
+  HOSPITALISATION: 'HOSPITALISATION'
+};
+
+exports.StatutHospitalisation = exports.$Enums.StatutHospitalisation = {
+  EN_COURS: 'EN_COURS',
+  SORTIE: 'SORTIE',
+  ANNULEE: 'ANNULEE'
+};
+
+exports.TypeLigneHospitalisation = exports.$Enums.TypeLigneHospitalisation = {
+  CHAMBRE: 'CHAMBRE',
+  MEDICAMENT: 'MEDICAMENT',
+  ACTE_INFIRMIER: 'ACTE_INFIRMIER',
+  EXAMEN: 'EXAMEN',
+  AUTRE: 'AUTRE'
+};
+
+exports.StatutLigneHospitalisation = exports.$Enums.StatutLigneHospitalisation = {
+  SERVI: 'SERVI',
+  EN_ATTENTE: 'EN_ATTENTE',
+  ANNULE: 'ANNULE'
 };
 
 exports.Prisma.ModelName = {
@@ -525,7 +591,10 @@ exports.Prisma.ModelName = {
   EcritureComptable: 'EcritureComptable',
   QrToken: 'QrToken',
   AuditLogCarnet: 'AuditLogCarnet',
-  AuditTrail: 'AuditTrail'
+  AuditTrail: 'AuditTrail',
+  Chambre: 'Chambre',
+  Hospitalisation: 'Hospitalisation',
+  LigneHospitalisation: 'LigneHospitalisation'
 };
 
 /**

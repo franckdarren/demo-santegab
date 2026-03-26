@@ -15,6 +15,7 @@ import { Role } from "@/app/generated/prisma/client";
 import { Bed, UsersRound } from "lucide-react";
 import { BookOpen } from "lucide-react";
 import { ClipboardList } from "lucide-react";
+import { DoorOpen } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -107,12 +108,12 @@ const navigation: NavItem[] = [
   },
 
   {
-  label: "Comptabilité",
-  href: "/dashboard/accounting",
-  icon: BookOpen,
-  roles: ["ADMIN", "COMPTABLE", "SUPER_ADMIN"],
-  comingSoon: false,
-},
+    label: "Comptabilité",
+    href: "/dashboard/accounting",
+    icon: BookOpen,
+    roles: ["ADMIN", "COMPTABLE", "SUPER_ADMIN"],
+    comingSoon: false,
+  },
 
   {
     label: "Statistiques",
@@ -122,19 +123,26 @@ const navigation: NavItem[] = [
     comingSoon: false,
   },
   {
-  label: "Audit",
-  href: "/dashboard/audit",
-  icon: ClipboardList,
-  roles: ["ADMIN", "SUPER_ADMIN"],
-  comingSoon: false,
-},
-{
-  label: "Hospitalisation",
-  href: "/dashboard/hospitalisation",
-  icon: Bed,
-  roles: ["ADMIN", "SUPER_ADMIN"],
-  comingSoon: true,
-},
+    label: "Audit",
+    href: "/dashboard/audit",
+    icon: ClipboardList,
+    roles: ["ADMIN", "SUPER_ADMIN"],
+    comingSoon: false,
+  },
+  {
+    label: "Hospitalisations",
+    href: "/dashboard/hospitalisations",
+    icon: Bed,
+    roles: ["ADMIN", "SUPER_ADMIN"],
+    comingSoon: false,
+  },
+  {
+    label: "Chambres",
+    href: "/dashboard/chambres",
+    icon: DoorOpen,
+    roles: ["ADMIN", "SUPER_ADMIN"],
+    comingSoon: false,
+  },
 ];
 
 interface AppSidebarProps {

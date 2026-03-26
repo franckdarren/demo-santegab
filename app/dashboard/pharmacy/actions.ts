@@ -6,28 +6,38 @@ import { enregistrerAudit } from "@/lib/audit";
 
 // ============================================================
 // Liste des articles en stock
+//
+// Utilisé pour :
+//   - La page pharmacie (avec search + mouvements)
+//   - Les bons de commande hospitalisation (filtré par catégorie)
 // ============================================================
 export async function getArticlesStock(
   hospitalId: string,
-  search?: string
+  options?: {
+    search?:              string;
+    categoriesUniquement?: Array<"MEDICAMENT" | "CONSOMMABLE" | "EQUIPEMENT" | "AUTRE">;
+    avecMouvements?:      boolean;
+  }
 ) {
   return prisma.articleStock.findMany({
     where: {
       hospital_id: hospitalId,
       est_actif:   true,
-      ...(search && {
+      ...(options?.search && {
         OR: [
-          { nom:          { contains: search, mode: "insensitive" } },
-          { description:  { contains: search, mode: "insensitive" } },
-          { code_article: { contains: search, mode: "insensitive" } },
+          { nom:          { contains: options.search, mode: "insensitive" } },
+          { description:  { contains: options.search, mode: "insensitive" } },
+          { code_article: { contains: options.search, mode: "insensitive" } },
         ],
+      }),
+      ...(options?.categoriesUniquement && {
+        categorie: { in: options.categoriesUniquement },
       }),
     },
     include: {
-      mouvements: {
-        orderBy: { created_at: "desc" },
-        take:    5,
-      },
+      mouvements: options?.avecMouvements
+        ? { orderBy: { created_at: "desc" }, take: 5 }
+        : false,
     },
     orderBy: { nom: "asc" },
   });
@@ -44,7 +54,9 @@ export async function getStatsPharmacieAction(hospitalId: string) {
   const totalArticles    = articles.length;
   const articlesEnAlerte = articles.filter((a) => a.quantite_stock <= a.seuil_alerte).length;
   const articlesRupture  = articles.filter((a) => a.quantite_stock === 0).length;
-  const valeurTotale     = articles.reduce((sum, a) => sum + a.quantite_stock * a.prix_unitaire, 0);
+  const valeurTotale     = articles.reduce(
+    (sum, a) => sum + a.quantite_stock * a.prix_unitaire, 0
+  );
 
   return { totalArticles, articlesEnAlerte, articlesRupture, valeurTotale };
 }
@@ -57,15 +69,15 @@ export async function creerArticleStock(
   utilisateurId: string,
   utilisateurNom: string,
   data: {
-    nom: string;
-    categorie: CategorieArticle;
-    description?: string;
-    unite: string;
-    quantite_stock: number;
-    seuil_alerte: number;
-    prix_unitaire: number;
+    nom:             string;
+    categorie:       CategorieArticle;
+    description?:    string;
+    unite:           string;
+    quantite_stock:  number;
+    seuil_alerte:    number;
+    prix_unitaire:   number;
     date_peremption?: string;
-    code_article?: string;
+    code_article?:   string;
   }
 ) {
   const article = await prisma.articleStock.create({
@@ -73,13 +85,13 @@ export async function creerArticleStock(
       hospital_id:     hospitalId,
       nom:             data.nom,
       categorie:       data.categorie,
-      description:     data.description ?? null,
+      description:     data.description  ?? null,
       unite:           data.unite,
       quantite_stock:  data.quantite_stock,
       seuil_alerte:    data.seuil_alerte,
       prix_unitaire:   data.prix_unitaire,
       date_peremption: data.date_peremption ? new Date(data.date_peremption) : null,
-      code_article:    data.code_article ?? null,
+      code_article:    data.code_article  ?? null,
     },
   });
 
@@ -120,17 +132,17 @@ export async function creerArticleStock(
 }
 
 // ============================================================
-// Mouvement de stock (entrée ou sortie)
+// Mouvement de stock (entrée, sortie, ajustement)
 // ============================================================
 export async function enregistrerMouvement(
   hospitalId: string,
   utilisateurId: string,
   utilisateurNom: string,
   data: {
-    article_id: string;
+    article_id:     string;
     type_mouvement: TypeMouvement;
-    quantite: number;
-    motif?: string;
+    quantite:       number;
+    motif?:         string;
   }
 ) {
   const article = await prisma.articleStock.findUnique({
@@ -140,7 +152,7 @@ export async function enregistrerMouvement(
   if (!article) throw new Error("Article introuvable");
 
   const quantiteAvant = article.quantite_stock;
-  let quantiteApres: number;
+  let   quantiteApres: number;
 
   if (data.type_mouvement === "ENTREE") {
     quantiteApres = quantiteAvant + data.quantite;
@@ -193,7 +205,7 @@ export async function enregistrerMouvement(
 }
 
 // ============================================================
-// Historique des mouvements
+// Historique des mouvements (50 derniers)
 // ============================================================
 export async function getMouvementsStock(hospitalId: string) {
   return prisma.mouvementStock.findMany({
@@ -213,14 +225,14 @@ export async function modifierArticleStock(
   utilisateurId: string,
   utilisateurNom: string,
   data: {
-    nom: string;
-    categorie: CategorieArticle;
-    description?: string;
-    unite: string;
-    seuil_alerte: number;
-    prix_unitaire: number;
+    nom:              string;
+    categorie:        CategorieArticle;
+    description?:     string;
+    unite:            string;
+    seuil_alerte:     number;
+    prix_unitaire:    number;
     date_peremption?: string;
-    code_article?: string;
+    code_article?:    string;
   }
 ) {
   const article = await prisma.articleStock.update({
@@ -228,12 +240,12 @@ export async function modifierArticleStock(
     data: {
       nom:             data.nom,
       categorie:       data.categorie,
-      description:     data.description ?? null,
+      description:     data.description  ?? null,
       unite:           data.unite,
       seuil_alerte:    data.seuil_alerte,
       prix_unitaire:   data.prix_unitaire,
       date_peremption: data.date_peremption ? new Date(data.date_peremption) : null,
-      code_article:    data.code_article ?? null,
+      code_article:    data.code_article  ?? null,
     },
   });
 
@@ -258,8 +270,9 @@ export async function modifierArticleStock(
 
 // ============================================================
 // Supprimer un article (désactivation logique)
-// On ne supprime pas physiquement — on désactive
-// pour conserver l'historique des mouvements
+//
+// On ne supprime pas physiquement — on désactive pour
+// conserver l'historique des mouvements de stock.
 // ============================================================
 export async function supprimerArticleStock(
   articleId: string,
@@ -281,9 +294,7 @@ export async function supprimerArticleStock(
     description: `Désactivation article — ${article.nom}`,
     entiteId:    articleId,
     entiteNom:   article.nom,
-    metadonnees: {
-      stock_restant: article.quantite_stock,
-    },
+    metadonnees: { stock_restant: article.quantite_stock },
   });
 
   return article;
