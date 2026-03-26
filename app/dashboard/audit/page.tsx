@@ -34,7 +34,7 @@ export default async function AuditPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-gray-900">
-          Journal d'audit
+          Journal d&apos;audit
         </h1>
         <p className="text-gray-500 text-sm mt-0.5">
           Traçabilité complète de toutes les actions utilisateurs

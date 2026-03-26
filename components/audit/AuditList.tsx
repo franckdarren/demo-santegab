@@ -15,7 +15,7 @@ import {
   UserRound, Stethoscope, FlaskConical,
   Receipt, Package, Shield, LogIn,
   FilePlus, FileEdit, Trash2, Eye,
-  QrCode, ScanLine, BookOpen, Users,
+  QrCode, ScanLine, BookOpen, Users, BedDouble,
 } from "lucide-react";
 import { formatDate, formatTime, cn } from "@/lib/utils";
 import {
@@ -63,6 +63,7 @@ const MODULE_CONFIG: Record<ModuleAction, {
   UTILISATEUR:      { label: "Utilisateur",    icon: Users,        color: "text-purple-600" },
   CARNET_SANTE:     { label: "Carnet santé",   icon: Shield,       color: "text-red-600" },
   AUTHENTIFICATION: { label: "Auth",           icon: LogIn,        color: "text-gray-600" },
+  HOSPITALISATION:  { label: "Hospitalisation", icon: BedDouble,   color: "text-blue-700" },
 };
 
 interface Log {
