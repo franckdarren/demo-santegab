@@ -139,10 +139,6 @@ enum ModuleAction {
   HOSPITALISATION
 }
 
-// ============================================================
-// NOUVEAUX ENUMS — Module Hospitalisation
-// ============================================================
-
 enum StatutHospitalisation {
   EN_COURS
   SORTIE
@@ -191,6 +187,8 @@ model Hospital {
   audit_trail          AuditTrail[]        @relation("HospitalAuditTrail")
   chambres             Chambre[]           @relation("HospitalChambres")
   hospitalisations     Hospitalisation[]   @relation("HospitalHospitalisations")
+  permissions          Permission[]        @relation("HospitalPermissions")
+  roles_personnalises  RolePersonnalise[]  @relation("HospitalRolesPersonnalises")
 
   @@map("hospitals")
 }
@@ -199,24 +197,26 @@ model Hospital {
 // TABLE : utilisateurs
 // ============================================================
 model Utilisateur {
-  id           String   @id @default(uuid())
-  hospital_id  String
-  supabase_uid String?  @unique
-  nom          String
-  prenom       String
-  email        String   @unique
-  telephone    String?
-  role         Role     @default(ADMINISTRATIF)
-  est_actif    Boolean  @default(true)
-  avatar_url   String?
-  created_at   DateTime @default(now())
-  updated_at   DateTime @updatedAt
+  id                   String            @id @default(uuid())
+  hospital_id          String
+  supabase_uid         String?           @unique
+  nom                  String
+  prenom               String
+  email                String            @unique
+  telephone            String?
+  role                 Role              @default(ADMINISTRATIF)
+  est_actif            Boolean           @default(true)
+  avatar_url           String?
+  role_personnalise_id String?
+  created_at           DateTime          @default(now())
+  updated_at           DateTime          @updatedAt
 
   hospital                     Hospital          @relation(fields: [hospital_id], references: [id])
   consultations                Consultation[]    @relation("MedecinConsultations")
   examens_labo_prescrits       ExamenLabo[]      @relation("MedecinExamensLabo")
   examens_imagerie_prescrits   ExamenImagerie[]  @relation("MedecinExamensImagerie")
   hospitalisations_responsable Hospitalisation[] @relation("MedecinHospitalisations")
+  role_personnalise            RolePersonnalise? @relation("UtilisateurRolePersonnalise", fields: [role_personnalise_id], references: [id])
 
   @@index([hospital_id])
   @@map("utilisateurs")
@@ -585,7 +585,6 @@ model AuditTrail {
 
 // ============================================================
 // TABLE : chambres
-// Chaque établissement configure ses chambres et tarifs
 // ============================================================
 model Chambre {
   id              String   @id @default(uuid())
@@ -638,10 +637,6 @@ model Hospitalisation {
 
 // ============================================================
 // TABLE : lignes_hospitalisation
-//
-// Chaque consommation pendant le séjour est une ligne :
-// chambre journalière, médicament, acte infirmier, examen.
-// La somme de ces lignes forme la facture d'hospitalisation.
 // ============================================================
 model LigneHospitalisation {
   id                 String                     @id @default(uuid())
@@ -663,4 +658,65 @@ model LigneHospitalisation {
 
   @@index([hospitalisation_id])
   @@map("lignes_hospitalisation")
+}
+
+// ============================================================
+// TABLE : permissions
+//
+// Une ligne = un rôle (système OU personnalisé) a tel niveau
+// d'accès sur tel module.
+//
+// Si role est renseigné    → permission pour un rôle système
+// Si role_personnalise_id  → permission pour un rôle perso
+// Les deux sont mutuellement exclusifs.
+// ============================================================
+model Permission {
+  id                   String            @id @default(uuid())
+  hospital_id          String
+  role                 Role?             // ← optionnel — null si rôle personnalisé
+  role_personnalise_id String?           // ← optionnel — null si rôle système
+  module               String
+  peut_voir            Boolean           @default(false)
+  peut_creer           Boolean           @default(false)
+  peut_modifier        Boolean           @default(false)
+  peut_supprimer       Boolean           @default(false)
+  created_at           DateTime          @default(now())
+  updated_at           DateTime          @updatedAt
+
+  hospital          Hospital          @relation("HospitalPermissions", fields: [hospital_id], references: [id], onDelete: Cascade)
+  role_personnalise RolePersonnalise? @relation("RolePersonnalisePermissions", fields: [role_personnalise_id], references: [id])
+
+  // Contrainte unique rôle système
+  @@unique([hospital_id, role, module])
+  // Contrainte unique rôle personnalisé
+  @@unique([hospital_id, role_personnalise_id, module])
+  @@index([hospital_id])
+  @@index([role])
+  @@index([module])
+  @@map("permissions")
+}
+
+// ============================================================
+// TABLE : roles_personnalises
+//
+// Rôles créés par l'Admin de chaque structure.
+// Exemples : "Sage-femme", "Directeur médical", "Aide-soignant"
+// ============================================================
+model RolePersonnalise {
+  id          String   @id @default(uuid())
+  hospital_id String
+  nom         String
+  description String?
+  couleur     String   @default("#6366f1")
+  est_actif   Boolean  @default(true)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  hospital     Hospital      @relation("HospitalRolesPersonnalises", fields: [hospital_id], references: [id], onDelete: Cascade)
+  utilisateurs Utilisateur[] @relation("UtilisateurRolePersonnalise")
+  permissions  Permission[]  @relation("RolePersonnalisePermissions")
+
+  @@unique([hospital_id, nom])
+  @@index([hospital_id])
+  @@map("roles_personnalises")
 }

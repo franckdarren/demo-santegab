@@ -144,6 +144,7 @@ exports.Prisma.UtilisateurScalarFieldEnum = {
   role: 'role',
   est_actif: 'est_actif',
   avatar_url: 'avatar_url',
+  role_personnalise_id: 'role_personnalise_id',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -403,6 +404,31 @@ exports.Prisma.LigneHospitalisationScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.PermissionScalarFieldEnum = {
+  id: 'id',
+  hospital_id: 'hospital_id',
+  role: 'role',
+  role_personnalise_id: 'role_personnalise_id',
+  module: 'module',
+  peut_voir: 'peut_voir',
+  peut_creer: 'peut_creer',
+  peut_modifier: 'peut_modifier',
+  peut_supprimer: 'peut_supprimer',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.RolePersonnaliseScalarFieldEnum = {
+  id: 'id',
+  hospital_id: 'hospital_id',
+  nom: 'nom',
+  description: 'description',
+  couleur: 'couleur',
+  est_actif: 'est_actif',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -594,7 +620,9 @@ exports.Prisma.ModelName = {
   AuditTrail: 'AuditTrail',
   Chambre: 'Chambre',
   Hospitalisation: 'Hospitalisation',
-  LigneHospitalisation: 'LigneHospitalisation'
+  LigneHospitalisation: 'LigneHospitalisation',
+  Permission: 'Permission',
+  RolePersonnalise: 'RolePersonnalise'
 };
 
 /**

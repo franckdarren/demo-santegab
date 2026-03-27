@@ -108,6 +108,16 @@ export type Hospitalisation = $Result.DefaultSelection<Prisma.$HospitalisationPa
  * 
  */
 export type LigneHospitalisation = $Result.DefaultSelection<Prisma.$LigneHospitalisationPayload>
+/**
+ * Model Permission
+ * 
+ */
+export type Permission = $Result.DefaultSelection<Prisma.$PermissionPayload>
+/**
+ * Model RolePersonnalise
+ * 
+ */
+export type RolePersonnalise = $Result.DefaultSelection<Prisma.$RolePersonnalisePayload>
 
 /**
  * Enums
@@ -690,6 +700,26 @@ export class PrismaClient<
     * ```
     */
   get ligneHospitalisation(): Prisma.LigneHospitalisationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.permission`: Exposes CRUD operations for the **Permission** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Permissions
+    * const permissions = await prisma.permission.findMany()
+    * ```
+    */
+  get permission(): Prisma.PermissionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.rolePersonnalise`: Exposes CRUD operations for the **RolePersonnalise** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RolePersonnalises
+    * const rolePersonnalises = await prisma.rolePersonnalise.findMany()
+    * ```
+    */
+  get rolePersonnalise(): Prisma.RolePersonnaliseDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1142,7 +1172,9 @@ export namespace Prisma {
     AuditTrail: 'AuditTrail',
     Chambre: 'Chambre',
     Hospitalisation: 'Hospitalisation',
-    LigneHospitalisation: 'LigneHospitalisation'
+    LigneHospitalisation: 'LigneHospitalisation',
+    Permission: 'Permission',
+    RolePersonnalise: 'RolePersonnalise'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1158,7 +1190,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "hospital" | "utilisateur" | "patient" | "patientHospital" | "consultation" | "prescription" | "facture" | "ligneFacture" | "examenLabo" | "examenImagerie" | "articleStock" | "mouvementStock" | "ecritureComptable" | "qrToken" | "auditLogCarnet" | "auditTrail" | "chambre" | "hospitalisation" | "ligneHospitalisation"
+      modelProps: "hospital" | "utilisateur" | "patient" | "patientHospital" | "consultation" | "prescription" | "facture" | "ligneFacture" | "examenLabo" | "examenImagerie" | "articleStock" | "mouvementStock" | "ecritureComptable" | "qrToken" | "auditLogCarnet" | "auditTrail" | "chambre" | "hospitalisation" | "ligneHospitalisation" | "permission" | "rolePersonnalise"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2568,6 +2600,154 @@ export namespace Prisma {
           }
         }
       }
+      Permission: {
+        payload: Prisma.$PermissionPayload<ExtArgs>
+        fields: Prisma.PermissionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PermissionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PermissionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          findFirst: {
+            args: Prisma.PermissionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PermissionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          findMany: {
+            args: Prisma.PermissionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>[]
+          }
+          create: {
+            args: Prisma.PermissionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          createMany: {
+            args: Prisma.PermissionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PermissionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>[]
+          }
+          delete: {
+            args: Prisma.PermissionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          update: {
+            args: Prisma.PermissionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          deleteMany: {
+            args: Prisma.PermissionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PermissionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PermissionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>[]
+          }
+          upsert: {
+            args: Prisma.PermissionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          aggregate: {
+            args: Prisma.PermissionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePermission>
+          }
+          groupBy: {
+            args: Prisma.PermissionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PermissionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PermissionCountArgs<ExtArgs>
+            result: $Utils.Optional<PermissionCountAggregateOutputType> | number
+          }
+        }
+      }
+      RolePersonnalise: {
+        payload: Prisma.$RolePersonnalisePayload<ExtArgs>
+        fields: Prisma.RolePersonnaliseFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RolePersonnaliseFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePersonnalisePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RolePersonnaliseFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePersonnalisePayload>
+          }
+          findFirst: {
+            args: Prisma.RolePersonnaliseFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePersonnalisePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RolePersonnaliseFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePersonnalisePayload>
+          }
+          findMany: {
+            args: Prisma.RolePersonnaliseFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePersonnalisePayload>[]
+          }
+          create: {
+            args: Prisma.RolePersonnaliseCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePersonnalisePayload>
+          }
+          createMany: {
+            args: Prisma.RolePersonnaliseCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RolePersonnaliseCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePersonnalisePayload>[]
+          }
+          delete: {
+            args: Prisma.RolePersonnaliseDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePersonnalisePayload>
+          }
+          update: {
+            args: Prisma.RolePersonnaliseUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePersonnalisePayload>
+          }
+          deleteMany: {
+            args: Prisma.RolePersonnaliseDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RolePersonnaliseUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RolePersonnaliseUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePersonnalisePayload>[]
+          }
+          upsert: {
+            args: Prisma.RolePersonnaliseUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePersonnalisePayload>
+          }
+          aggregate: {
+            args: Prisma.RolePersonnaliseAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRolePersonnalise>
+          }
+          groupBy: {
+            args: Prisma.RolePersonnaliseGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RolePersonnaliseGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RolePersonnaliseCountArgs<ExtArgs>
+            result: $Utils.Optional<RolePersonnaliseCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2695,6 +2875,8 @@ export namespace Prisma {
     chambre?: ChambreOmit
     hospitalisation?: HospitalisationOmit
     ligneHospitalisation?: LigneHospitalisationOmit
+    permission?: PermissionOmit
+    rolePersonnalise?: RolePersonnaliseOmit
   }
 
   /* Types for Logging */
@@ -2788,6 +2970,8 @@ export namespace Prisma {
     audit_trail: number
     chambres: number
     hospitalisations: number
+    permissions: number
+    roles_personnalises: number
   }
 
   export type HospitalCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2804,6 +2988,8 @@ export namespace Prisma {
     audit_trail?: boolean | HospitalCountOutputTypeCountAudit_trailArgs
     chambres?: boolean | HospitalCountOutputTypeCountChambresArgs
     hospitalisations?: boolean | HospitalCountOutputTypeCountHospitalisationsArgs
+    permissions?: boolean | HospitalCountOutputTypeCountPermissionsArgs
+    roles_personnalises?: boolean | HospitalCountOutputTypeCountRoles_personnalisesArgs
   }
 
   // Custom InputTypes
@@ -2906,6 +3092,20 @@ export namespace Prisma {
    */
   export type HospitalCountOutputTypeCountHospitalisationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: HospitalisationWhereInput
+  }
+
+  /**
+   * HospitalCountOutputType without action
+   */
+  export type HospitalCountOutputTypeCountPermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PermissionWhereInput
+  }
+
+  /**
+   * HospitalCountOutputType without action
+   */
+  export type HospitalCountOutputTypeCountRoles_personnalisesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RolePersonnaliseWhereInput
   }
 
 
@@ -3235,6 +3435,46 @@ export namespace Prisma {
 
 
   /**
+   * Count Type RolePersonnaliseCountOutputType
+   */
+
+  export type RolePersonnaliseCountOutputType = {
+    utilisateurs: number
+    permissions: number
+  }
+
+  export type RolePersonnaliseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    utilisateurs?: boolean | RolePersonnaliseCountOutputTypeCountUtilisateursArgs
+    permissions?: boolean | RolePersonnaliseCountOutputTypeCountPermissionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * RolePersonnaliseCountOutputType without action
+   */
+  export type RolePersonnaliseCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePersonnaliseCountOutputType
+     */
+    select?: RolePersonnaliseCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * RolePersonnaliseCountOutputType without action
+   */
+  export type RolePersonnaliseCountOutputTypeCountUtilisateursArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UtilisateurWhereInput
+  }
+
+  /**
+   * RolePersonnaliseCountOutputType without action
+   */
+  export type RolePersonnaliseCountOutputTypeCountPermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PermissionWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -3455,6 +3695,8 @@ export namespace Prisma {
     audit_trail?: boolean | Hospital$audit_trailArgs<ExtArgs>
     chambres?: boolean | Hospital$chambresArgs<ExtArgs>
     hospitalisations?: boolean | Hospital$hospitalisationsArgs<ExtArgs>
+    permissions?: boolean | Hospital$permissionsArgs<ExtArgs>
+    roles_personnalises?: boolean | Hospital$roles_personnalisesArgs<ExtArgs>
     _count?: boolean | HospitalCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["hospital"]>
 
@@ -3512,6 +3754,8 @@ export namespace Prisma {
     audit_trail?: boolean | Hospital$audit_trailArgs<ExtArgs>
     chambres?: boolean | Hospital$chambresArgs<ExtArgs>
     hospitalisations?: boolean | Hospital$hospitalisationsArgs<ExtArgs>
+    permissions?: boolean | Hospital$permissionsArgs<ExtArgs>
+    roles_personnalises?: boolean | Hospital$roles_personnalisesArgs<ExtArgs>
     _count?: boolean | HospitalCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type HospitalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3533,6 +3777,8 @@ export namespace Prisma {
       audit_trail: Prisma.$AuditTrailPayload<ExtArgs>[]
       chambres: Prisma.$ChambrePayload<ExtArgs>[]
       hospitalisations: Prisma.$HospitalisationPayload<ExtArgs>[]
+      permissions: Prisma.$PermissionPayload<ExtArgs>[]
+      roles_personnalises: Prisma.$RolePersonnalisePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3952,6 +4198,8 @@ export namespace Prisma {
     audit_trail<T extends Hospital$audit_trailArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$audit_trailArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditTrailPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     chambres<T extends Hospital$chambresArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$chambresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChambrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     hospitalisations<T extends Hospital$hospitalisationsArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$hospitalisationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HospitalisationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    permissions<T extends Hospital$permissionsArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$permissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    roles_personnalises<T extends Hospital$roles_personnalisesArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$roles_personnalisesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePersonnalisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4696,6 +4944,54 @@ export namespace Prisma {
   }
 
   /**
+   * Hospital.permissions
+   */
+  export type Hospital$permissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    where?: PermissionWhereInput
+    orderBy?: PermissionOrderByWithRelationInput | PermissionOrderByWithRelationInput[]
+    cursor?: PermissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PermissionScalarFieldEnum | PermissionScalarFieldEnum[]
+  }
+
+  /**
+   * Hospital.roles_personnalises
+   */
+  export type Hospital$roles_personnalisesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePersonnalise
+     */
+    select?: RolePersonnaliseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePersonnalise
+     */
+    omit?: RolePersonnaliseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePersonnaliseInclude<ExtArgs> | null
+    where?: RolePersonnaliseWhereInput
+    orderBy?: RolePersonnaliseOrderByWithRelationInput | RolePersonnaliseOrderByWithRelationInput[]
+    cursor?: RolePersonnaliseWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RolePersonnaliseScalarFieldEnum | RolePersonnaliseScalarFieldEnum[]
+  }
+
+  /**
    * Hospital without action
    */
   export type HospitalDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4735,6 +5031,7 @@ export namespace Prisma {
     role: $Enums.Role | null
     est_actif: boolean | null
     avatar_url: string | null
+    role_personnalise_id: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -4750,6 +5047,7 @@ export namespace Prisma {
     role: $Enums.Role | null
     est_actif: boolean | null
     avatar_url: string | null
+    role_personnalise_id: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -4765,6 +5063,7 @@ export namespace Prisma {
     role: number
     est_actif: number
     avatar_url: number
+    role_personnalise_id: number
     created_at: number
     updated_at: number
     _all: number
@@ -4782,6 +5081,7 @@ export namespace Prisma {
     role?: true
     est_actif?: true
     avatar_url?: true
+    role_personnalise_id?: true
     created_at?: true
     updated_at?: true
   }
@@ -4797,6 +5097,7 @@ export namespace Prisma {
     role?: true
     est_actif?: true
     avatar_url?: true
+    role_personnalise_id?: true
     created_at?: true
     updated_at?: true
   }
@@ -4812,6 +5113,7 @@ export namespace Prisma {
     role?: true
     est_actif?: true
     avatar_url?: true
+    role_personnalise_id?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -4900,6 +5202,7 @@ export namespace Prisma {
     role: $Enums.Role
     est_actif: boolean
     avatar_url: string | null
+    role_personnalise_id: string | null
     created_at: Date
     updated_at: Date
     _count: UtilisateurCountAggregateOutputType | null
@@ -4932,6 +5235,7 @@ export namespace Prisma {
     role?: boolean
     est_actif?: boolean
     avatar_url?: boolean
+    role_personnalise_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
@@ -4939,6 +5243,7 @@ export namespace Prisma {
     examens_labo_prescrits?: boolean | Utilisateur$examens_labo_prescritsArgs<ExtArgs>
     examens_imagerie_prescrits?: boolean | Utilisateur$examens_imagerie_prescritsArgs<ExtArgs>
     hospitalisations_responsable?: boolean | Utilisateur$hospitalisations_responsableArgs<ExtArgs>
+    role_personnalise?: boolean | Utilisateur$role_personnaliseArgs<ExtArgs>
     _count?: boolean | UtilisateurCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["utilisateur"]>
 
@@ -4953,9 +5258,11 @@ export namespace Prisma {
     role?: boolean
     est_actif?: boolean
     avatar_url?: boolean
+    role_personnalise_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    role_personnalise?: boolean | Utilisateur$role_personnaliseArgs<ExtArgs>
   }, ExtArgs["result"]["utilisateur"]>
 
   export type UtilisateurSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4969,9 +5276,11 @@ export namespace Prisma {
     role?: boolean
     est_actif?: boolean
     avatar_url?: boolean
+    role_personnalise_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    role_personnalise?: boolean | Utilisateur$role_personnaliseArgs<ExtArgs>
   }, ExtArgs["result"]["utilisateur"]>
 
   export type UtilisateurSelectScalar = {
@@ -4985,24 +5294,28 @@ export namespace Prisma {
     role?: boolean
     est_actif?: boolean
     avatar_url?: boolean
+    role_personnalise_id?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type UtilisateurOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "supabase_uid" | "nom" | "prenom" | "email" | "telephone" | "role" | "est_actif" | "avatar_url" | "created_at" | "updated_at", ExtArgs["result"]["utilisateur"]>
+  export type UtilisateurOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "supabase_uid" | "nom" | "prenom" | "email" | "telephone" | "role" | "est_actif" | "avatar_url" | "role_personnalise_id" | "created_at" | "updated_at", ExtArgs["result"]["utilisateur"]>
   export type UtilisateurInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     consultations?: boolean | Utilisateur$consultationsArgs<ExtArgs>
     examens_labo_prescrits?: boolean | Utilisateur$examens_labo_prescritsArgs<ExtArgs>
     examens_imagerie_prescrits?: boolean | Utilisateur$examens_imagerie_prescritsArgs<ExtArgs>
     hospitalisations_responsable?: boolean | Utilisateur$hospitalisations_responsableArgs<ExtArgs>
+    role_personnalise?: boolean | Utilisateur$role_personnaliseArgs<ExtArgs>
     _count?: boolean | UtilisateurCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UtilisateurIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    role_personnalise?: boolean | Utilisateur$role_personnaliseArgs<ExtArgs>
   }
   export type UtilisateurIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    role_personnalise?: boolean | Utilisateur$role_personnaliseArgs<ExtArgs>
   }
 
   export type $UtilisateurPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5013,6 +5326,7 @@ export namespace Prisma {
       examens_labo_prescrits: Prisma.$ExamenLaboPayload<ExtArgs>[]
       examens_imagerie_prescrits: Prisma.$ExamenImageriePayload<ExtArgs>[]
       hospitalisations_responsable: Prisma.$HospitalisationPayload<ExtArgs>[]
+      role_personnalise: Prisma.$RolePersonnalisePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5025,6 +5339,7 @@ export namespace Prisma {
       role: $Enums.Role
       est_actif: boolean
       avatar_url: string | null
+      role_personnalise_id: string | null
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["utilisateur"]>
@@ -5426,6 +5741,7 @@ export namespace Prisma {
     examens_labo_prescrits<T extends Utilisateur$examens_labo_prescritsArgs<ExtArgs> = {}>(args?: Subset<T, Utilisateur$examens_labo_prescritsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenLaboPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     examens_imagerie_prescrits<T extends Utilisateur$examens_imagerie_prescritsArgs<ExtArgs> = {}>(args?: Subset<T, Utilisateur$examens_imagerie_prescritsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenImageriePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     hospitalisations_responsable<T extends Utilisateur$hospitalisations_responsableArgs<ExtArgs> = {}>(args?: Subset<T, Utilisateur$hospitalisations_responsableArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HospitalisationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    role_personnalise<T extends Utilisateur$role_personnaliseArgs<ExtArgs> = {}>(args?: Subset<T, Utilisateur$role_personnaliseArgs<ExtArgs>>): Prisma__RolePersonnaliseClient<$Result.GetResult<Prisma.$RolePersonnalisePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5465,6 +5781,7 @@ export namespace Prisma {
     readonly role: FieldRef<"Utilisateur", 'Role'>
     readonly est_actif: FieldRef<"Utilisateur", 'Boolean'>
     readonly avatar_url: FieldRef<"Utilisateur", 'String'>
+    readonly role_personnalise_id: FieldRef<"Utilisateur", 'String'>
     readonly created_at: FieldRef<"Utilisateur", 'DateTime'>
     readonly updated_at: FieldRef<"Utilisateur", 'DateTime'>
   }
@@ -5961,6 +6278,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: HospitalisationScalarFieldEnum | HospitalisationScalarFieldEnum[]
+  }
+
+  /**
+   * Utilisateur.role_personnalise
+   */
+  export type Utilisateur$role_personnaliseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePersonnalise
+     */
+    select?: RolePersonnaliseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePersonnalise
+     */
+    omit?: RolePersonnaliseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePersonnaliseInclude<ExtArgs> | null
+    where?: RolePersonnaliseWhereInput
   }
 
   /**
@@ -26674,6 +27010,2334 @@ export namespace Prisma {
 
 
   /**
+   * Model Permission
+   */
+
+  export type AggregatePermission = {
+    _count: PermissionCountAggregateOutputType | null
+    _min: PermissionMinAggregateOutputType | null
+    _max: PermissionMaxAggregateOutputType | null
+  }
+
+  export type PermissionMinAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    role: $Enums.Role | null
+    role_personnalise_id: string | null
+    module: string | null
+    peut_voir: boolean | null
+    peut_creer: boolean | null
+    peut_modifier: boolean | null
+    peut_supprimer: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type PermissionMaxAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    role: $Enums.Role | null
+    role_personnalise_id: string | null
+    module: string | null
+    peut_voir: boolean | null
+    peut_creer: boolean | null
+    peut_modifier: boolean | null
+    peut_supprimer: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type PermissionCountAggregateOutputType = {
+    id: number
+    hospital_id: number
+    role: number
+    role_personnalise_id: number
+    module: number
+    peut_voir: number
+    peut_creer: number
+    peut_modifier: number
+    peut_supprimer: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type PermissionMinAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    role?: true
+    role_personnalise_id?: true
+    module?: true
+    peut_voir?: true
+    peut_creer?: true
+    peut_modifier?: true
+    peut_supprimer?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type PermissionMaxAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    role?: true
+    role_personnalise_id?: true
+    module?: true
+    peut_voir?: true
+    peut_creer?: true
+    peut_modifier?: true
+    peut_supprimer?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type PermissionCountAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    role?: true
+    role_personnalise_id?: true
+    module?: true
+    peut_voir?: true
+    peut_creer?: true
+    peut_modifier?: true
+    peut_supprimer?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type PermissionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Permission to aggregate.
+     */
+    where?: PermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Permissions to fetch.
+     */
+    orderBy?: PermissionOrderByWithRelationInput | PermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Permissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Permissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Permissions
+    **/
+    _count?: true | PermissionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PermissionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PermissionMaxAggregateInputType
+  }
+
+  export type GetPermissionAggregateType<T extends PermissionAggregateArgs> = {
+        [P in keyof T & keyof AggregatePermission]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePermission[P]>
+      : GetScalarType<T[P], AggregatePermission[P]>
+  }
+
+
+
+
+  export type PermissionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PermissionWhereInput
+    orderBy?: PermissionOrderByWithAggregationInput | PermissionOrderByWithAggregationInput[]
+    by: PermissionScalarFieldEnum[] | PermissionScalarFieldEnum
+    having?: PermissionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PermissionCountAggregateInputType | true
+    _min?: PermissionMinAggregateInputType
+    _max?: PermissionMaxAggregateInputType
+  }
+
+  export type PermissionGroupByOutputType = {
+    id: string
+    hospital_id: string
+    role: $Enums.Role | null
+    role_personnalise_id: string | null
+    module: string
+    peut_voir: boolean
+    peut_creer: boolean
+    peut_modifier: boolean
+    peut_supprimer: boolean
+    created_at: Date
+    updated_at: Date
+    _count: PermissionCountAggregateOutputType | null
+    _min: PermissionMinAggregateOutputType | null
+    _max: PermissionMaxAggregateOutputType | null
+  }
+
+  type GetPermissionGroupByPayload<T extends PermissionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PermissionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PermissionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PermissionGroupByOutputType[P]>
+            : GetScalarType<T[P], PermissionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PermissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    role?: boolean
+    role_personnalise_id?: boolean
+    module?: boolean
+    peut_voir?: boolean
+    peut_creer?: boolean
+    peut_modifier?: boolean
+    peut_supprimer?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    role_personnalise?: boolean | Permission$role_personnaliseArgs<ExtArgs>
+  }, ExtArgs["result"]["permission"]>
+
+  export type PermissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    role?: boolean
+    role_personnalise_id?: boolean
+    module?: boolean
+    peut_voir?: boolean
+    peut_creer?: boolean
+    peut_modifier?: boolean
+    peut_supprimer?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    role_personnalise?: boolean | Permission$role_personnaliseArgs<ExtArgs>
+  }, ExtArgs["result"]["permission"]>
+
+  export type PermissionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    role?: boolean
+    role_personnalise_id?: boolean
+    module?: boolean
+    peut_voir?: boolean
+    peut_creer?: boolean
+    peut_modifier?: boolean
+    peut_supprimer?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    role_personnalise?: boolean | Permission$role_personnaliseArgs<ExtArgs>
+  }, ExtArgs["result"]["permission"]>
+
+  export type PermissionSelectScalar = {
+    id?: boolean
+    hospital_id?: boolean
+    role?: boolean
+    role_personnalise_id?: boolean
+    module?: boolean
+    peut_voir?: boolean
+    peut_creer?: boolean
+    peut_modifier?: boolean
+    peut_supprimer?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type PermissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "role" | "role_personnalise_id" | "module" | "peut_voir" | "peut_creer" | "peut_modifier" | "peut_supprimer" | "created_at" | "updated_at", ExtArgs["result"]["permission"]>
+  export type PermissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    role_personnalise?: boolean | Permission$role_personnaliseArgs<ExtArgs>
+  }
+  export type PermissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    role_personnalise?: boolean | Permission$role_personnaliseArgs<ExtArgs>
+  }
+  export type PermissionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    role_personnalise?: boolean | Permission$role_personnaliseArgs<ExtArgs>
+  }
+
+  export type $PermissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Permission"
+    objects: {
+      hospital: Prisma.$HospitalPayload<ExtArgs>
+      role_personnalise: Prisma.$RolePersonnalisePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      hospital_id: string
+      role: $Enums.Role | null
+      role_personnalise_id: string | null
+      module: string
+      peut_voir: boolean
+      peut_creer: boolean
+      peut_modifier: boolean
+      peut_supprimer: boolean
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["permission"]>
+    composites: {}
+  }
+
+  type PermissionGetPayload<S extends boolean | null | undefined | PermissionDefaultArgs> = $Result.GetResult<Prisma.$PermissionPayload, S>
+
+  type PermissionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PermissionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PermissionCountAggregateInputType | true
+    }
+
+  export interface PermissionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Permission'], meta: { name: 'Permission' } }
+    /**
+     * Find zero or one Permission that matches the filter.
+     * @param {PermissionFindUniqueArgs} args - Arguments to find a Permission
+     * @example
+     * // Get one Permission
+     * const permission = await prisma.permission.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PermissionFindUniqueArgs>(args: SelectSubset<T, PermissionFindUniqueArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Permission that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PermissionFindUniqueOrThrowArgs} args - Arguments to find a Permission
+     * @example
+     * // Get one Permission
+     * const permission = await prisma.permission.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PermissionFindUniqueOrThrowArgs>(args: SelectSubset<T, PermissionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Permission that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionFindFirstArgs} args - Arguments to find a Permission
+     * @example
+     * // Get one Permission
+     * const permission = await prisma.permission.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PermissionFindFirstArgs>(args?: SelectSubset<T, PermissionFindFirstArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Permission that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionFindFirstOrThrowArgs} args - Arguments to find a Permission
+     * @example
+     * // Get one Permission
+     * const permission = await prisma.permission.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PermissionFindFirstOrThrowArgs>(args?: SelectSubset<T, PermissionFindFirstOrThrowArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Permissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Permissions
+     * const permissions = await prisma.permission.findMany()
+     * 
+     * // Get first 10 Permissions
+     * const permissions = await prisma.permission.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const permissionWithIdOnly = await prisma.permission.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PermissionFindManyArgs>(args?: SelectSubset<T, PermissionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Permission.
+     * @param {PermissionCreateArgs} args - Arguments to create a Permission.
+     * @example
+     * // Create one Permission
+     * const Permission = await prisma.permission.create({
+     *   data: {
+     *     // ... data to create a Permission
+     *   }
+     * })
+     * 
+     */
+    create<T extends PermissionCreateArgs>(args: SelectSubset<T, PermissionCreateArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Permissions.
+     * @param {PermissionCreateManyArgs} args - Arguments to create many Permissions.
+     * @example
+     * // Create many Permissions
+     * const permission = await prisma.permission.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PermissionCreateManyArgs>(args?: SelectSubset<T, PermissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Permissions and returns the data saved in the database.
+     * @param {PermissionCreateManyAndReturnArgs} args - Arguments to create many Permissions.
+     * @example
+     * // Create many Permissions
+     * const permission = await prisma.permission.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Permissions and only return the `id`
+     * const permissionWithIdOnly = await prisma.permission.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PermissionCreateManyAndReturnArgs>(args?: SelectSubset<T, PermissionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Permission.
+     * @param {PermissionDeleteArgs} args - Arguments to delete one Permission.
+     * @example
+     * // Delete one Permission
+     * const Permission = await prisma.permission.delete({
+     *   where: {
+     *     // ... filter to delete one Permission
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PermissionDeleteArgs>(args: SelectSubset<T, PermissionDeleteArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Permission.
+     * @param {PermissionUpdateArgs} args - Arguments to update one Permission.
+     * @example
+     * // Update one Permission
+     * const permission = await prisma.permission.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PermissionUpdateArgs>(args: SelectSubset<T, PermissionUpdateArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Permissions.
+     * @param {PermissionDeleteManyArgs} args - Arguments to filter Permissions to delete.
+     * @example
+     * // Delete a few Permissions
+     * const { count } = await prisma.permission.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PermissionDeleteManyArgs>(args?: SelectSubset<T, PermissionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Permissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Permissions
+     * const permission = await prisma.permission.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PermissionUpdateManyArgs>(args: SelectSubset<T, PermissionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Permissions and returns the data updated in the database.
+     * @param {PermissionUpdateManyAndReturnArgs} args - Arguments to update many Permissions.
+     * @example
+     * // Update many Permissions
+     * const permission = await prisma.permission.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Permissions and only return the `id`
+     * const permissionWithIdOnly = await prisma.permission.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PermissionUpdateManyAndReturnArgs>(args: SelectSubset<T, PermissionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Permission.
+     * @param {PermissionUpsertArgs} args - Arguments to update or create a Permission.
+     * @example
+     * // Update or create a Permission
+     * const permission = await prisma.permission.upsert({
+     *   create: {
+     *     // ... data to create a Permission
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Permission we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PermissionUpsertArgs>(args: SelectSubset<T, PermissionUpsertArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Permissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionCountArgs} args - Arguments to filter Permissions to count.
+     * @example
+     * // Count the number of Permissions
+     * const count = await prisma.permission.count({
+     *   where: {
+     *     // ... the filter for the Permissions we want to count
+     *   }
+     * })
+    **/
+    count<T extends PermissionCountArgs>(
+      args?: Subset<T, PermissionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PermissionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Permission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PermissionAggregateArgs>(args: Subset<T, PermissionAggregateArgs>): Prisma.PrismaPromise<GetPermissionAggregateType<T>>
+
+    /**
+     * Group by Permission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PermissionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PermissionGroupByArgs['orderBy'] }
+        : { orderBy?: PermissionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PermissionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPermissionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Permission model
+   */
+  readonly fields: PermissionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Permission.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PermissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    role_personnalise<T extends Permission$role_personnaliseArgs<ExtArgs> = {}>(args?: Subset<T, Permission$role_personnaliseArgs<ExtArgs>>): Prisma__RolePersonnaliseClient<$Result.GetResult<Prisma.$RolePersonnalisePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Permission model
+   */
+  interface PermissionFieldRefs {
+    readonly id: FieldRef<"Permission", 'String'>
+    readonly hospital_id: FieldRef<"Permission", 'String'>
+    readonly role: FieldRef<"Permission", 'Role'>
+    readonly role_personnalise_id: FieldRef<"Permission", 'String'>
+    readonly module: FieldRef<"Permission", 'String'>
+    readonly peut_voir: FieldRef<"Permission", 'Boolean'>
+    readonly peut_creer: FieldRef<"Permission", 'Boolean'>
+    readonly peut_modifier: FieldRef<"Permission", 'Boolean'>
+    readonly peut_supprimer: FieldRef<"Permission", 'Boolean'>
+    readonly created_at: FieldRef<"Permission", 'DateTime'>
+    readonly updated_at: FieldRef<"Permission", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Permission findUnique
+   */
+  export type PermissionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Permission to fetch.
+     */
+    where: PermissionWhereUniqueInput
+  }
+
+  /**
+   * Permission findUniqueOrThrow
+   */
+  export type PermissionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Permission to fetch.
+     */
+    where: PermissionWhereUniqueInput
+  }
+
+  /**
+   * Permission findFirst
+   */
+  export type PermissionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Permission to fetch.
+     */
+    where?: PermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Permissions to fetch.
+     */
+    orderBy?: PermissionOrderByWithRelationInput | PermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Permissions.
+     */
+    cursor?: PermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Permissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Permissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Permissions.
+     */
+    distinct?: PermissionScalarFieldEnum | PermissionScalarFieldEnum[]
+  }
+
+  /**
+   * Permission findFirstOrThrow
+   */
+  export type PermissionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Permission to fetch.
+     */
+    where?: PermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Permissions to fetch.
+     */
+    orderBy?: PermissionOrderByWithRelationInput | PermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Permissions.
+     */
+    cursor?: PermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Permissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Permissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Permissions.
+     */
+    distinct?: PermissionScalarFieldEnum | PermissionScalarFieldEnum[]
+  }
+
+  /**
+   * Permission findMany
+   */
+  export type PermissionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Permissions to fetch.
+     */
+    where?: PermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Permissions to fetch.
+     */
+    orderBy?: PermissionOrderByWithRelationInput | PermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Permissions.
+     */
+    cursor?: PermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Permissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Permissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Permissions.
+     */
+    distinct?: PermissionScalarFieldEnum | PermissionScalarFieldEnum[]
+  }
+
+  /**
+   * Permission create
+   */
+  export type PermissionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Permission.
+     */
+    data: XOR<PermissionCreateInput, PermissionUncheckedCreateInput>
+  }
+
+  /**
+   * Permission createMany
+   */
+  export type PermissionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Permissions.
+     */
+    data: PermissionCreateManyInput | PermissionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Permission createManyAndReturn
+   */
+  export type PermissionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * The data used to create many Permissions.
+     */
+    data: PermissionCreateManyInput | PermissionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Permission update
+   */
+  export type PermissionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Permission.
+     */
+    data: XOR<PermissionUpdateInput, PermissionUncheckedUpdateInput>
+    /**
+     * Choose, which Permission to update.
+     */
+    where: PermissionWhereUniqueInput
+  }
+
+  /**
+   * Permission updateMany
+   */
+  export type PermissionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Permissions.
+     */
+    data: XOR<PermissionUpdateManyMutationInput, PermissionUncheckedUpdateManyInput>
+    /**
+     * Filter which Permissions to update
+     */
+    where?: PermissionWhereInput
+    /**
+     * Limit how many Permissions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Permission updateManyAndReturn
+   */
+  export type PermissionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * The data used to update Permissions.
+     */
+    data: XOR<PermissionUpdateManyMutationInput, PermissionUncheckedUpdateManyInput>
+    /**
+     * Filter which Permissions to update
+     */
+    where?: PermissionWhereInput
+    /**
+     * Limit how many Permissions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Permission upsert
+   */
+  export type PermissionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Permission to update in case it exists.
+     */
+    where: PermissionWhereUniqueInput
+    /**
+     * In case the Permission found by the `where` argument doesn't exist, create a new Permission with this data.
+     */
+    create: XOR<PermissionCreateInput, PermissionUncheckedCreateInput>
+    /**
+     * In case the Permission was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PermissionUpdateInput, PermissionUncheckedUpdateInput>
+  }
+
+  /**
+   * Permission delete
+   */
+  export type PermissionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * Filter which Permission to delete.
+     */
+    where: PermissionWhereUniqueInput
+  }
+
+  /**
+   * Permission deleteMany
+   */
+  export type PermissionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Permissions to delete
+     */
+    where?: PermissionWhereInput
+    /**
+     * Limit how many Permissions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Permission.role_personnalise
+   */
+  export type Permission$role_personnaliseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePersonnalise
+     */
+    select?: RolePersonnaliseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePersonnalise
+     */
+    omit?: RolePersonnaliseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePersonnaliseInclude<ExtArgs> | null
+    where?: RolePersonnaliseWhereInput
+  }
+
+  /**
+   * Permission without action
+   */
+  export type PermissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RolePersonnalise
+   */
+
+  export type AggregateRolePersonnalise = {
+    _count: RolePersonnaliseCountAggregateOutputType | null
+    _min: RolePersonnaliseMinAggregateOutputType | null
+    _max: RolePersonnaliseMaxAggregateOutputType | null
+  }
+
+  export type RolePersonnaliseMinAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    nom: string | null
+    description: string | null
+    couleur: string | null
+    est_actif: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type RolePersonnaliseMaxAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    nom: string | null
+    description: string | null
+    couleur: string | null
+    est_actif: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type RolePersonnaliseCountAggregateOutputType = {
+    id: number
+    hospital_id: number
+    nom: number
+    description: number
+    couleur: number
+    est_actif: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type RolePersonnaliseMinAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    nom?: true
+    description?: true
+    couleur?: true
+    est_actif?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type RolePersonnaliseMaxAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    nom?: true
+    description?: true
+    couleur?: true
+    est_actif?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type RolePersonnaliseCountAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    nom?: true
+    description?: true
+    couleur?: true
+    est_actif?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type RolePersonnaliseAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RolePersonnalise to aggregate.
+     */
+    where?: RolePersonnaliseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RolePersonnalises to fetch.
+     */
+    orderBy?: RolePersonnaliseOrderByWithRelationInput | RolePersonnaliseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RolePersonnaliseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RolePersonnalises from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RolePersonnalises.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RolePersonnalises
+    **/
+    _count?: true | RolePersonnaliseCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RolePersonnaliseMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RolePersonnaliseMaxAggregateInputType
+  }
+
+  export type GetRolePersonnaliseAggregateType<T extends RolePersonnaliseAggregateArgs> = {
+        [P in keyof T & keyof AggregateRolePersonnalise]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRolePersonnalise[P]>
+      : GetScalarType<T[P], AggregateRolePersonnalise[P]>
+  }
+
+
+
+
+  export type RolePersonnaliseGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RolePersonnaliseWhereInput
+    orderBy?: RolePersonnaliseOrderByWithAggregationInput | RolePersonnaliseOrderByWithAggregationInput[]
+    by: RolePersonnaliseScalarFieldEnum[] | RolePersonnaliseScalarFieldEnum
+    having?: RolePersonnaliseScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RolePersonnaliseCountAggregateInputType | true
+    _min?: RolePersonnaliseMinAggregateInputType
+    _max?: RolePersonnaliseMaxAggregateInputType
+  }
+
+  export type RolePersonnaliseGroupByOutputType = {
+    id: string
+    hospital_id: string
+    nom: string
+    description: string | null
+    couleur: string
+    est_actif: boolean
+    created_at: Date
+    updated_at: Date
+    _count: RolePersonnaliseCountAggregateOutputType | null
+    _min: RolePersonnaliseMinAggregateOutputType | null
+    _max: RolePersonnaliseMaxAggregateOutputType | null
+  }
+
+  type GetRolePersonnaliseGroupByPayload<T extends RolePersonnaliseGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RolePersonnaliseGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RolePersonnaliseGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RolePersonnaliseGroupByOutputType[P]>
+            : GetScalarType<T[P], RolePersonnaliseGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RolePersonnaliseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    nom?: boolean
+    description?: boolean
+    couleur?: boolean
+    est_actif?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    utilisateurs?: boolean | RolePersonnalise$utilisateursArgs<ExtArgs>
+    permissions?: boolean | RolePersonnalise$permissionsArgs<ExtArgs>
+    _count?: boolean | RolePersonnaliseCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rolePersonnalise"]>
+
+  export type RolePersonnaliseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    nom?: boolean
+    description?: boolean
+    couleur?: boolean
+    est_actif?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rolePersonnalise"]>
+
+  export type RolePersonnaliseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    nom?: boolean
+    description?: boolean
+    couleur?: boolean
+    est_actif?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rolePersonnalise"]>
+
+  export type RolePersonnaliseSelectScalar = {
+    id?: boolean
+    hospital_id?: boolean
+    nom?: boolean
+    description?: boolean
+    couleur?: boolean
+    est_actif?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type RolePersonnaliseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "nom" | "description" | "couleur" | "est_actif" | "created_at" | "updated_at", ExtArgs["result"]["rolePersonnalise"]>
+  export type RolePersonnaliseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    utilisateurs?: boolean | RolePersonnalise$utilisateursArgs<ExtArgs>
+    permissions?: boolean | RolePersonnalise$permissionsArgs<ExtArgs>
+    _count?: boolean | RolePersonnaliseCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type RolePersonnaliseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
+  export type RolePersonnaliseIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
+
+  export type $RolePersonnalisePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RolePersonnalise"
+    objects: {
+      hospital: Prisma.$HospitalPayload<ExtArgs>
+      utilisateurs: Prisma.$UtilisateurPayload<ExtArgs>[]
+      permissions: Prisma.$PermissionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      hospital_id: string
+      nom: string
+      description: string | null
+      couleur: string
+      est_actif: boolean
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["rolePersonnalise"]>
+    composites: {}
+  }
+
+  type RolePersonnaliseGetPayload<S extends boolean | null | undefined | RolePersonnaliseDefaultArgs> = $Result.GetResult<Prisma.$RolePersonnalisePayload, S>
+
+  type RolePersonnaliseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RolePersonnaliseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RolePersonnaliseCountAggregateInputType | true
+    }
+
+  export interface RolePersonnaliseDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RolePersonnalise'], meta: { name: 'RolePersonnalise' } }
+    /**
+     * Find zero or one RolePersonnalise that matches the filter.
+     * @param {RolePersonnaliseFindUniqueArgs} args - Arguments to find a RolePersonnalise
+     * @example
+     * // Get one RolePersonnalise
+     * const rolePersonnalise = await prisma.rolePersonnalise.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RolePersonnaliseFindUniqueArgs>(args: SelectSubset<T, RolePersonnaliseFindUniqueArgs<ExtArgs>>): Prisma__RolePersonnaliseClient<$Result.GetResult<Prisma.$RolePersonnalisePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one RolePersonnalise that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RolePersonnaliseFindUniqueOrThrowArgs} args - Arguments to find a RolePersonnalise
+     * @example
+     * // Get one RolePersonnalise
+     * const rolePersonnalise = await prisma.rolePersonnalise.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RolePersonnaliseFindUniqueOrThrowArgs>(args: SelectSubset<T, RolePersonnaliseFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RolePersonnaliseClient<$Result.GetResult<Prisma.$RolePersonnalisePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RolePersonnalise that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RolePersonnaliseFindFirstArgs} args - Arguments to find a RolePersonnalise
+     * @example
+     * // Get one RolePersonnalise
+     * const rolePersonnalise = await prisma.rolePersonnalise.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RolePersonnaliseFindFirstArgs>(args?: SelectSubset<T, RolePersonnaliseFindFirstArgs<ExtArgs>>): Prisma__RolePersonnaliseClient<$Result.GetResult<Prisma.$RolePersonnalisePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RolePersonnalise that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RolePersonnaliseFindFirstOrThrowArgs} args - Arguments to find a RolePersonnalise
+     * @example
+     * // Get one RolePersonnalise
+     * const rolePersonnalise = await prisma.rolePersonnalise.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RolePersonnaliseFindFirstOrThrowArgs>(args?: SelectSubset<T, RolePersonnaliseFindFirstOrThrowArgs<ExtArgs>>): Prisma__RolePersonnaliseClient<$Result.GetResult<Prisma.$RolePersonnalisePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RolePersonnalises that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RolePersonnaliseFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RolePersonnalises
+     * const rolePersonnalises = await prisma.rolePersonnalise.findMany()
+     * 
+     * // Get first 10 RolePersonnalises
+     * const rolePersonnalises = await prisma.rolePersonnalise.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const rolePersonnaliseWithIdOnly = await prisma.rolePersonnalise.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RolePersonnaliseFindManyArgs>(args?: SelectSubset<T, RolePersonnaliseFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePersonnalisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a RolePersonnalise.
+     * @param {RolePersonnaliseCreateArgs} args - Arguments to create a RolePersonnalise.
+     * @example
+     * // Create one RolePersonnalise
+     * const RolePersonnalise = await prisma.rolePersonnalise.create({
+     *   data: {
+     *     // ... data to create a RolePersonnalise
+     *   }
+     * })
+     * 
+     */
+    create<T extends RolePersonnaliseCreateArgs>(args: SelectSubset<T, RolePersonnaliseCreateArgs<ExtArgs>>): Prisma__RolePersonnaliseClient<$Result.GetResult<Prisma.$RolePersonnalisePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many RolePersonnalises.
+     * @param {RolePersonnaliseCreateManyArgs} args - Arguments to create many RolePersonnalises.
+     * @example
+     * // Create many RolePersonnalises
+     * const rolePersonnalise = await prisma.rolePersonnalise.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RolePersonnaliseCreateManyArgs>(args?: SelectSubset<T, RolePersonnaliseCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RolePersonnalises and returns the data saved in the database.
+     * @param {RolePersonnaliseCreateManyAndReturnArgs} args - Arguments to create many RolePersonnalises.
+     * @example
+     * // Create many RolePersonnalises
+     * const rolePersonnalise = await prisma.rolePersonnalise.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RolePersonnalises and only return the `id`
+     * const rolePersonnaliseWithIdOnly = await prisma.rolePersonnalise.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RolePersonnaliseCreateManyAndReturnArgs>(args?: SelectSubset<T, RolePersonnaliseCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePersonnalisePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a RolePersonnalise.
+     * @param {RolePersonnaliseDeleteArgs} args - Arguments to delete one RolePersonnalise.
+     * @example
+     * // Delete one RolePersonnalise
+     * const RolePersonnalise = await prisma.rolePersonnalise.delete({
+     *   where: {
+     *     // ... filter to delete one RolePersonnalise
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RolePersonnaliseDeleteArgs>(args: SelectSubset<T, RolePersonnaliseDeleteArgs<ExtArgs>>): Prisma__RolePersonnaliseClient<$Result.GetResult<Prisma.$RolePersonnalisePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one RolePersonnalise.
+     * @param {RolePersonnaliseUpdateArgs} args - Arguments to update one RolePersonnalise.
+     * @example
+     * // Update one RolePersonnalise
+     * const rolePersonnalise = await prisma.rolePersonnalise.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RolePersonnaliseUpdateArgs>(args: SelectSubset<T, RolePersonnaliseUpdateArgs<ExtArgs>>): Prisma__RolePersonnaliseClient<$Result.GetResult<Prisma.$RolePersonnalisePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more RolePersonnalises.
+     * @param {RolePersonnaliseDeleteManyArgs} args - Arguments to filter RolePersonnalises to delete.
+     * @example
+     * // Delete a few RolePersonnalises
+     * const { count } = await prisma.rolePersonnalise.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RolePersonnaliseDeleteManyArgs>(args?: SelectSubset<T, RolePersonnaliseDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RolePersonnalises.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RolePersonnaliseUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RolePersonnalises
+     * const rolePersonnalise = await prisma.rolePersonnalise.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RolePersonnaliseUpdateManyArgs>(args: SelectSubset<T, RolePersonnaliseUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RolePersonnalises and returns the data updated in the database.
+     * @param {RolePersonnaliseUpdateManyAndReturnArgs} args - Arguments to update many RolePersonnalises.
+     * @example
+     * // Update many RolePersonnalises
+     * const rolePersonnalise = await prisma.rolePersonnalise.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more RolePersonnalises and only return the `id`
+     * const rolePersonnaliseWithIdOnly = await prisma.rolePersonnalise.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RolePersonnaliseUpdateManyAndReturnArgs>(args: SelectSubset<T, RolePersonnaliseUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePersonnalisePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one RolePersonnalise.
+     * @param {RolePersonnaliseUpsertArgs} args - Arguments to update or create a RolePersonnalise.
+     * @example
+     * // Update or create a RolePersonnalise
+     * const rolePersonnalise = await prisma.rolePersonnalise.upsert({
+     *   create: {
+     *     // ... data to create a RolePersonnalise
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RolePersonnalise we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RolePersonnaliseUpsertArgs>(args: SelectSubset<T, RolePersonnaliseUpsertArgs<ExtArgs>>): Prisma__RolePersonnaliseClient<$Result.GetResult<Prisma.$RolePersonnalisePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of RolePersonnalises.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RolePersonnaliseCountArgs} args - Arguments to filter RolePersonnalises to count.
+     * @example
+     * // Count the number of RolePersonnalises
+     * const count = await prisma.rolePersonnalise.count({
+     *   where: {
+     *     // ... the filter for the RolePersonnalises we want to count
+     *   }
+     * })
+    **/
+    count<T extends RolePersonnaliseCountArgs>(
+      args?: Subset<T, RolePersonnaliseCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RolePersonnaliseCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RolePersonnalise.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RolePersonnaliseAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RolePersonnaliseAggregateArgs>(args: Subset<T, RolePersonnaliseAggregateArgs>): Prisma.PrismaPromise<GetRolePersonnaliseAggregateType<T>>
+
+    /**
+     * Group by RolePersonnalise.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RolePersonnaliseGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RolePersonnaliseGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RolePersonnaliseGroupByArgs['orderBy'] }
+        : { orderBy?: RolePersonnaliseGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RolePersonnaliseGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRolePersonnaliseGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RolePersonnalise model
+   */
+  readonly fields: RolePersonnaliseFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RolePersonnalise.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RolePersonnaliseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    utilisateurs<T extends RolePersonnalise$utilisateursArgs<ExtArgs> = {}>(args?: Subset<T, RolePersonnalise$utilisateursArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UtilisateurPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    permissions<T extends RolePersonnalise$permissionsArgs<ExtArgs> = {}>(args?: Subset<T, RolePersonnalise$permissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RolePersonnalise model
+   */
+  interface RolePersonnaliseFieldRefs {
+    readonly id: FieldRef<"RolePersonnalise", 'String'>
+    readonly hospital_id: FieldRef<"RolePersonnalise", 'String'>
+    readonly nom: FieldRef<"RolePersonnalise", 'String'>
+    readonly description: FieldRef<"RolePersonnalise", 'String'>
+    readonly couleur: FieldRef<"RolePersonnalise", 'String'>
+    readonly est_actif: FieldRef<"RolePersonnalise", 'Boolean'>
+    readonly created_at: FieldRef<"RolePersonnalise", 'DateTime'>
+    readonly updated_at: FieldRef<"RolePersonnalise", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RolePersonnalise findUnique
+   */
+  export type RolePersonnaliseFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePersonnalise
+     */
+    select?: RolePersonnaliseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePersonnalise
+     */
+    omit?: RolePersonnaliseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePersonnaliseInclude<ExtArgs> | null
+    /**
+     * Filter, which RolePersonnalise to fetch.
+     */
+    where: RolePersonnaliseWhereUniqueInput
+  }
+
+  /**
+   * RolePersonnalise findUniqueOrThrow
+   */
+  export type RolePersonnaliseFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePersonnalise
+     */
+    select?: RolePersonnaliseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePersonnalise
+     */
+    omit?: RolePersonnaliseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePersonnaliseInclude<ExtArgs> | null
+    /**
+     * Filter, which RolePersonnalise to fetch.
+     */
+    where: RolePersonnaliseWhereUniqueInput
+  }
+
+  /**
+   * RolePersonnalise findFirst
+   */
+  export type RolePersonnaliseFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePersonnalise
+     */
+    select?: RolePersonnaliseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePersonnalise
+     */
+    omit?: RolePersonnaliseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePersonnaliseInclude<ExtArgs> | null
+    /**
+     * Filter, which RolePersonnalise to fetch.
+     */
+    where?: RolePersonnaliseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RolePersonnalises to fetch.
+     */
+    orderBy?: RolePersonnaliseOrderByWithRelationInput | RolePersonnaliseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RolePersonnalises.
+     */
+    cursor?: RolePersonnaliseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RolePersonnalises from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RolePersonnalises.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RolePersonnalises.
+     */
+    distinct?: RolePersonnaliseScalarFieldEnum | RolePersonnaliseScalarFieldEnum[]
+  }
+
+  /**
+   * RolePersonnalise findFirstOrThrow
+   */
+  export type RolePersonnaliseFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePersonnalise
+     */
+    select?: RolePersonnaliseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePersonnalise
+     */
+    omit?: RolePersonnaliseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePersonnaliseInclude<ExtArgs> | null
+    /**
+     * Filter, which RolePersonnalise to fetch.
+     */
+    where?: RolePersonnaliseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RolePersonnalises to fetch.
+     */
+    orderBy?: RolePersonnaliseOrderByWithRelationInput | RolePersonnaliseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RolePersonnalises.
+     */
+    cursor?: RolePersonnaliseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RolePersonnalises from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RolePersonnalises.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RolePersonnalises.
+     */
+    distinct?: RolePersonnaliseScalarFieldEnum | RolePersonnaliseScalarFieldEnum[]
+  }
+
+  /**
+   * RolePersonnalise findMany
+   */
+  export type RolePersonnaliseFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePersonnalise
+     */
+    select?: RolePersonnaliseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePersonnalise
+     */
+    omit?: RolePersonnaliseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePersonnaliseInclude<ExtArgs> | null
+    /**
+     * Filter, which RolePersonnalises to fetch.
+     */
+    where?: RolePersonnaliseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RolePersonnalises to fetch.
+     */
+    orderBy?: RolePersonnaliseOrderByWithRelationInput | RolePersonnaliseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RolePersonnalises.
+     */
+    cursor?: RolePersonnaliseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RolePersonnalises from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RolePersonnalises.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RolePersonnalises.
+     */
+    distinct?: RolePersonnaliseScalarFieldEnum | RolePersonnaliseScalarFieldEnum[]
+  }
+
+  /**
+   * RolePersonnalise create
+   */
+  export type RolePersonnaliseCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePersonnalise
+     */
+    select?: RolePersonnaliseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePersonnalise
+     */
+    omit?: RolePersonnaliseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePersonnaliseInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RolePersonnalise.
+     */
+    data: XOR<RolePersonnaliseCreateInput, RolePersonnaliseUncheckedCreateInput>
+  }
+
+  /**
+   * RolePersonnalise createMany
+   */
+  export type RolePersonnaliseCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RolePersonnalises.
+     */
+    data: RolePersonnaliseCreateManyInput | RolePersonnaliseCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RolePersonnalise createManyAndReturn
+   */
+  export type RolePersonnaliseCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePersonnalise
+     */
+    select?: RolePersonnaliseSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePersonnalise
+     */
+    omit?: RolePersonnaliseOmit<ExtArgs> | null
+    /**
+     * The data used to create many RolePersonnalises.
+     */
+    data: RolePersonnaliseCreateManyInput | RolePersonnaliseCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePersonnaliseIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RolePersonnalise update
+   */
+  export type RolePersonnaliseUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePersonnalise
+     */
+    select?: RolePersonnaliseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePersonnalise
+     */
+    omit?: RolePersonnaliseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePersonnaliseInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RolePersonnalise.
+     */
+    data: XOR<RolePersonnaliseUpdateInput, RolePersonnaliseUncheckedUpdateInput>
+    /**
+     * Choose, which RolePersonnalise to update.
+     */
+    where: RolePersonnaliseWhereUniqueInput
+  }
+
+  /**
+   * RolePersonnalise updateMany
+   */
+  export type RolePersonnaliseUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RolePersonnalises.
+     */
+    data: XOR<RolePersonnaliseUpdateManyMutationInput, RolePersonnaliseUncheckedUpdateManyInput>
+    /**
+     * Filter which RolePersonnalises to update
+     */
+    where?: RolePersonnaliseWhereInput
+    /**
+     * Limit how many RolePersonnalises to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RolePersonnalise updateManyAndReturn
+   */
+  export type RolePersonnaliseUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePersonnalise
+     */
+    select?: RolePersonnaliseSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePersonnalise
+     */
+    omit?: RolePersonnaliseOmit<ExtArgs> | null
+    /**
+     * The data used to update RolePersonnalises.
+     */
+    data: XOR<RolePersonnaliseUpdateManyMutationInput, RolePersonnaliseUncheckedUpdateManyInput>
+    /**
+     * Filter which RolePersonnalises to update
+     */
+    where?: RolePersonnaliseWhereInput
+    /**
+     * Limit how many RolePersonnalises to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePersonnaliseIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RolePersonnalise upsert
+   */
+  export type RolePersonnaliseUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePersonnalise
+     */
+    select?: RolePersonnaliseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePersonnalise
+     */
+    omit?: RolePersonnaliseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePersonnaliseInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RolePersonnalise to update in case it exists.
+     */
+    where: RolePersonnaliseWhereUniqueInput
+    /**
+     * In case the RolePersonnalise found by the `where` argument doesn't exist, create a new RolePersonnalise with this data.
+     */
+    create: XOR<RolePersonnaliseCreateInput, RolePersonnaliseUncheckedCreateInput>
+    /**
+     * In case the RolePersonnalise was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RolePersonnaliseUpdateInput, RolePersonnaliseUncheckedUpdateInput>
+  }
+
+  /**
+   * RolePersonnalise delete
+   */
+  export type RolePersonnaliseDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePersonnalise
+     */
+    select?: RolePersonnaliseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePersonnalise
+     */
+    omit?: RolePersonnaliseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePersonnaliseInclude<ExtArgs> | null
+    /**
+     * Filter which RolePersonnalise to delete.
+     */
+    where: RolePersonnaliseWhereUniqueInput
+  }
+
+  /**
+   * RolePersonnalise deleteMany
+   */
+  export type RolePersonnaliseDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RolePersonnalises to delete
+     */
+    where?: RolePersonnaliseWhereInput
+    /**
+     * Limit how many RolePersonnalises to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * RolePersonnalise.utilisateurs
+   */
+  export type RolePersonnalise$utilisateursArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Utilisateur
+     */
+    select?: UtilisateurSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Utilisateur
+     */
+    omit?: UtilisateurOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UtilisateurInclude<ExtArgs> | null
+    where?: UtilisateurWhereInput
+    orderBy?: UtilisateurOrderByWithRelationInput | UtilisateurOrderByWithRelationInput[]
+    cursor?: UtilisateurWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UtilisateurScalarFieldEnum | UtilisateurScalarFieldEnum[]
+  }
+
+  /**
+   * RolePersonnalise.permissions
+   */
+  export type RolePersonnalise$permissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Permission
+     */
+    omit?: PermissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    where?: PermissionWhereInput
+    orderBy?: PermissionOrderByWithRelationInput | PermissionOrderByWithRelationInput[]
+    cursor?: PermissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PermissionScalarFieldEnum | PermissionScalarFieldEnum[]
+  }
+
+  /**
+   * RolePersonnalise without action
+   */
+  export type RolePersonnaliseDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RolePersonnalise
+     */
+    select?: RolePersonnaliseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RolePersonnalise
+     */
+    omit?: RolePersonnaliseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RolePersonnaliseInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -26714,6 +29378,7 @@ export namespace Prisma {
     role: 'role',
     est_actif: 'est_actif',
     avatar_url: 'avatar_url',
+    role_personnalise_id: 'role_personnalise_id',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -27025,6 +29690,37 @@ export namespace Prisma {
   };
 
   export type LigneHospitalisationScalarFieldEnum = (typeof LigneHospitalisationScalarFieldEnum)[keyof typeof LigneHospitalisationScalarFieldEnum]
+
+
+  export const PermissionScalarFieldEnum: {
+    id: 'id',
+    hospital_id: 'hospital_id',
+    role: 'role',
+    role_personnalise_id: 'role_personnalise_id',
+    module: 'module',
+    peut_voir: 'peut_voir',
+    peut_creer: 'peut_creer',
+    peut_modifier: 'peut_modifier',
+    peut_supprimer: 'peut_supprimer',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type PermissionScalarFieldEnum = (typeof PermissionScalarFieldEnum)[keyof typeof PermissionScalarFieldEnum]
+
+
+  export const RolePersonnaliseScalarFieldEnum: {
+    id: 'id',
+    hospital_id: 'hospital_id',
+    nom: 'nom',
+    description: 'description',
+    couleur: 'couleur',
+    est_actif: 'est_actif',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type RolePersonnaliseScalarFieldEnum = (typeof RolePersonnaliseScalarFieldEnum)[keyof typeof RolePersonnaliseScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -27418,6 +30114,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailListRelationFilter
     chambres?: ChambreListRelationFilter
     hospitalisations?: HospitalisationListRelationFilter
+    permissions?: PermissionListRelationFilter
+    roles_personnalises?: RolePersonnaliseListRelationFilter
   }
 
   export type HospitalOrderByWithRelationInput = {
@@ -27444,6 +30142,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailOrderByRelationAggregateInput
     chambres?: ChambreOrderByRelationAggregateInput
     hospitalisations?: HospitalisationOrderByRelationAggregateInput
+    permissions?: PermissionOrderByRelationAggregateInput
+    roles_personnalises?: RolePersonnaliseOrderByRelationAggregateInput
   }
 
   export type HospitalWhereUniqueInput = Prisma.AtLeast<{
@@ -27473,6 +30173,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailListRelationFilter
     chambres?: ChambreListRelationFilter
     hospitalisations?: HospitalisationListRelationFilter
+    permissions?: PermissionListRelationFilter
+    roles_personnalises?: RolePersonnaliseListRelationFilter
   }, "id">
 
   export type HospitalOrderByWithAggregationInput = {
@@ -27521,6 +30223,7 @@ export namespace Prisma {
     role?: EnumRoleFilter<"Utilisateur"> | $Enums.Role
     est_actif?: BoolFilter<"Utilisateur"> | boolean
     avatar_url?: StringNullableFilter<"Utilisateur"> | string | null
+    role_personnalise_id?: StringNullableFilter<"Utilisateur"> | string | null
     created_at?: DateTimeFilter<"Utilisateur"> | Date | string
     updated_at?: DateTimeFilter<"Utilisateur"> | Date | string
     hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
@@ -27528,6 +30231,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboListRelationFilter
     examens_imagerie_prescrits?: ExamenImagerieListRelationFilter
     hospitalisations_responsable?: HospitalisationListRelationFilter
+    role_personnalise?: XOR<RolePersonnaliseNullableScalarRelationFilter, RolePersonnaliseWhereInput> | null
   }
 
   export type UtilisateurOrderByWithRelationInput = {
@@ -27541,6 +30245,7 @@ export namespace Prisma {
     role?: SortOrder
     est_actif?: SortOrder
     avatar_url?: SortOrderInput | SortOrder
+    role_personnalise_id?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     hospital?: HospitalOrderByWithRelationInput
@@ -27548,6 +30253,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboOrderByRelationAggregateInput
     examens_imagerie_prescrits?: ExamenImagerieOrderByRelationAggregateInput
     hospitalisations_responsable?: HospitalisationOrderByRelationAggregateInput
+    role_personnalise?: RolePersonnaliseOrderByWithRelationInput
   }
 
   export type UtilisateurWhereUniqueInput = Prisma.AtLeast<{
@@ -27564,6 +30270,7 @@ export namespace Prisma {
     role?: EnumRoleFilter<"Utilisateur"> | $Enums.Role
     est_actif?: BoolFilter<"Utilisateur"> | boolean
     avatar_url?: StringNullableFilter<"Utilisateur"> | string | null
+    role_personnalise_id?: StringNullableFilter<"Utilisateur"> | string | null
     created_at?: DateTimeFilter<"Utilisateur"> | Date | string
     updated_at?: DateTimeFilter<"Utilisateur"> | Date | string
     hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
@@ -27571,6 +30278,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboListRelationFilter
     examens_imagerie_prescrits?: ExamenImagerieListRelationFilter
     hospitalisations_responsable?: HospitalisationListRelationFilter
+    role_personnalise?: XOR<RolePersonnaliseNullableScalarRelationFilter, RolePersonnaliseWhereInput> | null
   }, "id" | "supabase_uid" | "email">
 
   export type UtilisateurOrderByWithAggregationInput = {
@@ -27584,6 +30292,7 @@ export namespace Prisma {
     role?: SortOrder
     est_actif?: SortOrder
     avatar_url?: SortOrderInput | SortOrder
+    role_personnalise_id?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: UtilisateurCountOrderByAggregateInput
@@ -27605,6 +30314,7 @@ export namespace Prisma {
     role?: EnumRoleWithAggregatesFilter<"Utilisateur"> | $Enums.Role
     est_actif?: BoolWithAggregatesFilter<"Utilisateur"> | boolean
     avatar_url?: StringNullableWithAggregatesFilter<"Utilisateur"> | string | null
+    role_personnalise_id?: StringNullableWithAggregatesFilter<"Utilisateur"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Utilisateur"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Utilisateur"> | Date | string
   }
@@ -29261,6 +31971,173 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"LigneHospitalisation"> | Date | string
   }
 
+  export type PermissionWhereInput = {
+    AND?: PermissionWhereInput | PermissionWhereInput[]
+    OR?: PermissionWhereInput[]
+    NOT?: PermissionWhereInput | PermissionWhereInput[]
+    id?: StringFilter<"Permission"> | string
+    hospital_id?: StringFilter<"Permission"> | string
+    role?: EnumRoleNullableFilter<"Permission"> | $Enums.Role | null
+    role_personnalise_id?: StringNullableFilter<"Permission"> | string | null
+    module?: StringFilter<"Permission"> | string
+    peut_voir?: BoolFilter<"Permission"> | boolean
+    peut_creer?: BoolFilter<"Permission"> | boolean
+    peut_modifier?: BoolFilter<"Permission"> | boolean
+    peut_supprimer?: BoolFilter<"Permission"> | boolean
+    created_at?: DateTimeFilter<"Permission"> | Date | string
+    updated_at?: DateTimeFilter<"Permission"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+    role_personnalise?: XOR<RolePersonnaliseNullableScalarRelationFilter, RolePersonnaliseWhereInput> | null
+  }
+
+  export type PermissionOrderByWithRelationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    role?: SortOrderInput | SortOrder
+    role_personnalise_id?: SortOrderInput | SortOrder
+    module?: SortOrder
+    peut_voir?: SortOrder
+    peut_creer?: SortOrder
+    peut_modifier?: SortOrder
+    peut_supprimer?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    hospital?: HospitalOrderByWithRelationInput
+    role_personnalise?: RolePersonnaliseOrderByWithRelationInput
+  }
+
+  export type PermissionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    hospital_id_role_module?: PermissionHospital_idRoleModuleCompoundUniqueInput
+    hospital_id_role_personnalise_id_module?: PermissionHospital_idRole_personnalise_idModuleCompoundUniqueInput
+    AND?: PermissionWhereInput | PermissionWhereInput[]
+    OR?: PermissionWhereInput[]
+    NOT?: PermissionWhereInput | PermissionWhereInput[]
+    hospital_id?: StringFilter<"Permission"> | string
+    role?: EnumRoleNullableFilter<"Permission"> | $Enums.Role | null
+    role_personnalise_id?: StringNullableFilter<"Permission"> | string | null
+    module?: StringFilter<"Permission"> | string
+    peut_voir?: BoolFilter<"Permission"> | boolean
+    peut_creer?: BoolFilter<"Permission"> | boolean
+    peut_modifier?: BoolFilter<"Permission"> | boolean
+    peut_supprimer?: BoolFilter<"Permission"> | boolean
+    created_at?: DateTimeFilter<"Permission"> | Date | string
+    updated_at?: DateTimeFilter<"Permission"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+    role_personnalise?: XOR<RolePersonnaliseNullableScalarRelationFilter, RolePersonnaliseWhereInput> | null
+  }, "id" | "hospital_id_role_module" | "hospital_id_role_personnalise_id_module">
+
+  export type PermissionOrderByWithAggregationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    role?: SortOrderInput | SortOrder
+    role_personnalise_id?: SortOrderInput | SortOrder
+    module?: SortOrder
+    peut_voir?: SortOrder
+    peut_creer?: SortOrder
+    peut_modifier?: SortOrder
+    peut_supprimer?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: PermissionCountOrderByAggregateInput
+    _max?: PermissionMaxOrderByAggregateInput
+    _min?: PermissionMinOrderByAggregateInput
+  }
+
+  export type PermissionScalarWhereWithAggregatesInput = {
+    AND?: PermissionScalarWhereWithAggregatesInput | PermissionScalarWhereWithAggregatesInput[]
+    OR?: PermissionScalarWhereWithAggregatesInput[]
+    NOT?: PermissionScalarWhereWithAggregatesInput | PermissionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Permission"> | string
+    hospital_id?: StringWithAggregatesFilter<"Permission"> | string
+    role?: EnumRoleNullableWithAggregatesFilter<"Permission"> | $Enums.Role | null
+    role_personnalise_id?: StringNullableWithAggregatesFilter<"Permission"> | string | null
+    module?: StringWithAggregatesFilter<"Permission"> | string
+    peut_voir?: BoolWithAggregatesFilter<"Permission"> | boolean
+    peut_creer?: BoolWithAggregatesFilter<"Permission"> | boolean
+    peut_modifier?: BoolWithAggregatesFilter<"Permission"> | boolean
+    peut_supprimer?: BoolWithAggregatesFilter<"Permission"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"Permission"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Permission"> | Date | string
+  }
+
+  export type RolePersonnaliseWhereInput = {
+    AND?: RolePersonnaliseWhereInput | RolePersonnaliseWhereInput[]
+    OR?: RolePersonnaliseWhereInput[]
+    NOT?: RolePersonnaliseWhereInput | RolePersonnaliseWhereInput[]
+    id?: StringFilter<"RolePersonnalise"> | string
+    hospital_id?: StringFilter<"RolePersonnalise"> | string
+    nom?: StringFilter<"RolePersonnalise"> | string
+    description?: StringNullableFilter<"RolePersonnalise"> | string | null
+    couleur?: StringFilter<"RolePersonnalise"> | string
+    est_actif?: BoolFilter<"RolePersonnalise"> | boolean
+    created_at?: DateTimeFilter<"RolePersonnalise"> | Date | string
+    updated_at?: DateTimeFilter<"RolePersonnalise"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+    utilisateurs?: UtilisateurListRelationFilter
+    permissions?: PermissionListRelationFilter
+  }
+
+  export type RolePersonnaliseOrderByWithRelationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    nom?: SortOrder
+    description?: SortOrderInput | SortOrder
+    couleur?: SortOrder
+    est_actif?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    hospital?: HospitalOrderByWithRelationInput
+    utilisateurs?: UtilisateurOrderByRelationAggregateInput
+    permissions?: PermissionOrderByRelationAggregateInput
+  }
+
+  export type RolePersonnaliseWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    hospital_id_nom?: RolePersonnaliseHospital_idNomCompoundUniqueInput
+    AND?: RolePersonnaliseWhereInput | RolePersonnaliseWhereInput[]
+    OR?: RolePersonnaliseWhereInput[]
+    NOT?: RolePersonnaliseWhereInput | RolePersonnaliseWhereInput[]
+    hospital_id?: StringFilter<"RolePersonnalise"> | string
+    nom?: StringFilter<"RolePersonnalise"> | string
+    description?: StringNullableFilter<"RolePersonnalise"> | string | null
+    couleur?: StringFilter<"RolePersonnalise"> | string
+    est_actif?: BoolFilter<"RolePersonnalise"> | boolean
+    created_at?: DateTimeFilter<"RolePersonnalise"> | Date | string
+    updated_at?: DateTimeFilter<"RolePersonnalise"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+    utilisateurs?: UtilisateurListRelationFilter
+    permissions?: PermissionListRelationFilter
+  }, "id" | "hospital_id_nom">
+
+  export type RolePersonnaliseOrderByWithAggregationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    nom?: SortOrder
+    description?: SortOrderInput | SortOrder
+    couleur?: SortOrder
+    est_actif?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: RolePersonnaliseCountOrderByAggregateInput
+    _max?: RolePersonnaliseMaxOrderByAggregateInput
+    _min?: RolePersonnaliseMinOrderByAggregateInput
+  }
+
+  export type RolePersonnaliseScalarWhereWithAggregatesInput = {
+    AND?: RolePersonnaliseScalarWhereWithAggregatesInput | RolePersonnaliseScalarWhereWithAggregatesInput[]
+    OR?: RolePersonnaliseScalarWhereWithAggregatesInput[]
+    NOT?: RolePersonnaliseScalarWhereWithAggregatesInput | RolePersonnaliseScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RolePersonnalise"> | string
+    hospital_id?: StringWithAggregatesFilter<"RolePersonnalise"> | string
+    nom?: StringWithAggregatesFilter<"RolePersonnalise"> | string
+    description?: StringNullableWithAggregatesFilter<"RolePersonnalise"> | string | null
+    couleur?: StringWithAggregatesFilter<"RolePersonnalise"> | string
+    est_actif?: BoolWithAggregatesFilter<"RolePersonnalise"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"RolePersonnalise"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"RolePersonnalise"> | Date | string
+  }
+
   export type HospitalCreateInput = {
     id?: string
     nom: string
@@ -29285,6 +32162,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateInput = {
@@ -29311,6 +32190,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUpdateInput = {
@@ -29337,6 +32218,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateInput = {
@@ -29363,6 +32246,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalCreateManyInput = {
@@ -29421,6 +32306,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboCreateNestedManyWithoutMedecinInput
     examens_imagerie_prescrits?: ExamenImagerieCreateNestedManyWithoutMedecinInput
     hospitalisations_responsable?: HospitalisationCreateNestedManyWithoutMedecinInput
+    role_personnalise?: RolePersonnaliseCreateNestedOneWithoutUtilisateursInput
   }
 
   export type UtilisateurUncheckedCreateInput = {
@@ -29434,6 +32320,7 @@ export namespace Prisma {
     role?: $Enums.Role
     est_actif?: boolean
     avatar_url?: string | null
+    role_personnalise_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     consultations?: ConsultationUncheckedCreateNestedManyWithoutMedecinInput
@@ -29459,6 +32346,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboUpdateManyWithoutMedecinNestedInput
     examens_imagerie_prescrits?: ExamenImagerieUpdateManyWithoutMedecinNestedInput
     hospitalisations_responsable?: HospitalisationUpdateManyWithoutMedecinNestedInput
+    role_personnalise?: RolePersonnaliseUpdateOneWithoutUtilisateursNestedInput
   }
 
   export type UtilisateurUncheckedUpdateInput = {
@@ -29472,6 +32360,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     est_actif?: BoolFieldUpdateOperationsInput | boolean
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    role_personnalise_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     consultations?: ConsultationUncheckedUpdateManyWithoutMedecinNestedInput
@@ -29491,6 +32380,7 @@ export namespace Prisma {
     role?: $Enums.Role
     est_actif?: boolean
     avatar_url?: string | null
+    role_personnalise_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -29520,6 +32410,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     est_actif?: BoolFieldUpdateOperationsInput | boolean
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    role_personnalise_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -31344,6 +34235,186 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PermissionCreateInput = {
+    id?: string
+    role?: $Enums.Role | null
+    module: string
+    peut_voir?: boolean
+    peut_creer?: boolean
+    peut_modifier?: boolean
+    peut_supprimer?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutPermissionsInput
+    role_personnalise?: RolePersonnaliseCreateNestedOneWithoutPermissionsInput
+  }
+
+  export type PermissionUncheckedCreateInput = {
+    id?: string
+    hospital_id: string
+    role?: $Enums.Role | null
+    role_personnalise_id?: string | null
+    module: string
+    peut_voir?: boolean
+    peut_creer?: boolean
+    peut_modifier?: boolean
+    peut_supprimer?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type PermissionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    module?: StringFieldUpdateOperationsInput | string
+    peut_voir?: BoolFieldUpdateOperationsInput | boolean
+    peut_creer?: BoolFieldUpdateOperationsInput | boolean
+    peut_modifier?: BoolFieldUpdateOperationsInput | boolean
+    peut_supprimer?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutPermissionsNestedInput
+    role_personnalise?: RolePersonnaliseUpdateOneWithoutPermissionsNestedInput
+  }
+
+  export type PermissionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    role_personnalise_id?: NullableStringFieldUpdateOperationsInput | string | null
+    module?: StringFieldUpdateOperationsInput | string
+    peut_voir?: BoolFieldUpdateOperationsInput | boolean
+    peut_creer?: BoolFieldUpdateOperationsInput | boolean
+    peut_modifier?: BoolFieldUpdateOperationsInput | boolean
+    peut_supprimer?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PermissionCreateManyInput = {
+    id?: string
+    hospital_id: string
+    role?: $Enums.Role | null
+    role_personnalise_id?: string | null
+    module: string
+    peut_voir?: boolean
+    peut_creer?: boolean
+    peut_modifier?: boolean
+    peut_supprimer?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type PermissionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    module?: StringFieldUpdateOperationsInput | string
+    peut_voir?: BoolFieldUpdateOperationsInput | boolean
+    peut_creer?: BoolFieldUpdateOperationsInput | boolean
+    peut_modifier?: BoolFieldUpdateOperationsInput | boolean
+    peut_supprimer?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PermissionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    role_personnalise_id?: NullableStringFieldUpdateOperationsInput | string | null
+    module?: StringFieldUpdateOperationsInput | string
+    peut_voir?: BoolFieldUpdateOperationsInput | boolean
+    peut_creer?: BoolFieldUpdateOperationsInput | boolean
+    peut_modifier?: BoolFieldUpdateOperationsInput | boolean
+    peut_supprimer?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RolePersonnaliseCreateInput = {
+    id?: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutRoles_personnalisesInput
+    utilisateurs?: UtilisateurCreateNestedManyWithoutRole_personnaliseInput
+    permissions?: PermissionCreateNestedManyWithoutRole_personnaliseInput
+  }
+
+  export type RolePersonnaliseUncheckedCreateInput = {
+    id?: string
+    hospital_id: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutRole_personnaliseInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutRole_personnaliseInput
+  }
+
+  export type RolePersonnaliseUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutRoles_personnalisesNestedInput
+    utilisateurs?: UtilisateurUpdateManyWithoutRole_personnaliseNestedInput
+    permissions?: PermissionUpdateManyWithoutRole_personnaliseNestedInput
+  }
+
+  export type RolePersonnaliseUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUncheckedUpdateManyWithoutRole_personnaliseNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutRole_personnaliseNestedInput
+  }
+
+  export type RolePersonnaliseCreateManyInput = {
+    id?: string
+    hospital_id: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type RolePersonnaliseUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RolePersonnaliseUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -31468,6 +34539,18 @@ export namespace Prisma {
     none?: HospitalisationWhereInput
   }
 
+  export type PermissionListRelationFilter = {
+    every?: PermissionWhereInput
+    some?: PermissionWhereInput
+    none?: PermissionWhereInput
+  }
+
+  export type RolePersonnaliseListRelationFilter = {
+    every?: RolePersonnaliseWhereInput
+    some?: RolePersonnaliseWhereInput
+    none?: RolePersonnaliseWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -31522,6 +34605,14 @@ export namespace Prisma {
   }
 
   export type HospitalisationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PermissionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RolePersonnaliseOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -31634,6 +34725,11 @@ export namespace Prisma {
     isNot?: HospitalWhereInput
   }
 
+  export type RolePersonnaliseNullableScalarRelationFilter = {
+    is?: RolePersonnaliseWhereInput | null
+    isNot?: RolePersonnaliseWhereInput | null
+  }
+
   export type UtilisateurCountOrderByAggregateInput = {
     id?: SortOrder
     hospital_id?: SortOrder
@@ -31645,6 +34741,7 @@ export namespace Prisma {
     role?: SortOrder
     est_actif?: SortOrder
     avatar_url?: SortOrder
+    role_personnalise_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -31660,6 +34757,7 @@ export namespace Prisma {
     role?: SortOrder
     est_actif?: SortOrder
     avatar_url?: SortOrder
+    role_personnalise_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -31675,6 +34773,7 @@ export namespace Prisma {
     role?: SortOrder
     est_actif?: SortOrder
     avatar_url?: SortOrder
+    role_personnalise_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -33081,6 +36180,115 @@ export namespace Prisma {
     _max?: NestedEnumStatutLigneHospitalisationFilter<$PrismaModel>
   }
 
+  export type EnumRoleNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumRoleNullableFilter<$PrismaModel> | $Enums.Role | null
+  }
+
+  export type PermissionHospital_idRoleModuleCompoundUniqueInput = {
+    hospital_id: string
+    role: $Enums.Role
+    module: string
+  }
+
+  export type PermissionHospital_idRole_personnalise_idModuleCompoundUniqueInput = {
+    hospital_id: string
+    role_personnalise_id: string
+    module: string
+  }
+
+  export type PermissionCountOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    role?: SortOrder
+    role_personnalise_id?: SortOrder
+    module?: SortOrder
+    peut_voir?: SortOrder
+    peut_creer?: SortOrder
+    peut_modifier?: SortOrder
+    peut_supprimer?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type PermissionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    role?: SortOrder
+    role_personnalise_id?: SortOrder
+    module?: SortOrder
+    peut_voir?: SortOrder
+    peut_creer?: SortOrder
+    peut_modifier?: SortOrder
+    peut_supprimer?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type PermissionMinOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    role?: SortOrder
+    role_personnalise_id?: SortOrder
+    module?: SortOrder
+    peut_voir?: SortOrder
+    peut_creer?: SortOrder
+    peut_modifier?: SortOrder
+    peut_supprimer?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type EnumRoleNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumRoleNullableWithAggregatesFilter<$PrismaModel> | $Enums.Role | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumRoleNullableFilter<$PrismaModel>
+    _max?: NestedEnumRoleNullableFilter<$PrismaModel>
+  }
+
+  export type RolePersonnaliseHospital_idNomCompoundUniqueInput = {
+    hospital_id: string
+    nom: string
+  }
+
+  export type RolePersonnaliseCountOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    nom?: SortOrder
+    description?: SortOrder
+    couleur?: SortOrder
+    est_actif?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type RolePersonnaliseMaxOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    nom?: SortOrder
+    description?: SortOrder
+    couleur?: SortOrder
+    est_actif?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type RolePersonnaliseMinOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    nom?: SortOrder
+    description?: SortOrder
+    couleur?: SortOrder
+    est_actif?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
   export type UtilisateurCreateNestedManyWithoutHospitalInput = {
     create?: XOR<UtilisateurCreateWithoutHospitalInput, UtilisateurUncheckedCreateWithoutHospitalInput> | UtilisateurCreateWithoutHospitalInput[] | UtilisateurUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: UtilisateurCreateOrConnectWithoutHospitalInput | UtilisateurCreateOrConnectWithoutHospitalInput[]
@@ -33172,6 +36380,20 @@ export namespace Prisma {
     connect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
   }
 
+  export type PermissionCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<PermissionCreateWithoutHospitalInput, PermissionUncheckedCreateWithoutHospitalInput> | PermissionCreateWithoutHospitalInput[] | PermissionUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: PermissionCreateOrConnectWithoutHospitalInput | PermissionCreateOrConnectWithoutHospitalInput[]
+    createMany?: PermissionCreateManyHospitalInputEnvelope
+    connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+  }
+
+  export type RolePersonnaliseCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<RolePersonnaliseCreateWithoutHospitalInput, RolePersonnaliseUncheckedCreateWithoutHospitalInput> | RolePersonnaliseCreateWithoutHospitalInput[] | RolePersonnaliseUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: RolePersonnaliseCreateOrConnectWithoutHospitalInput | RolePersonnaliseCreateOrConnectWithoutHospitalInput[]
+    createMany?: RolePersonnaliseCreateManyHospitalInputEnvelope
+    connect?: RolePersonnaliseWhereUniqueInput | RolePersonnaliseWhereUniqueInput[]
+  }
+
   export type UtilisateurUncheckedCreateNestedManyWithoutHospitalInput = {
     create?: XOR<UtilisateurCreateWithoutHospitalInput, UtilisateurUncheckedCreateWithoutHospitalInput> | UtilisateurCreateWithoutHospitalInput[] | UtilisateurUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: UtilisateurCreateOrConnectWithoutHospitalInput | UtilisateurCreateOrConnectWithoutHospitalInput[]
@@ -33261,6 +36483,20 @@ export namespace Prisma {
     connectOrCreate?: HospitalisationCreateOrConnectWithoutHospitalInput | HospitalisationCreateOrConnectWithoutHospitalInput[]
     createMany?: HospitalisationCreateManyHospitalInputEnvelope
     connect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+  }
+
+  export type PermissionUncheckedCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<PermissionCreateWithoutHospitalInput, PermissionUncheckedCreateWithoutHospitalInput> | PermissionCreateWithoutHospitalInput[] | PermissionUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: PermissionCreateOrConnectWithoutHospitalInput | PermissionCreateOrConnectWithoutHospitalInput[]
+    createMany?: PermissionCreateManyHospitalInputEnvelope
+    connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+  }
+
+  export type RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<RolePersonnaliseCreateWithoutHospitalInput, RolePersonnaliseUncheckedCreateWithoutHospitalInput> | RolePersonnaliseCreateWithoutHospitalInput[] | RolePersonnaliseUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: RolePersonnaliseCreateOrConnectWithoutHospitalInput | RolePersonnaliseCreateOrConnectWithoutHospitalInput[]
+    createMany?: RolePersonnaliseCreateManyHospitalInputEnvelope
+    connect?: RolePersonnaliseWhereUniqueInput | RolePersonnaliseWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -33461,6 +36697,34 @@ export namespace Prisma {
     deleteMany?: HospitalisationScalarWhereInput | HospitalisationScalarWhereInput[]
   }
 
+  export type PermissionUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<PermissionCreateWithoutHospitalInput, PermissionUncheckedCreateWithoutHospitalInput> | PermissionCreateWithoutHospitalInput[] | PermissionUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: PermissionCreateOrConnectWithoutHospitalInput | PermissionCreateOrConnectWithoutHospitalInput[]
+    upsert?: PermissionUpsertWithWhereUniqueWithoutHospitalInput | PermissionUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: PermissionCreateManyHospitalInputEnvelope
+    set?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    disconnect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    delete?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    update?: PermissionUpdateWithWhereUniqueWithoutHospitalInput | PermissionUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: PermissionUpdateManyWithWhereWithoutHospitalInput | PermissionUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: PermissionScalarWhereInput | PermissionScalarWhereInput[]
+  }
+
+  export type RolePersonnaliseUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<RolePersonnaliseCreateWithoutHospitalInput, RolePersonnaliseUncheckedCreateWithoutHospitalInput> | RolePersonnaliseCreateWithoutHospitalInput[] | RolePersonnaliseUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: RolePersonnaliseCreateOrConnectWithoutHospitalInput | RolePersonnaliseCreateOrConnectWithoutHospitalInput[]
+    upsert?: RolePersonnaliseUpsertWithWhereUniqueWithoutHospitalInput | RolePersonnaliseUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: RolePersonnaliseCreateManyHospitalInputEnvelope
+    set?: RolePersonnaliseWhereUniqueInput | RolePersonnaliseWhereUniqueInput[]
+    disconnect?: RolePersonnaliseWhereUniqueInput | RolePersonnaliseWhereUniqueInput[]
+    delete?: RolePersonnaliseWhereUniqueInput | RolePersonnaliseWhereUniqueInput[]
+    connect?: RolePersonnaliseWhereUniqueInput | RolePersonnaliseWhereUniqueInput[]
+    update?: RolePersonnaliseUpdateWithWhereUniqueWithoutHospitalInput | RolePersonnaliseUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: RolePersonnaliseUpdateManyWithWhereWithoutHospitalInput | RolePersonnaliseUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: RolePersonnaliseScalarWhereInput | RolePersonnaliseScalarWhereInput[]
+  }
+
   export type UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput = {
     create?: XOR<UtilisateurCreateWithoutHospitalInput, UtilisateurUncheckedCreateWithoutHospitalInput> | UtilisateurCreateWithoutHospitalInput[] | UtilisateurUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: UtilisateurCreateOrConnectWithoutHospitalInput | UtilisateurCreateOrConnectWithoutHospitalInput[]
@@ -33643,6 +36907,34 @@ export namespace Prisma {
     deleteMany?: HospitalisationScalarWhereInput | HospitalisationScalarWhereInput[]
   }
 
+  export type PermissionUncheckedUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<PermissionCreateWithoutHospitalInput, PermissionUncheckedCreateWithoutHospitalInput> | PermissionCreateWithoutHospitalInput[] | PermissionUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: PermissionCreateOrConnectWithoutHospitalInput | PermissionCreateOrConnectWithoutHospitalInput[]
+    upsert?: PermissionUpsertWithWhereUniqueWithoutHospitalInput | PermissionUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: PermissionCreateManyHospitalInputEnvelope
+    set?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    disconnect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    delete?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    update?: PermissionUpdateWithWhereUniqueWithoutHospitalInput | PermissionUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: PermissionUpdateManyWithWhereWithoutHospitalInput | PermissionUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: PermissionScalarWhereInput | PermissionScalarWhereInput[]
+  }
+
+  export type RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<RolePersonnaliseCreateWithoutHospitalInput, RolePersonnaliseUncheckedCreateWithoutHospitalInput> | RolePersonnaliseCreateWithoutHospitalInput[] | RolePersonnaliseUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: RolePersonnaliseCreateOrConnectWithoutHospitalInput | RolePersonnaliseCreateOrConnectWithoutHospitalInput[]
+    upsert?: RolePersonnaliseUpsertWithWhereUniqueWithoutHospitalInput | RolePersonnaliseUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: RolePersonnaliseCreateManyHospitalInputEnvelope
+    set?: RolePersonnaliseWhereUniqueInput | RolePersonnaliseWhereUniqueInput[]
+    disconnect?: RolePersonnaliseWhereUniqueInput | RolePersonnaliseWhereUniqueInput[]
+    delete?: RolePersonnaliseWhereUniqueInput | RolePersonnaliseWhereUniqueInput[]
+    connect?: RolePersonnaliseWhereUniqueInput | RolePersonnaliseWhereUniqueInput[]
+    update?: RolePersonnaliseUpdateWithWhereUniqueWithoutHospitalInput | RolePersonnaliseUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: RolePersonnaliseUpdateManyWithWhereWithoutHospitalInput | RolePersonnaliseUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: RolePersonnaliseScalarWhereInput | RolePersonnaliseScalarWhereInput[]
+  }
+
   export type HospitalCreateNestedOneWithoutUtilisateursInput = {
     create?: XOR<HospitalCreateWithoutUtilisateursInput, HospitalUncheckedCreateWithoutUtilisateursInput>
     connectOrCreate?: HospitalCreateOrConnectWithoutUtilisateursInput
@@ -33675,6 +36967,12 @@ export namespace Prisma {
     connectOrCreate?: HospitalisationCreateOrConnectWithoutMedecinInput | HospitalisationCreateOrConnectWithoutMedecinInput[]
     createMany?: HospitalisationCreateManyMedecinInputEnvelope
     connect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+  }
+
+  export type RolePersonnaliseCreateNestedOneWithoutUtilisateursInput = {
+    create?: XOR<RolePersonnaliseCreateWithoutUtilisateursInput, RolePersonnaliseUncheckedCreateWithoutUtilisateursInput>
+    connectOrCreate?: RolePersonnaliseCreateOrConnectWithoutUtilisateursInput
+    connect?: RolePersonnaliseWhereUniqueInput
   }
 
   export type ConsultationUncheckedCreateNestedManyWithoutMedecinInput = {
@@ -33771,6 +37069,16 @@ export namespace Prisma {
     update?: HospitalisationUpdateWithWhereUniqueWithoutMedecinInput | HospitalisationUpdateWithWhereUniqueWithoutMedecinInput[]
     updateMany?: HospitalisationUpdateManyWithWhereWithoutMedecinInput | HospitalisationUpdateManyWithWhereWithoutMedecinInput[]
     deleteMany?: HospitalisationScalarWhereInput | HospitalisationScalarWhereInput[]
+  }
+
+  export type RolePersonnaliseUpdateOneWithoutUtilisateursNestedInput = {
+    create?: XOR<RolePersonnaliseCreateWithoutUtilisateursInput, RolePersonnaliseUncheckedCreateWithoutUtilisateursInput>
+    connectOrCreate?: RolePersonnaliseCreateOrConnectWithoutUtilisateursInput
+    upsert?: RolePersonnaliseUpsertWithoutUtilisateursInput
+    disconnect?: RolePersonnaliseWhereInput | boolean
+    delete?: RolePersonnaliseWhereInput | boolean
+    connect?: RolePersonnaliseWhereUniqueInput
+    update?: XOR<XOR<RolePersonnaliseUpdateToOneWithWhereWithoutUtilisateursInput, RolePersonnaliseUpdateWithoutUtilisateursInput>, RolePersonnaliseUncheckedUpdateWithoutUtilisateursInput>
   }
 
   export type ConsultationUncheckedUpdateManyWithoutMedecinNestedInput = {
@@ -35089,6 +38397,138 @@ export namespace Prisma {
     update?: XOR<XOR<ArticleStockUpdateToOneWithWhereWithoutLignes_hospitalisationInput, ArticleStockUpdateWithoutLignes_hospitalisationInput>, ArticleStockUncheckedUpdateWithoutLignes_hospitalisationInput>
   }
 
+  export type HospitalCreateNestedOneWithoutPermissionsInput = {
+    create?: XOR<HospitalCreateWithoutPermissionsInput, HospitalUncheckedCreateWithoutPermissionsInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutPermissionsInput
+    connect?: HospitalWhereUniqueInput
+  }
+
+  export type RolePersonnaliseCreateNestedOneWithoutPermissionsInput = {
+    create?: XOR<RolePersonnaliseCreateWithoutPermissionsInput, RolePersonnaliseUncheckedCreateWithoutPermissionsInput>
+    connectOrCreate?: RolePersonnaliseCreateOrConnectWithoutPermissionsInput
+    connect?: RolePersonnaliseWhereUniqueInput
+  }
+
+  export type NullableEnumRoleFieldUpdateOperationsInput = {
+    set?: $Enums.Role | null
+  }
+
+  export type HospitalUpdateOneRequiredWithoutPermissionsNestedInput = {
+    create?: XOR<HospitalCreateWithoutPermissionsInput, HospitalUncheckedCreateWithoutPermissionsInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutPermissionsInput
+    upsert?: HospitalUpsertWithoutPermissionsInput
+    connect?: HospitalWhereUniqueInput
+    update?: XOR<XOR<HospitalUpdateToOneWithWhereWithoutPermissionsInput, HospitalUpdateWithoutPermissionsInput>, HospitalUncheckedUpdateWithoutPermissionsInput>
+  }
+
+  export type RolePersonnaliseUpdateOneWithoutPermissionsNestedInput = {
+    create?: XOR<RolePersonnaliseCreateWithoutPermissionsInput, RolePersonnaliseUncheckedCreateWithoutPermissionsInput>
+    connectOrCreate?: RolePersonnaliseCreateOrConnectWithoutPermissionsInput
+    upsert?: RolePersonnaliseUpsertWithoutPermissionsInput
+    disconnect?: RolePersonnaliseWhereInput | boolean
+    delete?: RolePersonnaliseWhereInput | boolean
+    connect?: RolePersonnaliseWhereUniqueInput
+    update?: XOR<XOR<RolePersonnaliseUpdateToOneWithWhereWithoutPermissionsInput, RolePersonnaliseUpdateWithoutPermissionsInput>, RolePersonnaliseUncheckedUpdateWithoutPermissionsInput>
+  }
+
+  export type HospitalCreateNestedOneWithoutRoles_personnalisesInput = {
+    create?: XOR<HospitalCreateWithoutRoles_personnalisesInput, HospitalUncheckedCreateWithoutRoles_personnalisesInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutRoles_personnalisesInput
+    connect?: HospitalWhereUniqueInput
+  }
+
+  export type UtilisateurCreateNestedManyWithoutRole_personnaliseInput = {
+    create?: XOR<UtilisateurCreateWithoutRole_personnaliseInput, UtilisateurUncheckedCreateWithoutRole_personnaliseInput> | UtilisateurCreateWithoutRole_personnaliseInput[] | UtilisateurUncheckedCreateWithoutRole_personnaliseInput[]
+    connectOrCreate?: UtilisateurCreateOrConnectWithoutRole_personnaliseInput | UtilisateurCreateOrConnectWithoutRole_personnaliseInput[]
+    createMany?: UtilisateurCreateManyRole_personnaliseInputEnvelope
+    connect?: UtilisateurWhereUniqueInput | UtilisateurWhereUniqueInput[]
+  }
+
+  export type PermissionCreateNestedManyWithoutRole_personnaliseInput = {
+    create?: XOR<PermissionCreateWithoutRole_personnaliseInput, PermissionUncheckedCreateWithoutRole_personnaliseInput> | PermissionCreateWithoutRole_personnaliseInput[] | PermissionUncheckedCreateWithoutRole_personnaliseInput[]
+    connectOrCreate?: PermissionCreateOrConnectWithoutRole_personnaliseInput | PermissionCreateOrConnectWithoutRole_personnaliseInput[]
+    createMany?: PermissionCreateManyRole_personnaliseInputEnvelope
+    connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+  }
+
+  export type UtilisateurUncheckedCreateNestedManyWithoutRole_personnaliseInput = {
+    create?: XOR<UtilisateurCreateWithoutRole_personnaliseInput, UtilisateurUncheckedCreateWithoutRole_personnaliseInput> | UtilisateurCreateWithoutRole_personnaliseInput[] | UtilisateurUncheckedCreateWithoutRole_personnaliseInput[]
+    connectOrCreate?: UtilisateurCreateOrConnectWithoutRole_personnaliseInput | UtilisateurCreateOrConnectWithoutRole_personnaliseInput[]
+    createMany?: UtilisateurCreateManyRole_personnaliseInputEnvelope
+    connect?: UtilisateurWhereUniqueInput | UtilisateurWhereUniqueInput[]
+  }
+
+  export type PermissionUncheckedCreateNestedManyWithoutRole_personnaliseInput = {
+    create?: XOR<PermissionCreateWithoutRole_personnaliseInput, PermissionUncheckedCreateWithoutRole_personnaliseInput> | PermissionCreateWithoutRole_personnaliseInput[] | PermissionUncheckedCreateWithoutRole_personnaliseInput[]
+    connectOrCreate?: PermissionCreateOrConnectWithoutRole_personnaliseInput | PermissionCreateOrConnectWithoutRole_personnaliseInput[]
+    createMany?: PermissionCreateManyRole_personnaliseInputEnvelope
+    connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+  }
+
+  export type HospitalUpdateOneRequiredWithoutRoles_personnalisesNestedInput = {
+    create?: XOR<HospitalCreateWithoutRoles_personnalisesInput, HospitalUncheckedCreateWithoutRoles_personnalisesInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutRoles_personnalisesInput
+    upsert?: HospitalUpsertWithoutRoles_personnalisesInput
+    connect?: HospitalWhereUniqueInput
+    update?: XOR<XOR<HospitalUpdateToOneWithWhereWithoutRoles_personnalisesInput, HospitalUpdateWithoutRoles_personnalisesInput>, HospitalUncheckedUpdateWithoutRoles_personnalisesInput>
+  }
+
+  export type UtilisateurUpdateManyWithoutRole_personnaliseNestedInput = {
+    create?: XOR<UtilisateurCreateWithoutRole_personnaliseInput, UtilisateurUncheckedCreateWithoutRole_personnaliseInput> | UtilisateurCreateWithoutRole_personnaliseInput[] | UtilisateurUncheckedCreateWithoutRole_personnaliseInput[]
+    connectOrCreate?: UtilisateurCreateOrConnectWithoutRole_personnaliseInput | UtilisateurCreateOrConnectWithoutRole_personnaliseInput[]
+    upsert?: UtilisateurUpsertWithWhereUniqueWithoutRole_personnaliseInput | UtilisateurUpsertWithWhereUniqueWithoutRole_personnaliseInput[]
+    createMany?: UtilisateurCreateManyRole_personnaliseInputEnvelope
+    set?: UtilisateurWhereUniqueInput | UtilisateurWhereUniqueInput[]
+    disconnect?: UtilisateurWhereUniqueInput | UtilisateurWhereUniqueInput[]
+    delete?: UtilisateurWhereUniqueInput | UtilisateurWhereUniqueInput[]
+    connect?: UtilisateurWhereUniqueInput | UtilisateurWhereUniqueInput[]
+    update?: UtilisateurUpdateWithWhereUniqueWithoutRole_personnaliseInput | UtilisateurUpdateWithWhereUniqueWithoutRole_personnaliseInput[]
+    updateMany?: UtilisateurUpdateManyWithWhereWithoutRole_personnaliseInput | UtilisateurUpdateManyWithWhereWithoutRole_personnaliseInput[]
+    deleteMany?: UtilisateurScalarWhereInput | UtilisateurScalarWhereInput[]
+  }
+
+  export type PermissionUpdateManyWithoutRole_personnaliseNestedInput = {
+    create?: XOR<PermissionCreateWithoutRole_personnaliseInput, PermissionUncheckedCreateWithoutRole_personnaliseInput> | PermissionCreateWithoutRole_personnaliseInput[] | PermissionUncheckedCreateWithoutRole_personnaliseInput[]
+    connectOrCreate?: PermissionCreateOrConnectWithoutRole_personnaliseInput | PermissionCreateOrConnectWithoutRole_personnaliseInput[]
+    upsert?: PermissionUpsertWithWhereUniqueWithoutRole_personnaliseInput | PermissionUpsertWithWhereUniqueWithoutRole_personnaliseInput[]
+    createMany?: PermissionCreateManyRole_personnaliseInputEnvelope
+    set?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    disconnect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    delete?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    update?: PermissionUpdateWithWhereUniqueWithoutRole_personnaliseInput | PermissionUpdateWithWhereUniqueWithoutRole_personnaliseInput[]
+    updateMany?: PermissionUpdateManyWithWhereWithoutRole_personnaliseInput | PermissionUpdateManyWithWhereWithoutRole_personnaliseInput[]
+    deleteMany?: PermissionScalarWhereInput | PermissionScalarWhereInput[]
+  }
+
+  export type UtilisateurUncheckedUpdateManyWithoutRole_personnaliseNestedInput = {
+    create?: XOR<UtilisateurCreateWithoutRole_personnaliseInput, UtilisateurUncheckedCreateWithoutRole_personnaliseInput> | UtilisateurCreateWithoutRole_personnaliseInput[] | UtilisateurUncheckedCreateWithoutRole_personnaliseInput[]
+    connectOrCreate?: UtilisateurCreateOrConnectWithoutRole_personnaliseInput | UtilisateurCreateOrConnectWithoutRole_personnaliseInput[]
+    upsert?: UtilisateurUpsertWithWhereUniqueWithoutRole_personnaliseInput | UtilisateurUpsertWithWhereUniqueWithoutRole_personnaliseInput[]
+    createMany?: UtilisateurCreateManyRole_personnaliseInputEnvelope
+    set?: UtilisateurWhereUniqueInput | UtilisateurWhereUniqueInput[]
+    disconnect?: UtilisateurWhereUniqueInput | UtilisateurWhereUniqueInput[]
+    delete?: UtilisateurWhereUniqueInput | UtilisateurWhereUniqueInput[]
+    connect?: UtilisateurWhereUniqueInput | UtilisateurWhereUniqueInput[]
+    update?: UtilisateurUpdateWithWhereUniqueWithoutRole_personnaliseInput | UtilisateurUpdateWithWhereUniqueWithoutRole_personnaliseInput[]
+    updateMany?: UtilisateurUpdateManyWithWhereWithoutRole_personnaliseInput | UtilisateurUpdateManyWithWhereWithoutRole_personnaliseInput[]
+    deleteMany?: UtilisateurScalarWhereInput | UtilisateurScalarWhereInput[]
+  }
+
+  export type PermissionUncheckedUpdateManyWithoutRole_personnaliseNestedInput = {
+    create?: XOR<PermissionCreateWithoutRole_personnaliseInput, PermissionUncheckedCreateWithoutRole_personnaliseInput> | PermissionCreateWithoutRole_personnaliseInput[] | PermissionUncheckedCreateWithoutRole_personnaliseInput[]
+    connectOrCreate?: PermissionCreateOrConnectWithoutRole_personnaliseInput | PermissionCreateOrConnectWithoutRole_personnaliseInput[]
+    upsert?: PermissionUpsertWithWhereUniqueWithoutRole_personnaliseInput | PermissionUpsertWithWhereUniqueWithoutRole_personnaliseInput[]
+    createMany?: PermissionCreateManyRole_personnaliseInputEnvelope
+    set?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    disconnect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    delete?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+    update?: PermissionUpdateWithWhereUniqueWithoutRole_personnaliseInput | PermissionUpdateWithWhereUniqueWithoutRole_personnaliseInput[]
+    updateMany?: PermissionUpdateManyWithWhereWithoutRole_personnaliseInput | PermissionUpdateManyWithWhereWithoutRole_personnaliseInput[]
+    deleteMany?: PermissionScalarWhereInput | PermissionScalarWhereInput[]
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -35618,6 +39058,23 @@ export namespace Prisma {
     _max?: NestedEnumStatutLigneHospitalisationFilter<$PrismaModel>
   }
 
+  export type NestedEnumRoleNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumRoleNullableFilter<$PrismaModel> | $Enums.Role | null
+  }
+
+  export type NestedEnumRoleNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumRoleNullableWithAggregatesFilter<$PrismaModel> | $Enums.Role | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumRoleNullableFilter<$PrismaModel>
+    _max?: NestedEnumRoleNullableFilter<$PrismaModel>
+  }
+
   export type UtilisateurCreateWithoutHospitalInput = {
     id?: string
     supabase_uid?: string | null
@@ -35634,6 +39091,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboCreateNestedManyWithoutMedecinInput
     examens_imagerie_prescrits?: ExamenImagerieCreateNestedManyWithoutMedecinInput
     hospitalisations_responsable?: HospitalisationCreateNestedManyWithoutMedecinInput
+    role_personnalise?: RolePersonnaliseCreateNestedOneWithoutUtilisateursInput
   }
 
   export type UtilisateurUncheckedCreateWithoutHospitalInput = {
@@ -35646,6 +39104,7 @@ export namespace Prisma {
     role?: $Enums.Role
     est_actif?: boolean
     avatar_url?: string | null
+    role_personnalise_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     consultations?: ConsultationUncheckedCreateNestedManyWithoutMedecinInput
@@ -36158,6 +39617,76 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PermissionCreateWithoutHospitalInput = {
+    id?: string
+    role?: $Enums.Role | null
+    module: string
+    peut_voir?: boolean
+    peut_creer?: boolean
+    peut_modifier?: boolean
+    peut_supprimer?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    role_personnalise?: RolePersonnaliseCreateNestedOneWithoutPermissionsInput
+  }
+
+  export type PermissionUncheckedCreateWithoutHospitalInput = {
+    id?: string
+    role?: $Enums.Role | null
+    role_personnalise_id?: string | null
+    module: string
+    peut_voir?: boolean
+    peut_creer?: boolean
+    peut_modifier?: boolean
+    peut_supprimer?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type PermissionCreateOrConnectWithoutHospitalInput = {
+    where: PermissionWhereUniqueInput
+    create: XOR<PermissionCreateWithoutHospitalInput, PermissionUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type PermissionCreateManyHospitalInputEnvelope = {
+    data: PermissionCreateManyHospitalInput | PermissionCreateManyHospitalInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RolePersonnaliseCreateWithoutHospitalInput = {
+    id?: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurCreateNestedManyWithoutRole_personnaliseInput
+    permissions?: PermissionCreateNestedManyWithoutRole_personnaliseInput
+  }
+
+  export type RolePersonnaliseUncheckedCreateWithoutHospitalInput = {
+    id?: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutRole_personnaliseInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutRole_personnaliseInput
+  }
+
+  export type RolePersonnaliseCreateOrConnectWithoutHospitalInput = {
+    where: RolePersonnaliseWhereUniqueInput
+    create: XOR<RolePersonnaliseCreateWithoutHospitalInput, RolePersonnaliseUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type RolePersonnaliseCreateManyHospitalInputEnvelope = {
+    data: RolePersonnaliseCreateManyHospitalInput | RolePersonnaliseCreateManyHospitalInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UtilisateurUpsertWithWhereUniqueWithoutHospitalInput = {
     where: UtilisateurWhereUniqueInput
     update: XOR<UtilisateurUpdateWithoutHospitalInput, UtilisateurUncheckedUpdateWithoutHospitalInput>
@@ -36188,6 +39717,7 @@ export namespace Prisma {
     role?: EnumRoleFilter<"Utilisateur"> | $Enums.Role
     est_actif?: BoolFilter<"Utilisateur"> | boolean
     avatar_url?: StringNullableFilter<"Utilisateur"> | string | null
+    role_personnalise_id?: StringNullableFilter<"Utilisateur"> | string | null
     created_at?: DateTimeFilter<"Utilisateur"> | Date | string
     updated_at?: DateTimeFilter<"Utilisateur"> | Date | string
   }
@@ -36609,6 +40139,69 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"Hospitalisation"> | Date | string
   }
 
+  export type PermissionUpsertWithWhereUniqueWithoutHospitalInput = {
+    where: PermissionWhereUniqueInput
+    update: XOR<PermissionUpdateWithoutHospitalInput, PermissionUncheckedUpdateWithoutHospitalInput>
+    create: XOR<PermissionCreateWithoutHospitalInput, PermissionUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type PermissionUpdateWithWhereUniqueWithoutHospitalInput = {
+    where: PermissionWhereUniqueInput
+    data: XOR<PermissionUpdateWithoutHospitalInput, PermissionUncheckedUpdateWithoutHospitalInput>
+  }
+
+  export type PermissionUpdateManyWithWhereWithoutHospitalInput = {
+    where: PermissionScalarWhereInput
+    data: XOR<PermissionUpdateManyMutationInput, PermissionUncheckedUpdateManyWithoutHospitalInput>
+  }
+
+  export type PermissionScalarWhereInput = {
+    AND?: PermissionScalarWhereInput | PermissionScalarWhereInput[]
+    OR?: PermissionScalarWhereInput[]
+    NOT?: PermissionScalarWhereInput | PermissionScalarWhereInput[]
+    id?: StringFilter<"Permission"> | string
+    hospital_id?: StringFilter<"Permission"> | string
+    role?: EnumRoleNullableFilter<"Permission"> | $Enums.Role | null
+    role_personnalise_id?: StringNullableFilter<"Permission"> | string | null
+    module?: StringFilter<"Permission"> | string
+    peut_voir?: BoolFilter<"Permission"> | boolean
+    peut_creer?: BoolFilter<"Permission"> | boolean
+    peut_modifier?: BoolFilter<"Permission"> | boolean
+    peut_supprimer?: BoolFilter<"Permission"> | boolean
+    created_at?: DateTimeFilter<"Permission"> | Date | string
+    updated_at?: DateTimeFilter<"Permission"> | Date | string
+  }
+
+  export type RolePersonnaliseUpsertWithWhereUniqueWithoutHospitalInput = {
+    where: RolePersonnaliseWhereUniqueInput
+    update: XOR<RolePersonnaliseUpdateWithoutHospitalInput, RolePersonnaliseUncheckedUpdateWithoutHospitalInput>
+    create: XOR<RolePersonnaliseCreateWithoutHospitalInput, RolePersonnaliseUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type RolePersonnaliseUpdateWithWhereUniqueWithoutHospitalInput = {
+    where: RolePersonnaliseWhereUniqueInput
+    data: XOR<RolePersonnaliseUpdateWithoutHospitalInput, RolePersonnaliseUncheckedUpdateWithoutHospitalInput>
+  }
+
+  export type RolePersonnaliseUpdateManyWithWhereWithoutHospitalInput = {
+    where: RolePersonnaliseScalarWhereInput
+    data: XOR<RolePersonnaliseUpdateManyMutationInput, RolePersonnaliseUncheckedUpdateManyWithoutHospitalInput>
+  }
+
+  export type RolePersonnaliseScalarWhereInput = {
+    AND?: RolePersonnaliseScalarWhereInput | RolePersonnaliseScalarWhereInput[]
+    OR?: RolePersonnaliseScalarWhereInput[]
+    NOT?: RolePersonnaliseScalarWhereInput | RolePersonnaliseScalarWhereInput[]
+    id?: StringFilter<"RolePersonnalise"> | string
+    hospital_id?: StringFilter<"RolePersonnalise"> | string
+    nom?: StringFilter<"RolePersonnalise"> | string
+    description?: StringNullableFilter<"RolePersonnalise"> | string | null
+    couleur?: StringFilter<"RolePersonnalise"> | string
+    est_actif?: BoolFilter<"RolePersonnalise"> | boolean
+    created_at?: DateTimeFilter<"RolePersonnalise"> | Date | string
+    updated_at?: DateTimeFilter<"RolePersonnalise"> | Date | string
+  }
+
   export type HospitalCreateWithoutUtilisateursInput = {
     id?: string
     nom: string
@@ -36632,6 +40225,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutUtilisateursInput = {
@@ -36657,6 +40252,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutUtilisateursInput = {
@@ -36854,6 +40451,35 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type RolePersonnaliseCreateWithoutUtilisateursInput = {
+    id?: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutRoles_personnalisesInput
+    permissions?: PermissionCreateNestedManyWithoutRole_personnaliseInput
+  }
+
+  export type RolePersonnaliseUncheckedCreateWithoutUtilisateursInput = {
+    id?: string
+    hospital_id: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    permissions?: PermissionUncheckedCreateNestedManyWithoutRole_personnaliseInput
+  }
+
+  export type RolePersonnaliseCreateOrConnectWithoutUtilisateursInput = {
+    where: RolePersonnaliseWhereUniqueInput
+    create: XOR<RolePersonnaliseCreateWithoutUtilisateursInput, RolePersonnaliseUncheckedCreateWithoutUtilisateursInput>
+  }
+
   export type HospitalUpsertWithoutUtilisateursInput = {
     update: XOR<HospitalUpdateWithoutUtilisateursInput, HospitalUncheckedUpdateWithoutUtilisateursInput>
     create: XOR<HospitalCreateWithoutUtilisateursInput, HospitalUncheckedCreateWithoutUtilisateursInput>
@@ -36888,6 +40514,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutUtilisateursInput = {
@@ -36913,6 +40541,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type ConsultationUpsertWithWhereUniqueWithoutMedecinInput = {
@@ -36977,6 +40607,41 @@ export namespace Prisma {
   export type HospitalisationUpdateManyWithWhereWithoutMedecinInput = {
     where: HospitalisationScalarWhereInput
     data: XOR<HospitalisationUpdateManyMutationInput, HospitalisationUncheckedUpdateManyWithoutMedecinInput>
+  }
+
+  export type RolePersonnaliseUpsertWithoutUtilisateursInput = {
+    update: XOR<RolePersonnaliseUpdateWithoutUtilisateursInput, RolePersonnaliseUncheckedUpdateWithoutUtilisateursInput>
+    create: XOR<RolePersonnaliseCreateWithoutUtilisateursInput, RolePersonnaliseUncheckedCreateWithoutUtilisateursInput>
+    where?: RolePersonnaliseWhereInput
+  }
+
+  export type RolePersonnaliseUpdateToOneWithWhereWithoutUtilisateursInput = {
+    where?: RolePersonnaliseWhereInput
+    data: XOR<RolePersonnaliseUpdateWithoutUtilisateursInput, RolePersonnaliseUncheckedUpdateWithoutUtilisateursInput>
+  }
+
+  export type RolePersonnaliseUpdateWithoutUtilisateursInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutRoles_personnalisesNestedInput
+    permissions?: PermissionUpdateManyWithoutRole_personnaliseNestedInput
+  }
+
+  export type RolePersonnaliseUncheckedUpdateWithoutUtilisateursInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    permissions?: PermissionUncheckedUpdateManyWithoutRole_personnaliseNestedInput
   }
 
   export type PatientHospitalCreateWithoutPatientInput = {
@@ -37469,6 +41134,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutPatientsInput = {
@@ -37494,6 +41161,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutPatientsInput = {
@@ -37594,6 +41263,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutPatientsInput = {
@@ -37619,6 +41290,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalCreateWithoutConsultationsInput = {
@@ -37644,6 +41317,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutConsultationsInput = {
@@ -37669,6 +41344,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutConsultationsInput = {
@@ -37745,6 +41422,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboCreateNestedManyWithoutMedecinInput
     examens_imagerie_prescrits?: ExamenImagerieCreateNestedManyWithoutMedecinInput
     hospitalisations_responsable?: HospitalisationCreateNestedManyWithoutMedecinInput
+    role_personnalise?: RolePersonnaliseCreateNestedOneWithoutUtilisateursInput
   }
 
   export type UtilisateurUncheckedCreateWithoutConsultationsInput = {
@@ -37758,6 +41436,7 @@ export namespace Prisma {
     role?: $Enums.Role
     est_actif?: boolean
     avatar_url?: string | null
+    role_personnalise_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     examens_labo_prescrits?: ExamenLaboUncheckedCreateNestedManyWithoutMedecinInput
@@ -37879,6 +41558,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutConsultationsInput = {
@@ -37904,6 +41585,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutConsultationsInput = {
@@ -37992,6 +41675,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboUpdateManyWithoutMedecinNestedInput
     examens_imagerie_prescrits?: ExamenImagerieUpdateManyWithoutMedecinNestedInput
     hospitalisations_responsable?: HospitalisationUpdateManyWithoutMedecinNestedInput
+    role_personnalise?: RolePersonnaliseUpdateOneWithoutUtilisateursNestedInput
   }
 
   export type UtilisateurUncheckedUpdateWithoutConsultationsInput = {
@@ -38005,6 +41689,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     est_actif?: BoolFieldUpdateOperationsInput | boolean
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    role_personnalise_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     examens_labo_prescrits?: ExamenLaboUncheckedUpdateManyWithoutMedecinNestedInput
@@ -38208,6 +41893,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutFacturesInput = {
@@ -38233,6 +41920,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutFacturesInput = {
@@ -38535,6 +42224,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutFacturesInput = {
@@ -38560,6 +42251,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutFacturesInput = {
@@ -38895,6 +42588,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutExamens_laboInput = {
@@ -38920,6 +42615,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutExamens_laboInput = {
@@ -38996,6 +42693,7 @@ export namespace Prisma {
     consultations?: ConsultationCreateNestedManyWithoutMedecinInput
     examens_imagerie_prescrits?: ExamenImagerieCreateNestedManyWithoutMedecinInput
     hospitalisations_responsable?: HospitalisationCreateNestedManyWithoutMedecinInput
+    role_personnalise?: RolePersonnaliseCreateNestedOneWithoutUtilisateursInput
   }
 
   export type UtilisateurUncheckedCreateWithoutExamens_labo_prescritsInput = {
@@ -39009,6 +42707,7 @@ export namespace Prisma {
     role?: $Enums.Role
     est_actif?: boolean
     avatar_url?: string | null
+    role_personnalise_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     consultations?: ConsultationUncheckedCreateNestedManyWithoutMedecinInput
@@ -39100,6 +42799,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutExamens_laboInput = {
@@ -39125,6 +42826,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutExamens_laboInput = {
@@ -39213,6 +42916,7 @@ export namespace Prisma {
     consultations?: ConsultationUpdateManyWithoutMedecinNestedInput
     examens_imagerie_prescrits?: ExamenImagerieUpdateManyWithoutMedecinNestedInput
     hospitalisations_responsable?: HospitalisationUpdateManyWithoutMedecinNestedInput
+    role_personnalise?: RolePersonnaliseUpdateOneWithoutUtilisateursNestedInput
   }
 
   export type UtilisateurUncheckedUpdateWithoutExamens_labo_prescritsInput = {
@@ -39226,6 +42930,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     est_actif?: BoolFieldUpdateOperationsInput | boolean
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    role_personnalise_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     consultations?: ConsultationUncheckedUpdateManyWithoutMedecinNestedInput
@@ -39307,6 +43012,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutExamens_imagerieInput = {
@@ -39332,6 +43039,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutExamens_imagerieInput = {
@@ -39408,6 +43117,7 @@ export namespace Prisma {
     consultations?: ConsultationCreateNestedManyWithoutMedecinInput
     examens_labo_prescrits?: ExamenLaboCreateNestedManyWithoutMedecinInput
     hospitalisations_responsable?: HospitalisationCreateNestedManyWithoutMedecinInput
+    role_personnalise?: RolePersonnaliseCreateNestedOneWithoutUtilisateursInput
   }
 
   export type UtilisateurUncheckedCreateWithoutExamens_imagerie_prescritsInput = {
@@ -39421,6 +43131,7 @@ export namespace Prisma {
     role?: $Enums.Role
     est_actif?: boolean
     avatar_url?: string | null
+    role_personnalise_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     consultations?: ConsultationUncheckedCreateNestedManyWithoutMedecinInput
@@ -39512,6 +43223,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutExamens_imagerieInput = {
@@ -39537,6 +43250,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutExamens_imagerieInput = {
@@ -39625,6 +43340,7 @@ export namespace Prisma {
     consultations?: ConsultationUpdateManyWithoutMedecinNestedInput
     examens_labo_prescrits?: ExamenLaboUpdateManyWithoutMedecinNestedInput
     hospitalisations_responsable?: HospitalisationUpdateManyWithoutMedecinNestedInput
+    role_personnalise?: RolePersonnaliseUpdateOneWithoutUtilisateursNestedInput
   }
 
   export type UtilisateurUncheckedUpdateWithoutExamens_imagerie_prescritsInput = {
@@ -39638,6 +43354,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     est_actif?: BoolFieldUpdateOperationsInput | boolean
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    role_personnalise_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     consultations?: ConsultationUncheckedUpdateManyWithoutMedecinNestedInput
@@ -39719,6 +43436,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutArticles_stockInput = {
@@ -39744,6 +43463,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutArticles_stockInput = {
@@ -39859,6 +43580,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutArticles_stockInput = {
@@ -39884,6 +43607,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type MouvementStockUpsertWithWhereUniqueWithoutArticleInput = {
@@ -39960,6 +43685,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutMouvements_stockInput = {
@@ -39985,6 +43712,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutMouvements_stockInput = {
@@ -40067,6 +43796,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutMouvements_stockInput = {
@@ -40092,6 +43823,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type ArticleStockUpsertWithoutMouvementsInput = {
@@ -40164,6 +43897,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutEcritures_comptablesInput = {
@@ -40189,6 +43924,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutEcritures_comptablesInput = {
@@ -40230,6 +43967,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutEcritures_comptablesInput = {
@@ -40255,6 +43994,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientCreateWithoutQr_tokensInput = {
@@ -40333,6 +44074,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutQr_tokensInput = {
@@ -40358,6 +44101,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutQr_tokensInput = {
@@ -40458,6 +44203,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutQr_tokensInput = {
@@ -40483,6 +44230,8 @@ export namespace Prisma {
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalCreateWithoutAudit_trailInput = {
@@ -40508,6 +44257,8 @@ export namespace Prisma {
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutAudit_trailInput = {
@@ -40533,6 +44284,8 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutAudit_trailInput = {
@@ -40574,6 +44327,8 @@ export namespace Prisma {
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutAudit_trailInput = {
@@ -40599,6 +44354,8 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalCreateWithoutChambresInput = {
@@ -40624,6 +44381,8 @@ export namespace Prisma {
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutChambresInput = {
@@ -40649,6 +44408,8 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutChambresInput = {
@@ -40734,6 +44495,8 @@ export namespace Prisma {
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutChambresInput = {
@@ -40759,6 +44522,8 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalisationUpsertWithWhereUniqueWithoutChambreInput = {
@@ -40800,6 +44565,8 @@ export namespace Prisma {
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutHospitalisationsInput = {
@@ -40825,6 +44592,8 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutHospitalisationsInput = {
@@ -40901,6 +44670,7 @@ export namespace Prisma {
     consultations?: ConsultationCreateNestedManyWithoutMedecinInput
     examens_labo_prescrits?: ExamenLaboCreateNestedManyWithoutMedecinInput
     examens_imagerie_prescrits?: ExamenImagerieCreateNestedManyWithoutMedecinInput
+    role_personnalise?: RolePersonnaliseCreateNestedOneWithoutUtilisateursInput
   }
 
   export type UtilisateurUncheckedCreateWithoutHospitalisations_responsableInput = {
@@ -40914,6 +44684,7 @@ export namespace Prisma {
     role?: $Enums.Role
     est_actif?: boolean
     avatar_url?: string | null
+    role_personnalise_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     consultations?: ConsultationUncheckedCreateNestedManyWithoutMedecinInput
@@ -41074,6 +44845,8 @@ export namespace Prisma {
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutHospitalisationsInput = {
@@ -41099,6 +44872,8 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutSejoursInput = {
@@ -41187,6 +44962,7 @@ export namespace Prisma {
     consultations?: ConsultationUpdateManyWithoutMedecinNestedInput
     examens_labo_prescrits?: ExamenLaboUpdateManyWithoutMedecinNestedInput
     examens_imagerie_prescrits?: ExamenImagerieUpdateManyWithoutMedecinNestedInput
+    role_personnalise?: RolePersonnaliseUpdateOneWithoutUtilisateursNestedInput
   }
 
   export type UtilisateurUncheckedUpdateWithoutHospitalisations_responsableInput = {
@@ -41200,6 +44976,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     est_actif?: BoolFieldUpdateOperationsInput | boolean
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    role_personnalise_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     consultations?: ConsultationUncheckedUpdateManyWithoutMedecinNestedInput
@@ -41481,6 +45258,434 @@ export namespace Prisma {
     mouvements?: MouvementStockUncheckedUpdateManyWithoutArticleNestedInput
   }
 
+  export type HospitalCreateWithoutPermissionsInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    factures?: FactureCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
+    audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
+    chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalUncheckedCreateWithoutPermissionsInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
+    audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
+    chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalCreateOrConnectWithoutPermissionsInput = {
+    where: HospitalWhereUniqueInput
+    create: XOR<HospitalCreateWithoutPermissionsInput, HospitalUncheckedCreateWithoutPermissionsInput>
+  }
+
+  export type RolePersonnaliseCreateWithoutPermissionsInput = {
+    id?: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutRoles_personnalisesInput
+    utilisateurs?: UtilisateurCreateNestedManyWithoutRole_personnaliseInput
+  }
+
+  export type RolePersonnaliseUncheckedCreateWithoutPermissionsInput = {
+    id?: string
+    hospital_id: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutRole_personnaliseInput
+  }
+
+  export type RolePersonnaliseCreateOrConnectWithoutPermissionsInput = {
+    where: RolePersonnaliseWhereUniqueInput
+    create: XOR<RolePersonnaliseCreateWithoutPermissionsInput, RolePersonnaliseUncheckedCreateWithoutPermissionsInput>
+  }
+
+  export type HospitalUpsertWithoutPermissionsInput = {
+    update: XOR<HospitalUpdateWithoutPermissionsInput, HospitalUncheckedUpdateWithoutPermissionsInput>
+    create: XOR<HospitalCreateWithoutPermissionsInput, HospitalUncheckedCreateWithoutPermissionsInput>
+    where?: HospitalWhereInput
+  }
+
+  export type HospitalUpdateToOneWithWhereWithoutPermissionsInput = {
+    where?: HospitalWhereInput
+    data: XOR<HospitalUpdateWithoutPermissionsInput, HospitalUncheckedUpdateWithoutPermissionsInput>
+  }
+
+  export type HospitalUpdateWithoutPermissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
+    audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
+    chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type HospitalUncheckedUpdateWithoutPermissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
+    audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
+    chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type RolePersonnaliseUpsertWithoutPermissionsInput = {
+    update: XOR<RolePersonnaliseUpdateWithoutPermissionsInput, RolePersonnaliseUncheckedUpdateWithoutPermissionsInput>
+    create: XOR<RolePersonnaliseCreateWithoutPermissionsInput, RolePersonnaliseUncheckedCreateWithoutPermissionsInput>
+    where?: RolePersonnaliseWhereInput
+  }
+
+  export type RolePersonnaliseUpdateToOneWithWhereWithoutPermissionsInput = {
+    where?: RolePersonnaliseWhereInput
+    data: XOR<RolePersonnaliseUpdateWithoutPermissionsInput, RolePersonnaliseUncheckedUpdateWithoutPermissionsInput>
+  }
+
+  export type RolePersonnaliseUpdateWithoutPermissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutRoles_personnalisesNestedInput
+    utilisateurs?: UtilisateurUpdateManyWithoutRole_personnaliseNestedInput
+  }
+
+  export type RolePersonnaliseUncheckedUpdateWithoutPermissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUncheckedUpdateManyWithoutRole_personnaliseNestedInput
+  }
+
+  export type HospitalCreateWithoutRoles_personnalisesInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    factures?: FactureCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
+    audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
+    chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalUncheckedCreateWithoutRoles_personnalisesInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
+    audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
+    chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalCreateOrConnectWithoutRoles_personnalisesInput = {
+    where: HospitalWhereUniqueInput
+    create: XOR<HospitalCreateWithoutRoles_personnalisesInput, HospitalUncheckedCreateWithoutRoles_personnalisesInput>
+  }
+
+  export type UtilisateurCreateWithoutRole_personnaliseInput = {
+    id?: string
+    supabase_uid?: string | null
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    role?: $Enums.Role
+    est_actif?: boolean
+    avatar_url?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutUtilisateursInput
+    consultations?: ConsultationCreateNestedManyWithoutMedecinInput
+    examens_labo_prescrits?: ExamenLaboCreateNestedManyWithoutMedecinInput
+    examens_imagerie_prescrits?: ExamenImagerieCreateNestedManyWithoutMedecinInput
+    hospitalisations_responsable?: HospitalisationCreateNestedManyWithoutMedecinInput
+  }
+
+  export type UtilisateurUncheckedCreateWithoutRole_personnaliseInput = {
+    id?: string
+    hospital_id: string
+    supabase_uid?: string | null
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    role?: $Enums.Role
+    est_actif?: boolean
+    avatar_url?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    consultations?: ConsultationUncheckedCreateNestedManyWithoutMedecinInput
+    examens_labo_prescrits?: ExamenLaboUncheckedCreateNestedManyWithoutMedecinInput
+    examens_imagerie_prescrits?: ExamenImagerieUncheckedCreateNestedManyWithoutMedecinInput
+    hospitalisations_responsable?: HospitalisationUncheckedCreateNestedManyWithoutMedecinInput
+  }
+
+  export type UtilisateurCreateOrConnectWithoutRole_personnaliseInput = {
+    where: UtilisateurWhereUniqueInput
+    create: XOR<UtilisateurCreateWithoutRole_personnaliseInput, UtilisateurUncheckedCreateWithoutRole_personnaliseInput>
+  }
+
+  export type UtilisateurCreateManyRole_personnaliseInputEnvelope = {
+    data: UtilisateurCreateManyRole_personnaliseInput | UtilisateurCreateManyRole_personnaliseInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PermissionCreateWithoutRole_personnaliseInput = {
+    id?: string
+    role?: $Enums.Role | null
+    module: string
+    peut_voir?: boolean
+    peut_creer?: boolean
+    peut_modifier?: boolean
+    peut_supprimer?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutPermissionsInput
+  }
+
+  export type PermissionUncheckedCreateWithoutRole_personnaliseInput = {
+    id?: string
+    hospital_id: string
+    role?: $Enums.Role | null
+    module: string
+    peut_voir?: boolean
+    peut_creer?: boolean
+    peut_modifier?: boolean
+    peut_supprimer?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type PermissionCreateOrConnectWithoutRole_personnaliseInput = {
+    where: PermissionWhereUniqueInput
+    create: XOR<PermissionCreateWithoutRole_personnaliseInput, PermissionUncheckedCreateWithoutRole_personnaliseInput>
+  }
+
+  export type PermissionCreateManyRole_personnaliseInputEnvelope = {
+    data: PermissionCreateManyRole_personnaliseInput | PermissionCreateManyRole_personnaliseInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type HospitalUpsertWithoutRoles_personnalisesInput = {
+    update: XOR<HospitalUpdateWithoutRoles_personnalisesInput, HospitalUncheckedUpdateWithoutRoles_personnalisesInput>
+    create: XOR<HospitalCreateWithoutRoles_personnalisesInput, HospitalUncheckedCreateWithoutRoles_personnalisesInput>
+    where?: HospitalWhereInput
+  }
+
+  export type HospitalUpdateToOneWithWhereWithoutRoles_personnalisesInput = {
+    where?: HospitalWhereInput
+    data: XOR<HospitalUpdateWithoutRoles_personnalisesInput, HospitalUncheckedUpdateWithoutRoles_personnalisesInput>
+  }
+
+  export type HospitalUpdateWithoutRoles_personnalisesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
+    audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
+    chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type HospitalUncheckedUpdateWithoutRoles_personnalisesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
+    audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
+    chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type UtilisateurUpsertWithWhereUniqueWithoutRole_personnaliseInput = {
+    where: UtilisateurWhereUniqueInput
+    update: XOR<UtilisateurUpdateWithoutRole_personnaliseInput, UtilisateurUncheckedUpdateWithoutRole_personnaliseInput>
+    create: XOR<UtilisateurCreateWithoutRole_personnaliseInput, UtilisateurUncheckedCreateWithoutRole_personnaliseInput>
+  }
+
+  export type UtilisateurUpdateWithWhereUniqueWithoutRole_personnaliseInput = {
+    where: UtilisateurWhereUniqueInput
+    data: XOR<UtilisateurUpdateWithoutRole_personnaliseInput, UtilisateurUncheckedUpdateWithoutRole_personnaliseInput>
+  }
+
+  export type UtilisateurUpdateManyWithWhereWithoutRole_personnaliseInput = {
+    where: UtilisateurScalarWhereInput
+    data: XOR<UtilisateurUpdateManyMutationInput, UtilisateurUncheckedUpdateManyWithoutRole_personnaliseInput>
+  }
+
+  export type PermissionUpsertWithWhereUniqueWithoutRole_personnaliseInput = {
+    where: PermissionWhereUniqueInput
+    update: XOR<PermissionUpdateWithoutRole_personnaliseInput, PermissionUncheckedUpdateWithoutRole_personnaliseInput>
+    create: XOR<PermissionCreateWithoutRole_personnaliseInput, PermissionUncheckedCreateWithoutRole_personnaliseInput>
+  }
+
+  export type PermissionUpdateWithWhereUniqueWithoutRole_personnaliseInput = {
+    where: PermissionWhereUniqueInput
+    data: XOR<PermissionUpdateWithoutRole_personnaliseInput, PermissionUncheckedUpdateWithoutRole_personnaliseInput>
+  }
+
+  export type PermissionUpdateManyWithWhereWithoutRole_personnaliseInput = {
+    where: PermissionScalarWhereInput
+    data: XOR<PermissionUpdateManyMutationInput, PermissionUncheckedUpdateManyWithoutRole_personnaliseInput>
+  }
+
   export type UtilisateurCreateManyHospitalInput = {
     id?: string
     supabase_uid?: string | null
@@ -41491,6 +45696,7 @@ export namespace Prisma {
     role?: $Enums.Role
     est_actif?: boolean
     avatar_url?: string | null
+    role_personnalise_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -41672,6 +45878,29 @@ export namespace Prisma {
     updated_at?: Date | string
   }
 
+  export type PermissionCreateManyHospitalInput = {
+    id?: string
+    role?: $Enums.Role | null
+    role_personnalise_id?: string | null
+    module: string
+    peut_voir?: boolean
+    peut_creer?: boolean
+    peut_modifier?: boolean
+    peut_supprimer?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type RolePersonnaliseCreateManyHospitalInput = {
+    id?: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
   export type UtilisateurUpdateWithoutHospitalInput = {
     id?: StringFieldUpdateOperationsInput | string
     supabase_uid?: NullableStringFieldUpdateOperationsInput | string | null
@@ -41688,6 +45917,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboUpdateManyWithoutMedecinNestedInput
     examens_imagerie_prescrits?: ExamenImagerieUpdateManyWithoutMedecinNestedInput
     hospitalisations_responsable?: HospitalisationUpdateManyWithoutMedecinNestedInput
+    role_personnalise?: RolePersonnaliseUpdateOneWithoutUtilisateursNestedInput
   }
 
   export type UtilisateurUncheckedUpdateWithoutHospitalInput = {
@@ -41700,6 +45930,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     est_actif?: BoolFieldUpdateOperationsInput | boolean
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    role_personnalise_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     consultations?: ConsultationUncheckedUpdateManyWithoutMedecinNestedInput
@@ -41718,6 +45949,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     est_actif?: BoolFieldUpdateOperationsInput | boolean
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    role_personnalise_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -42269,6 +46501,79 @@ export namespace Prisma {
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     facture_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PermissionUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    module?: StringFieldUpdateOperationsInput | string
+    peut_voir?: BoolFieldUpdateOperationsInput | boolean
+    peut_creer?: BoolFieldUpdateOperationsInput | boolean
+    peut_modifier?: BoolFieldUpdateOperationsInput | boolean
+    peut_supprimer?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    role_personnalise?: RolePersonnaliseUpdateOneWithoutPermissionsNestedInput
+  }
+
+  export type PermissionUncheckedUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    role_personnalise_id?: NullableStringFieldUpdateOperationsInput | string | null
+    module?: StringFieldUpdateOperationsInput | string
+    peut_voir?: BoolFieldUpdateOperationsInput | boolean
+    peut_creer?: BoolFieldUpdateOperationsInput | boolean
+    peut_modifier?: BoolFieldUpdateOperationsInput | boolean
+    peut_supprimer?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PermissionUncheckedUpdateManyWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    role_personnalise_id?: NullableStringFieldUpdateOperationsInput | string | null
+    module?: StringFieldUpdateOperationsInput | string
+    peut_voir?: BoolFieldUpdateOperationsInput | boolean
+    peut_creer?: BoolFieldUpdateOperationsInput | boolean
+    peut_modifier?: BoolFieldUpdateOperationsInput | boolean
+    peut_supprimer?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RolePersonnaliseUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUpdateManyWithoutRole_personnaliseNestedInput
+    permissions?: PermissionUpdateManyWithoutRole_personnaliseNestedInput
+  }
+
+  export type RolePersonnaliseUncheckedUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUncheckedUpdateManyWithoutRole_personnaliseNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutRole_personnaliseNestedInput
+  }
+
+  export type RolePersonnaliseUncheckedUpdateManyWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -43481,6 +47786,126 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     date_ligne?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UtilisateurCreateManyRole_personnaliseInput = {
+    id?: string
+    hospital_id: string
+    supabase_uid?: string | null
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    role?: $Enums.Role
+    est_actif?: boolean
+    avatar_url?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type PermissionCreateManyRole_personnaliseInput = {
+    id?: string
+    hospital_id: string
+    role?: $Enums.Role | null
+    module: string
+    peut_voir?: boolean
+    peut_creer?: boolean
+    peut_modifier?: boolean
+    peut_supprimer?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type UtilisateurUpdateWithoutRole_personnaliseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    supabase_uid?: NullableStringFieldUpdateOperationsInput | string | null
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutUtilisateursNestedInput
+    consultations?: ConsultationUpdateManyWithoutMedecinNestedInput
+    examens_labo_prescrits?: ExamenLaboUpdateManyWithoutMedecinNestedInput
+    examens_imagerie_prescrits?: ExamenImagerieUpdateManyWithoutMedecinNestedInput
+    hospitalisations_responsable?: HospitalisationUpdateManyWithoutMedecinNestedInput
+  }
+
+  export type UtilisateurUncheckedUpdateWithoutRole_personnaliseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    supabase_uid?: NullableStringFieldUpdateOperationsInput | string | null
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    consultations?: ConsultationUncheckedUpdateManyWithoutMedecinNestedInput
+    examens_labo_prescrits?: ExamenLaboUncheckedUpdateManyWithoutMedecinNestedInput
+    examens_imagerie_prescrits?: ExamenImagerieUncheckedUpdateManyWithoutMedecinNestedInput
+    hospitalisations_responsable?: HospitalisationUncheckedUpdateManyWithoutMedecinNestedInput
+  }
+
+  export type UtilisateurUncheckedUpdateManyWithoutRole_personnaliseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    supabase_uid?: NullableStringFieldUpdateOperationsInput | string | null
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PermissionUpdateWithoutRole_personnaliseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    module?: StringFieldUpdateOperationsInput | string
+    peut_voir?: BoolFieldUpdateOperationsInput | boolean
+    peut_creer?: BoolFieldUpdateOperationsInput | boolean
+    peut_modifier?: BoolFieldUpdateOperationsInput | boolean
+    peut_supprimer?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutPermissionsNestedInput
+  }
+
+  export type PermissionUncheckedUpdateWithoutRole_personnaliseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    module?: StringFieldUpdateOperationsInput | string
+    peut_voir?: BoolFieldUpdateOperationsInput | boolean
+    peut_creer?: BoolFieldUpdateOperationsInput | boolean
+    peut_modifier?: BoolFieldUpdateOperationsInput | boolean
+    peut_supprimer?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PermissionUncheckedUpdateManyWithoutRole_personnaliseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
+    module?: StringFieldUpdateOperationsInput | string
+    peut_voir?: BoolFieldUpdateOperationsInput | boolean
+    peut_creer?: BoolFieldUpdateOperationsInput | boolean
+    peut_modifier?: BoolFieldUpdateOperationsInput | boolean
+    peut_supprimer?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
