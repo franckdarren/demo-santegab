@@ -353,7 +353,7 @@ export function ModifierPatientDialog({
                         onChange={(e) => setAssurance(e.target.value)}
                         className={cn(selectClass, "bg-white")}
                       >
-                        <option value="">Choisir...</option>
+                        <option value="">Aucun</option>
                         {ASSURANCES.map((a) => (
                           <option key={a} value={a}>{a}</option>
                         ))}

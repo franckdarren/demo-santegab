@@ -324,7 +324,7 @@ export function NouveauPatientDialog({
                           Identité du patient
                         </h3>
                         <p className="text-sm text-gray-400 mt-0.5">
-                          Informations d'état civil
+                          Informations d&apos;état civil
                         </p>
                       </div>
 
@@ -512,7 +512,7 @@ export function NouveauPatientDialog({
                               onChange={(e) => setAssurance(e.target.value)}
                               className={cn(selectClass, "bg-white")}
                             >
-                              <option value="">Choisir...</option>
+                              <option value="">Aucun</option>
                               {ASSURANCES.map((a) => (
                                 <option key={a} value={a}>{a}</option>
                               ))}
