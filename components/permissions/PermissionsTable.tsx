@@ -44,7 +44,7 @@ type ActionKey = typeof ACTIONS[number]["key"];
 
 interface Permission {
   id:            string;
-  role:          Role;
+  role:           Role | null;
   module:        string;
   peut_voir:     boolean;
   peut_creer:    boolean;
