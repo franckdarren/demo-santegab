@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { TypeExamenLabo, StatutExamen } from "@/app/generated/prisma/client";
 import { enregistrerAudit } from "@/lib/audit";
 import { TARIFS_LABO } from "@/lib/tarifs";
@@ -30,11 +30,7 @@ export async function getExamensLabo(hospitalId: string, search?: string) {
 }
 
 // ============================================================
-// Créer une demande d'examen labo
-//
-// La facture est générée immédiatement à la création si
-// un tarif est défini pour ce type d'examen.
-// Le patient sait immédiatement ce qu'il doit payer.
+// Créer une demande d'examen labo + facture immédiate
 // ============================================================
 export async function creerExamenLabo(
   hospitalId: string,
@@ -56,10 +52,8 @@ export async function creerExamenLabo(
     ? `${patientHospital.patient.prenom} ${patientHospital.patient.nom}`
     : "Patient inconnu";
 
-  // Récupère le tarif suggéré pour ce type d'examen
   const tarifParDefaut = TARIFS_LABO[data.type_examen] ?? null;
 
-  // Crée l'examen
   const examen = await prisma.examenLabo.create({
     data: {
       hospital_id:   hospitalId,
@@ -74,7 +68,6 @@ export async function creerExamenLabo(
     include: { patient: true, medecin: true },
   });
 
-  // Génère la facture immédiatement si un tarif existe
   if (tarifParDefaut && tarifParDefaut > 0) {
     const tauxCouverture   = patientHospital?.taux_couverture ?? 0;
     const montantAssurance = Math.round(tarifParDefaut * (tauxCouverture / 100));
@@ -104,7 +97,6 @@ export async function creerExamenLabo(
       },
     });
 
-    // Lie la facture à l'examen
     await prisma.examenLabo.update({
       where: { id: examen.id },
       data:  { facture_id: facture.id },
@@ -131,8 +123,7 @@ export async function creerExamenLabo(
 }
 
 // ============================================================
-// Saisir les résultats — ne recrée pas la facture si elle
-// existe déjà. Permet de modifier le tarif si nécessaire.
+// Saisir les résultats
 // ============================================================
 export async function saisirResultatsLabo(
   examenId: string,
@@ -155,7 +146,6 @@ export async function saisirResultatsLabo(
     include: { patient: true },
   });
 
-  // Crée la facture uniquement si pas encore créée et tarif fourni
   if (data.prix_unitaire && data.prix_unitaire > 0 && !examen.facture_id) {
     const patientHospital = await prisma.patientHospital.findFirst({
       where: { patient_id: examen.patient_id, hospital_id: hospitalId },
@@ -203,7 +193,10 @@ export async function saisirResultatsLabo(
     description: `Saisie résultats labo — ${examen.patient.prenom} ${examen.patient.nom}`,
     entiteId:    examenId,
     entiteNom:   `${examen.patient.prenom} ${examen.patient.nom}`,
-    metadonnees: { statut: data.statut ?? "RESULTAT_SAISI", prix_unitaire: data.prix_unitaire ?? null },
+    metadonnees: {
+      statut:        data.statut ?? "RESULTAT_SAISI",
+      prix_unitaire: data.prix_unitaire ?? null,
+    },
   });
 
   return examen;
@@ -211,6 +204,11 @@ export async function saisirResultatsLabo(
 
 // ============================================================
 // Upload PDF résultats
+//
+// On utilise createAdminClient (service role key) pour
+// bypasser les Row Level Security du bucket Supabase.
+// Le client utilisateur normal est bloqué par les RLS
+// car l'upload se fait côté serveur sans session active.
 // ============================================================
 export async function uploadResultatPDF(
   examenId: string,
@@ -222,16 +220,16 @@ export async function uploadResultatPDF(
   const file = formData.get("fichier") as File;
   if (!file) throw new Error("Aucun fichier fourni");
 
-  const supabase = await createClient();
+  const supabaseAdmin = createAdminClient();
   const cheminFichier = `${hospitalId}/${examenId}/${Date.now()}_${file.name}`;
 
-  const { error } = await supabase.storage
+  const { error } = await supabaseAdmin.storage
     .from("resultats-examens")
     .upload(cheminFichier, file, { contentType: file.type, upsert: true });
 
   if (error) throw new Error(`Upload échoué : ${error.message}`);
 
-  const { data: signedUrl } = await supabase.storage
+  const { data: signedUrl } = await supabaseAdmin.storage
     .from("resultats-examens")
     .createSignedUrl(cheminFichier, 365 * 24 * 60 * 60);
 

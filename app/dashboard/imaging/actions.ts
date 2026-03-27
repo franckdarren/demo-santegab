@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { TypeExamenImagerie, StatutExamen } from "@/app/generated/prisma/client";
 import { enregistrerAudit } from "@/lib/audit";
 import { TARIFS_IMAGERIE } from "@/lib/tarifs";
@@ -70,7 +70,6 @@ export async function creerExamenImagerie(
     include: { patient: true, medecin: true },
   });
 
-  // Facture immédiate si tarif disponible
   if (tarifParDefaut && tarifParDefaut > 0) {
     const tauxCouverture   = patientHospital?.taux_couverture ?? 0;
     const montantAssurance = Math.round(tarifParDefaut * (tauxCouverture / 100));
@@ -152,7 +151,6 @@ export async function saisirResultatsImagerie(
     include: { patient: true },
   });
 
-  // Crée la facture si pas encore créée et tarif fourni
   if (data.prix_unitaire && data.prix_unitaire > 0 && !examen.facture_id) {
     const patientHospital = await prisma.patientHospital.findFirst({
       where: { patient_id: examen.patient_id, hospital_id: hospitalId },
@@ -200,7 +198,11 @@ export async function saisirResultatsImagerie(
     description: `Saisie résultats imagerie — ${examen.patient.prenom} ${examen.patient.nom}`,
     entiteId:    examenId,
     entiteNom:   `${examen.patient.prenom} ${examen.patient.nom}`,
-    metadonnees: { statut: data.statut ?? "RESULTAT_SAISI", zone_anatomique: data.zone_anatomique ?? null, prix_unitaire: data.prix_unitaire ?? null },
+    metadonnees: {
+      statut:          data.statut ?? "RESULTAT_SAISI",
+      zone_anatomique: data.zone_anatomique ?? null,
+      prix_unitaire:   data.prix_unitaire ?? null,
+    },
   });
 
   return examen;
@@ -208,6 +210,11 @@ export async function saisirResultatsImagerie(
 
 // ============================================================
 // Upload fichier imagerie
+//
+// On utilise createAdminClient (service role key) pour
+// bypasser les Row Level Security du bucket Supabase.
+// Le client utilisateur normal est bloqué par les RLS
+// car l'upload se fait côté serveur sans session active.
 // ============================================================
 export async function uploadResultatImagerie(
   examenId: string,
@@ -219,16 +226,16 @@ export async function uploadResultatImagerie(
   const file = formData.get("fichier") as File;
   if (!file) throw new Error("Aucun fichier fourni");
 
-  const supabase = await createClient();
+  const supabaseAdmin = createAdminClient();
   const cheminFichier = `imagerie/${hospitalId}/${examenId}/${Date.now()}_${file.name}`;
 
-  const { error } = await supabase.storage
+  const { error } = await supabaseAdmin.storage
     .from("resultats-examens")
     .upload(cheminFichier, file, { contentType: file.type, upsert: true });
 
   if (error) throw new Error(`Upload échoué : ${error.message}`);
 
-  const { data: signedUrl } = await supabase.storage
+  const { data: signedUrl } = await supabaseAdmin.storage
     .from("resultats-examens")
     .createSignedUrl(cheminFichier, 365 * 24 * 60 * 60);
 
@@ -268,7 +275,7 @@ export async function validerExamenImagerie(
 ) {
   const examen = await prisma.examenImagerie.update({
     where: { id: examenId, hospital_id: hospitalId },
-    data: { statut: "VALIDE", valide_par: validateurId, valide_le: new Date() },
+    data:  { statut: "VALIDE", valide_par: validateurId, valide_le: new Date() },
     include: { patient: true },
   });
 
