@@ -25,7 +25,7 @@ export function LaboStats({ stats }: LaboStatsProps) {
       bg: "bg-orange-50",
     },
     {
-      titre: "En cours",
+      titre: "Résultats saisies",
       valeur: stats.enCours.toString(),
       description: "Analyses en cours",
       icon: FlaskConical,
