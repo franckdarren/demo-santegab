@@ -19,8 +19,8 @@ import { ExamenLaboDetailDialog } from "./ExamenLaboDetailDialog";
 
 const STATUT_CONFIG: Record<StatutExamen, { label: string; color: string }> = {
   EN_ATTENTE:     { label: "En attente",    color: "bg-orange-100 text-orange-700" },
-  EN_COURS:       { label: "Résutats saisies",      color: "bg-blue-100 text-blue-700" },
-  RESULTAT_SAISI: { label: "À valider",     color: "bg-purple-100 text-purple-700" },
+  EN_COURS:       { label: "En cours",      color: "bg-blue-100 text-blue-700" },
+  RESULTAT_SAISI: { label: "Saisi",     color: "bg-purple-100 text-purple-700" },
   VALIDE:         { label: "Validé",        color: "bg-green-100 text-green-700" },
   ANNULE:         { label: "Annulé",        color: "bg-red-100 text-red-700" },
 };
@@ -39,8 +39,8 @@ const TYPE_LABELS: Record<string, string> = {
 const FILTRES = [
   { label: "Tous",       value: "" },
   { label: "En attente", value: "EN_ATTENTE" },
-  { label: "Résutats saisies",   value: "EN_COURS" },
-  { label: "À valider",  value: "RESULTAT_SAISI" },
+  { label: "En cours",   value: "EN_COURS" },
+  { label: "Saisis",  value: "RESULTAT_SAISI" },
   { label: "Validés",    value: "VALIDE" },
 ];
 

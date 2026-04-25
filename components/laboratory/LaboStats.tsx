@@ -25,9 +25,9 @@ export function LaboStats({ stats }: LaboStatsProps) {
       bg: "bg-orange-50",
     },
     {
-      titre: "Résultats saisies",
+      titre: "Saisis",
       valeur: stats.saisies.toString(),
-      description: "Analyses en cours",
+      description: "En attente de validation",
       icon: FlaskConical,
       couleur: "text-blue-600",
       bg: "bg-blue-50",
