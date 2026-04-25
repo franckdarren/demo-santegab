@@ -8,7 +8,7 @@ import { Clock, FlaskConical, CheckCircle, AlertTriangle } from "lucide-react";
 interface LaboStatsProps {
   stats: {
     enAttente: number;
-    enCours: number;
+    saisies: number;
     valides: number;
     urgents: number;
   };
@@ -26,7 +26,7 @@ export function LaboStats({ stats }: LaboStatsProps) {
     },
     {
       titre: "Résultats saisies",
-      valeur: stats.enCours.toString(),
+      valeur: stats.saisies.toString(),
       description: "Analyses en cours",
       icon: FlaskConical,
       couleur: "text-blue-600",

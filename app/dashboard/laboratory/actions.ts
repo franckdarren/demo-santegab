@@ -293,11 +293,11 @@ export async function validerExamenLabo(
 }
 
 export async function getStatsLabo(hospitalId: string) {
-  const [enAttente, enCours, valides, urgents] = await Promise.all([
+  const [enAttente, saisies, valides, urgents] = await Promise.all([
     prisma.examenLabo.count({ where: { hospital_id: hospitalId, statut: "EN_ATTENTE" } }),
-    prisma.examenLabo.count({ where: { hospital_id: hospitalId, statut: "EN_COURS" } }),
+    prisma.examenLabo.count({ where: { hospital_id: hospitalId, statut: "RESULTAT_SAISI" } }),
     prisma.examenLabo.count({ where: { hospital_id: hospitalId, statut: "VALIDE" } }),
     prisma.examenLabo.count({ where: { hospital_id: hospitalId, urgence: true, statut: { not: "VALIDE" } } }),
   ]);
-  return { enAttente, enCours, valides, urgents };
+  return { enAttente, saisies, valides, urgents };
 }
