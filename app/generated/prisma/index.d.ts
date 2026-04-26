@@ -118,6 +118,11 @@ export type Permission = $Result.DefaultSelection<Prisma.$PermissionPayload>
  * 
  */
 export type RolePersonnalise = $Result.DefaultSelection<Prisma.$RolePersonnalisePayload>
+/**
+ * Model Service
+ * 
+ */
+export type Service = $Result.DefaultSelection<Prisma.$ServicePayload>
 
 /**
  * Enums
@@ -720,6 +725,16 @@ export class PrismaClient<
     * ```
     */
   get rolePersonnalise(): Prisma.RolePersonnaliseDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.service`: Exposes CRUD operations for the **Service** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Services
+    * const services = await prisma.service.findMany()
+    * ```
+    */
+  get service(): Prisma.ServiceDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1174,7 +1189,8 @@ export namespace Prisma {
     Hospitalisation: 'Hospitalisation',
     LigneHospitalisation: 'LigneHospitalisation',
     Permission: 'Permission',
-    RolePersonnalise: 'RolePersonnalise'
+    RolePersonnalise: 'RolePersonnalise',
+    Service: 'Service'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1190,7 +1206,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "hospital" | "utilisateur" | "patient" | "patientHospital" | "consultation" | "prescription" | "facture" | "ligneFacture" | "examenLabo" | "examenImagerie" | "articleStock" | "mouvementStock" | "ecritureComptable" | "qrToken" | "auditLogCarnet" | "auditTrail" | "chambre" | "hospitalisation" | "ligneHospitalisation" | "permission" | "rolePersonnalise"
+      modelProps: "hospital" | "utilisateur" | "patient" | "patientHospital" | "consultation" | "prescription" | "facture" | "ligneFacture" | "examenLabo" | "examenImagerie" | "articleStock" | "mouvementStock" | "ecritureComptable" | "qrToken" | "auditLogCarnet" | "auditTrail" | "chambre" | "hospitalisation" | "ligneHospitalisation" | "permission" | "rolePersonnalise" | "service"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2748,6 +2764,80 @@ export namespace Prisma {
           }
         }
       }
+      Service: {
+        payload: Prisma.$ServicePayload<ExtArgs>
+        fields: Prisma.ServiceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ServiceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ServiceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload>
+          }
+          findFirst: {
+            args: Prisma.ServiceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ServiceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload>
+          }
+          findMany: {
+            args: Prisma.ServiceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload>[]
+          }
+          create: {
+            args: Prisma.ServiceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload>
+          }
+          createMany: {
+            args: Prisma.ServiceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ServiceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload>[]
+          }
+          delete: {
+            args: Prisma.ServiceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload>
+          }
+          update: {
+            args: Prisma.ServiceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload>
+          }
+          deleteMany: {
+            args: Prisma.ServiceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ServiceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ServiceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload>[]
+          }
+          upsert: {
+            args: Prisma.ServiceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload>
+          }
+          aggregate: {
+            args: Prisma.ServiceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateService>
+          }
+          groupBy: {
+            args: Prisma.ServiceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ServiceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ServiceCountArgs<ExtArgs>
+            result: $Utils.Optional<ServiceCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2877,6 +2967,7 @@ export namespace Prisma {
     ligneHospitalisation?: LigneHospitalisationOmit
     permission?: PermissionOmit
     rolePersonnalise?: RolePersonnaliseOmit
+    service?: ServiceOmit
   }
 
   /* Types for Logging */
@@ -2960,6 +3051,7 @@ export namespace Prisma {
     utilisateurs: number
     patients: number
     consultations: number
+    services: number
     factures: number
     examens_labo: number
     examens_imagerie: number
@@ -2978,6 +3070,7 @@ export namespace Prisma {
     utilisateurs?: boolean | HospitalCountOutputTypeCountUtilisateursArgs
     patients?: boolean | HospitalCountOutputTypeCountPatientsArgs
     consultations?: boolean | HospitalCountOutputTypeCountConsultationsArgs
+    services?: boolean | HospitalCountOutputTypeCountServicesArgs
     factures?: boolean | HospitalCountOutputTypeCountFacturesArgs
     examens_labo?: boolean | HospitalCountOutputTypeCountExamens_laboArgs
     examens_imagerie?: boolean | HospitalCountOutputTypeCountExamens_imagerieArgs
@@ -3022,6 +3115,13 @@ export namespace Prisma {
    */
   export type HospitalCountOutputTypeCountConsultationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ConsultationWhereInput
+  }
+
+  /**
+   * HospitalCountOutputType without action
+   */
+  export type HospitalCountOutputTypeCountServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ServiceWhereInput
   }
 
   /**
@@ -3475,6 +3575,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type ServiceCountOutputType
+   */
+
+  export type ServiceCountOutputType = {
+    consultations: number
+  }
+
+  export type ServiceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    consultations?: boolean | ServiceCountOutputTypeCountConsultationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ServiceCountOutputType without action
+   */
+  export type ServiceCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceCountOutputType
+     */
+    select?: ServiceCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ServiceCountOutputType without action
+   */
+  export type ServiceCountOutputTypeCountConsultationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConsultationWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -3685,6 +3816,7 @@ export namespace Prisma {
     utilisateurs?: boolean | Hospital$utilisateursArgs<ExtArgs>
     patients?: boolean | Hospital$patientsArgs<ExtArgs>
     consultations?: boolean | Hospital$consultationsArgs<ExtArgs>
+    services?: boolean | Hospital$servicesArgs<ExtArgs>
     factures?: boolean | Hospital$facturesArgs<ExtArgs>
     examens_labo?: boolean | Hospital$examens_laboArgs<ExtArgs>
     examens_imagerie?: boolean | Hospital$examens_imagerieArgs<ExtArgs>
@@ -3744,6 +3876,7 @@ export namespace Prisma {
     utilisateurs?: boolean | Hospital$utilisateursArgs<ExtArgs>
     patients?: boolean | Hospital$patientsArgs<ExtArgs>
     consultations?: boolean | Hospital$consultationsArgs<ExtArgs>
+    services?: boolean | Hospital$servicesArgs<ExtArgs>
     factures?: boolean | Hospital$facturesArgs<ExtArgs>
     examens_labo?: boolean | Hospital$examens_laboArgs<ExtArgs>
     examens_imagerie?: boolean | Hospital$examens_imagerieArgs<ExtArgs>
@@ -3767,6 +3900,7 @@ export namespace Prisma {
       utilisateurs: Prisma.$UtilisateurPayload<ExtArgs>[]
       patients: Prisma.$PatientHospitalPayload<ExtArgs>[]
       consultations: Prisma.$ConsultationPayload<ExtArgs>[]
+      services: Prisma.$ServicePayload<ExtArgs>[]
       factures: Prisma.$FacturePayload<ExtArgs>[]
       examens_labo: Prisma.$ExamenLaboPayload<ExtArgs>[]
       examens_imagerie: Prisma.$ExamenImageriePayload<ExtArgs>[]
@@ -4188,6 +4322,7 @@ export namespace Prisma {
     utilisateurs<T extends Hospital$utilisateursArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$utilisateursArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UtilisateurPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     patients<T extends Hospital$patientsArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$patientsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PatientHospitalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     consultations<T extends Hospital$consultationsArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$consultationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConsultationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    services<T extends Hospital$servicesArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     factures<T extends Hospital$facturesArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$facturesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacturePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     examens_labo<T extends Hospital$examens_laboArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$examens_laboArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenLaboPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     examens_imagerie<T extends Hospital$examens_imagerieArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$examens_imagerieArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenImageriePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -4701,6 +4836,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ConsultationScalarFieldEnum | ConsultationScalarFieldEnum[]
+  }
+
+  /**
+   * Hospital.services
+   */
+  export type Hospital$servicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    where?: ServiceWhereInput
+    orderBy?: ServiceOrderByWithRelationInput | ServiceOrderByWithRelationInput[]
+    cursor?: ServiceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
   }
 
   /**
@@ -8888,6 +9047,7 @@ export namespace Prisma {
     date_consultation: Date | null
     created_at: Date | null
     updated_at: Date | null
+    service_id: string | null
   }
 
   export type ConsultationMaxAggregateOutputType = {
@@ -8906,6 +9066,7 @@ export namespace Prisma {
     date_consultation: Date | null
     created_at: Date | null
     updated_at: Date | null
+    service_id: string | null
   }
 
   export type ConsultationCountAggregateOutputType = {
@@ -8924,6 +9085,7 @@ export namespace Prisma {
     date_consultation: number
     created_at: number
     updated_at: number
+    service_id: number
     _all: number
   }
 
@@ -8956,6 +9118,7 @@ export namespace Prisma {
     date_consultation?: true
     created_at?: true
     updated_at?: true
+    service_id?: true
   }
 
   export type ConsultationMaxAggregateInputType = {
@@ -8974,6 +9137,7 @@ export namespace Prisma {
     date_consultation?: true
     created_at?: true
     updated_at?: true
+    service_id?: true
   }
 
   export type ConsultationCountAggregateInputType = {
@@ -8992,6 +9156,7 @@ export namespace Prisma {
     date_consultation?: true
     created_at?: true
     updated_at?: true
+    service_id?: true
     _all?: true
   }
 
@@ -9097,6 +9262,7 @@ export namespace Prisma {
     date_consultation: Date
     created_at: Date
     updated_at: Date
+    service_id: string | null
     _count: ConsultationCountAggregateOutputType | null
     _avg: ConsultationAvgAggregateOutputType | null
     _sum: ConsultationSumAggregateOutputType | null
@@ -9134,9 +9300,11 @@ export namespace Prisma {
     date_consultation?: boolean
     created_at?: boolean
     updated_at?: boolean
+    service_id?: boolean
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    service?: boolean | Consultation$serviceArgs<ExtArgs>
     prescriptions?: boolean | Consultation$prescriptionsArgs<ExtArgs>
     facture?: boolean | Consultation$factureArgs<ExtArgs>
     _count?: boolean | ConsultationCountOutputTypeDefaultArgs<ExtArgs>
@@ -9158,9 +9326,11 @@ export namespace Prisma {
     date_consultation?: boolean
     created_at?: boolean
     updated_at?: boolean
+    service_id?: boolean
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    service?: boolean | Consultation$serviceArgs<ExtArgs>
   }, ExtArgs["result"]["consultation"]>
 
   export type ConsultationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9179,9 +9349,11 @@ export namespace Prisma {
     date_consultation?: boolean
     created_at?: boolean
     updated_at?: boolean
+    service_id?: boolean
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    service?: boolean | Consultation$serviceArgs<ExtArgs>
   }, ExtArgs["result"]["consultation"]>
 
   export type ConsultationSelectScalar = {
@@ -9200,13 +9372,15 @@ export namespace Prisma {
     date_consultation?: boolean
     created_at?: boolean
     updated_at?: boolean
+    service_id?: boolean
   }
 
-  export type ConsultationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "patient_id" | "medecin_id" | "statut" | "motif" | "diagnostic" | "notes" | "poids_kg" | "taille_cm" | "tension" | "temperature" | "date_consultation" | "created_at" | "updated_at", ExtArgs["result"]["consultation"]>
+  export type ConsultationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "patient_id" | "medecin_id" | "statut" | "motif" | "diagnostic" | "notes" | "poids_kg" | "taille_cm" | "tension" | "temperature" | "date_consultation" | "created_at" | "updated_at" | "service_id", ExtArgs["result"]["consultation"]>
   export type ConsultationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    service?: boolean | Consultation$serviceArgs<ExtArgs>
     prescriptions?: boolean | Consultation$prescriptionsArgs<ExtArgs>
     facture?: boolean | Consultation$factureArgs<ExtArgs>
     _count?: boolean | ConsultationCountOutputTypeDefaultArgs<ExtArgs>
@@ -9215,11 +9389,13 @@ export namespace Prisma {
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    service?: boolean | Consultation$serviceArgs<ExtArgs>
   }
   export type ConsultationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    service?: boolean | Consultation$serviceArgs<ExtArgs>
   }
 
   export type $ConsultationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9228,6 +9404,7 @@ export namespace Prisma {
       hospital: Prisma.$HospitalPayload<ExtArgs>
       patient: Prisma.$PatientPayload<ExtArgs>
       medecin: Prisma.$UtilisateurPayload<ExtArgs>
+      service: Prisma.$ServicePayload<ExtArgs> | null
       prescriptions: Prisma.$PrescriptionPayload<ExtArgs>[]
       facture: Prisma.$FacturePayload<ExtArgs> | null
     }
@@ -9247,6 +9424,7 @@ export namespace Prisma {
       date_consultation: Date
       created_at: Date
       updated_at: Date
+      service_id: string | null
     }, ExtArgs["result"]["consultation"]>
     composites: {}
   }
@@ -9644,6 +9822,7 @@ export namespace Prisma {
     hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     patient<T extends PatientDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PatientDefaultArgs<ExtArgs>>): Prisma__PatientClient<$Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     medecin<T extends UtilisateurDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UtilisateurDefaultArgs<ExtArgs>>): Prisma__UtilisateurClient<$Result.GetResult<Prisma.$UtilisateurPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    service<T extends Consultation$serviceArgs<ExtArgs> = {}>(args?: Subset<T, Consultation$serviceArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     prescriptions<T extends Consultation$prescriptionsArgs<ExtArgs> = {}>(args?: Subset<T, Consultation$prescriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PrescriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     facture<T extends Consultation$factureArgs<ExtArgs> = {}>(args?: Subset<T, Consultation$factureArgs<ExtArgs>>): Prisma__FactureClient<$Result.GetResult<Prisma.$FacturePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
@@ -9690,6 +9869,7 @@ export namespace Prisma {
     readonly date_consultation: FieldRef<"Consultation", 'DateTime'>
     readonly created_at: FieldRef<"Consultation", 'DateTime'>
     readonly updated_at: FieldRef<"Consultation", 'DateTime'>
+    readonly service_id: FieldRef<"Consultation", 'String'>
   }
     
 
@@ -10088,6 +10268,25 @@ export namespace Prisma {
      * Limit how many Consultations to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Consultation.service
+   */
+  export type Consultation$serviceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    where?: ServiceWhereInput
   }
 
   /**
@@ -29338,6 +29537,1138 @@ export namespace Prisma {
 
 
   /**
+   * Model Service
+   */
+
+  export type AggregateService = {
+    _count: ServiceCountAggregateOutputType | null
+    _min: ServiceMinAggregateOutputType | null
+    _max: ServiceMaxAggregateOutputType | null
+  }
+
+  export type ServiceMinAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    nom: string | null
+    description: string | null
+    couleur: string | null
+    est_actif: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ServiceMaxAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    nom: string | null
+    description: string | null
+    couleur: string | null
+    est_actif: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ServiceCountAggregateOutputType = {
+    id: number
+    hospital_id: number
+    nom: number
+    description: number
+    couleur: number
+    est_actif: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type ServiceMinAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    nom?: true
+    description?: true
+    couleur?: true
+    est_actif?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ServiceMaxAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    nom?: true
+    description?: true
+    couleur?: true
+    est_actif?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ServiceCountAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    nom?: true
+    description?: true
+    couleur?: true
+    est_actif?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type ServiceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Service to aggregate.
+     */
+    where?: ServiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Services to fetch.
+     */
+    orderBy?: ServiceOrderByWithRelationInput | ServiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ServiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Services from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Services.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Services
+    **/
+    _count?: true | ServiceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ServiceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ServiceMaxAggregateInputType
+  }
+
+  export type GetServiceAggregateType<T extends ServiceAggregateArgs> = {
+        [P in keyof T & keyof AggregateService]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateService[P]>
+      : GetScalarType<T[P], AggregateService[P]>
+  }
+
+
+
+
+  export type ServiceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ServiceWhereInput
+    orderBy?: ServiceOrderByWithAggregationInput | ServiceOrderByWithAggregationInput[]
+    by: ServiceScalarFieldEnum[] | ServiceScalarFieldEnum
+    having?: ServiceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ServiceCountAggregateInputType | true
+    _min?: ServiceMinAggregateInputType
+    _max?: ServiceMaxAggregateInputType
+  }
+
+  export type ServiceGroupByOutputType = {
+    id: string
+    hospital_id: string
+    nom: string
+    description: string | null
+    couleur: string
+    est_actif: boolean
+    created_at: Date
+    updated_at: Date
+    _count: ServiceCountAggregateOutputType | null
+    _min: ServiceMinAggregateOutputType | null
+    _max: ServiceMaxAggregateOutputType | null
+  }
+
+  type GetServiceGroupByPayload<T extends ServiceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ServiceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ServiceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ServiceGroupByOutputType[P]>
+            : GetScalarType<T[P], ServiceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ServiceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    nom?: boolean
+    description?: boolean
+    couleur?: boolean
+    est_actif?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    consultations?: boolean | Service$consultationsArgs<ExtArgs>
+    _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["service"]>
+
+  export type ServiceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    nom?: boolean
+    description?: boolean
+    couleur?: boolean
+    est_actif?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["service"]>
+
+  export type ServiceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    nom?: boolean
+    description?: boolean
+    couleur?: boolean
+    est_actif?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["service"]>
+
+  export type ServiceSelectScalar = {
+    id?: boolean
+    hospital_id?: boolean
+    nom?: boolean
+    description?: boolean
+    couleur?: boolean
+    est_actif?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "nom" | "description" | "couleur" | "est_actif" | "created_at" | "updated_at", ExtArgs["result"]["service"]>
+  export type ServiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    consultations?: boolean | Service$consultationsArgs<ExtArgs>
+    _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ServiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
+  export type ServiceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
+
+  export type $ServicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Service"
+    objects: {
+      hospital: Prisma.$HospitalPayload<ExtArgs>
+      consultations: Prisma.$ConsultationPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      hospital_id: string
+      nom: string
+      description: string | null
+      couleur: string
+      est_actif: boolean
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["service"]>
+    composites: {}
+  }
+
+  type ServiceGetPayload<S extends boolean | null | undefined | ServiceDefaultArgs> = $Result.GetResult<Prisma.$ServicePayload, S>
+
+  type ServiceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ServiceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ServiceCountAggregateInputType | true
+    }
+
+  export interface ServiceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Service'], meta: { name: 'Service' } }
+    /**
+     * Find zero or one Service that matches the filter.
+     * @param {ServiceFindUniqueArgs} args - Arguments to find a Service
+     * @example
+     * // Get one Service
+     * const service = await prisma.service.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ServiceFindUniqueArgs>(args: SelectSubset<T, ServiceFindUniqueArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Service that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ServiceFindUniqueOrThrowArgs} args - Arguments to find a Service
+     * @example
+     * // Get one Service
+     * const service = await prisma.service.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ServiceFindUniqueOrThrowArgs>(args: SelectSubset<T, ServiceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Service that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceFindFirstArgs} args - Arguments to find a Service
+     * @example
+     * // Get one Service
+     * const service = await prisma.service.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ServiceFindFirstArgs>(args?: SelectSubset<T, ServiceFindFirstArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Service that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceFindFirstOrThrowArgs} args - Arguments to find a Service
+     * @example
+     * // Get one Service
+     * const service = await prisma.service.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ServiceFindFirstOrThrowArgs>(args?: SelectSubset<T, ServiceFindFirstOrThrowArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Services that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Services
+     * const services = await prisma.service.findMany()
+     * 
+     * // Get first 10 Services
+     * const services = await prisma.service.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const serviceWithIdOnly = await prisma.service.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ServiceFindManyArgs>(args?: SelectSubset<T, ServiceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Service.
+     * @param {ServiceCreateArgs} args - Arguments to create a Service.
+     * @example
+     * // Create one Service
+     * const Service = await prisma.service.create({
+     *   data: {
+     *     // ... data to create a Service
+     *   }
+     * })
+     * 
+     */
+    create<T extends ServiceCreateArgs>(args: SelectSubset<T, ServiceCreateArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Services.
+     * @param {ServiceCreateManyArgs} args - Arguments to create many Services.
+     * @example
+     * // Create many Services
+     * const service = await prisma.service.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ServiceCreateManyArgs>(args?: SelectSubset<T, ServiceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Services and returns the data saved in the database.
+     * @param {ServiceCreateManyAndReturnArgs} args - Arguments to create many Services.
+     * @example
+     * // Create many Services
+     * const service = await prisma.service.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Services and only return the `id`
+     * const serviceWithIdOnly = await prisma.service.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ServiceCreateManyAndReturnArgs>(args?: SelectSubset<T, ServiceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Service.
+     * @param {ServiceDeleteArgs} args - Arguments to delete one Service.
+     * @example
+     * // Delete one Service
+     * const Service = await prisma.service.delete({
+     *   where: {
+     *     // ... filter to delete one Service
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ServiceDeleteArgs>(args: SelectSubset<T, ServiceDeleteArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Service.
+     * @param {ServiceUpdateArgs} args - Arguments to update one Service.
+     * @example
+     * // Update one Service
+     * const service = await prisma.service.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ServiceUpdateArgs>(args: SelectSubset<T, ServiceUpdateArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Services.
+     * @param {ServiceDeleteManyArgs} args - Arguments to filter Services to delete.
+     * @example
+     * // Delete a few Services
+     * const { count } = await prisma.service.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ServiceDeleteManyArgs>(args?: SelectSubset<T, ServiceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Services.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Services
+     * const service = await prisma.service.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ServiceUpdateManyArgs>(args: SelectSubset<T, ServiceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Services and returns the data updated in the database.
+     * @param {ServiceUpdateManyAndReturnArgs} args - Arguments to update many Services.
+     * @example
+     * // Update many Services
+     * const service = await prisma.service.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Services and only return the `id`
+     * const serviceWithIdOnly = await prisma.service.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ServiceUpdateManyAndReturnArgs>(args: SelectSubset<T, ServiceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Service.
+     * @param {ServiceUpsertArgs} args - Arguments to update or create a Service.
+     * @example
+     * // Update or create a Service
+     * const service = await prisma.service.upsert({
+     *   create: {
+     *     // ... data to create a Service
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Service we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ServiceUpsertArgs>(args: SelectSubset<T, ServiceUpsertArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Services.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceCountArgs} args - Arguments to filter Services to count.
+     * @example
+     * // Count the number of Services
+     * const count = await prisma.service.count({
+     *   where: {
+     *     // ... the filter for the Services we want to count
+     *   }
+     * })
+    **/
+    count<T extends ServiceCountArgs>(
+      args?: Subset<T, ServiceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ServiceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Service.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ServiceAggregateArgs>(args: Subset<T, ServiceAggregateArgs>): Prisma.PrismaPromise<GetServiceAggregateType<T>>
+
+    /**
+     * Group by Service.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ServiceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ServiceGroupByArgs['orderBy'] }
+        : { orderBy?: ServiceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ServiceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetServiceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Service model
+   */
+  readonly fields: ServiceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Service.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ServiceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    consultations<T extends Service$consultationsArgs<ExtArgs> = {}>(args?: Subset<T, Service$consultationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConsultationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Service model
+   */
+  interface ServiceFieldRefs {
+    readonly id: FieldRef<"Service", 'String'>
+    readonly hospital_id: FieldRef<"Service", 'String'>
+    readonly nom: FieldRef<"Service", 'String'>
+    readonly description: FieldRef<"Service", 'String'>
+    readonly couleur: FieldRef<"Service", 'String'>
+    readonly est_actif: FieldRef<"Service", 'Boolean'>
+    readonly created_at: FieldRef<"Service", 'DateTime'>
+    readonly updated_at: FieldRef<"Service", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Service findUnique
+   */
+  export type ServiceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    /**
+     * Filter, which Service to fetch.
+     */
+    where: ServiceWhereUniqueInput
+  }
+
+  /**
+   * Service findUniqueOrThrow
+   */
+  export type ServiceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    /**
+     * Filter, which Service to fetch.
+     */
+    where: ServiceWhereUniqueInput
+  }
+
+  /**
+   * Service findFirst
+   */
+  export type ServiceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    /**
+     * Filter, which Service to fetch.
+     */
+    where?: ServiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Services to fetch.
+     */
+    orderBy?: ServiceOrderByWithRelationInput | ServiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Services.
+     */
+    cursor?: ServiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Services from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Services.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Services.
+     */
+    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
+  }
+
+  /**
+   * Service findFirstOrThrow
+   */
+  export type ServiceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    /**
+     * Filter, which Service to fetch.
+     */
+    where?: ServiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Services to fetch.
+     */
+    orderBy?: ServiceOrderByWithRelationInput | ServiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Services.
+     */
+    cursor?: ServiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Services from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Services.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Services.
+     */
+    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
+  }
+
+  /**
+   * Service findMany
+   */
+  export type ServiceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    /**
+     * Filter, which Services to fetch.
+     */
+    where?: ServiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Services to fetch.
+     */
+    orderBy?: ServiceOrderByWithRelationInput | ServiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Services.
+     */
+    cursor?: ServiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Services from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Services.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Services.
+     */
+    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
+  }
+
+  /**
+   * Service create
+   */
+  export type ServiceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Service.
+     */
+    data: XOR<ServiceCreateInput, ServiceUncheckedCreateInput>
+  }
+
+  /**
+   * Service createMany
+   */
+  export type ServiceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Services.
+     */
+    data: ServiceCreateManyInput | ServiceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Service createManyAndReturn
+   */
+  export type ServiceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * The data used to create many Services.
+     */
+    data: ServiceCreateManyInput | ServiceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Service update
+   */
+  export type ServiceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Service.
+     */
+    data: XOR<ServiceUpdateInput, ServiceUncheckedUpdateInput>
+    /**
+     * Choose, which Service to update.
+     */
+    where: ServiceWhereUniqueInput
+  }
+
+  /**
+   * Service updateMany
+   */
+  export type ServiceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Services.
+     */
+    data: XOR<ServiceUpdateManyMutationInput, ServiceUncheckedUpdateManyInput>
+    /**
+     * Filter which Services to update
+     */
+    where?: ServiceWhereInput
+    /**
+     * Limit how many Services to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Service updateManyAndReturn
+   */
+  export type ServiceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * The data used to update Services.
+     */
+    data: XOR<ServiceUpdateManyMutationInput, ServiceUncheckedUpdateManyInput>
+    /**
+     * Filter which Services to update
+     */
+    where?: ServiceWhereInput
+    /**
+     * Limit how many Services to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Service upsert
+   */
+  export type ServiceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Service to update in case it exists.
+     */
+    where: ServiceWhereUniqueInput
+    /**
+     * In case the Service found by the `where` argument doesn't exist, create a new Service with this data.
+     */
+    create: XOR<ServiceCreateInput, ServiceUncheckedCreateInput>
+    /**
+     * In case the Service was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ServiceUpdateInput, ServiceUncheckedUpdateInput>
+  }
+
+  /**
+   * Service delete
+   */
+  export type ServiceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    /**
+     * Filter which Service to delete.
+     */
+    where: ServiceWhereUniqueInput
+  }
+
+  /**
+   * Service deleteMany
+   */
+  export type ServiceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Services to delete
+     */
+    where?: ServiceWhereInput
+    /**
+     * Limit how many Services to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Service.consultations
+   */
+  export type Service$consultationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Consultation
+     */
+    select?: ConsultationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Consultation
+     */
+    omit?: ConsultationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConsultationInclude<ExtArgs> | null
+    where?: ConsultationWhereInput
+    orderBy?: ConsultationOrderByWithRelationInput | ConsultationOrderByWithRelationInput[]
+    cursor?: ConsultationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ConsultationScalarFieldEnum | ConsultationScalarFieldEnum[]
+  }
+
+  /**
+   * Service without action
+   */
+  export type ServiceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -29437,7 +30768,8 @@ export namespace Prisma {
     temperature: 'temperature',
     date_consultation: 'date_consultation',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    service_id: 'service_id'
   };
 
   export type ConsultationScalarFieldEnum = (typeof ConsultationScalarFieldEnum)[keyof typeof ConsultationScalarFieldEnum]
@@ -29721,6 +31053,20 @@ export namespace Prisma {
   };
 
   export type RolePersonnaliseScalarFieldEnum = (typeof RolePersonnaliseScalarFieldEnum)[keyof typeof RolePersonnaliseScalarFieldEnum]
+
+
+  export const ServiceScalarFieldEnum: {
+    id: 'id',
+    hospital_id: 'hospital_id',
+    nom: 'nom',
+    description: 'description',
+    couleur: 'couleur',
+    est_actif: 'est_actif',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -30104,6 +31450,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurListRelationFilter
     patients?: PatientHospitalListRelationFilter
     consultations?: ConsultationListRelationFilter
+    services?: ServiceListRelationFilter
     factures?: FactureListRelationFilter
     examens_labo?: ExamenLaboListRelationFilter
     examens_imagerie?: ExamenImagerieListRelationFilter
@@ -30132,6 +31479,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurOrderByRelationAggregateInput
     patients?: PatientHospitalOrderByRelationAggregateInput
     consultations?: ConsultationOrderByRelationAggregateInput
+    services?: ServiceOrderByRelationAggregateInput
     factures?: FactureOrderByRelationAggregateInput
     examens_labo?: ExamenLaboOrderByRelationAggregateInput
     examens_imagerie?: ExamenImagerieOrderByRelationAggregateInput
@@ -30163,6 +31511,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurListRelationFilter
     patients?: PatientHospitalListRelationFilter
     consultations?: ConsultationListRelationFilter
+    services?: ServiceListRelationFilter
     factures?: FactureListRelationFilter
     examens_labo?: ExamenLaboListRelationFilter
     examens_imagerie?: ExamenImagerieListRelationFilter
@@ -30542,9 +31891,11 @@ export namespace Prisma {
     date_consultation?: DateTimeFilter<"Consultation"> | Date | string
     created_at?: DateTimeFilter<"Consultation"> | Date | string
     updated_at?: DateTimeFilter<"Consultation"> | Date | string
+    service_id?: StringNullableFilter<"Consultation"> | string | null
     hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
     patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
     medecin?: XOR<UtilisateurScalarRelationFilter, UtilisateurWhereInput>
+    service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
     prescriptions?: PrescriptionListRelationFilter
     facture?: XOR<FactureNullableScalarRelationFilter, FactureWhereInput> | null
   }
@@ -30565,9 +31916,11 @@ export namespace Prisma {
     date_consultation?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    service_id?: SortOrderInput | SortOrder
     hospital?: HospitalOrderByWithRelationInput
     patient?: PatientOrderByWithRelationInput
     medecin?: UtilisateurOrderByWithRelationInput
+    service?: ServiceOrderByWithRelationInput
     prescriptions?: PrescriptionOrderByRelationAggregateInput
     facture?: FactureOrderByWithRelationInput
   }
@@ -30591,9 +31944,11 @@ export namespace Prisma {
     date_consultation?: DateTimeFilter<"Consultation"> | Date | string
     created_at?: DateTimeFilter<"Consultation"> | Date | string
     updated_at?: DateTimeFilter<"Consultation"> | Date | string
+    service_id?: StringNullableFilter<"Consultation"> | string | null
     hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
     patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
     medecin?: XOR<UtilisateurScalarRelationFilter, UtilisateurWhereInput>
+    service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
     prescriptions?: PrescriptionListRelationFilter
     facture?: XOR<FactureNullableScalarRelationFilter, FactureWhereInput> | null
   }, "id">
@@ -30614,6 +31969,7 @@ export namespace Prisma {
     date_consultation?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    service_id?: SortOrderInput | SortOrder
     _count?: ConsultationCountOrderByAggregateInput
     _avg?: ConsultationAvgOrderByAggregateInput
     _max?: ConsultationMaxOrderByAggregateInput
@@ -30640,6 +31996,7 @@ export namespace Prisma {
     date_consultation?: DateTimeWithAggregatesFilter<"Consultation"> | Date | string
     created_at?: DateTimeWithAggregatesFilter<"Consultation"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Consultation"> | Date | string
+    service_id?: StringNullableWithAggregatesFilter<"Consultation"> | string | null
   }
 
   export type PrescriptionWhereInput = {
@@ -32138,6 +33495,80 @@ export namespace Prisma {
     updated_at?: DateTimeWithAggregatesFilter<"RolePersonnalise"> | Date | string
   }
 
+  export type ServiceWhereInput = {
+    AND?: ServiceWhereInput | ServiceWhereInput[]
+    OR?: ServiceWhereInput[]
+    NOT?: ServiceWhereInput | ServiceWhereInput[]
+    id?: StringFilter<"Service"> | string
+    hospital_id?: StringFilter<"Service"> | string
+    nom?: StringFilter<"Service"> | string
+    description?: StringNullableFilter<"Service"> | string | null
+    couleur?: StringFilter<"Service"> | string
+    est_actif?: BoolFilter<"Service"> | boolean
+    created_at?: DateTimeFilter<"Service"> | Date | string
+    updated_at?: DateTimeFilter<"Service"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+    consultations?: ConsultationListRelationFilter
+  }
+
+  export type ServiceOrderByWithRelationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    nom?: SortOrder
+    description?: SortOrderInput | SortOrder
+    couleur?: SortOrder
+    est_actif?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    hospital?: HospitalOrderByWithRelationInput
+    consultations?: ConsultationOrderByRelationAggregateInput
+  }
+
+  export type ServiceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    hospital_id_nom?: ServiceHospital_idNomCompoundUniqueInput
+    AND?: ServiceWhereInput | ServiceWhereInput[]
+    OR?: ServiceWhereInput[]
+    NOT?: ServiceWhereInput | ServiceWhereInput[]
+    hospital_id?: StringFilter<"Service"> | string
+    nom?: StringFilter<"Service"> | string
+    description?: StringNullableFilter<"Service"> | string | null
+    couleur?: StringFilter<"Service"> | string
+    est_actif?: BoolFilter<"Service"> | boolean
+    created_at?: DateTimeFilter<"Service"> | Date | string
+    updated_at?: DateTimeFilter<"Service"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+    consultations?: ConsultationListRelationFilter
+  }, "id" | "hospital_id_nom">
+
+  export type ServiceOrderByWithAggregationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    nom?: SortOrder
+    description?: SortOrderInput | SortOrder
+    couleur?: SortOrder
+    est_actif?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: ServiceCountOrderByAggregateInput
+    _max?: ServiceMaxOrderByAggregateInput
+    _min?: ServiceMinOrderByAggregateInput
+  }
+
+  export type ServiceScalarWhereWithAggregatesInput = {
+    AND?: ServiceScalarWhereWithAggregatesInput | ServiceScalarWhereWithAggregatesInput[]
+    OR?: ServiceScalarWhereWithAggregatesInput[]
+    NOT?: ServiceScalarWhereWithAggregatesInput | ServiceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Service"> | string
+    hospital_id?: StringWithAggregatesFilter<"Service"> | string
+    nom?: StringWithAggregatesFilter<"Service"> | string
+    description?: StringNullableWithAggregatesFilter<"Service"> | string | null
+    couleur?: StringWithAggregatesFilter<"Service"> | string
+    est_actif?: BoolWithAggregatesFilter<"Service"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"Service"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Service"> | Date | string
+  }
+
   export type HospitalCreateInput = {
     id?: string
     nom: string
@@ -32152,6 +33583,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
@@ -32180,6 +33612,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
@@ -32208,6 +33641,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
@@ -32236,6 +33670,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
@@ -32667,6 +34102,7 @@ export namespace Prisma {
     hospital: HospitalCreateNestedOneWithoutConsultationsInput
     patient: PatientCreateNestedOneWithoutConsultationsInput
     medecin: UtilisateurCreateNestedOneWithoutConsultationsInput
+    service?: ServiceCreateNestedOneWithoutConsultationsInput
     prescriptions?: PrescriptionCreateNestedManyWithoutConsultationInput
     facture?: FactureCreateNestedOneWithoutConsultationInput
   }
@@ -32687,6 +34123,7 @@ export namespace Prisma {
     date_consultation?: Date | string
     created_at?: Date | string
     updated_at?: Date | string
+    service_id?: string | null
     prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutConsultationInput
     facture?: FactureUncheckedCreateNestedOneWithoutConsultationInput
   }
@@ -32707,6 +34144,7 @@ export namespace Prisma {
     hospital?: HospitalUpdateOneRequiredWithoutConsultationsNestedInput
     patient?: PatientUpdateOneRequiredWithoutConsultationsNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutConsultationsNestedInput
+    service?: ServiceUpdateOneWithoutConsultationsNestedInput
     prescriptions?: PrescriptionUpdateManyWithoutConsultationNestedInput
     facture?: FactureUpdateOneWithoutConsultationNestedInput
   }
@@ -32727,6 +34165,7 @@ export namespace Prisma {
     date_consultation?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: PrescriptionUncheckedUpdateManyWithoutConsultationNestedInput
     facture?: FactureUncheckedUpdateOneWithoutConsultationNestedInput
   }
@@ -32747,6 +34186,7 @@ export namespace Prisma {
     date_consultation?: Date | string
     created_at?: Date | string
     updated_at?: Date | string
+    service_id?: string | null
   }
 
   export type ConsultationUpdateManyMutationInput = {
@@ -32780,6 +34220,7 @@ export namespace Prisma {
     date_consultation?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PrescriptionCreateInput = {
@@ -34415,6 +35856,86 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ServiceCreateInput = {
+    id?: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutServicesInput
+    consultations?: ConsultationCreateNestedManyWithoutServiceInput
+  }
+
+  export type ServiceUncheckedCreateInput = {
+    id?: string
+    hospital_id: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    consultations?: ConsultationUncheckedCreateNestedManyWithoutServiceInput
+  }
+
+  export type ServiceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutServicesNestedInput
+    consultations?: ConsultationUpdateManyWithoutServiceNestedInput
+  }
+
+  export type ServiceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    consultations?: ConsultationUncheckedUpdateManyWithoutServiceNestedInput
+  }
+
+  export type ServiceCreateManyInput = {
+    id?: string
+    hospital_id: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ServiceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ServiceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -34477,6 +35998,12 @@ export namespace Prisma {
     every?: ConsultationWhereInput
     some?: ConsultationWhereInput
     none?: ConsultationWhereInput
+  }
+
+  export type ServiceListRelationFilter = {
+    every?: ServiceWhereInput
+    some?: ServiceWhereInput
+    none?: ServiceWhereInput
   }
 
   export type FactureListRelationFilter = {
@@ -34565,6 +36092,10 @@ export namespace Prisma {
   }
 
   export type ConsultationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ServiceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -34977,6 +36508,11 @@ export namespace Prisma {
     isNot?: UtilisateurWhereInput
   }
 
+  export type ServiceNullableScalarRelationFilter = {
+    is?: ServiceWhereInput | null
+    isNot?: ServiceWhereInput | null
+  }
+
   export type PrescriptionListRelationFilter = {
     every?: PrescriptionWhereInput
     some?: PrescriptionWhereInput
@@ -35008,6 +36544,7 @@ export namespace Prisma {
     date_consultation?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    service_id?: SortOrder
   }
 
   export type ConsultationAvgOrderByAggregateInput = {
@@ -35032,6 +36569,7 @@ export namespace Prisma {
     date_consultation?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    service_id?: SortOrder
   }
 
   export type ConsultationMinOrderByAggregateInput = {
@@ -35050,6 +36588,7 @@ export namespace Prisma {
     date_consultation?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    service_id?: SortOrder
   }
 
   export type ConsultationSumOrderByAggregateInput = {
@@ -36289,6 +37828,44 @@ export namespace Prisma {
     updated_at?: SortOrder
   }
 
+  export type ServiceHospital_idNomCompoundUniqueInput = {
+    hospital_id: string
+    nom: string
+  }
+
+  export type ServiceCountOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    nom?: SortOrder
+    description?: SortOrder
+    couleur?: SortOrder
+    est_actif?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ServiceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    nom?: SortOrder
+    description?: SortOrder
+    couleur?: SortOrder
+    est_actif?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ServiceMinOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    nom?: SortOrder
+    description?: SortOrder
+    couleur?: SortOrder
+    est_actif?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
   export type UtilisateurCreateNestedManyWithoutHospitalInput = {
     create?: XOR<UtilisateurCreateWithoutHospitalInput, UtilisateurUncheckedCreateWithoutHospitalInput> | UtilisateurCreateWithoutHospitalInput[] | UtilisateurUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: UtilisateurCreateOrConnectWithoutHospitalInput | UtilisateurCreateOrConnectWithoutHospitalInput[]
@@ -36308,6 +37885,13 @@ export namespace Prisma {
     connectOrCreate?: ConsultationCreateOrConnectWithoutHospitalInput | ConsultationCreateOrConnectWithoutHospitalInput[]
     createMany?: ConsultationCreateManyHospitalInputEnvelope
     connect?: ConsultationWhereUniqueInput | ConsultationWhereUniqueInput[]
+  }
+
+  export type ServiceCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<ServiceCreateWithoutHospitalInput, ServiceUncheckedCreateWithoutHospitalInput> | ServiceCreateWithoutHospitalInput[] | ServiceUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutHospitalInput | ServiceCreateOrConnectWithoutHospitalInput[]
+    createMany?: ServiceCreateManyHospitalInputEnvelope
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
   }
 
   export type FactureCreateNestedManyWithoutHospitalInput = {
@@ -36413,6 +37997,13 @@ export namespace Prisma {
     connectOrCreate?: ConsultationCreateOrConnectWithoutHospitalInput | ConsultationCreateOrConnectWithoutHospitalInput[]
     createMany?: ConsultationCreateManyHospitalInputEnvelope
     connect?: ConsultationWhereUniqueInput | ConsultationWhereUniqueInput[]
+  }
+
+  export type ServiceUncheckedCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<ServiceCreateWithoutHospitalInput, ServiceUncheckedCreateWithoutHospitalInput> | ServiceCreateWithoutHospitalInput[] | ServiceUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutHospitalInput | ServiceCreateOrConnectWithoutHospitalInput[]
+    createMany?: ServiceCreateManyHospitalInputEnvelope
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
   }
 
   export type FactureUncheckedCreateNestedManyWithoutHospitalInput = {
@@ -36555,6 +38146,20 @@ export namespace Prisma {
     update?: ConsultationUpdateWithWhereUniqueWithoutHospitalInput | ConsultationUpdateWithWhereUniqueWithoutHospitalInput[]
     updateMany?: ConsultationUpdateManyWithWhereWithoutHospitalInput | ConsultationUpdateManyWithWhereWithoutHospitalInput[]
     deleteMany?: ConsultationScalarWhereInput | ConsultationScalarWhereInput[]
+  }
+
+  export type ServiceUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<ServiceCreateWithoutHospitalInput, ServiceUncheckedCreateWithoutHospitalInput> | ServiceCreateWithoutHospitalInput[] | ServiceUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutHospitalInput | ServiceCreateOrConnectWithoutHospitalInput[]
+    upsert?: ServiceUpsertWithWhereUniqueWithoutHospitalInput | ServiceUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: ServiceCreateManyHospitalInputEnvelope
+    set?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    disconnect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    delete?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    update?: ServiceUpdateWithWhereUniqueWithoutHospitalInput | ServiceUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: ServiceUpdateManyWithWhereWithoutHospitalInput | ServiceUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
   }
 
   export type FactureUpdateManyWithoutHospitalNestedInput = {
@@ -36765,6 +38370,20 @@ export namespace Prisma {
     update?: ConsultationUpdateWithWhereUniqueWithoutHospitalInput | ConsultationUpdateWithWhereUniqueWithoutHospitalInput[]
     updateMany?: ConsultationUpdateManyWithWhereWithoutHospitalInput | ConsultationUpdateManyWithWhereWithoutHospitalInput[]
     deleteMany?: ConsultationScalarWhereInput | ConsultationScalarWhereInput[]
+  }
+
+  export type ServiceUncheckedUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<ServiceCreateWithoutHospitalInput, ServiceUncheckedCreateWithoutHospitalInput> | ServiceCreateWithoutHospitalInput[] | ServiceUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutHospitalInput | ServiceCreateOrConnectWithoutHospitalInput[]
+    upsert?: ServiceUpsertWithWhereUniqueWithoutHospitalInput | ServiceUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: ServiceCreateManyHospitalInputEnvelope
+    set?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    disconnect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    delete?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    update?: ServiceUpdateWithWhereUniqueWithoutHospitalInput | ServiceUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: ServiceUpdateManyWithWhereWithoutHospitalInput | ServiceUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
   }
 
   export type FactureUncheckedUpdateManyWithoutHospitalNestedInput = {
@@ -37493,6 +39112,12 @@ export namespace Prisma {
     connect?: UtilisateurWhereUniqueInput
   }
 
+  export type ServiceCreateNestedOneWithoutConsultationsInput = {
+    create?: XOR<ServiceCreateWithoutConsultationsInput, ServiceUncheckedCreateWithoutConsultationsInput>
+    connectOrCreate?: ServiceCreateOrConnectWithoutConsultationsInput
+    connect?: ServiceWhereUniqueInput
+  }
+
   export type PrescriptionCreateNestedManyWithoutConsultationInput = {
     create?: XOR<PrescriptionCreateWithoutConsultationInput, PrescriptionUncheckedCreateWithoutConsultationInput> | PrescriptionCreateWithoutConsultationInput[] | PrescriptionUncheckedCreateWithoutConsultationInput[]
     connectOrCreate?: PrescriptionCreateOrConnectWithoutConsultationInput | PrescriptionCreateOrConnectWithoutConsultationInput[]
@@ -37545,6 +39170,16 @@ export namespace Prisma {
     upsert?: UtilisateurUpsertWithoutConsultationsInput
     connect?: UtilisateurWhereUniqueInput
     update?: XOR<XOR<UtilisateurUpdateToOneWithWhereWithoutConsultationsInput, UtilisateurUpdateWithoutConsultationsInput>, UtilisateurUncheckedUpdateWithoutConsultationsInput>
+  }
+
+  export type ServiceUpdateOneWithoutConsultationsNestedInput = {
+    create?: XOR<ServiceCreateWithoutConsultationsInput, ServiceUncheckedCreateWithoutConsultationsInput>
+    connectOrCreate?: ServiceCreateOrConnectWithoutConsultationsInput
+    upsert?: ServiceUpsertWithoutConsultationsInput
+    disconnect?: ServiceWhereInput | boolean
+    delete?: ServiceWhereInput | boolean
+    connect?: ServiceWhereUniqueInput
+    update?: XOR<XOR<ServiceUpdateToOneWithWhereWithoutConsultationsInput, ServiceUpdateWithoutConsultationsInput>, ServiceUncheckedUpdateWithoutConsultationsInput>
   }
 
   export type PrescriptionUpdateManyWithoutConsultationNestedInput = {
@@ -38529,6 +40164,62 @@ export namespace Prisma {
     deleteMany?: PermissionScalarWhereInput | PermissionScalarWhereInput[]
   }
 
+  export type HospitalCreateNestedOneWithoutServicesInput = {
+    create?: XOR<HospitalCreateWithoutServicesInput, HospitalUncheckedCreateWithoutServicesInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutServicesInput
+    connect?: HospitalWhereUniqueInput
+  }
+
+  export type ConsultationCreateNestedManyWithoutServiceInput = {
+    create?: XOR<ConsultationCreateWithoutServiceInput, ConsultationUncheckedCreateWithoutServiceInput> | ConsultationCreateWithoutServiceInput[] | ConsultationUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: ConsultationCreateOrConnectWithoutServiceInput | ConsultationCreateOrConnectWithoutServiceInput[]
+    createMany?: ConsultationCreateManyServiceInputEnvelope
+    connect?: ConsultationWhereUniqueInput | ConsultationWhereUniqueInput[]
+  }
+
+  export type ConsultationUncheckedCreateNestedManyWithoutServiceInput = {
+    create?: XOR<ConsultationCreateWithoutServiceInput, ConsultationUncheckedCreateWithoutServiceInput> | ConsultationCreateWithoutServiceInput[] | ConsultationUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: ConsultationCreateOrConnectWithoutServiceInput | ConsultationCreateOrConnectWithoutServiceInput[]
+    createMany?: ConsultationCreateManyServiceInputEnvelope
+    connect?: ConsultationWhereUniqueInput | ConsultationWhereUniqueInput[]
+  }
+
+  export type HospitalUpdateOneRequiredWithoutServicesNestedInput = {
+    create?: XOR<HospitalCreateWithoutServicesInput, HospitalUncheckedCreateWithoutServicesInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutServicesInput
+    upsert?: HospitalUpsertWithoutServicesInput
+    connect?: HospitalWhereUniqueInput
+    update?: XOR<XOR<HospitalUpdateToOneWithWhereWithoutServicesInput, HospitalUpdateWithoutServicesInput>, HospitalUncheckedUpdateWithoutServicesInput>
+  }
+
+  export type ConsultationUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<ConsultationCreateWithoutServiceInput, ConsultationUncheckedCreateWithoutServiceInput> | ConsultationCreateWithoutServiceInput[] | ConsultationUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: ConsultationCreateOrConnectWithoutServiceInput | ConsultationCreateOrConnectWithoutServiceInput[]
+    upsert?: ConsultationUpsertWithWhereUniqueWithoutServiceInput | ConsultationUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: ConsultationCreateManyServiceInputEnvelope
+    set?: ConsultationWhereUniqueInput | ConsultationWhereUniqueInput[]
+    disconnect?: ConsultationWhereUniqueInput | ConsultationWhereUniqueInput[]
+    delete?: ConsultationWhereUniqueInput | ConsultationWhereUniqueInput[]
+    connect?: ConsultationWhereUniqueInput | ConsultationWhereUniqueInput[]
+    update?: ConsultationUpdateWithWhereUniqueWithoutServiceInput | ConsultationUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: ConsultationUpdateManyWithWhereWithoutServiceInput | ConsultationUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: ConsultationScalarWhereInput | ConsultationScalarWhereInput[]
+  }
+
+  export type ConsultationUncheckedUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<ConsultationCreateWithoutServiceInput, ConsultationUncheckedCreateWithoutServiceInput> | ConsultationCreateWithoutServiceInput[] | ConsultationUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: ConsultationCreateOrConnectWithoutServiceInput | ConsultationCreateOrConnectWithoutServiceInput[]
+    upsert?: ConsultationUpsertWithWhereUniqueWithoutServiceInput | ConsultationUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: ConsultationCreateManyServiceInputEnvelope
+    set?: ConsultationWhereUniqueInput | ConsultationWhereUniqueInput[]
+    disconnect?: ConsultationWhereUniqueInput | ConsultationWhereUniqueInput[]
+    delete?: ConsultationWhereUniqueInput | ConsultationWhereUniqueInput[]
+    connect?: ConsultationWhereUniqueInput | ConsultationWhereUniqueInput[]
+    update?: ConsultationUpdateWithWhereUniqueWithoutServiceInput | ConsultationUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: ConsultationUpdateManyWithWhereWithoutServiceInput | ConsultationUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: ConsultationScalarWhereInput | ConsultationScalarWhereInput[]
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -39170,6 +40861,7 @@ export namespace Prisma {
     updated_at?: Date | string
     patient: PatientCreateNestedOneWithoutConsultationsInput
     medecin: UtilisateurCreateNestedOneWithoutConsultationsInput
+    service?: ServiceCreateNestedOneWithoutConsultationsInput
     prescriptions?: PrescriptionCreateNestedManyWithoutConsultationInput
     facture?: FactureCreateNestedOneWithoutConsultationInput
   }
@@ -39189,6 +40881,7 @@ export namespace Prisma {
     date_consultation?: Date | string
     created_at?: Date | string
     updated_at?: Date | string
+    service_id?: string | null
     prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutConsultationInput
     facture?: FactureUncheckedCreateNestedOneWithoutConsultationInput
   }
@@ -39200,6 +40893,38 @@ export namespace Prisma {
 
   export type ConsultationCreateManyHospitalInputEnvelope = {
     data: ConsultationCreateManyHospitalInput | ConsultationCreateManyHospitalInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ServiceCreateWithoutHospitalInput = {
+    id?: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    consultations?: ConsultationCreateNestedManyWithoutServiceInput
+  }
+
+  export type ServiceUncheckedCreateWithoutHospitalInput = {
+    id?: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    consultations?: ConsultationUncheckedCreateNestedManyWithoutServiceInput
+  }
+
+  export type ServiceCreateOrConnectWithoutHospitalInput = {
+    where: ServiceWhereUniqueInput
+    create: XOR<ServiceCreateWithoutHospitalInput, ServiceUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type ServiceCreateManyHospitalInputEnvelope = {
+    data: ServiceCreateManyHospitalInput | ServiceCreateManyHospitalInput[]
     skipDuplicates?: boolean
   }
 
@@ -39788,6 +41513,37 @@ export namespace Prisma {
     date_consultation?: DateTimeFilter<"Consultation"> | Date | string
     created_at?: DateTimeFilter<"Consultation"> | Date | string
     updated_at?: DateTimeFilter<"Consultation"> | Date | string
+    service_id?: StringNullableFilter<"Consultation"> | string | null
+  }
+
+  export type ServiceUpsertWithWhereUniqueWithoutHospitalInput = {
+    where: ServiceWhereUniqueInput
+    update: XOR<ServiceUpdateWithoutHospitalInput, ServiceUncheckedUpdateWithoutHospitalInput>
+    create: XOR<ServiceCreateWithoutHospitalInput, ServiceUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type ServiceUpdateWithWhereUniqueWithoutHospitalInput = {
+    where: ServiceWhereUniqueInput
+    data: XOR<ServiceUpdateWithoutHospitalInput, ServiceUncheckedUpdateWithoutHospitalInput>
+  }
+
+  export type ServiceUpdateManyWithWhereWithoutHospitalInput = {
+    where: ServiceScalarWhereInput
+    data: XOR<ServiceUpdateManyMutationInput, ServiceUncheckedUpdateManyWithoutHospitalInput>
+  }
+
+  export type ServiceScalarWhereInput = {
+    AND?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
+    OR?: ServiceScalarWhereInput[]
+    NOT?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
+    id?: StringFilter<"Service"> | string
+    hospital_id?: StringFilter<"Service"> | string
+    nom?: StringFilter<"Service"> | string
+    description?: StringNullableFilter<"Service"> | string | null
+    couleur?: StringFilter<"Service"> | string
+    est_actif?: BoolFilter<"Service"> | boolean
+    created_at?: DateTimeFilter<"Service"> | Date | string
+    updated_at?: DateTimeFilter<"Service"> | Date | string
   }
 
   export type FactureUpsertWithWhereUniqueWithoutHospitalInput = {
@@ -40215,6 +41971,7 @@ export namespace Prisma {
     updated_at?: Date | string
     patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
@@ -40242,6 +41999,7 @@ export namespace Prisma {
     updated_at?: Date | string
     patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
@@ -40276,6 +42034,7 @@ export namespace Prisma {
     updated_at?: Date | string
     hospital: HospitalCreateNestedOneWithoutConsultationsInput
     patient: PatientCreateNestedOneWithoutConsultationsInput
+    service?: ServiceCreateNestedOneWithoutConsultationsInput
     prescriptions?: PrescriptionCreateNestedManyWithoutConsultationInput
     facture?: FactureCreateNestedOneWithoutConsultationInput
   }
@@ -40295,6 +42054,7 @@ export namespace Prisma {
     date_consultation?: Date | string
     created_at?: Date | string
     updated_at?: Date | string
+    service_id?: string | null
     prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutConsultationInput
     facture?: FactureUncheckedCreateNestedOneWithoutConsultationInput
   }
@@ -40504,6 +42264,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
@@ -40531,6 +42292,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
@@ -40691,6 +42453,7 @@ export namespace Prisma {
     updated_at?: Date | string
     hospital: HospitalCreateNestedOneWithoutConsultationsInput
     medecin: UtilisateurCreateNestedOneWithoutConsultationsInput
+    service?: ServiceCreateNestedOneWithoutConsultationsInput
     prescriptions?: PrescriptionCreateNestedManyWithoutConsultationInput
     facture?: FactureCreateNestedOneWithoutConsultationInput
   }
@@ -40710,6 +42473,7 @@ export namespace Prisma {
     date_consultation?: Date | string
     created_at?: Date | string
     updated_at?: Date | string
+    service_id?: string | null
     prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutConsultationInput
     facture?: FactureUncheckedCreateNestedOneWithoutConsultationInput
   }
@@ -41124,6 +42888,7 @@ export namespace Prisma {
     updated_at?: Date | string
     utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
@@ -41151,6 +42916,7 @@ export namespace Prisma {
     updated_at?: Date | string
     utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
@@ -41253,6 +43019,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
@@ -41280,6 +43047,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
@@ -41307,6 +43075,7 @@ export namespace Prisma {
     updated_at?: Date | string
     utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
+    services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
@@ -41334,6 +43103,7 @@ export namespace Prisma {
     updated_at?: Date | string
     utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
+    services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
@@ -41449,6 +43219,33 @@ export namespace Prisma {
     create: XOR<UtilisateurCreateWithoutConsultationsInput, UtilisateurUncheckedCreateWithoutConsultationsInput>
   }
 
+  export type ServiceCreateWithoutConsultationsInput = {
+    id?: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutServicesInput
+  }
+
+  export type ServiceUncheckedCreateWithoutConsultationsInput = {
+    id?: string
+    hospital_id: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ServiceCreateOrConnectWithoutConsultationsInput = {
+    where: ServiceWhereUniqueInput
+    create: XOR<ServiceCreateWithoutConsultationsInput, ServiceUncheckedCreateWithoutConsultationsInput>
+  }
+
   export type PrescriptionCreateWithoutConsultationInput = {
     id?: string
     medicament: string
@@ -41548,6 +43345,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
@@ -41575,6 +43373,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
@@ -41697,6 +43496,39 @@ export namespace Prisma {
     hospitalisations_responsable?: HospitalisationUncheckedUpdateManyWithoutMedecinNestedInput
   }
 
+  export type ServiceUpsertWithoutConsultationsInput = {
+    update: XOR<ServiceUpdateWithoutConsultationsInput, ServiceUncheckedUpdateWithoutConsultationsInput>
+    create: XOR<ServiceCreateWithoutConsultationsInput, ServiceUncheckedCreateWithoutConsultationsInput>
+    where?: ServiceWhereInput
+  }
+
+  export type ServiceUpdateToOneWithWhereWithoutConsultationsInput = {
+    where?: ServiceWhereInput
+    data: XOR<ServiceUpdateWithoutConsultationsInput, ServiceUncheckedUpdateWithoutConsultationsInput>
+  }
+
+  export type ServiceUpdateWithoutConsultationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutServicesNestedInput
+  }
+
+  export type ServiceUncheckedUpdateWithoutConsultationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PrescriptionUpsertWithWhereUniqueWithoutConsultationInput = {
     where: PrescriptionWhereUniqueInput
     update: XOR<PrescriptionUpdateWithoutConsultationInput, PrescriptionUncheckedUpdateWithoutConsultationInput>
@@ -41794,6 +43626,7 @@ export namespace Prisma {
     hospital: HospitalCreateNestedOneWithoutConsultationsInput
     patient: PatientCreateNestedOneWithoutConsultationsInput
     medecin: UtilisateurCreateNestedOneWithoutConsultationsInput
+    service?: ServiceCreateNestedOneWithoutConsultationsInput
     facture?: FactureCreateNestedOneWithoutConsultationInput
   }
 
@@ -41813,6 +43646,7 @@ export namespace Prisma {
     date_consultation?: Date | string
     created_at?: Date | string
     updated_at?: Date | string
+    service_id?: string | null
     facture?: FactureUncheckedCreateNestedOneWithoutConsultationInput
   }
 
@@ -41848,6 +43682,7 @@ export namespace Prisma {
     hospital?: HospitalUpdateOneRequiredWithoutConsultationsNestedInput
     patient?: PatientUpdateOneRequiredWithoutConsultationsNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutConsultationsNestedInput
+    service?: ServiceUpdateOneWithoutConsultationsNestedInput
     facture?: FactureUpdateOneWithoutConsultationNestedInput
   }
 
@@ -41867,6 +43702,7 @@ export namespace Prisma {
     date_consultation?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     facture?: FactureUncheckedUpdateOneWithoutConsultationNestedInput
   }
 
@@ -41884,6 +43720,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    services?: ServiceCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
@@ -41911,6 +43748,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
@@ -41998,6 +43836,7 @@ export namespace Prisma {
     hospital: HospitalCreateNestedOneWithoutConsultationsInput
     patient: PatientCreateNestedOneWithoutConsultationsInput
     medecin: UtilisateurCreateNestedOneWithoutConsultationsInput
+    service?: ServiceCreateNestedOneWithoutConsultationsInput
     prescriptions?: PrescriptionCreateNestedManyWithoutConsultationInput
   }
 
@@ -42017,6 +43856,7 @@ export namespace Prisma {
     date_consultation?: Date | string
     created_at?: Date | string
     updated_at?: Date | string
+    service_id?: string | null
     prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutConsultationInput
   }
 
@@ -42215,6 +44055,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
@@ -42242,6 +44083,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
@@ -42341,6 +44183,7 @@ export namespace Prisma {
     hospital?: HospitalUpdateOneRequiredWithoutConsultationsNestedInput
     patient?: PatientUpdateOneRequiredWithoutConsultationsNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutConsultationsNestedInput
+    service?: ServiceUpdateOneWithoutConsultationsNestedInput
     prescriptions?: PrescriptionUpdateManyWithoutConsultationNestedInput
   }
 
@@ -42360,6 +44203,7 @@ export namespace Prisma {
     date_consultation?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: PrescriptionUncheckedUpdateManyWithoutConsultationNestedInput
   }
 
@@ -42579,6 +44423,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
@@ -42606,6 +44451,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
@@ -42790,6 +44636,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
@@ -42817,6 +44664,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
@@ -43003,6 +44851,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
@@ -43030,6 +44879,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
@@ -43214,6 +45064,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
@@ -43241,6 +45092,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
@@ -43427,6 +45279,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
@@ -43454,6 +45307,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
@@ -43571,6 +45425,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
@@ -43598,6 +45453,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
@@ -43676,6 +45532,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
@@ -43703,6 +45560,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
@@ -43787,6 +45645,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
@@ -43814,6 +45673,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
@@ -43888,6 +45748,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
@@ -43915,6 +45776,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
@@ -43958,6 +45820,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
@@ -43985,6 +45848,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
@@ -44065,6 +45929,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
@@ -44092,6 +45957,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
@@ -44194,6 +46060,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
@@ -44221,6 +46088,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
@@ -44248,6 +46116,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
@@ -44275,6 +46144,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
@@ -44318,6 +46188,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
@@ -44345,6 +46216,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
@@ -44372,6 +46244,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
@@ -44399,6 +46272,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
@@ -44486,6 +46360,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
@@ -44513,6 +46388,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
@@ -44556,6 +46432,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
@@ -44583,6 +46460,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
@@ -44836,6 +46714,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
@@ -44863,6 +46742,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
@@ -45272,6 +47152,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
@@ -45299,6 +47180,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
@@ -45371,6 +47253,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
@@ -45398,6 +47281,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
@@ -45460,6 +47344,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
@@ -45487,6 +47372,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
     patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
     consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
@@ -45614,6 +47500,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
@@ -45641,6 +47528,7 @@ export namespace Prisma {
     utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
     patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
     consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
@@ -45686,6 +47574,200 @@ export namespace Prisma {
     data: XOR<PermissionUpdateManyMutationInput, PermissionUncheckedUpdateManyWithoutRole_personnaliseInput>
   }
 
+  export type HospitalCreateWithoutServicesInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    factures?: FactureCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
+    audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
+    chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalUncheckedCreateWithoutServicesInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
+    audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
+    chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalCreateOrConnectWithoutServicesInput = {
+    where: HospitalWhereUniqueInput
+    create: XOR<HospitalCreateWithoutServicesInput, HospitalUncheckedCreateWithoutServicesInput>
+  }
+
+  export type ConsultationCreateWithoutServiceInput = {
+    id?: string
+    statut?: $Enums.StatutConsultation
+    motif?: string | null
+    diagnostic?: string | null
+    notes?: string | null
+    poids_kg?: number | null
+    taille_cm?: number | null
+    tension?: string | null
+    temperature?: number | null
+    date_consultation?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutConsultationsInput
+    patient: PatientCreateNestedOneWithoutConsultationsInput
+    medecin: UtilisateurCreateNestedOneWithoutConsultationsInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutConsultationInput
+    facture?: FactureCreateNestedOneWithoutConsultationInput
+  }
+
+  export type ConsultationUncheckedCreateWithoutServiceInput = {
+    id?: string
+    hospital_id: string
+    patient_id: string
+    medecin_id: string
+    statut?: $Enums.StatutConsultation
+    motif?: string | null
+    diagnostic?: string | null
+    notes?: string | null
+    poids_kg?: number | null
+    taille_cm?: number | null
+    tension?: string | null
+    temperature?: number | null
+    date_consultation?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutConsultationInput
+    facture?: FactureUncheckedCreateNestedOneWithoutConsultationInput
+  }
+
+  export type ConsultationCreateOrConnectWithoutServiceInput = {
+    where: ConsultationWhereUniqueInput
+    create: XOR<ConsultationCreateWithoutServiceInput, ConsultationUncheckedCreateWithoutServiceInput>
+  }
+
+  export type ConsultationCreateManyServiceInputEnvelope = {
+    data: ConsultationCreateManyServiceInput | ConsultationCreateManyServiceInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type HospitalUpsertWithoutServicesInput = {
+    update: XOR<HospitalUpdateWithoutServicesInput, HospitalUncheckedUpdateWithoutServicesInput>
+    create: XOR<HospitalCreateWithoutServicesInput, HospitalUncheckedCreateWithoutServicesInput>
+    where?: HospitalWhereInput
+  }
+
+  export type HospitalUpdateToOneWithWhereWithoutServicesInput = {
+    where?: HospitalWhereInput
+    data: XOR<HospitalUpdateWithoutServicesInput, HospitalUncheckedUpdateWithoutServicesInput>
+  }
+
+  export type HospitalUpdateWithoutServicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
+    audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
+    chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type HospitalUncheckedUpdateWithoutServicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
+    audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
+    chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type ConsultationUpsertWithWhereUniqueWithoutServiceInput = {
+    where: ConsultationWhereUniqueInput
+    update: XOR<ConsultationUpdateWithoutServiceInput, ConsultationUncheckedUpdateWithoutServiceInput>
+    create: XOR<ConsultationCreateWithoutServiceInput, ConsultationUncheckedCreateWithoutServiceInput>
+  }
+
+  export type ConsultationUpdateWithWhereUniqueWithoutServiceInput = {
+    where: ConsultationWhereUniqueInput
+    data: XOR<ConsultationUpdateWithoutServiceInput, ConsultationUncheckedUpdateWithoutServiceInput>
+  }
+
+  export type ConsultationUpdateManyWithWhereWithoutServiceInput = {
+    where: ConsultationScalarWhereInput
+    data: XOR<ConsultationUpdateManyMutationInput, ConsultationUncheckedUpdateManyWithoutServiceInput>
+  }
+
   export type UtilisateurCreateManyHospitalInput = {
     id?: string
     supabase_uid?: string | null
@@ -45725,6 +47807,17 @@ export namespace Prisma {
     tension?: string | null
     temperature?: number | null
     date_consultation?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
+    service_id?: string | null
+  }
+
+  export type ServiceCreateManyHospitalInput = {
+    id?: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -46002,6 +48095,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     patient?: PatientUpdateOneRequiredWithoutConsultationsNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutConsultationsNestedInput
+    service?: ServiceUpdateOneWithoutConsultationsNestedInput
     prescriptions?: PrescriptionUpdateManyWithoutConsultationNestedInput
     facture?: FactureUpdateOneWithoutConsultationNestedInput
   }
@@ -46021,6 +48115,7 @@ export namespace Prisma {
     date_consultation?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: PrescriptionUncheckedUpdateManyWithoutConsultationNestedInput
     facture?: FactureUncheckedUpdateOneWithoutConsultationNestedInput
   }
@@ -46038,6 +48133,39 @@ export namespace Prisma {
     tension?: NullableStringFieldUpdateOperationsInput | string | null
     temperature?: NullableFloatFieldUpdateOperationsInput | number | null
     date_consultation?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ServiceUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    consultations?: ConsultationUpdateManyWithoutServiceNestedInput
+  }
+
+  export type ServiceUncheckedUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    consultations?: ConsultationUncheckedUpdateManyWithoutServiceNestedInput
+  }
+
+  export type ServiceUncheckedUpdateManyWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -46593,6 +48721,7 @@ export namespace Prisma {
     date_consultation?: Date | string
     created_at?: Date | string
     updated_at?: Date | string
+    service_id?: string | null
   }
 
   export type ExamenLaboCreateManyMedecinInput = {
@@ -46665,6 +48794,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     hospital?: HospitalUpdateOneRequiredWithoutConsultationsNestedInput
     patient?: PatientUpdateOneRequiredWithoutConsultationsNestedInput
+    service?: ServiceUpdateOneWithoutConsultationsNestedInput
     prescriptions?: PrescriptionUpdateManyWithoutConsultationNestedInput
     facture?: FactureUpdateOneWithoutConsultationNestedInput
   }
@@ -46684,6 +48814,7 @@ export namespace Prisma {
     date_consultation?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: PrescriptionUncheckedUpdateManyWithoutConsultationNestedInput
     facture?: FactureUncheckedUpdateOneWithoutConsultationNestedInput
   }
@@ -46703,6 +48834,7 @@ export namespace Prisma {
     date_consultation?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ExamenLaboUpdateWithoutMedecinInput = {
@@ -46898,6 +49030,7 @@ export namespace Prisma {
     date_consultation?: Date | string
     created_at?: Date | string
     updated_at?: Date | string
+    service_id?: string | null
   }
 
   export type FactureCreateManyPatientInput = {
@@ -47029,6 +49162,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     hospital?: HospitalUpdateOneRequiredWithoutConsultationsNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutConsultationsNestedInput
+    service?: ServiceUpdateOneWithoutConsultationsNestedInput
     prescriptions?: PrescriptionUpdateManyWithoutConsultationNestedInput
     facture?: FactureUpdateOneWithoutConsultationNestedInput
   }
@@ -47048,6 +49182,7 @@ export namespace Prisma {
     date_consultation?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: PrescriptionUncheckedUpdateManyWithoutConsultationNestedInput
     facture?: FactureUncheckedUpdateOneWithoutConsultationNestedInput
   }
@@ -47067,6 +49202,7 @@ export namespace Prisma {
     date_consultation?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FactureUpdateWithoutPatientInput = {
@@ -47904,6 +50040,82 @@ export namespace Prisma {
     peut_creer?: BoolFieldUpdateOperationsInput | boolean
     peut_modifier?: BoolFieldUpdateOperationsInput | boolean
     peut_supprimer?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConsultationCreateManyServiceInput = {
+    id?: string
+    hospital_id: string
+    patient_id: string
+    medecin_id: string
+    statut?: $Enums.StatutConsultation
+    motif?: string | null
+    diagnostic?: string | null
+    notes?: string | null
+    poids_kg?: number | null
+    taille_cm?: number | null
+    tension?: string | null
+    temperature?: number | null
+    date_consultation?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ConsultationUpdateWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    poids_kg?: NullableFloatFieldUpdateOperationsInput | number | null
+    taille_cm?: NullableFloatFieldUpdateOperationsInput | number | null
+    tension?: NullableStringFieldUpdateOperationsInput | string | null
+    temperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    date_consultation?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutConsultationsNestedInput
+    patient?: PatientUpdateOneRequiredWithoutConsultationsNestedInput
+    medecin?: UtilisateurUpdateOneRequiredWithoutConsultationsNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutConsultationNestedInput
+    facture?: FactureUpdateOneWithoutConsultationNestedInput
+  }
+
+  export type ConsultationUncheckedUpdateWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    medecin_id?: StringFieldUpdateOperationsInput | string
+    statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    poids_kg?: NullableFloatFieldUpdateOperationsInput | number | null
+    taille_cm?: NullableFloatFieldUpdateOperationsInput | number | null
+    tension?: NullableStringFieldUpdateOperationsInput | string | null
+    temperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    date_consultation?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutConsultationNestedInput
+    facture?: FactureUncheckedUpdateOneWithoutConsultationNestedInput
+  }
+
+  export type ConsultationUncheckedUpdateManyWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    medecin_id?: StringFieldUpdateOperationsInput | string
+    statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    poids_kg?: NullableFloatFieldUpdateOperationsInput | number | null
+    taille_cm?: NullableFloatFieldUpdateOperationsInput | number | null
+    tension?: NullableStringFieldUpdateOperationsInput | string | null
+    temperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    date_consultation?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

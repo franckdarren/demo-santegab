@@ -41,6 +41,7 @@ import {
   Bed,
   DoorOpen,
   ShieldCheck,
+  LayoutGrid,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -90,6 +91,13 @@ const NAVIGATION: NavItem[] = [
     label:          "Chambres",
     href:           "/dashboard/chambres",
     icon:           DoorOpen,
+    module:         null,
+    adminSeulement: true,
+  },
+  {
+    label:          "Services",
+    href:           "/dashboard/services",
+    icon:           LayoutGrid,
     module:         null,
     adminSeulement: true,
   },

@@ -177,6 +177,7 @@ model Hospital {
   utilisateurs         Utilisateur[]
   patients             PatientHospital[]
   consultations        Consultation[]
+  services             Service[]           @relation("HospitalServices")
   factures             Facture[]
   examens_labo         ExamenLabo[]        @relation("HospitalExamensLabo")
   examens_imagerie     ExamenImagerie[]    @relation("HospitalExamensImagerie")
@@ -295,9 +296,12 @@ model Consultation {
   created_at        DateTime           @default(now())
   updated_at        DateTime           @updatedAt
 
+  service_id String?
+
   hospital      Hospital       @relation(fields: [hospital_id], references: [id])
   patient       Patient        @relation("PatientConsultations", fields: [patient_id], references: [id])
   medecin       Utilisateur    @relation("MedecinConsultations", fields: [medecin_id], references: [id])
+  service       Service?       @relation("ServiceConsultations", fields: [service_id], references: [id])
   prescriptions Prescription[]
   facture       Facture?
 
@@ -719,4 +723,29 @@ model RolePersonnalise {
   @@unique([hospital_id, nom])
   @@index([hospital_id])
   @@map("roles_personnalises")
+}
+
+// ============================================================
+// TABLE : services
+//
+// Services médicaux créés par l'Admin de chaque structure.
+// Exemples : "Médecine générale", "Pédiatrie", "Cardiologie"
+// Une consultation est rattachée à un service.
+// ============================================================
+model Service {
+  id          String   @id @default(uuid())
+  hospital_id String
+  nom         String
+  description String?
+  couleur     String   @default("#3b82f6")
+  est_actif   Boolean  @default(true)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  hospital      Hospital       @relation("HospitalServices", fields: [hospital_id], references: [id], onDelete: Cascade)
+  consultations Consultation[] @relation("ServiceConsultations")
+
+  @@unique([hospital_id, nom])
+  @@index([hospital_id])
+  @@map("services")
 }

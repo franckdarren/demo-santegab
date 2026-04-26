@@ -33,6 +33,12 @@ interface PatientHospital {
   };
 }
 
+interface Service {
+  id: string;
+  nom: string;
+  couleur: string;
+}
+
 interface Prescription {
   medicament: string;
   dosage: string;
@@ -48,6 +54,7 @@ interface NouvelleConsultationDialogProps {
   medecinConnecteNom: string;
   medecins: Medecin[];
   patients: PatientHospital[];
+  services: Service[];
 }
 
 function FieldError({ message }: { message?: string }) {
@@ -68,6 +75,7 @@ export function NouvelleConsultationDialog({
   medecinConnecteNom,
   medecins,
   patients,
+  services,
 }: NouvelleConsultationDialogProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -77,6 +85,7 @@ export function NouvelleConsultationDialog({
   // Champs du formulaire
   const [patientId, setPatientId] = useState("");
   const [medecinId, setMedecinId] = useState(medecinConnecteId);
+  const [serviceId, setServiceId] = useState("");
   const [statut, setStatut] = useState("EN_ATTENTE");
   const [formData, setFormData] = useState({
     motif: "",
@@ -141,6 +150,7 @@ export function NouvelleConsultationDialog({
     setSucces(false);
     setPatientId("");
     setMedecinId(medecinConnecteId);
+    setServiceId("");
     setStatut("EN_ATTENTE");
     setFormData({
       motif: "", diagnostic: "", notes: "",
@@ -158,6 +168,7 @@ export function NouvelleConsultationDialog({
       try {
         await creerConsultation(hospitalId, medecinId, medecinConnecteNom, {
           patient_id: patientId,
+          service_id: serviceId || undefined,
           motif: formData.motif || undefined,
           diagnostic: formData.diagnostic || undefined,
           notes: formData.notes || undefined,
@@ -278,6 +289,22 @@ export function NouvelleConsultationDialog({
                   </div>
 
                   <div className="space-y-1.5">
+                    <Label>Service</Label>
+                    <select
+                      value={serviceId}
+                      onChange={(e) => setServiceId(e.target.value)}
+                      className={selectClass}
+                    >
+                      <option value="">— Sans service —</option>
+                      {services.map((s) => (
+                        <option key={s.id} value={s.id}>{s.nom}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1.5 col-span-2 sm:col-span-1">
                     <Label>Statut</Label>
                     <select
                       value={statut}

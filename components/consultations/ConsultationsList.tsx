@@ -10,10 +10,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+} from "@/components/ui/select";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   Search, Plus, Loader2, Stethoscope,
-  Clock, CheckCircle, XCircle,
+  Clock, CheckCircle, XCircle, Filter, X,
 } from "lucide-react";
 import { formatDate, formatTime, getInitials, cn } from "@/lib/utils";
 import { StatutConsultation } from "@/app/generated/prisma/client";
@@ -38,6 +41,12 @@ const FILTRES = [
   { label: "Terminées",  value: "TERMINEE" },
 ];
 
+interface Service {
+  id: string;
+  nom: string;
+  couleur: string;
+}
+
 interface Consultation {
   id: string;
   statut: StatutConsultation;
@@ -49,6 +58,8 @@ interface Consultation {
   temperature: number | null;
   notes: string | null;
   taille_cm: number | null;
+  service_id: string | null;
+  service: Service | null;
   patient: {
     id: string;
     nom: string;
@@ -85,9 +96,10 @@ interface ConsultationsListProps {
   consultations: Consultation[];
   medecins: Medecin[];
   patients: PatientHospital[];
+  services: Service[];
   hospitalId: string;
   medecinConnecteId: string;
-  medecinConnecteNom: string; // ← ajouté pour l'audit
+  medecinConnecteNom: string;
   searchQuery: string;
 }
 
@@ -95,9 +107,10 @@ export function ConsultationsList({
   consultations,
   medecins,
   patients,
+  services,
   hospitalId,
   medecinConnecteId,
-  medecinConnecteNom, // ← ajouté
+  medecinConnecteNom,
   searchQuery,
 }: ConsultationsListProps) {
   const router = useRouter();
@@ -105,6 +118,9 @@ export function ConsultationsList({
   const [search, setSearch] = useState(searchQuery);
   const [isPending, startTransition] = useTransition();
   const [filtreStatut, setFiltreStatut] = useState("");
+  const [filtreService, setFiltreService] = useState("none");
+  const [dateDebut, setDateDebut] = useState("");
+  const [dateFin, setDateFin] = useState("");
   const [dialogCreer, setDialogCreer] = useState(false);
   const [consultationSelectionnee, setConsultationSelectionnee] =
     useState<Consultation | null>(null);
@@ -118,9 +134,31 @@ export function ConsultationsList({
     });
   }
 
-  const consultationsFiltrees = consultations.filter((c) =>
-    filtreStatut ? c.statut === filtreStatut : true
-  );
+  function reinitialiserFiltres() {
+    setFiltreStatut("");
+    setFiltreService("none");
+    setDateDebut("");
+    setDateFin("");
+  }
+
+  const aDesFiltresActifs =
+    filtreStatut || filtreService !== "none" || dateDebut || dateFin;
+
+  const consultationsFiltrees = consultations.filter((c) => {
+    if (filtreStatut && c.statut !== filtreStatut) return false;
+    if (filtreService !== "none" && c.service_id !== filtreService) return false;
+    if (dateDebut) {
+      const debut = new Date(dateDebut);
+      debut.setHours(0, 0, 0, 0);
+      if (new Date(c.date_consultation) < debut) return false;
+    }
+    if (dateFin) {
+      const fin = new Date(dateFin);
+      fin.setHours(23, 59, 59, 999);
+      if (new Date(c.date_consultation) > fin) return false;
+    }
+    return true;
+  });
 
   return (
     <div className="space-y-4">
@@ -149,7 +187,7 @@ export function ConsultationsList({
         </Button>
       </div>
 
-      {/* Filtres rapides */}
+      {/* Filtres rapides statut */}
       <div className="flex gap-2 flex-wrap">
         {FILTRES.map((f) => (
           <button
@@ -171,6 +209,67 @@ export function ConsultationsList({
             )}
           </button>
         ))}
+      </div>
+
+      {/* Filtres service + date */}
+      <div className="flex flex-wrap gap-2 items-center">
+        <Filter className="h-3.5 w-3.5 text-gray-400 shrink-0" />
+
+        {/* Filtre par service */}
+        <Select value={filtreService} onValueChange={setFiltreService}>
+          <SelectTrigger className="h-8 w-48 text-xs bg-white border-gray-200">
+            <SelectValue placeholder="Tous les services" />
+          </SelectTrigger>
+          <SelectContent position="popper">
+            <SelectItem value="none">Tous les services</SelectItem>
+            {services.map((s) => (
+              <SelectItem key={s.id} value={s.id}>
+                <span className="flex items-center gap-2">
+                  <span
+                    className="inline-block h-2 w-2 rounded-full shrink-0"
+                    style={{ backgroundColor: s.couleur }}
+                  />
+                  {s.nom}
+                </span>
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        {/* Filtre date début */}
+        <div className="flex items-center gap-1">
+          <span className="text-xs text-gray-500 shrink-0">Du</span>
+          <input
+            type="date"
+            value={dateDebut}
+            onChange={(e) => setDateDebut(e.target.value)}
+            className="h-8 px-2 text-xs rounded-md border border-gray-200 bg-white focus:outline-none focus:ring-1 focus:ring-blue-400"
+          />
+        </div>
+
+        {/* Filtre date fin */}
+        <div className="flex items-center gap-1">
+          <span className="text-xs text-gray-500 shrink-0">au</span>
+          <input
+            type="date"
+            value={dateFin}
+            min={dateDebut || undefined}
+            onChange={(e) => setDateFin(e.target.value)}
+            className="h-8 px-2 text-xs rounded-md border border-gray-200 bg-white focus:outline-none focus:ring-1 focus:ring-blue-400"
+          />
+        </div>
+
+        {/* Réinitialiser */}
+        {aDesFiltresActifs && (
+          <button
+            type="button"
+            onClick={reinitialiserFiltres}
+            className="flex items-center gap-1 px-2 py-1 text-xs text-gray-500 hover:text-red-500 transition-colors"
+          >
+            <X className="h-3.5 w-3.5" />
+            Réinitialiser
+          </button>
+        )}
       </div>
 
       {/* Liste */}
@@ -222,6 +321,14 @@ export function ConsultationsList({
                       </div>
                       <p className="text-xs text-gray-500 mt-0.5 truncate">
                         {c.motif ?? "Consultation générale"} · {nomMedecin}
+                        {c.service && (
+                          <span
+                            className="ml-2 inline-flex items-center rounded px-1.5 py-0 text-[10px] font-medium text-white"
+                            style={{ backgroundColor: c.service.couleur }}
+                          >
+                            {c.service.nom}
+                          </span>
+                        )}
                       </p>
                     </div>
 
@@ -262,9 +369,10 @@ export function ConsultationsList({
         onOpenChange={setDialogCreer}
         hospitalId={hospitalId}
         medecinConnecteId={medecinConnecteId}
-        medecinConnecteNom={medecinConnecteNom} // ← ajouté
+        medecinConnecteNom={medecinConnecteNom}
         medecins={medecins}
         patients={patients}
+        services={services}
       />
 
       {/* Dialog détail consultation */}

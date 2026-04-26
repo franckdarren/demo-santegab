@@ -194,7 +194,8 @@ exports.Prisma.ConsultationScalarFieldEnum = {
   temperature: 'temperature',
   date_consultation: 'date_consultation',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  service_id: 'service_id'
 };
 
 exports.Prisma.PrescriptionScalarFieldEnum = {
@@ -429,6 +430,17 @@ exports.Prisma.RolePersonnaliseScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.ServiceScalarFieldEnum = {
+  id: 'id',
+  hospital_id: 'hospital_id',
+  nom: 'nom',
+  description: 'description',
+  couleur: 'couleur',
+  est_actif: 'est_actif',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -622,7 +634,8 @@ exports.Prisma.ModelName = {
   Hospitalisation: 'Hospitalisation',
   LigneHospitalisation: 'LigneHospitalisation',
   Permission: 'Permission',
-  RolePersonnalise: 'RolePersonnalise'
+  RolePersonnalise: 'RolePersonnalise',
+  Service: 'Service'
 };
 
 /**

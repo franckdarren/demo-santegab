@@ -46,6 +46,7 @@ interface Consultation {
     poids_kg: number | null;
     taille_cm: number | null;
     temperature: number | null;
+    service: { id: string; nom: string; couleur: string } | null;
     patient: { id: string; nom: string; prenom: string; numero_dossier: string };
     medecin: { id: string; nom: string; prenom: string };
     prescriptions: Array<{
@@ -233,6 +234,20 @@ export function ConsultationDetailDialog({
                                         {consultation.motif ?? "Non renseigné"}
                                     </p>
                                 </div>
+
+                                {consultation.service && (
+                                    <div>
+                                        <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">
+                                            Service
+                                        </p>
+                                        <span
+                                            className="inline-flex items-center rounded-md px-2.5 py-1 text-xs font-medium text-white"
+                                            style={{ backgroundColor: consultation.service.couleur }}
+                                        >
+                                            {consultation.service.nom}
+                                        </span>
+                                    </div>
+                                )}
 
                                 <Separator />
 

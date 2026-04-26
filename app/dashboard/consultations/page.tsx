@@ -9,6 +9,7 @@ import {
   getConsultations,
   getMedecins,
   getPatientsHospital,
+  getServicesConsultation,
 } from "./actions";
 import { ConsultationsList } from "@/components/consultations/ConsultationsList";
 
@@ -30,10 +31,11 @@ export default async function ConsultationsPage({
 
   const { q } = await searchParams;
 
-  const [consultations, medecins, patients] = await Promise.all([
+  const [consultations, medecins, patients, services] = await Promise.all([
     getConsultations(utilisateur.hospital_id, q),
     getMedecins(utilisateur.hospital_id),
     getPatientsHospital(utilisateur.hospital_id),
+    getServicesConsultation(utilisateur.hospital_id),
   ]);
 
   return (
@@ -51,6 +53,7 @@ export default async function ConsultationsPage({
         consultations={consultations}
         medecins={medecins}
         patients={patients}
+        services={services}
         hospitalId={utilisateur.hospital_id}
         medecinConnecteId={utilisateur.id}
         medecinConnecteNom={`${utilisateur.prenom} ${utilisateur.nom}`}

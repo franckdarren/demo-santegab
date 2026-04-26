@@ -39,8 +39,19 @@ export async function getConsultations(
       medecin:       true,
       prescriptions: true,
       facture:       true,
+      service:       true,
     },
     orderBy: { date_consultation: "desc" },
+  });
+}
+
+// ============================================================
+// Récupère les services actifs de l'hôpital pour le formulaire
+// ============================================================
+export async function getServicesConsultation(hospitalId: string) {
+  return prisma.service.findMany({
+    where:   { hospital_id: hospitalId, est_actif: true },
+    orderBy: { nom: "asc" },
   });
 }
 
@@ -84,6 +95,7 @@ export async function creerConsultation(
   medecinNom: string,
   data: {
     patient_id:    string;
+    service_id?:   string;
     motif?:        string;
     diagnostic?:   string;
     notes?:        string;
@@ -116,6 +128,7 @@ export async function creerConsultation(
       hospital_id:  hospitalId,
       patient_id:   data.patient_id,
       medecin_id:   medecinId,
+      service_id:   data.service_id   ?? null,
       statut:       data.statut ?? "EN_ATTENTE",
       motif:        data.motif        ?? null,
       diagnostic:   data.diagnostic   ?? null,
