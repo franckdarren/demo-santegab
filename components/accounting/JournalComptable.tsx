@@ -21,6 +21,7 @@ import {
   creerEcriture,
   getEcrituresParPeriode,
 } from "@/app/dashboard/accounting/actions";
+import { BoutonRapport } from "@/components/accounting/BoutonRapport";
 
 const TYPE_CONFIG: Record<TypeEcriture, {
   label: string;
@@ -203,14 +204,21 @@ export function JournalComptable({
             {new Date(dateFin).toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" })}
           </p>
         </div>
-        <Button
-          type="button"
-          onClick={() => setDialogOpen(true)}
-          className="bg-blue-700 hover:bg-blue-800 text-white"
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          Nouvelle écriture
-        </Button>
+        <div className="flex items-center gap-2">
+          <BoutonRapport
+            hospitalId={hospitalId}
+            dateDebut={dateDebut}
+            dateFin={dateFin}
+          />
+          <Button
+            type="button"
+            onClick={() => setDialogOpen(true)}
+            className="bg-blue-700 hover:bg-blue-800 text-white"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Nouvelle écriture
+          </Button>
+        </div>
       </div>
 
       {/* Filtres */}

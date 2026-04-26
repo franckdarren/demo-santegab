@@ -178,6 +178,59 @@ export async function getEcrituresParPeriode(
 }
 
 // ============================================================
+// Données complètes pour le rapport PDF comptable
+// ============================================================
+export async function getRapportData(
+  hospitalId: string,
+  dateDebut: string,
+  dateFin: string
+) {
+  const [hospital, ecritures] = await Promise.all([
+    prisma.hospital.findUnique({ where: { id: hospitalId } }),
+    prisma.ecritureComptable.findMany({
+      where: {
+        hospital_id: hospitalId,
+        date_ecriture: {
+          gte: new Date(dateDebut),
+          lte: new Date(`${dateFin}T23:59:59`),
+        },
+      },
+      orderBy: { date_ecriture: "asc" },
+    }),
+  ]);
+
+  const recettes = ecritures.filter((e) => e.type_ecriture === "RECETTE");
+  const depenses = ecritures.filter((e) => e.type_ecriture === "DEPENSE");
+
+  const totalRecettes = recettes.reduce((acc, e) => acc + e.montant, 0);
+  const totalDepenses = depenses.reduce((acc, e) => acc + e.montant, 0);
+
+  // Regroupement des dépenses par catégorie
+  const grouped: Record<string, number> = {};
+  for (const e of depenses) {
+    const cat = e.categorie ?? "AUTRE";
+    grouped[cat] = (grouped[cat] ?? 0) + e.montant;
+  }
+
+  return {
+    hospital: hospital ?? { nom: "Établissement", adresse: null, ville: null, telephone: null },
+    dateDebut,
+    dateFin,
+    totaux: {
+      recettes:    totalRecettes,
+      depenses:    totalDepenses,
+      benefice:    totalRecettes - totalDepenses,
+      nbRecettes:  recettes.length,
+      nbDepenses:  depenses.length,
+    },
+    depensesParCategorie: Object.entries(grouped)
+      .map(([categorie, montant]) => ({ categorie, montant }))
+      .sort((a, b) => b.montant - a.montant),
+    ecritures,
+  };
+}
+
+// ============================================================
 // Créer une écriture comptable
 //
 // On enregistre l'audit APRÈS la création pour tracer
