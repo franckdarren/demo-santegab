@@ -2,6 +2,7 @@
 // PAGE LOGIN — Version démo avec branding deux colonnes
 // ============================================================
 
+import { Suspense } from "react";
 import { LoginForm } from "@/components/auth/LoginForm";
 import { Shield, Activity, Users } from "lucide-react";
 
@@ -100,8 +101,10 @@ export default function LoginPage() {
           </div>
 
 
-          {/* Formulaire */}
-          <LoginForm />
+          {/* Formulaire — Suspense requis par useSearchParams */}
+          <Suspense fallback={<div className="h-96 bg-white/5 animate-pulse rounded-2xl" />}>
+            <LoginForm />
+          </Suspense>
 
           {/* Footer */}
           <p className="text-center text-blue-300/50 text-xs">
