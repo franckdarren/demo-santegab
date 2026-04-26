@@ -198,7 +198,7 @@ export function CatalogueExamens({
               {/* En-tête famille */}
               <button
                 type="button"
-                className="w-full flex items-center gap-3 px-5 py-3.5 bg-gray-50 hover:bg-gray-100 transition-colors text-left"
+                className="w-full flex items-center gap-3 px-5 py-3.5 hover:bg-gray-100 transition-colors text-left"
                 onClick={() => toggleFamille(famille)}
               >
                 <div className="w-8 h-8 rounded-lg bg-cyan-100 flex items-center justify-center shrink-0">
