@@ -422,7 +422,7 @@ export function RapportPDF({ data }: { data: RapportData }) {
               valeur: `Solde : ${beneficePositif ? "+" : ""}${xaf(totaux.benefice)}`,
               largeur: "18%",
               align: "right",
-              style: beneficePositif ? s.tdVert : s.tdRouge,
+              couleur: beneficePositif ? "#16a34a" : "#dc2626",
             },
           ]}
         />
