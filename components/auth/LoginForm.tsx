@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,6 +14,7 @@ import { Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 
 export function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const supabase = createClient();
 
   const [email, setEmail] = useState("");
@@ -38,7 +39,10 @@ export function LoginForm() {
       return;
     }
 
-    router.push("/dashboard");
+    // Redirige vers l'URL d'origine (QR Code, etc.) ou le dashboard par défaut
+    const next = searchParams.get("next");
+    const destination = next && next.startsWith("/") ? next : "/dashboard";
+    router.push(destination);
     router.refresh();
   }
 

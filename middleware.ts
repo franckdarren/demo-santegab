@@ -42,14 +42,22 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
-  // Si non connecté et pas sur /login → redirige vers /login
-  if (!user && pathname !== "/login") {
-    return NextResponse.redirect(new URL("/login", request.url));
+  // Routes publiques — accessibles sans authentification
+  const routesPubliques = ["/login", "/carnet"];
+  const estPublique = routesPubliques.some((r) => pathname.startsWith(r));
+
+  // Si non connecté et route protégée → redirige vers /login avec l'URL d'origine
+  if (!user && !estPublique) {
+    const loginUrl = new URL("/login", request.url);
+    loginUrl.searchParams.set("next", pathname);
+    return NextResponse.redirect(loginUrl);
   }
 
-  // Si connecté et sur /login → redirige vers /dashboard
+  // Si connecté et sur /login → redirige vers /dashboard (ou next si présent)
   if (user && pathname === "/login") {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    const next = request.nextUrl.searchParams.get("next");
+    const destination = next && next.startsWith("/") ? next : "/dashboard";
+    return NextResponse.redirect(new URL(destination, request.url));
   }
 
   return supabaseResponse;
