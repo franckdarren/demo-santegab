@@ -33,6 +33,7 @@ export async function admettrePatienten(
     patient_id:       string;
     medecin_id:       string;
     chambre_id?:      string;
+    service_id?:      string;
     motif_admission?: string;
   }
 ) {
@@ -97,6 +98,7 @@ export async function admettrePatienten(
       patient_id:      data.patient_id,
       medecin_id:      data.medecin_id,
       chambre_id:      data.chambre_id ?? null,
+      service_id:      data.service_id ?? null,
       motif_admission: data.motif_admission ?? null,
       statut:          "EN_COURS",
       facture_id:      facture.id,
@@ -542,17 +544,20 @@ export async function payerHospitalisation(
 // ============================================================
 export async function getHospitalisations(
   hospitalId: string,
-  statut?: StatutHospitalisation
+  statut?: StatutHospitalisation,
+  serviceId?: string
 ) {
   return prisma.hospitalisation.findMany({
     where: {
       hospital_id: hospitalId,
-      ...(statut && { statut }),
+      ...(statut    && { statut }),
+      ...(serviceId && { service_id: serviceId }),
     },
     include: {
       patient: true,
       medecin: true,
       chambre: true,
+      service: true,
       lignes:  true,
       facture: true,
     },
@@ -573,6 +578,7 @@ export async function getHospitalisationById(
       patient: true,
       medecin: true,
       chambre: true,
+      service: true,
       facture: { include: { lignes: true } },
       lignes: {
         include: { article_stock: true },

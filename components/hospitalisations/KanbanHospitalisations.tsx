@@ -1,11 +1,11 @@
 // ============================================================
 // KANBAN HOSPITALISATIONS — 3 colonnes : En cours / Sortie / Payées
+// Filtre par service médical
 // ============================================================
 
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   BedDouble, LogOut, CheckCircle,
   Plus, ChevronRight, Clock, AlertTriangle,
+  Stethoscope,
 } from "lucide-react";
 import { formatDate, formatCurrency, getInitials, cn } from "@/lib/utils";
 import { AdmissionDialog } from "./AdmissionDialog";
@@ -43,6 +44,13 @@ interface PatientHospital {
   };
 }
 
+interface Service {
+  id:        string;
+  nom:       string;
+  couleur:   string;
+  est_actif: boolean;
+}
+
 interface Hospitalisation {
   id:              string;
   statut:          string;
@@ -59,7 +67,8 @@ interface Hospitalisation {
     nom:    string;
     prenom: string;
   };
-  chambre: Chambre | null;
+  chambre:  Chambre | null;
+  service:  Service | null;
   lignes:  Array<{
     id:            string;
     type_ligne:    string;
@@ -67,10 +76,10 @@ interface Hospitalisation {
     montant_total: number;
   }>;
   facture: {
-    id:             string;
-    numero_facture: string;
-    statut:         string;
-    montant_total:  number;
+    id:              string;
+    numero_facture:  string;
+    statut:          string;
+    montant_total:   number;
     montant_patient: number;
   } | null;
 }
@@ -81,6 +90,7 @@ interface KanbanHospitalisationsProps {
   medecins:                Medecin[];
   patients:                PatientHospital[];
   chambres:                Chambre[];
+  services:                Service[];
   hospitalId:              string;
   utilisateurId:           string;
   utilisateurNom:          string;
@@ -94,6 +104,25 @@ function nbJours(dateEntree: Date, dateSortie?: Date | null): number {
   return Math.max(
     1,
     Math.ceil((fin.getTime() - new Date(dateEntree).getTime()) / (1000 * 60 * 60 * 24))
+  );
+}
+
+// ============================================================
+// Badge service (couleur dynamique)
+// ============================================================
+function BadgeService({ service }: { service: Service }) {
+  return (
+    <span
+      className="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full"
+      style={{
+        backgroundColor: `${service.couleur}18`,
+        color:           service.couleur,
+        border:          `1px solid ${service.couleur}30`,
+      }}
+    >
+      <Stethoscope className="h-2.5 w-2.5" />
+      {service.nom}
+    </span>
   );
 }
 
@@ -129,8 +158,9 @@ function CarteEnCours({ hospit }: { hospit: Hospitalisation }) {
         <ChevronRight className="h-4 w-4 text-gray-300 group-hover:text-blue-500 shrink-0 mt-1 transition-colors" />
       </div>
 
-      {/* Chambre + durée */}
+      {/* Service + chambre + durée */}
       <div className="flex items-center gap-2 mb-3 flex-wrap">
+        {hospit.service && <BadgeService service={hospit.service} />}
         {hospit.chambre ? (
           <Badge className="text-[10px] bg-blue-50 text-blue-700 border-0">
             🛏 Chambre {hospit.chambre.numero}
@@ -211,7 +241,8 @@ function CarteSortie({
         <ChevronRight className="h-4 w-4 text-gray-300 group-hover:text-amber-500 shrink-0 mt-1 transition-colors" />
       </div>
 
-      <div className="flex items-center gap-2 mb-3">
+      <div className="flex items-center gap-2 mb-3 flex-wrap">
+        {hospit.service && <BadgeService service={hospit.service} />}
         <Badge className="text-[10px] bg-amber-50 text-amber-700 border-0">
           {jours} jour{jours > 1 ? "s" : ""}
         </Badge>
@@ -244,25 +275,62 @@ export function KanbanHospitalisations({
   medecins,
   patients,
   chambres,
+  services,
   hospitalId,
   utilisateurId,
   utilisateurNom,
 }: KanbanHospitalisationsProps) {
   const [dialogAdmission, setDialogAdmission] = useState(false);
+  const [filtreService,   setFiltreService]   = useState("");
+
+  // Filtre client par service sur les deux colonnes actives
+  const enCoursFiltrees = filtreService
+    ? hospitalisationsEnCours.filter((h) => h.service?.id === filtreService)
+    : hospitalisationsEnCours;
+
+  const sortieFiltrees = filtreService
+    ? hospitalisationsSortie.filter((h) => h.service?.id === filtreService)
+    : hospitalisationsSortie;
 
   // Filtre les hospitalisations sortie payées vs en attente
-  const sortieEnAttente = hospitalisationsSortie.filter(
+  const sortieEnAttente = sortieFiltrees.filter(
     (h) => h.facture?.statut !== "PAYEE"
   );
-  const sortiePayees = hospitalisationsSortie.filter(
+  const sortiePayees = sortieFiltrees.filter(
     (h) => h.facture?.statut === "PAYEE"
   );
+
+  const selectClass =
+    "flex h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring";
 
   return (
     <div className="space-y-4">
 
-      {/* Bouton admission */}
-      <div className="flex justify-end">
+      {/* Barre d'actions : filtre service + bouton admission */}
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-2">
+          <Stethoscope className="h-4 w-4 text-gray-400 shrink-0" />
+          <select
+            value={filtreService}
+            onChange={(e) => setFiltreService(e.target.value)}
+            className={cn(selectClass, "w-52")}
+          >
+            <option value="">Tous les services</option>
+            {services.filter((s) => s.est_actif).map((s) => (
+              <option key={s.id} value={s.id}>{s.nom}</option>
+            ))}
+          </select>
+          {filtreService && (
+            <button
+              type="button"
+              onClick={() => setFiltreService("")}
+              className="text-xs text-gray-400 hover:text-gray-600 underline"
+            >
+              Effacer
+            </button>
+          )}
+        </div>
+
         <Button
           type="button"
           onClick={() => setDialogAdmission(true)}
@@ -286,18 +354,18 @@ export function KanbanHospitalisations({
               En cours
             </h3>
             <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">
-              {hospitalisationsEnCours.length}
+              {enCoursFiltrees.length}
             </span>
           </div>
 
-          {hospitalisationsEnCours.length === 0 ? (
+          {enCoursFiltrees.length === 0 ? (
             <div className="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center">
               <BedDouble className="h-8 w-8 text-gray-300 mx-auto mb-2" />
               <p className="text-sm text-gray-400">Aucun patient hospitalisé</p>
             </div>
           ) : (
             <div className="space-y-3">
-              {hospitalisationsEnCours.map((h) => (
+              {enCoursFiltrees.map((h) => (
                 <CarteEnCours key={h.id} hospit={h} />
               ))}
             </div>
@@ -378,9 +446,22 @@ export function KanbanHospitalisations({
                           <p className="text-sm font-semibold text-gray-900">
                             {nomPatient}
                           </p>
-                          <p className="text-xs text-gray-400">
-                            {h.date_sortie ? formatDate(h.date_sortie) : "—"}
-                          </p>
+                          <div className="flex items-center gap-1.5 mt-0.5">
+                            {h.service && (
+                              <span
+                                className="text-[9px] font-medium px-1.5 py-0.5 rounded-full"
+                                style={{
+                                  backgroundColor: `${h.service.couleur}18`,
+                                  color:           h.service.couleur,
+                                }}
+                              >
+                                {h.service.nom}
+                              </span>
+                            )}
+                            <p className="text-xs text-gray-400">
+                              {h.date_sortie ? formatDate(h.date_sortie) : "—"}
+                            </p>
+                          </div>
                         </div>
                       </div>
                       <span className="text-sm font-bold text-green-700">
@@ -402,6 +483,7 @@ export function KanbanHospitalisations({
         medecins={medecins}
         patients={patients}
         chambres={chambres}
+        services={services}
         hospitalId={hospitalId}
         utilisateurId={utilisateurId}
         utilisateurNom={utilisateurNom}

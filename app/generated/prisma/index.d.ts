@@ -3580,10 +3580,12 @@ export namespace Prisma {
 
   export type ServiceCountOutputType = {
     consultations: number
+    hospitalisations: number
   }
 
   export type ServiceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     consultations?: boolean | ServiceCountOutputTypeCountConsultationsArgs
+    hospitalisations?: boolean | ServiceCountOutputTypeCountHospitalisationsArgs
   }
 
   // Custom InputTypes
@@ -3602,6 +3604,13 @@ export namespace Prisma {
    */
   export type ServiceCountOutputTypeCountConsultationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ConsultationWhereInput
+  }
+
+  /**
+   * ServiceCountOutputType without action
+   */
+  export type ServiceCountOutputTypeCountHospitalisationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HospitalisationWhereInput
   }
 
 
@@ -24708,6 +24717,7 @@ export namespace Prisma {
     patient_id: string | null
     medecin_id: string | null
     chambre_id: string | null
+    service_id: string | null
     statut: $Enums.StatutHospitalisation | null
     date_entree: Date | null
     date_sortie: Date | null
@@ -24725,6 +24735,7 @@ export namespace Prisma {
     patient_id: string | null
     medecin_id: string | null
     chambre_id: string | null
+    service_id: string | null
     statut: $Enums.StatutHospitalisation | null
     date_entree: Date | null
     date_sortie: Date | null
@@ -24742,6 +24753,7 @@ export namespace Prisma {
     patient_id: number
     medecin_id: number
     chambre_id: number
+    service_id: number
     statut: number
     date_entree: number
     date_sortie: number
@@ -24761,6 +24773,7 @@ export namespace Prisma {
     patient_id?: true
     medecin_id?: true
     chambre_id?: true
+    service_id?: true
     statut?: true
     date_entree?: true
     date_sortie?: true
@@ -24778,6 +24791,7 @@ export namespace Prisma {
     patient_id?: true
     medecin_id?: true
     chambre_id?: true
+    service_id?: true
     statut?: true
     date_entree?: true
     date_sortie?: true
@@ -24795,6 +24809,7 @@ export namespace Prisma {
     patient_id?: true
     medecin_id?: true
     chambre_id?: true
+    service_id?: true
     statut?: true
     date_entree?: true
     date_sortie?: true
@@ -24885,6 +24900,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     chambre_id: string | null
+    service_id: string | null
     statut: $Enums.StatutHospitalisation
     date_entree: Date
     date_sortie: Date | null
@@ -24919,6 +24935,7 @@ export namespace Prisma {
     patient_id?: boolean
     medecin_id?: boolean
     chambre_id?: boolean
+    service_id?: boolean
     statut?: boolean
     date_entree?: boolean
     date_sortie?: boolean
@@ -24932,6 +24949,7 @@ export namespace Prisma {
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
     chambre?: boolean | Hospitalisation$chambreArgs<ExtArgs>
+    service?: boolean | Hospitalisation$serviceArgs<ExtArgs>
     facture?: boolean | Hospitalisation$factureArgs<ExtArgs>
     lignes?: boolean | Hospitalisation$lignesArgs<ExtArgs>
     _count?: boolean | HospitalisationCountOutputTypeDefaultArgs<ExtArgs>
@@ -24943,6 +24961,7 @@ export namespace Prisma {
     patient_id?: boolean
     medecin_id?: boolean
     chambre_id?: boolean
+    service_id?: boolean
     statut?: boolean
     date_entree?: boolean
     date_sortie?: boolean
@@ -24956,6 +24975,7 @@ export namespace Prisma {
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
     chambre?: boolean | Hospitalisation$chambreArgs<ExtArgs>
+    service?: boolean | Hospitalisation$serviceArgs<ExtArgs>
     facture?: boolean | Hospitalisation$factureArgs<ExtArgs>
   }, ExtArgs["result"]["hospitalisation"]>
 
@@ -24965,6 +24985,7 @@ export namespace Prisma {
     patient_id?: boolean
     medecin_id?: boolean
     chambre_id?: boolean
+    service_id?: boolean
     statut?: boolean
     date_entree?: boolean
     date_sortie?: boolean
@@ -24978,6 +24999,7 @@ export namespace Prisma {
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
     chambre?: boolean | Hospitalisation$chambreArgs<ExtArgs>
+    service?: boolean | Hospitalisation$serviceArgs<ExtArgs>
     facture?: boolean | Hospitalisation$factureArgs<ExtArgs>
   }, ExtArgs["result"]["hospitalisation"]>
 
@@ -24987,6 +25009,7 @@ export namespace Prisma {
     patient_id?: boolean
     medecin_id?: boolean
     chambre_id?: boolean
+    service_id?: boolean
     statut?: boolean
     date_entree?: boolean
     date_sortie?: boolean
@@ -24998,12 +25021,13 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type HospitalisationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "patient_id" | "medecin_id" | "chambre_id" | "statut" | "date_entree" | "date_sortie" | "motif_admission" | "diagnostic" | "notes" | "facture_id" | "created_at" | "updated_at", ExtArgs["result"]["hospitalisation"]>
+  export type HospitalisationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "patient_id" | "medecin_id" | "chambre_id" | "service_id" | "statut" | "date_entree" | "date_sortie" | "motif_admission" | "diagnostic" | "notes" | "facture_id" | "created_at" | "updated_at", ExtArgs["result"]["hospitalisation"]>
   export type HospitalisationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
     chambre?: boolean | Hospitalisation$chambreArgs<ExtArgs>
+    service?: boolean | Hospitalisation$serviceArgs<ExtArgs>
     facture?: boolean | Hospitalisation$factureArgs<ExtArgs>
     lignes?: boolean | Hospitalisation$lignesArgs<ExtArgs>
     _count?: boolean | HospitalisationCountOutputTypeDefaultArgs<ExtArgs>
@@ -25013,6 +25037,7 @@ export namespace Prisma {
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
     chambre?: boolean | Hospitalisation$chambreArgs<ExtArgs>
+    service?: boolean | Hospitalisation$serviceArgs<ExtArgs>
     facture?: boolean | Hospitalisation$factureArgs<ExtArgs>
   }
   export type HospitalisationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -25020,6 +25045,7 @@ export namespace Prisma {
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
     chambre?: boolean | Hospitalisation$chambreArgs<ExtArgs>
+    service?: boolean | Hospitalisation$serviceArgs<ExtArgs>
     facture?: boolean | Hospitalisation$factureArgs<ExtArgs>
   }
 
@@ -25030,6 +25056,7 @@ export namespace Prisma {
       patient: Prisma.$PatientPayload<ExtArgs>
       medecin: Prisma.$UtilisateurPayload<ExtArgs>
       chambre: Prisma.$ChambrePayload<ExtArgs> | null
+      service: Prisma.$ServicePayload<ExtArgs> | null
       facture: Prisma.$FacturePayload<ExtArgs> | null
       lignes: Prisma.$LigneHospitalisationPayload<ExtArgs>[]
     }
@@ -25039,6 +25066,7 @@ export namespace Prisma {
       patient_id: string
       medecin_id: string
       chambre_id: string | null
+      service_id: string | null
       statut: $Enums.StatutHospitalisation
       date_entree: Date
       date_sortie: Date | null
@@ -25446,6 +25474,7 @@ export namespace Prisma {
     patient<T extends PatientDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PatientDefaultArgs<ExtArgs>>): Prisma__PatientClient<$Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     medecin<T extends UtilisateurDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UtilisateurDefaultArgs<ExtArgs>>): Prisma__UtilisateurClient<$Result.GetResult<Prisma.$UtilisateurPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     chambre<T extends Hospitalisation$chambreArgs<ExtArgs> = {}>(args?: Subset<T, Hospitalisation$chambreArgs<ExtArgs>>): Prisma__ChambreClient<$Result.GetResult<Prisma.$ChambrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    service<T extends Hospitalisation$serviceArgs<ExtArgs> = {}>(args?: Subset<T, Hospitalisation$serviceArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     facture<T extends Hospitalisation$factureArgs<ExtArgs> = {}>(args?: Subset<T, Hospitalisation$factureArgs<ExtArgs>>): Prisma__FactureClient<$Result.GetResult<Prisma.$FacturePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     lignes<T extends Hospitalisation$lignesArgs<ExtArgs> = {}>(args?: Subset<T, Hospitalisation$lignesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LigneHospitalisationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -25482,6 +25511,7 @@ export namespace Prisma {
     readonly patient_id: FieldRef<"Hospitalisation", 'String'>
     readonly medecin_id: FieldRef<"Hospitalisation", 'String'>
     readonly chambre_id: FieldRef<"Hospitalisation", 'String'>
+    readonly service_id: FieldRef<"Hospitalisation", 'String'>
     readonly statut: FieldRef<"Hospitalisation", 'StatutHospitalisation'>
     readonly date_entree: FieldRef<"Hospitalisation", 'DateTime'>
     readonly date_sortie: FieldRef<"Hospitalisation", 'DateTime'>
@@ -25908,6 +25938,25 @@ export namespace Prisma {
      */
     include?: ChambreInclude<ExtArgs> | null
     where?: ChambreWhereInput
+  }
+
+  /**
+   * Hospitalisation.service
+   */
+  export type Hospitalisation$serviceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    where?: ServiceWhereInput
   }
 
   /**
@@ -29726,6 +29775,7 @@ export namespace Prisma {
     updated_at?: boolean
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     consultations?: boolean | Service$consultationsArgs<ExtArgs>
+    hospitalisations?: boolean | Service$hospitalisationsArgs<ExtArgs>
     _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["service"]>
 
@@ -29768,6 +29818,7 @@ export namespace Prisma {
   export type ServiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     consultations?: boolean | Service$consultationsArgs<ExtArgs>
+    hospitalisations?: boolean | Service$hospitalisationsArgs<ExtArgs>
     _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ServiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -29782,6 +29833,7 @@ export namespace Prisma {
     objects: {
       hospital: Prisma.$HospitalPayload<ExtArgs>
       consultations: Prisma.$ConsultationPayload<ExtArgs>[]
+      hospitalisations: Prisma.$HospitalisationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -30188,6 +30240,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     consultations<T extends Service$consultationsArgs<ExtArgs> = {}>(args?: Subset<T, Service$consultationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConsultationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    hospitalisations<T extends Service$hospitalisationsArgs<ExtArgs> = {}>(args?: Subset<T, Service$hospitalisationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HospitalisationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -30650,6 +30703,30 @@ export namespace Prisma {
   }
 
   /**
+   * Service.hospitalisations
+   */
+  export type Service$hospitalisationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hospitalisation
+     */
+    select?: HospitalisationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hospitalisation
+     */
+    omit?: HospitalisationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalisationInclude<ExtArgs> | null
+    where?: HospitalisationWhereInput
+    orderBy?: HospitalisationOrderByWithRelationInput | HospitalisationOrderByWithRelationInput[]
+    cursor?: HospitalisationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HospitalisationScalarFieldEnum | HospitalisationScalarFieldEnum[]
+  }
+
+  /**
    * Service without action
    */
   export type ServiceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -30991,6 +31068,7 @@ export namespace Prisma {
     patient_id: 'patient_id',
     medecin_id: 'medecin_id',
     chambre_id: 'chambre_id',
+    service_id: 'service_id',
     statut: 'statut',
     date_entree: 'date_entree',
     date_sortie: 'date_sortie',
@@ -33122,6 +33200,7 @@ export namespace Prisma {
     patient_id?: StringFilter<"Hospitalisation"> | string
     medecin_id?: StringFilter<"Hospitalisation"> | string
     chambre_id?: StringNullableFilter<"Hospitalisation"> | string | null
+    service_id?: StringNullableFilter<"Hospitalisation"> | string | null
     statut?: EnumStatutHospitalisationFilter<"Hospitalisation"> | $Enums.StatutHospitalisation
     date_entree?: DateTimeFilter<"Hospitalisation"> | Date | string
     date_sortie?: DateTimeNullableFilter<"Hospitalisation"> | Date | string | null
@@ -33135,6 +33214,7 @@ export namespace Prisma {
     patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
     medecin?: XOR<UtilisateurScalarRelationFilter, UtilisateurWhereInput>
     chambre?: XOR<ChambreNullableScalarRelationFilter, ChambreWhereInput> | null
+    service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
     facture?: XOR<FactureNullableScalarRelationFilter, FactureWhereInput> | null
     lignes?: LigneHospitalisationListRelationFilter
   }
@@ -33145,6 +33225,7 @@ export namespace Prisma {
     patient_id?: SortOrder
     medecin_id?: SortOrder
     chambre_id?: SortOrderInput | SortOrder
+    service_id?: SortOrderInput | SortOrder
     statut?: SortOrder
     date_entree?: SortOrder
     date_sortie?: SortOrderInput | SortOrder
@@ -33158,6 +33239,7 @@ export namespace Prisma {
     patient?: PatientOrderByWithRelationInput
     medecin?: UtilisateurOrderByWithRelationInput
     chambre?: ChambreOrderByWithRelationInput
+    service?: ServiceOrderByWithRelationInput
     facture?: FactureOrderByWithRelationInput
     lignes?: LigneHospitalisationOrderByRelationAggregateInput
   }
@@ -33172,6 +33254,7 @@ export namespace Prisma {
     patient_id?: StringFilter<"Hospitalisation"> | string
     medecin_id?: StringFilter<"Hospitalisation"> | string
     chambre_id?: StringNullableFilter<"Hospitalisation"> | string | null
+    service_id?: StringNullableFilter<"Hospitalisation"> | string | null
     statut?: EnumStatutHospitalisationFilter<"Hospitalisation"> | $Enums.StatutHospitalisation
     date_entree?: DateTimeFilter<"Hospitalisation"> | Date | string
     date_sortie?: DateTimeNullableFilter<"Hospitalisation"> | Date | string | null
@@ -33184,6 +33267,7 @@ export namespace Prisma {
     patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
     medecin?: XOR<UtilisateurScalarRelationFilter, UtilisateurWhereInput>
     chambre?: XOR<ChambreNullableScalarRelationFilter, ChambreWhereInput> | null
+    service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
     facture?: XOR<FactureNullableScalarRelationFilter, FactureWhereInput> | null
     lignes?: LigneHospitalisationListRelationFilter
   }, "id" | "facture_id">
@@ -33194,6 +33278,7 @@ export namespace Prisma {
     patient_id?: SortOrder
     medecin_id?: SortOrder
     chambre_id?: SortOrderInput | SortOrder
+    service_id?: SortOrderInput | SortOrder
     statut?: SortOrder
     date_entree?: SortOrder
     date_sortie?: SortOrderInput | SortOrder
@@ -33217,6 +33302,7 @@ export namespace Prisma {
     patient_id?: StringWithAggregatesFilter<"Hospitalisation"> | string
     medecin_id?: StringWithAggregatesFilter<"Hospitalisation"> | string
     chambre_id?: StringNullableWithAggregatesFilter<"Hospitalisation"> | string | null
+    service_id?: StringNullableWithAggregatesFilter<"Hospitalisation"> | string | null
     statut?: EnumStatutHospitalisationWithAggregatesFilter<"Hospitalisation"> | $Enums.StatutHospitalisation
     date_entree?: DateTimeWithAggregatesFilter<"Hospitalisation"> | Date | string
     date_sortie?: DateTimeNullableWithAggregatesFilter<"Hospitalisation"> | Date | string | null
@@ -33509,6 +33595,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"Service"> | Date | string
     hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
     consultations?: ConsultationListRelationFilter
+    hospitalisations?: HospitalisationListRelationFilter
   }
 
   export type ServiceOrderByWithRelationInput = {
@@ -33522,6 +33609,7 @@ export namespace Prisma {
     updated_at?: SortOrder
     hospital?: HospitalOrderByWithRelationInput
     consultations?: ConsultationOrderByRelationAggregateInput
+    hospitalisations?: HospitalisationOrderByRelationAggregateInput
   }
 
   export type ServiceWhereUniqueInput = Prisma.AtLeast<{
@@ -33539,6 +33627,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"Service"> | Date | string
     hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
     consultations?: ConsultationListRelationFilter
+    hospitalisations?: HospitalisationListRelationFilter
   }, "id" | "hospital_id_nom">
 
   export type ServiceOrderByWithAggregationInput = {
@@ -35462,6 +35551,7 @@ export namespace Prisma {
     patient: PatientCreateNestedOneWithoutSejoursInput
     medecin: UtilisateurCreateNestedOneWithoutHospitalisations_responsableInput
     chambre?: ChambreCreateNestedOneWithoutHospitalisationsInput
+    service?: ServiceCreateNestedOneWithoutHospitalisationsInput
     facture?: FactureCreateNestedOneWithoutHospitalisationInput
     lignes?: LigneHospitalisationCreateNestedManyWithoutHospitalisationInput
   }
@@ -35472,6 +35562,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     chambre_id?: string | null
+    service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
     date_sortie?: Date | string | null
@@ -35498,6 +35589,7 @@ export namespace Prisma {
     patient?: PatientUpdateOneRequiredWithoutSejoursNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutHospitalisations_responsableNestedInput
     chambre?: ChambreUpdateOneWithoutHospitalisationsNestedInput
+    service?: ServiceUpdateOneWithoutHospitalisationsNestedInput
     facture?: FactureUpdateOneWithoutHospitalisationNestedInput
     lignes?: LigneHospitalisationUpdateManyWithoutHospitalisationNestedInput
   }
@@ -35508,6 +35600,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
     date_sortie?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35526,6 +35619,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     chambre_id?: string | null
+    service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
     date_sortie?: Date | string | null
@@ -35555,6 +35649,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
     date_sortie?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35866,6 +35961,7 @@ export namespace Prisma {
     updated_at?: Date | string
     hospital: HospitalCreateNestedOneWithoutServicesInput
     consultations?: ConsultationCreateNestedManyWithoutServiceInput
+    hospitalisations?: HospitalisationCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateInput = {
@@ -35878,6 +35974,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     consultations?: ConsultationUncheckedCreateNestedManyWithoutServiceInput
+    hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUpdateInput = {
@@ -35890,6 +35987,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     hospital?: HospitalUpdateOneRequiredWithoutServicesNestedInput
     consultations?: ConsultationUpdateManyWithoutServiceNestedInput
+    hospitalisations?: HospitalisationUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateInput = {
@@ -35902,6 +36000,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     consultations?: ConsultationUncheckedUpdateManyWithoutServiceNestedInput
+    hospitalisations?: HospitalisationUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceCreateManyInput = {
@@ -37560,6 +37659,7 @@ export namespace Prisma {
     patient_id?: SortOrder
     medecin_id?: SortOrder
     chambre_id?: SortOrder
+    service_id?: SortOrder
     statut?: SortOrder
     date_entree?: SortOrder
     date_sortie?: SortOrder
@@ -37577,6 +37677,7 @@ export namespace Prisma {
     patient_id?: SortOrder
     medecin_id?: SortOrder
     chambre_id?: SortOrder
+    service_id?: SortOrder
     statut?: SortOrder
     date_entree?: SortOrder
     date_sortie?: SortOrder
@@ -37594,6 +37695,7 @@ export namespace Prisma {
     patient_id?: SortOrder
     medecin_id?: SortOrder
     chambre_id?: SortOrder
+    service_id?: SortOrder
     statut?: SortOrder
     date_entree?: SortOrder
     date_sortie?: SortOrder
@@ -39898,6 +40000,12 @@ export namespace Prisma {
     connect?: ChambreWhereUniqueInput
   }
 
+  export type ServiceCreateNestedOneWithoutHospitalisationsInput = {
+    create?: XOR<ServiceCreateWithoutHospitalisationsInput, ServiceUncheckedCreateWithoutHospitalisationsInput>
+    connectOrCreate?: ServiceCreateOrConnectWithoutHospitalisationsInput
+    connect?: ServiceWhereUniqueInput
+  }
+
   export type FactureCreateNestedOneWithoutHospitalisationInput = {
     create?: XOR<FactureCreateWithoutHospitalisationInput, FactureUncheckedCreateWithoutHospitalisationInput>
     connectOrCreate?: FactureCreateOrConnectWithoutHospitalisationInput
@@ -39954,6 +40062,16 @@ export namespace Prisma {
     delete?: ChambreWhereInput | boolean
     connect?: ChambreWhereUniqueInput
     update?: XOR<XOR<ChambreUpdateToOneWithWhereWithoutHospitalisationsInput, ChambreUpdateWithoutHospitalisationsInput>, ChambreUncheckedUpdateWithoutHospitalisationsInput>
+  }
+
+  export type ServiceUpdateOneWithoutHospitalisationsNestedInput = {
+    create?: XOR<ServiceCreateWithoutHospitalisationsInput, ServiceUncheckedCreateWithoutHospitalisationsInput>
+    connectOrCreate?: ServiceCreateOrConnectWithoutHospitalisationsInput
+    upsert?: ServiceUpsertWithoutHospitalisationsInput
+    disconnect?: ServiceWhereInput | boolean
+    delete?: ServiceWhereInput | boolean
+    connect?: ServiceWhereUniqueInput
+    update?: XOR<XOR<ServiceUpdateToOneWithWhereWithoutHospitalisationsInput, ServiceUpdateWithoutHospitalisationsInput>, ServiceUncheckedUpdateWithoutHospitalisationsInput>
   }
 
   export type FactureUpdateOneWithoutHospitalisationNestedInput = {
@@ -40177,11 +40295,25 @@ export namespace Prisma {
     connect?: ConsultationWhereUniqueInput | ConsultationWhereUniqueInput[]
   }
 
+  export type HospitalisationCreateNestedManyWithoutServiceInput = {
+    create?: XOR<HospitalisationCreateWithoutServiceInput, HospitalisationUncheckedCreateWithoutServiceInput> | HospitalisationCreateWithoutServiceInput[] | HospitalisationUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: HospitalisationCreateOrConnectWithoutServiceInput | HospitalisationCreateOrConnectWithoutServiceInput[]
+    createMany?: HospitalisationCreateManyServiceInputEnvelope
+    connect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+  }
+
   export type ConsultationUncheckedCreateNestedManyWithoutServiceInput = {
     create?: XOR<ConsultationCreateWithoutServiceInput, ConsultationUncheckedCreateWithoutServiceInput> | ConsultationCreateWithoutServiceInput[] | ConsultationUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: ConsultationCreateOrConnectWithoutServiceInput | ConsultationCreateOrConnectWithoutServiceInput[]
     createMany?: ConsultationCreateManyServiceInputEnvelope
     connect?: ConsultationWhereUniqueInput | ConsultationWhereUniqueInput[]
+  }
+
+  export type HospitalisationUncheckedCreateNestedManyWithoutServiceInput = {
+    create?: XOR<HospitalisationCreateWithoutServiceInput, HospitalisationUncheckedCreateWithoutServiceInput> | HospitalisationCreateWithoutServiceInput[] | HospitalisationUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: HospitalisationCreateOrConnectWithoutServiceInput | HospitalisationCreateOrConnectWithoutServiceInput[]
+    createMany?: HospitalisationCreateManyServiceInputEnvelope
+    connect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
   }
 
   export type HospitalUpdateOneRequiredWithoutServicesNestedInput = {
@@ -40206,6 +40338,20 @@ export namespace Prisma {
     deleteMany?: ConsultationScalarWhereInput | ConsultationScalarWhereInput[]
   }
 
+  export type HospitalisationUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<HospitalisationCreateWithoutServiceInput, HospitalisationUncheckedCreateWithoutServiceInput> | HospitalisationCreateWithoutServiceInput[] | HospitalisationUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: HospitalisationCreateOrConnectWithoutServiceInput | HospitalisationCreateOrConnectWithoutServiceInput[]
+    upsert?: HospitalisationUpsertWithWhereUniqueWithoutServiceInput | HospitalisationUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: HospitalisationCreateManyServiceInputEnvelope
+    set?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+    disconnect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+    delete?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+    connect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+    update?: HospitalisationUpdateWithWhereUniqueWithoutServiceInput | HospitalisationUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: HospitalisationUpdateManyWithWhereWithoutServiceInput | HospitalisationUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: HospitalisationScalarWhereInput | HospitalisationScalarWhereInput[]
+  }
+
   export type ConsultationUncheckedUpdateManyWithoutServiceNestedInput = {
     create?: XOR<ConsultationCreateWithoutServiceInput, ConsultationUncheckedCreateWithoutServiceInput> | ConsultationCreateWithoutServiceInput[] | ConsultationUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: ConsultationCreateOrConnectWithoutServiceInput | ConsultationCreateOrConnectWithoutServiceInput[]
@@ -40218,6 +40364,20 @@ export namespace Prisma {
     update?: ConsultationUpdateWithWhereUniqueWithoutServiceInput | ConsultationUpdateWithWhereUniqueWithoutServiceInput[]
     updateMany?: ConsultationUpdateManyWithWhereWithoutServiceInput | ConsultationUpdateManyWithWhereWithoutServiceInput[]
     deleteMany?: ConsultationScalarWhereInput | ConsultationScalarWhereInput[]
+  }
+
+  export type HospitalisationUncheckedUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<HospitalisationCreateWithoutServiceInput, HospitalisationUncheckedCreateWithoutServiceInput> | HospitalisationCreateWithoutServiceInput[] | HospitalisationUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: HospitalisationCreateOrConnectWithoutServiceInput | HospitalisationCreateOrConnectWithoutServiceInput[]
+    upsert?: HospitalisationUpsertWithWhereUniqueWithoutServiceInput | HospitalisationUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: HospitalisationCreateManyServiceInputEnvelope
+    set?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+    disconnect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+    delete?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+    connect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+    update?: HospitalisationUpdateWithWhereUniqueWithoutServiceInput | HospitalisationUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: HospitalisationUpdateManyWithWhereWithoutServiceInput | HospitalisationUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: HospitalisationScalarWhereInput | HospitalisationScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -40905,6 +41065,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     consultations?: ConsultationCreateNestedManyWithoutServiceInput
+    hospitalisations?: HospitalisationCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutHospitalInput = {
@@ -40916,6 +41077,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     consultations?: ConsultationUncheckedCreateNestedManyWithoutServiceInput
+    hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutHospitalInput = {
@@ -41311,6 +41473,7 @@ export namespace Prisma {
     patient: PatientCreateNestedOneWithoutSejoursInput
     medecin: UtilisateurCreateNestedOneWithoutHospitalisations_responsableInput
     chambre?: ChambreCreateNestedOneWithoutHospitalisationsInput
+    service?: ServiceCreateNestedOneWithoutHospitalisationsInput
     facture?: FactureCreateNestedOneWithoutHospitalisationInput
     lignes?: LigneHospitalisationCreateNestedManyWithoutHospitalisationInput
   }
@@ -41320,6 +41483,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     chambre_id?: string | null
+    service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
     date_sortie?: Date | string | null
@@ -41884,6 +42048,7 @@ export namespace Prisma {
     patient_id?: StringFilter<"Hospitalisation"> | string
     medecin_id?: StringFilter<"Hospitalisation"> | string
     chambre_id?: StringNullableFilter<"Hospitalisation"> | string | null
+    service_id?: StringNullableFilter<"Hospitalisation"> | string | null
     statut?: EnumStatutHospitalisationFilter<"Hospitalisation"> | $Enums.StatutHospitalisation
     date_entree?: DateTimeFilter<"Hospitalisation"> | Date | string
     date_sortie?: DateTimeNullableFilter<"Hospitalisation"> | Date | string | null
@@ -42180,6 +42345,7 @@ export namespace Prisma {
     hospital: HospitalCreateNestedOneWithoutHospitalisationsInput
     patient: PatientCreateNestedOneWithoutSejoursInput
     chambre?: ChambreCreateNestedOneWithoutHospitalisationsInput
+    service?: ServiceCreateNestedOneWithoutHospitalisationsInput
     facture?: FactureCreateNestedOneWithoutHospitalisationInput
     lignes?: LigneHospitalisationCreateNestedManyWithoutHospitalisationInput
   }
@@ -42189,6 +42355,7 @@ export namespace Prisma {
     hospital_id: string
     patient_id: string
     chambre_id?: string | null
+    service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
     date_sortie?: Date | string | null
@@ -42679,6 +42846,7 @@ export namespace Prisma {
     hospital: HospitalCreateNestedOneWithoutHospitalisationsInput
     medecin: UtilisateurCreateNestedOneWithoutHospitalisations_responsableInput
     chambre?: ChambreCreateNestedOneWithoutHospitalisationsInput
+    service?: ServiceCreateNestedOneWithoutHospitalisationsInput
     facture?: FactureCreateNestedOneWithoutHospitalisationInput
     lignes?: LigneHospitalisationCreateNestedManyWithoutHospitalisationInput
   }
@@ -42688,6 +42856,7 @@ export namespace Prisma {
     hospital_id: string
     medecin_id: string
     chambre_id?: string | null
+    service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
     date_sortie?: Date | string | null
@@ -43228,6 +43397,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     hospital: HospitalCreateNestedOneWithoutServicesInput
+    hospitalisations?: HospitalisationCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutConsultationsInput = {
@@ -43239,6 +43409,7 @@ export namespace Prisma {
     est_actif?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutConsultationsInput = {
@@ -43516,6 +43687,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     hospital?: HospitalUpdateOneRequiredWithoutServicesNestedInput
+    hospitalisations?: HospitalisationUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutConsultationsInput = {
@@ -43527,6 +43699,7 @@ export namespace Prisma {
     est_actif?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospitalisations?: HospitalisationUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type PrescriptionUpsertWithWhereUniqueWithoutConsultationInput = {
@@ -44005,6 +44178,7 @@ export namespace Prisma {
     patient: PatientCreateNestedOneWithoutSejoursInput
     medecin: UtilisateurCreateNestedOneWithoutHospitalisations_responsableInput
     chambre?: ChambreCreateNestedOneWithoutHospitalisationsInput
+    service?: ServiceCreateNestedOneWithoutHospitalisationsInput
     lignes?: LigneHospitalisationCreateNestedManyWithoutHospitalisationInput
   }
 
@@ -44014,6 +44188,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     chambre_id?: string | null
+    service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
     date_sortie?: Date | string | null
@@ -44293,6 +44468,7 @@ export namespace Prisma {
     patient?: PatientUpdateOneRequiredWithoutSejoursNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutHospitalisations_responsableNestedInput
     chambre?: ChambreUpdateOneWithoutHospitalisationsNestedInput
+    service?: ServiceUpdateOneWithoutHospitalisationsNestedInput
     lignes?: LigneHospitalisationUpdateManyWithoutHospitalisationNestedInput
   }
 
@@ -44302,6 +44478,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
     date_sortie?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -46304,6 +46481,7 @@ export namespace Prisma {
     hospital: HospitalCreateNestedOneWithoutHospitalisationsInput
     patient: PatientCreateNestedOneWithoutSejoursInput
     medecin: UtilisateurCreateNestedOneWithoutHospitalisations_responsableInput
+    service?: ServiceCreateNestedOneWithoutHospitalisationsInput
     facture?: FactureCreateNestedOneWithoutHospitalisationInput
     lignes?: LigneHospitalisationCreateNestedManyWithoutHospitalisationInput
   }
@@ -46313,6 +46491,7 @@ export namespace Prisma {
     hospital_id: string
     patient_id: string
     medecin_id: string
+    service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
     date_sortie?: Date | string | null
@@ -46602,6 +46781,35 @@ export namespace Prisma {
   export type ChambreCreateOrConnectWithoutHospitalisationsInput = {
     where: ChambreWhereUniqueInput
     create: XOR<ChambreCreateWithoutHospitalisationsInput, ChambreUncheckedCreateWithoutHospitalisationsInput>
+  }
+
+  export type ServiceCreateWithoutHospitalisationsInput = {
+    id?: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutServicesInput
+    consultations?: ConsultationCreateNestedManyWithoutServiceInput
+  }
+
+  export type ServiceUncheckedCreateWithoutHospitalisationsInput = {
+    id?: string
+    hospital_id: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    consultations?: ConsultationUncheckedCreateNestedManyWithoutServiceInput
+  }
+
+  export type ServiceCreateOrConnectWithoutHospitalisationsInput = {
+    where: ServiceWhereUniqueInput
+    create: XOR<ServiceCreateWithoutHospitalisationsInput, ServiceUncheckedCreateWithoutHospitalisationsInput>
   }
 
   export type FactureCreateWithoutHospitalisationInput = {
@@ -46899,6 +47107,41 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ServiceUpsertWithoutHospitalisationsInput = {
+    update: XOR<ServiceUpdateWithoutHospitalisationsInput, ServiceUncheckedUpdateWithoutHospitalisationsInput>
+    create: XOR<ServiceCreateWithoutHospitalisationsInput, ServiceUncheckedCreateWithoutHospitalisationsInput>
+    where?: ServiceWhereInput
+  }
+
+  export type ServiceUpdateToOneWithWhereWithoutHospitalisationsInput = {
+    where?: ServiceWhereInput
+    data: XOR<ServiceUpdateWithoutHospitalisationsInput, ServiceUncheckedUpdateWithoutHospitalisationsInput>
+  }
+
+  export type ServiceUpdateWithoutHospitalisationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutServicesNestedInput
+    consultations?: ConsultationUpdateManyWithoutServiceNestedInput
+  }
+
+  export type ServiceUncheckedUpdateWithoutHospitalisationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    consultations?: ConsultationUncheckedUpdateManyWithoutServiceNestedInput
+  }
+
   export type FactureUpsertWithoutHospitalisationInput = {
     update: XOR<FactureUpdateWithoutHospitalisationInput, FactureUncheckedUpdateWithoutHospitalisationInput>
     create: XOR<FactureCreateWithoutHospitalisationInput, FactureUncheckedCreateWithoutHospitalisationInput>
@@ -46980,6 +47223,7 @@ export namespace Prisma {
     patient: PatientCreateNestedOneWithoutSejoursInput
     medecin: UtilisateurCreateNestedOneWithoutHospitalisations_responsableInput
     chambre?: ChambreCreateNestedOneWithoutHospitalisationsInput
+    service?: ServiceCreateNestedOneWithoutHospitalisationsInput
     facture?: FactureCreateNestedOneWithoutHospitalisationInput
   }
 
@@ -46989,6 +47233,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     chambre_id?: string | null
+    service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
     date_sortie?: Date | string | null
@@ -47071,6 +47316,7 @@ export namespace Prisma {
     patient?: PatientUpdateOneRequiredWithoutSejoursNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutHospitalisations_responsableNestedInput
     chambre?: ChambreUpdateOneWithoutHospitalisationsNestedInput
+    service?: ServiceUpdateOneWithoutHospitalisationsNestedInput
     facture?: FactureUpdateOneWithoutHospitalisationNestedInput
   }
 
@@ -47080,6 +47326,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
     date_sortie?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -47685,6 +47932,52 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type HospitalisationCreateWithoutServiceInput = {
+    id?: string
+    statut?: $Enums.StatutHospitalisation
+    date_entree?: Date | string
+    date_sortie?: Date | string | null
+    motif_admission?: string | null
+    diagnostic?: string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutHospitalisationsInput
+    patient: PatientCreateNestedOneWithoutSejoursInput
+    medecin: UtilisateurCreateNestedOneWithoutHospitalisations_responsableInput
+    chambre?: ChambreCreateNestedOneWithoutHospitalisationsInput
+    facture?: FactureCreateNestedOneWithoutHospitalisationInput
+    lignes?: LigneHospitalisationCreateNestedManyWithoutHospitalisationInput
+  }
+
+  export type HospitalisationUncheckedCreateWithoutServiceInput = {
+    id?: string
+    hospital_id: string
+    patient_id: string
+    medecin_id: string
+    chambre_id?: string | null
+    statut?: $Enums.StatutHospitalisation
+    date_entree?: Date | string
+    date_sortie?: Date | string | null
+    motif_admission?: string | null
+    diagnostic?: string | null
+    notes?: string | null
+    facture_id?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    lignes?: LigneHospitalisationUncheckedCreateNestedManyWithoutHospitalisationInput
+  }
+
+  export type HospitalisationCreateOrConnectWithoutServiceInput = {
+    where: HospitalisationWhereUniqueInput
+    create: XOR<HospitalisationCreateWithoutServiceInput, HospitalisationUncheckedCreateWithoutServiceInput>
+  }
+
+  export type HospitalisationCreateManyServiceInputEnvelope = {
+    data: HospitalisationCreateManyServiceInput | HospitalisationCreateManyServiceInput[]
+    skipDuplicates?: boolean
+  }
+
   export type HospitalUpsertWithoutServicesInput = {
     update: XOR<HospitalUpdateWithoutServicesInput, HospitalUncheckedUpdateWithoutServicesInput>
     create: XOR<HospitalCreateWithoutServicesInput, HospitalUncheckedCreateWithoutServicesInput>
@@ -47766,6 +48059,22 @@ export namespace Prisma {
   export type ConsultationUpdateManyWithWhereWithoutServiceInput = {
     where: ConsultationScalarWhereInput
     data: XOR<ConsultationUpdateManyMutationInput, ConsultationUncheckedUpdateManyWithoutServiceInput>
+  }
+
+  export type HospitalisationUpsertWithWhereUniqueWithoutServiceInput = {
+    where: HospitalisationWhereUniqueInput
+    update: XOR<HospitalisationUpdateWithoutServiceInput, HospitalisationUncheckedUpdateWithoutServiceInput>
+    create: XOR<HospitalisationCreateWithoutServiceInput, HospitalisationUncheckedCreateWithoutServiceInput>
+  }
+
+  export type HospitalisationUpdateWithWhereUniqueWithoutServiceInput = {
+    where: HospitalisationWhereUniqueInput
+    data: XOR<HospitalisationUpdateWithoutServiceInput, HospitalisationUncheckedUpdateWithoutServiceInput>
+  }
+
+  export type HospitalisationUpdateManyWithWhereWithoutServiceInput = {
+    where: HospitalisationScalarWhereInput
+    data: XOR<HospitalisationUpdateManyMutationInput, HospitalisationUncheckedUpdateManyWithoutServiceInput>
   }
 
   export type UtilisateurCreateManyHospitalInput = {
@@ -47960,6 +48269,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     chambre_id?: string | null
+    service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
     date_sortie?: Date | string | null
@@ -48147,6 +48457,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     consultations?: ConsultationUpdateManyWithoutServiceNestedInput
+    hospitalisations?: HospitalisationUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutHospitalInput = {
@@ -48158,6 +48469,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     consultations?: ConsultationUncheckedUpdateManyWithoutServiceNestedInput
+    hospitalisations?: HospitalisationUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateManyWithoutHospitalInput = {
@@ -48596,6 +48908,7 @@ export namespace Prisma {
     patient?: PatientUpdateOneRequiredWithoutSejoursNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutHospitalisations_responsableNestedInput
     chambre?: ChambreUpdateOneWithoutHospitalisationsNestedInput
+    service?: ServiceUpdateOneWithoutHospitalisationsNestedInput
     facture?: FactureUpdateOneWithoutHospitalisationNestedInput
     lignes?: LigneHospitalisationUpdateManyWithoutHospitalisationNestedInput
   }
@@ -48605,6 +48918,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
     date_sortie?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -48622,6 +48936,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
     date_sortie?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -48768,6 +49083,7 @@ export namespace Prisma {
     hospital_id: string
     patient_id: string
     chambre_id?: string | null
+    service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
     date_sortie?: Date | string | null
@@ -48967,6 +49283,7 @@ export namespace Prisma {
     hospital?: HospitalUpdateOneRequiredWithoutHospitalisationsNestedInput
     patient?: PatientUpdateOneRequiredWithoutSejoursNestedInput
     chambre?: ChambreUpdateOneWithoutHospitalisationsNestedInput
+    service?: ServiceUpdateOneWithoutHospitalisationsNestedInput
     facture?: FactureUpdateOneWithoutHospitalisationNestedInput
     lignes?: LigneHospitalisationUpdateManyWithoutHospitalisationNestedInput
   }
@@ -48976,6 +49293,7 @@ export namespace Prisma {
     hospital_id?: StringFieldUpdateOperationsInput | string
     patient_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
     date_sortie?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -48993,6 +49311,7 @@ export namespace Prisma {
     hospital_id?: StringFieldUpdateOperationsInput | string
     patient_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
     date_sortie?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -49103,6 +49422,7 @@ export namespace Prisma {
     hospital_id: string
     medecin_id: string
     chambre_id?: string | null
+    service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
     date_sortie?: Date | string | null
@@ -49421,6 +49741,7 @@ export namespace Prisma {
     hospital?: HospitalUpdateOneRequiredWithoutHospitalisationsNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutHospitalisations_responsableNestedInput
     chambre?: ChambreUpdateOneWithoutHospitalisationsNestedInput
+    service?: ServiceUpdateOneWithoutHospitalisationsNestedInput
     facture?: FactureUpdateOneWithoutHospitalisationNestedInput
     lignes?: LigneHospitalisationUpdateManyWithoutHospitalisationNestedInput
   }
@@ -49430,6 +49751,7 @@ export namespace Prisma {
     hospital_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
     date_sortie?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -49447,6 +49769,7 @@ export namespace Prisma {
     hospital_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
     date_sortie?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -49803,6 +50126,7 @@ export namespace Prisma {
     hospital_id: string
     patient_id: string
     medecin_id: string
+    service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
     date_sortie?: Date | string | null
@@ -49827,6 +50151,7 @@ export namespace Prisma {
     hospital?: HospitalUpdateOneRequiredWithoutHospitalisationsNestedInput
     patient?: PatientUpdateOneRequiredWithoutSejoursNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutHospitalisations_responsableNestedInput
+    service?: ServiceUpdateOneWithoutHospitalisationsNestedInput
     facture?: FactureUpdateOneWithoutHospitalisationNestedInput
     lignes?: LigneHospitalisationUpdateManyWithoutHospitalisationNestedInput
   }
@@ -49836,6 +50161,7 @@ export namespace Prisma {
     hospital_id?: StringFieldUpdateOperationsInput | string
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
     date_sortie?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -49853,6 +50179,7 @@ export namespace Prisma {
     hospital_id?: StringFieldUpdateOperationsInput | string
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
     date_sortie?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -50062,6 +50389,23 @@ export namespace Prisma {
     updated_at?: Date | string
   }
 
+  export type HospitalisationCreateManyServiceInput = {
+    id?: string
+    hospital_id: string
+    patient_id: string
+    medecin_id: string
+    chambre_id?: string | null
+    statut?: $Enums.StatutHospitalisation
+    date_entree?: Date | string
+    date_sortie?: Date | string | null
+    motif_admission?: string | null
+    diagnostic?: string | null
+    notes?: string | null
+    facture_id?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
   export type ConsultationUpdateWithoutServiceInput = {
     id?: StringFieldUpdateOperationsInput | string
     statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
@@ -50116,6 +50460,59 @@ export namespace Prisma {
     tension?: NullableStringFieldUpdateOperationsInput | string | null
     temperature?: NullableFloatFieldUpdateOperationsInput | number | null
     date_consultation?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HospitalisationUpdateWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
+    date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
+    date_sortie?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    motif_admission?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutHospitalisationsNestedInput
+    patient?: PatientUpdateOneRequiredWithoutSejoursNestedInput
+    medecin?: UtilisateurUpdateOneRequiredWithoutHospitalisations_responsableNestedInput
+    chambre?: ChambreUpdateOneWithoutHospitalisationsNestedInput
+    facture?: FactureUpdateOneWithoutHospitalisationNestedInput
+    lignes?: LigneHospitalisationUpdateManyWithoutHospitalisationNestedInput
+  }
+
+  export type HospitalisationUncheckedUpdateWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    medecin_id?: StringFieldUpdateOperationsInput | string
+    chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
+    date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
+    date_sortie?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    motif_admission?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    lignes?: LigneHospitalisationUncheckedUpdateManyWithoutHospitalisationNestedInput
+  }
+
+  export type HospitalisationUncheckedUpdateManyWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    medecin_id?: StringFieldUpdateOperationsInput | string
+    chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
+    date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
+    date_sortie?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    motif_admission?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

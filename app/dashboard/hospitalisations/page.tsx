@@ -11,6 +11,7 @@ import {
 } from "./actions";
 import { getMedecins, getPatientsHospital } from "@/app/dashboard/consultations/actions";
 import { getChambres } from "@/app/dashboard/chambres/actions";
+import { getServices } from "@/app/dashboard/services/actions";
 import { HospitalisationsStats } from "@/components/hospitalisations/HospitalisationsStats";
 import { KanbanHospitalisations } from "@/components/hospitalisations/KanbanHospitalisations";
 
@@ -31,6 +32,7 @@ export default async function HospitalisationsPage() {
     medecins,
     patients,
     chambres,
+    services,
   ] = await Promise.all([
     getHospitalisations(utilisateur.hospital_id, "EN_COURS"),
     getHospitalisations(utilisateur.hospital_id, "SORTIE"),
@@ -38,6 +40,7 @@ export default async function HospitalisationsPage() {
     getMedecins(utilisateur.hospital_id),
     getPatientsHospital(utilisateur.hospital_id),
     getChambres(utilisateur.hospital_id),
+    getServices(utilisateur.hospital_id),
   ]);
 
   return (
@@ -57,6 +60,7 @@ export default async function HospitalisationsPage() {
         medecins={medecins}
         patients={patients}
         chambres={chambres}
+        services={services}
         hospitalId={utilisateur.hospital_id}
         utilisateurId={utilisateur.id}
         utilisateurNom={`${utilisateur.prenom} ${utilisateur.nom}`}

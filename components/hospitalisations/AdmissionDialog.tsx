@@ -47,12 +47,20 @@ interface Chambre {
   est_disponible:  boolean;
 }
 
+interface Service {
+  id:       string;
+  nom:      string;
+  couleur:  string;
+  est_actif: boolean;
+}
+
 interface AdmissionDialogProps {
   open:           boolean;
   onOpenChange:   (open: boolean) => void;
   medecins:       Medecin[];
   patients:       PatientHospital[];
   chambres:       Chambre[];
+  services:       Service[];
   hospitalId:     string;
   utilisateurId:  string;
   utilisateurNom: string;
@@ -74,6 +82,7 @@ export function AdmissionDialog({
   medecins,
   patients,
   chambres,
+  services,
   hospitalId,
   utilisateurId,
   utilisateurNom,
@@ -86,6 +95,7 @@ export function AdmissionDialog({
   const [patientId,   setPatientId]   = useState("");
   const [medecinId,   setMedecinId]   = useState("");
   const [chambreId,   setChambreId]   = useState("");
+  const [serviceId,   setServiceId]   = useState("");
   const [motif,       setMotif]       = useState("");
 
   // Chambre sélectionnée pour afficher le tarif
@@ -105,6 +115,7 @@ export function AdmissionDialog({
     setPatientId("");
     setMedecinId("");
     setChambreId("");
+    setServiceId("");
     setMotif("");
     setErrors({});
     onOpenChange(false);
@@ -122,8 +133,9 @@ export function AdmissionDialog({
           {
             patient_id:       patientId,
             medecin_id:       medecinId,
-            chambre_id:       chambreId || undefined,
-            motif_admission:  motif || undefined,
+            chambre_id:       chambreId  || undefined,
+            service_id:       serviceId  || undefined,
+            motif_admission:  motif      || undefined,
           }
         );
         setSucces(true);
@@ -228,6 +240,26 @@ export function AdmissionDialog({
                   ))}
                 </select>
                 <FieldError message={errors.medecin} />
+              </div>
+
+              {/* Service */}
+              <div className="space-y-1.5">
+                <Label>
+                  Service
+                  <span className="text-gray-400 font-normal ml-1">(optionnel)</span>
+                </Label>
+                <select
+                  value={serviceId}
+                  onChange={(e) => setServiceId(e.target.value)}
+                  className={selectClass}
+                >
+                  <option value="">Aucun service</option>
+                  {services.filter((s) => s.est_actif).map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.nom}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               {/* Chambre */}

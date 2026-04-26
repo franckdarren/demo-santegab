@@ -617,6 +617,7 @@ model Hospitalisation {
   patient_id      String
   medecin_id      String
   chambre_id      String?
+  service_id      String?
   statut          StatutHospitalisation @default(EN_COURS)
   date_entree     DateTime              @default(now())
   date_sortie     DateTime?
@@ -631,11 +632,13 @@ model Hospitalisation {
   patient  Patient                @relation("PatientHospitalisations", fields: [patient_id], references: [id])
   medecin  Utilisateur            @relation("MedecinHospitalisations", fields: [medecin_id], references: [id])
   chambre  Chambre?               @relation("ChambreHospitalisations", fields: [chambre_id], references: [id])
+  service  Service?               @relation("ServiceHospitalisations", fields: [service_id], references: [id])
   facture  Facture?               @relation("FactureHospitalisation", fields: [facture_id], references: [id])
   lignes   LigneHospitalisation[] @relation("HospitalisationLignes")
 
   @@index([hospital_id])
   @@index([patient_id])
+  @@index([service_id])
   @@map("hospitalisations")
 }
 
@@ -742,8 +745,9 @@ model Service {
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 
-  hospital      Hospital       @relation("HospitalServices", fields: [hospital_id], references: [id], onDelete: Cascade)
-  consultations Consultation[] @relation("ServiceConsultations")
+  hospital         Hospital           @relation("HospitalServices", fields: [hospital_id], references: [id], onDelete: Cascade)
+  consultations    Consultation[]     @relation("ServiceConsultations")
+  hospitalisations Hospitalisation[]  @relation("ServiceHospitalisations")
 
   @@unique([hospital_id, nom])
   @@index([hospital_id])

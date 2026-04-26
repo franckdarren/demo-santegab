@@ -378,6 +378,7 @@ exports.Prisma.HospitalisationScalarFieldEnum = {
   patient_id: 'patient_id',
   medecin_id: 'medecin_id',
   chambre_id: 'chambre_id',
+  service_id: 'service_id',
   statut: 'statut',
   date_entree: 'date_entree',
   date_sortie: 'date_sortie',
