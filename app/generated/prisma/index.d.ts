@@ -23546,6 +23546,8 @@ export namespace Prisma {
     id: string | null
     hospital_id: string | null
     numero: string | null
+    service: string | null
+    lit: string | null
     type_chambre: string | null
     prix_journalier: number | null
     est_disponible: boolean | null
@@ -23558,6 +23560,8 @@ export namespace Prisma {
     id: string | null
     hospital_id: string | null
     numero: string | null
+    service: string | null
+    lit: string | null
     type_chambre: string | null
     prix_journalier: number | null
     est_disponible: boolean | null
@@ -23570,6 +23574,8 @@ export namespace Prisma {
     id: number
     hospital_id: number
     numero: number
+    service: number
+    lit: number
     type_chambre: number
     prix_journalier: number
     est_disponible: number
@@ -23592,6 +23598,8 @@ export namespace Prisma {
     id?: true
     hospital_id?: true
     numero?: true
+    service?: true
+    lit?: true
     type_chambre?: true
     prix_journalier?: true
     est_disponible?: true
@@ -23604,6 +23612,8 @@ export namespace Prisma {
     id?: true
     hospital_id?: true
     numero?: true
+    service?: true
+    lit?: true
     type_chambre?: true
     prix_journalier?: true
     est_disponible?: true
@@ -23616,6 +23626,8 @@ export namespace Prisma {
     id?: true
     hospital_id?: true
     numero?: true
+    service?: true
+    lit?: true
     type_chambre?: true
     prix_journalier?: true
     est_disponible?: true
@@ -23715,6 +23727,8 @@ export namespace Prisma {
     id: string
     hospital_id: string
     numero: string
+    service: string | null
+    lit: string | null
     type_chambre: string
     prix_journalier: number
     est_disponible: boolean
@@ -23746,6 +23760,8 @@ export namespace Prisma {
     id?: boolean
     hospital_id?: boolean
     numero?: boolean
+    service?: boolean
+    lit?: boolean
     type_chambre?: boolean
     prix_journalier?: boolean
     est_disponible?: boolean
@@ -23761,6 +23777,8 @@ export namespace Prisma {
     id?: boolean
     hospital_id?: boolean
     numero?: boolean
+    service?: boolean
+    lit?: boolean
     type_chambre?: boolean
     prix_journalier?: boolean
     est_disponible?: boolean
@@ -23774,6 +23792,8 @@ export namespace Prisma {
     id?: boolean
     hospital_id?: boolean
     numero?: boolean
+    service?: boolean
+    lit?: boolean
     type_chambre?: boolean
     prix_journalier?: boolean
     est_disponible?: boolean
@@ -23787,6 +23807,8 @@ export namespace Prisma {
     id?: boolean
     hospital_id?: boolean
     numero?: boolean
+    service?: boolean
+    lit?: boolean
     type_chambre?: boolean
     prix_journalier?: boolean
     est_disponible?: boolean
@@ -23795,7 +23817,7 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type ChambreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "numero" | "type_chambre" | "prix_journalier" | "est_disponible" | "description" | "created_at" | "updated_at", ExtArgs["result"]["chambre"]>
+  export type ChambreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "numero" | "service" | "lit" | "type_chambre" | "prix_journalier" | "est_disponible" | "description" | "created_at" | "updated_at", ExtArgs["result"]["chambre"]>
   export type ChambreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     hospitalisations?: boolean | Chambre$hospitalisationsArgs<ExtArgs>
@@ -23818,6 +23840,8 @@ export namespace Prisma {
       id: string
       hospital_id: string
       numero: string
+      service: string | null
+      lit: string | null
       type_chambre: string
       prix_journalier: number
       est_disponible: boolean
@@ -24252,6 +24276,8 @@ export namespace Prisma {
     readonly id: FieldRef<"Chambre", 'String'>
     readonly hospital_id: FieldRef<"Chambre", 'String'>
     readonly numero: FieldRef<"Chambre", 'String'>
+    readonly service: FieldRef<"Chambre", 'String'>
+    readonly lit: FieldRef<"Chambre", 'String'>
     readonly type_chambre: FieldRef<"Chambre", 'String'>
     readonly prix_journalier: FieldRef<"Chambre", 'Float'>
     readonly est_disponible: FieldRef<"Chambre", 'Boolean'>
@@ -31051,6 +31077,8 @@ export namespace Prisma {
     id: 'id',
     hospital_id: 'hospital_id',
     numero: 'numero',
+    service: 'service',
+    lit: 'lit',
     type_chambre: 'type_chambre',
     prix_journalier: 'prix_journalier',
     est_disponible: 'est_disponible',
@@ -33118,6 +33146,8 @@ export namespace Prisma {
     id?: StringFilter<"Chambre"> | string
     hospital_id?: StringFilter<"Chambre"> | string
     numero?: StringFilter<"Chambre"> | string
+    service?: StringNullableFilter<"Chambre"> | string | null
+    lit?: StringNullableFilter<"Chambre"> | string | null
     type_chambre?: StringFilter<"Chambre"> | string
     prix_journalier?: FloatFilter<"Chambre"> | number
     est_disponible?: BoolFilter<"Chambre"> | boolean
@@ -33132,6 +33162,8 @@ export namespace Prisma {
     id?: SortOrder
     hospital_id?: SortOrder
     numero?: SortOrder
+    service?: SortOrderInput | SortOrder
+    lit?: SortOrderInput | SortOrder
     type_chambre?: SortOrder
     prix_journalier?: SortOrder
     est_disponible?: SortOrder
@@ -33149,6 +33181,8 @@ export namespace Prisma {
     NOT?: ChambreWhereInput | ChambreWhereInput[]
     hospital_id?: StringFilter<"Chambre"> | string
     numero?: StringFilter<"Chambre"> | string
+    service?: StringNullableFilter<"Chambre"> | string | null
+    lit?: StringNullableFilter<"Chambre"> | string | null
     type_chambre?: StringFilter<"Chambre"> | string
     prix_journalier?: FloatFilter<"Chambre"> | number
     est_disponible?: BoolFilter<"Chambre"> | boolean
@@ -33163,6 +33197,8 @@ export namespace Prisma {
     id?: SortOrder
     hospital_id?: SortOrder
     numero?: SortOrder
+    service?: SortOrderInput | SortOrder
+    lit?: SortOrderInput | SortOrder
     type_chambre?: SortOrder
     prix_journalier?: SortOrder
     est_disponible?: SortOrder
@@ -33183,6 +33219,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Chambre"> | string
     hospital_id?: StringWithAggregatesFilter<"Chambre"> | string
     numero?: StringWithAggregatesFilter<"Chambre"> | string
+    service?: StringNullableWithAggregatesFilter<"Chambre"> | string | null
+    lit?: StringNullableWithAggregatesFilter<"Chambre"> | string | null
     type_chambre?: StringWithAggregatesFilter<"Chambre"> | string
     prix_journalier?: FloatWithAggregatesFilter<"Chambre"> | number
     est_disponible?: BoolWithAggregatesFilter<"Chambre"> | boolean
@@ -35453,6 +35491,8 @@ export namespace Prisma {
   export type ChambreCreateInput = {
     id?: string
     numero: string
+    service?: string | null
+    lit?: string | null
     type_chambre?: string
     prix_journalier?: number
     est_disponible?: boolean
@@ -35467,6 +35507,8 @@ export namespace Prisma {
     id?: string
     hospital_id: string
     numero: string
+    service?: string | null
+    lit?: string | null
     type_chambre?: string
     prix_journalier?: number
     est_disponible?: boolean
@@ -35479,6 +35521,8 @@ export namespace Prisma {
   export type ChambreUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     numero?: StringFieldUpdateOperationsInput | string
+    service?: NullableStringFieldUpdateOperationsInput | string | null
+    lit?: NullableStringFieldUpdateOperationsInput | string | null
     type_chambre?: StringFieldUpdateOperationsInput | string
     prix_journalier?: FloatFieldUpdateOperationsInput | number
     est_disponible?: BoolFieldUpdateOperationsInput | boolean
@@ -35493,6 +35537,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     hospital_id?: StringFieldUpdateOperationsInput | string
     numero?: StringFieldUpdateOperationsInput | string
+    service?: NullableStringFieldUpdateOperationsInput | string | null
+    lit?: NullableStringFieldUpdateOperationsInput | string | null
     type_chambre?: StringFieldUpdateOperationsInput | string
     prix_journalier?: FloatFieldUpdateOperationsInput | number
     est_disponible?: BoolFieldUpdateOperationsInput | boolean
@@ -35506,6 +35552,8 @@ export namespace Prisma {
     id?: string
     hospital_id: string
     numero: string
+    service?: string | null
+    lit?: string | null
     type_chambre?: string
     prix_journalier?: number
     est_disponible?: boolean
@@ -35517,6 +35565,8 @@ export namespace Prisma {
   export type ChambreUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     numero?: StringFieldUpdateOperationsInput | string
+    service?: NullableStringFieldUpdateOperationsInput | string | null
+    lit?: NullableStringFieldUpdateOperationsInput | string | null
     type_chambre?: StringFieldUpdateOperationsInput | string
     prix_journalier?: FloatFieldUpdateOperationsInput | number
     est_disponible?: BoolFieldUpdateOperationsInput | boolean
@@ -35529,6 +35579,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     hospital_id?: StringFieldUpdateOperationsInput | string
     numero?: StringFieldUpdateOperationsInput | string
+    service?: NullableStringFieldUpdateOperationsInput | string | null
+    lit?: NullableStringFieldUpdateOperationsInput | string | null
     type_chambre?: StringFieldUpdateOperationsInput | string
     prix_journalier?: FloatFieldUpdateOperationsInput | number
     est_disponible?: BoolFieldUpdateOperationsInput | boolean
@@ -37601,6 +37653,8 @@ export namespace Prisma {
     id?: SortOrder
     hospital_id?: SortOrder
     numero?: SortOrder
+    service?: SortOrder
+    lit?: SortOrder
     type_chambre?: SortOrder
     prix_journalier?: SortOrder
     est_disponible?: SortOrder
@@ -37617,6 +37671,8 @@ export namespace Prisma {
     id?: SortOrder
     hospital_id?: SortOrder
     numero?: SortOrder
+    service?: SortOrder
+    lit?: SortOrder
     type_chambre?: SortOrder
     prix_journalier?: SortOrder
     est_disponible?: SortOrder
@@ -37629,6 +37685,8 @@ export namespace Prisma {
     id?: SortOrder
     hospital_id?: SortOrder
     numero?: SortOrder
+    service?: SortOrder
+    lit?: SortOrder
     type_chambre?: SortOrder
     prix_journalier?: SortOrder
     est_disponible?: SortOrder
@@ -41429,6 +41487,8 @@ export namespace Prisma {
   export type ChambreCreateWithoutHospitalInput = {
     id?: string
     numero: string
+    service?: string | null
+    lit?: string | null
     type_chambre?: string
     prix_journalier?: number
     est_disponible?: boolean
@@ -41441,6 +41501,8 @@ export namespace Prisma {
   export type ChambreUncheckedCreateWithoutHospitalInput = {
     id?: string
     numero: string
+    service?: string | null
+    lit?: string | null
     type_chambre?: string
     prix_journalier?: number
     est_disponible?: boolean
@@ -42015,6 +42077,8 @@ export namespace Prisma {
     id?: StringFilter<"Chambre"> | string
     hospital_id?: StringFilter<"Chambre"> | string
     numero?: StringFilter<"Chambre"> | string
+    service?: StringNullableFilter<"Chambre"> | string | null
+    lit?: StringNullableFilter<"Chambre"> | string | null
     type_chambre?: StringFilter<"Chambre"> | string
     prix_journalier?: FloatFilter<"Chambre"> | number
     est_disponible?: BoolFilter<"Chambre"> | boolean
@@ -46757,6 +46821,8 @@ export namespace Prisma {
   export type ChambreCreateWithoutHospitalisationsInput = {
     id?: string
     numero: string
+    service?: string | null
+    lit?: string | null
     type_chambre?: string
     prix_journalier?: number
     est_disponible?: boolean
@@ -46770,6 +46836,8 @@ export namespace Prisma {
     id?: string
     hospital_id: string
     numero: string
+    service?: string | null
+    lit?: string | null
     type_chambre?: string
     prix_journalier?: number
     est_disponible?: boolean
@@ -47086,6 +47154,8 @@ export namespace Prisma {
   export type ChambreUpdateWithoutHospitalisationsInput = {
     id?: StringFieldUpdateOperationsInput | string
     numero?: StringFieldUpdateOperationsInput | string
+    service?: NullableStringFieldUpdateOperationsInput | string | null
+    lit?: NullableStringFieldUpdateOperationsInput | string | null
     type_chambre?: StringFieldUpdateOperationsInput | string
     prix_journalier?: FloatFieldUpdateOperationsInput | number
     est_disponible?: BoolFieldUpdateOperationsInput | boolean
@@ -47099,6 +47169,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     hospital_id?: StringFieldUpdateOperationsInput | string
     numero?: StringFieldUpdateOperationsInput | string
+    service?: NullableStringFieldUpdateOperationsInput | string | null
+    lit?: NullableStringFieldUpdateOperationsInput | string | null
     type_chambre?: StringFieldUpdateOperationsInput | string
     prix_journalier?: FloatFieldUpdateOperationsInput | number
     est_disponible?: BoolFieldUpdateOperationsInput | boolean
@@ -48256,6 +48328,8 @@ export namespace Prisma {
   export type ChambreCreateManyHospitalInput = {
     id?: string
     numero: string
+    service?: string | null
+    lit?: string | null
     type_chambre?: string
     prix_journalier?: number
     est_disponible?: boolean
@@ -48863,6 +48937,8 @@ export namespace Prisma {
   export type ChambreUpdateWithoutHospitalInput = {
     id?: StringFieldUpdateOperationsInput | string
     numero?: StringFieldUpdateOperationsInput | string
+    service?: NullableStringFieldUpdateOperationsInput | string | null
+    lit?: NullableStringFieldUpdateOperationsInput | string | null
     type_chambre?: StringFieldUpdateOperationsInput | string
     prix_journalier?: FloatFieldUpdateOperationsInput | number
     est_disponible?: BoolFieldUpdateOperationsInput | boolean
@@ -48875,6 +48951,8 @@ export namespace Prisma {
   export type ChambreUncheckedUpdateWithoutHospitalInput = {
     id?: StringFieldUpdateOperationsInput | string
     numero?: StringFieldUpdateOperationsInput | string
+    service?: NullableStringFieldUpdateOperationsInput | string | null
+    lit?: NullableStringFieldUpdateOperationsInput | string | null
     type_chambre?: StringFieldUpdateOperationsInput | string
     prix_journalier?: FloatFieldUpdateOperationsInput | number
     est_disponible?: BoolFieldUpdateOperationsInput | boolean
@@ -48887,6 +48965,8 @@ export namespace Prisma {
   export type ChambreUncheckedUpdateManyWithoutHospitalInput = {
     id?: StringFieldUpdateOperationsInput | string
     numero?: StringFieldUpdateOperationsInput | string
+    service?: NullableStringFieldUpdateOperationsInput | string | null
+    lit?: NullableStringFieldUpdateOperationsInput | string | null
     type_chambre?: StringFieldUpdateOperationsInput | string
     prix_journalier?: FloatFieldUpdateOperationsInput | number
     est_disponible?: BoolFieldUpdateOperationsInput | boolean

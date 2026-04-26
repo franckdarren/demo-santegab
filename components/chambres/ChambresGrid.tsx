@@ -36,6 +36,8 @@ const TYPES_CHAMBRE = [
 interface Chambre {
   id:              string;
   numero:          string;
+  service:         string | null;
+  lit:             string | null;
   type_chambre:    string;
   prix_journalier: number;
   est_disponible:  boolean;
@@ -76,14 +78,18 @@ export function ChambresGrid({
   const [errors,         setErrors]         = useState<Record<string, string>>({});
 
   // Formulaire
-  const [numero,     setNumero]     = useState("");
-  const [type,       setType]       = useState("COMMUNE");
-  const [prix,       setPrix]       = useState("");
+  const [numero,      setNumero]      = useState("");
+  const [service,     setService]     = useState("");
+  const [lit,         setLit]         = useState("");
+  const [type,        setType]        = useState("COMMUNE");
+  const [prix,        setPrix]        = useState("");
   const [description, setDescription] = useState("");
 
   function ouvrirEdition(chambre: Chambre) {
     setChambreEdition(chambre);
     setNumero(chambre.numero);
+    setService(chambre.service ?? "");
+    setLit(chambre.lit ?? "");
     setType(chambre.type_chambre);
     setPrix(chambre.prix_journalier.toString());
     setDescription(chambre.description ?? "");
@@ -96,6 +102,8 @@ export function ChambresGrid({
     setChambreEdition(null);
     setSucces(false);
     setNumero("");
+    setService("");
+    setLit("");
     setType("COMMUNE");
     setPrix("");
     setDescription("");
@@ -123,9 +131,11 @@ export function ChambresGrid({
             utilisateurNom,
             {
               numero,
+              service:         service || null,
+              lit:             lit     || null,
               type_chambre:    type,
               prix_journalier: Number(prix),
-              description:     description || undefined,
+              description:     description || null,
             }
           );
         } else {
@@ -135,6 +145,8 @@ export function ChambresGrid({
             utilisateurNom,
             {
               numero,
+              service:         service || undefined,
+              lit:             lit     || undefined,
               type_chambre:    type,
               prix_journalier: Number(prix),
               description:     description || undefined,
@@ -251,6 +263,14 @@ export function ChambresGrid({
                     </Badge>
                   </div>
 
+                  {/* Service + Lit */}
+                  {(chambre.service || chambre.lit) && (
+                    <div className="flex items-center gap-3 text-xs text-gray-500">
+                      {chambre.service && <span>🏥 {chambre.service}</span>}
+                      {chambre.lit     && <span>🛏 Lit {chambre.lit}</span>}
+                    </div>
+                  )}
+
                   {/* Patient en cours */}
                   {patientEnCours && (
                     <p className="text-xs text-gray-500">
@@ -357,6 +377,26 @@ export function ChambresGrid({
                         <option key={t.value} value={t.value}>{t.label}</option>
                       ))}
                     </select>
+                  </div>
+                </div>
+
+                {/* Service + Lit */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1.5">
+                    <Label>Service</Label>
+                    <Input
+                      placeholder="Chirurgie, Médecine..."
+                      value={service}
+                      onChange={(e) => setService(e.target.value)}
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label>Lit</Label>
+                    <Input
+                      placeholder="A, B, 1, 2..."
+                      value={lit}
+                      onChange={(e) => setLit(e.target.value)}
+                    />
                   </div>
                 </div>
 

@@ -594,6 +594,8 @@ model Chambre {
   id              String   @id @default(uuid())
   hospital_id     String
   numero          String
+  service         String?
+  lit             String?
   type_chambre    String   @default("COMMUNE")
   prix_journalier Float    @default(0)
   est_disponible  Boolean  @default(true)

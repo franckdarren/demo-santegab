@@ -26,9 +26,9 @@ export function HospitalisationsStats({ stats }: HospitalisationsStatsProps) {
       bg:          "bg-blue-50",
     },
     {
-      titre:       "Chambres disponibles",
+      titre:       "Lits disponibles",
       valeur:      stats.chambresDisponibles.toString(),
-      description: "Lits libres",
+      description: "Lits libres à l'admission",
       icon:        DoorOpen,
       couleur:     "text-green-600",
       bg:          "bg-green-50",

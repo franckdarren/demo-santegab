@@ -364,6 +364,8 @@ exports.Prisma.ChambreScalarFieldEnum = {
   id: 'id',
   hospital_id: 'hospital_id',
   numero: 'numero',
+  service: 'service',
+  lit: 'lit',
   type_chambre: 'type_chambre',
   prix_journalier: 'prix_journalier',
   est_disponible: 'est_disponible',

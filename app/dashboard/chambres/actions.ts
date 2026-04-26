@@ -34,6 +34,8 @@ export async function creerChambre(
   utilisateurNom: string,
   data: {
     numero:          string;
+    service?:        string;
+    lit?:            string;
     type_chambre:    string;
     prix_journalier: number;
     description?:    string;
@@ -43,9 +45,11 @@ export async function creerChambre(
     data: {
       hospital_id:     hospitalId,
       numero:          data.numero,
+      service:         data.service         ?? null,
+      lit:             data.lit             ?? null,
       type_chambre:    data.type_chambre,
       prix_journalier: data.prix_journalier,
-      description:     data.description ?? null,
+      description:     data.description    ?? null,
       est_disponible:  true,
     },
   });
@@ -62,6 +66,8 @@ export async function creerChambre(
     metadonnees: {
       type_chambre:    data.type_chambre,
       prix_journalier: data.prix_journalier,
+      service:         data.service,
+      lit:             data.lit,
     },
   });
 
@@ -75,18 +81,22 @@ export async function modifierChambre(
   utilisateurNom: string,
   data: {
     numero?:          string;
+    service?:         string | null;
+    lit?:             string | null;
     type_chambre?:    string;
     prix_journalier?: number;
-    description?:     string;
+    description?:     string | null;
   }
 ) {
   const chambre = await prisma.chambre.update({
     where: { id: chambreId },
     data: {
       numero:          data.numero          ?? undefined,
+      service:         data.service         !== undefined ? data.service         : undefined,
+      lit:             data.lit             !== undefined ? data.lit             : undefined,
       type_chambre:    data.type_chambre    ?? undefined,
       prix_journalier: data.prix_journalier ?? undefined,
-      description:     data.description    ?? undefined,
+      description:     data.description    !== undefined ? data.description     : undefined,
     },
   });
 
