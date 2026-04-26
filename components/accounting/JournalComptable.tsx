@@ -10,14 +10,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Plus, TrendingUp, TrendingDown,
-  Check, Loader2, AlertCircle,
+  Check, Loader2, AlertCircle, Search,
 } from "lucide-react";
 import { formatCurrency, formatDate, cn } from "@/lib/utils";
 import {
   TypeEcriture,
   CategorieDepense,
 } from "@/app/generated/prisma/client";
-import { creerEcriture } from "@/app/dashboard/accounting/actions";
+import {
+  creerEcriture,
+  getEcrituresParPeriode,
+} from "@/app/dashboard/accounting/actions";
 
 const TYPE_CONFIG: Record<TypeEcriture, {
   label: string;
@@ -73,11 +76,21 @@ function FieldError({ message }: { message?: string }) {
   );
 }
 
+// Calcule le premier et dernier jour du mois courant au format YYYY-MM-DD
+function debutMoisCourant() {
+  const d = new Date();
+  return new Date(d.getFullYear(), d.getMonth(), 1).toISOString().split("T")[0];
+}
+function finMoisCourant() {
+  const d = new Date();
+  return new Date(d.getFullYear(), d.getMonth() + 1, 0).toISOString().split("T")[0];
+}
+
 export function JournalComptable({
   ecritures,
   hospitalId,
   utilisateurId,
-  utilisateurNom, // ← ajouté pour l'audit
+  utilisateurNom,
 }: JournalComptableProps) {
   const router = useRouter();
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -85,6 +98,12 @@ export function JournalComptable({
   const [succes, setSucces] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [filtre, setFiltre] = useState<TypeEcriture | "">("");
+
+  // Filtre par date — par défaut : mois courant
+  const [dateDebut, setDateDebut] = useState(debutMoisCourant());
+  const [dateFin, setDateFin] = useState(finMoisCourant());
+  const [ecrituresLocales, setEcrituresLocales] = useState(ecritures);
+  const [chargementDates, setChargementDates] = useState(false);
 
   const [typeEcriture, setTypeEcriture] = useState<TypeEcriture>("DEPENSE");
   const [categorie, setCategorie] = useState<CategorieDepense | "">("");
@@ -133,7 +152,6 @@ export function JournalComptable({
 
     startTransition(async () => {
       try {
-        // ← utilisateurNom ajouté en 3ème argument
         await creerEcriture(hospitalId, utilisateurId, utilisateurNom, {
           type_ecriture: typeEcriture,
           libelle:       formData.libelle,
@@ -144,6 +162,9 @@ export function JournalComptable({
           date_ecriture: formData.date_ecriture,
         });
         setSucces(true);
+        // Rafraîchit la liste après création
+        const nouvelles = await getEcrituresParPeriode(hospitalId, dateDebut, dateFin);
+        setEcrituresLocales(nouvelles);
         router.refresh();
         setTimeout(() => closeDialog(), 1200);
       } catch (error) {
@@ -153,7 +174,17 @@ export function JournalComptable({
     });
   }
 
-  const ecrituresFiltrees = ecritures.filter((e) =>
+  async function appliquerFiltreDates() {
+    setChargementDates(true);
+    try {
+      const nouvelles = await getEcrituresParPeriode(hospitalId, dateDebut, dateFin);
+      setEcrituresLocales(nouvelles);
+    } finally {
+      setChargementDates(false);
+    }
+  }
+
+  const ecrituresFiltrees = ecrituresLocales.filter((e) =>
     filtre ? e.type_ecriture === filtre : true
   );
 
@@ -167,7 +198,9 @@ export function JournalComptable({
             Journal comptable
           </h2>
           <p className="text-xs text-gray-400 mt-0.5">
-            Toutes les écritures du mois en cours
+            {ecrituresFiltrees.length} écriture{ecrituresFiltrees.length !== 1 ? "s" : ""} · du{" "}
+            {new Date(dateDebut).toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" })} au{" "}
+            {new Date(dateFin).toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" })}
           </p>
         </div>
         <Button
@@ -181,7 +214,9 @@ export function JournalComptable({
       </div>
 
       {/* Filtres */}
-      <div className="flex gap-2">
+      <div className="flex flex-wrap items-center gap-2">
+
+        {/* Filtre par type */}
         {[
           { label: "Toutes",   value: "" },
           { label: "Recettes", value: "RECETTE" },
@@ -201,6 +236,37 @@ export function JournalComptable({
             {f.label}
           </button>
         ))}
+
+        {/* Filtre par date */}
+        <div className="flex items-center gap-2 ml-auto">
+          <span className="text-xs text-gray-500 shrink-0">Du</span>
+          <Input
+            type="date"
+            value={dateDebut}
+            onChange={(e) => setDateDebut(e.target.value)}
+            className="h-8 text-xs w-36"
+          />
+          <span className="text-xs text-gray-500 shrink-0">au</span>
+          <Input
+            type="date"
+            value={dateFin}
+            onChange={(e) => setDateFin(e.target.value)}
+            className="h-8 text-xs w-36"
+          />
+          <Button
+            type="button"
+            size="sm"
+            onClick={appliquerFiltreDates}
+            disabled={chargementDates}
+            className="h-8 px-3 bg-blue-700 hover:bg-blue-800 text-white shrink-0"
+          >
+            {chargementDates ? (
+              <Loader2 className="h-3.5 w-3.5 animate-spin" />
+            ) : (
+              <Search className="h-3.5 w-3.5" />
+            )}
+          </Button>
+        </div>
       </div>
 
       {/* Tableau journal */}

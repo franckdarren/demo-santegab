@@ -158,6 +158,26 @@ export async function getDepensesParCategorie(hospitalId: string) {
 }
 
 // ============================================================
+// Écritures sur une période explicite (utilisé par le filtre date)
+// ============================================================
+export async function getEcrituresParPeriode(
+  hospitalId: string,
+  dateDebut: string,
+  dateFin: string
+) {
+  return prisma.ecritureComptable.findMany({
+    where: {
+      hospital_id: hospitalId,
+      date_ecriture: {
+        gte: new Date(dateDebut),
+        lte: new Date(`${dateFin}T23:59:59`),
+      },
+    },
+    orderBy: { date_ecriture: "desc" },
+  });
+}
+
+// ============================================================
 // Créer une écriture comptable
 //
 // On enregistre l'audit APRÈS la création pour tracer
