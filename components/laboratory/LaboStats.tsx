@@ -3,18 +3,20 @@
 // ============================================================
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Clock, FlaskConical, CheckCircle, AlertTriangle } from "lucide-react";
+import { Clock, CheckCircle, AlertTriangle, TrendingUp } from "lucide-react";
 
 interface LaboStatsProps {
   stats: {
-    enAttente: number;
-    saisies: number;
-    valides: number;
-    urgents: number;
+    enAttente:    number;
+    valides:      number;
+    urgents:      number;
+    recetteMois:  number;
   };
 }
 
 export function LaboStats({ stats }: LaboStatsProps) {
+  const recetteFormatee = stats.recetteMois.toLocaleString("fr-FR") + " XAF";
+
   const cards = [
     {
       titre: "En attente",
@@ -23,14 +25,6 @@ export function LaboStats({ stats }: LaboStatsProps) {
       icon: Clock,
       couleur: "text-orange-600",
       bg: "bg-orange-50",
-    },
-    {
-      titre: "Saisis",
-      valeur: stats.saisies.toString(),
-      description: "En attente de validation",
-      icon: FlaskConical,
-      couleur: "text-blue-600",
-      bg: "bg-blue-50",
     },
     {
       titre: "Validés",
@@ -47,6 +41,14 @@ export function LaboStats({ stats }: LaboStatsProps) {
       icon: AlertTriangle,
       couleur: "text-red-600",
       bg: "bg-red-50",
+    },
+    {
+      titre: "Recette du mois",
+      valeur: recetteFormatee,
+      description: "Factures labo payées ce mois",
+      icon: TrendingUp,
+      couleur: "text-blue-600",
+      bg: "bg-blue-50",
     },
   ];
 

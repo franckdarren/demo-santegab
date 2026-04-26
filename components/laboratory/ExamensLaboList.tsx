@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Search, Plus, Loader2, FlaskConical, AlertTriangle } from "lucide-react";
+import { Search, Plus, Loader2, FlaskConical, AlertTriangle, CalendarIcon, X } from "lucide-react";
 import { formatDate, formatTime, getInitials, cn } from "@/lib/utils";
 import { StatutExamen } from "@/app/generated/prisma/client";
 import { NouvelleDemandeLaboDialog } from "./NouvelleDemandeLaboDialog";
@@ -102,6 +102,8 @@ export function ExamensLaboList({
   const [search, setSearch] = useState(searchQuery);
   const [isPending, startTransition] = useTransition();
   const [filtreStatut, setFiltreStatut] = useState("");
+  const [dateDebut, setDateDebut] = useState("");
+  const [dateFin, setDateFin]   = useState("");
   const [dialogCreer, setDialogCreer] = useState(false);
   const [examenSelectionne, setExamenSelectionne] =
     useState<ExamenLabo | null>(null);
@@ -115,9 +117,24 @@ export function ExamensLaboList({
     });
   }
 
-  const examensFiltres = examens.filter((e) =>
-    filtreStatut ? e.statut === filtreStatut : true
-  );
+  const examensFiltres = examens.filter((e) => {
+    if (filtreStatut && e.statut !== filtreStatut) return false;
+
+    if (dateDebut) {
+      const debut = new Date(dateDebut);
+      debut.setHours(0, 0, 0, 0);
+      if (new Date(e.created_at) < debut) return false;
+    }
+    if (dateFin) {
+      const fin = new Date(dateFin);
+      fin.setHours(23, 59, 59, 999);
+      if (new Date(e.created_at) > fin) return false;
+    }
+
+    return true;
+  });
+
+  const aFiltreDateActif = dateDebut || dateFin;
 
   return (
     <div className="space-y-4">
@@ -146,7 +163,7 @@ export function ExamensLaboList({
         </Button>
       </div>
 
-      {/* Filtres */}
+      {/* Filtres statut */}
       <div className="flex gap-2 flex-wrap">
         {FILTRES.map((f) => (
           <button
@@ -168,6 +185,45 @@ export function ExamensLaboList({
             )}
           </button>
         ))}
+      </div>
+
+      {/* Filtre par date */}
+      <div className="flex items-center gap-2 flex-wrap">
+        <div className="flex items-center gap-1.5 text-xs text-gray-500 shrink-0">
+          <CalendarIcon className="h-3.5 w-3.5" />
+          <span>Période :</span>
+        </div>
+        <div className="flex items-center gap-2 flex-wrap">
+          <input
+            type="date"
+            value={dateDebut}
+            onChange={(e) => setDateDebut(e.target.value)}
+            className="h-8 rounded-lg border border-gray-200 bg-white px-2.5 text-xs text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
+          />
+          <span className="text-xs text-gray-400">—</span>
+          <input
+            type="date"
+            value={dateFin}
+            min={dateDebut || undefined}
+            onChange={(e) => setDateFin(e.target.value)}
+            className="h-8 rounded-lg border border-gray-200 bg-white px-2.5 text-xs text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
+          />
+          {aFiltreDateActif && (
+            <button
+              type="button"
+              onClick={() => { setDateDebut(""); setDateFin(""); }}
+              className="flex items-center gap-1 px-2 h-8 rounded-lg text-xs text-gray-500 border border-gray-200 bg-white hover:bg-gray-50 transition-colors"
+            >
+              <X className="h-3 w-3" />
+              Effacer
+            </button>
+          )}
+        </div>
+        {aFiltreDateActif && (
+          <span className="text-xs text-blue-600 font-medium">
+            {examensFiltres.length} résultat{examensFiltres.length !== 1 ? "s" : ""}
+          </span>
+        )}
       </div>
 
       {/* Liste */}

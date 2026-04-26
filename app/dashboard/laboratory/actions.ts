@@ -293,11 +293,30 @@ export async function validerExamenLabo(
 }
 
 export async function getStatsLabo(hospitalId: string) {
-  const [enAttente, saisies, valides, urgents] = await Promise.all([
+  const maintenant = new Date();
+  const debutMois  = new Date(maintenant.getFullYear(), maintenant.getMonth(), 1);
+  const finMois    = new Date(maintenant.getFullYear(), maintenant.getMonth() + 1, 1);
+
+  const [enAttente, saisies, valides, urgents, examensPayesMois] = await Promise.all([
     prisma.examenLabo.count({ where: { hospital_id: hospitalId, statut: "EN_ATTENTE" } }),
     prisma.examenLabo.count({ where: { hospital_id: hospitalId, statut: "RESULTAT_SAISI" } }),
     prisma.examenLabo.count({ where: { hospital_id: hospitalId, statut: "VALIDE" } }),
     prisma.examenLabo.count({ where: { hospital_id: hospitalId, urgence: true, statut: { not: "VALIDE" } } }),
+    // Somme des factures PAYEES liées aux examens labo créés ce mois-ci
+    prisma.examenLabo.findMany({
+      where: {
+        hospital_id: hospitalId,
+        created_at:  { gte: debutMois, lt: finMois },
+        facture:     { statut: "PAYEE" },
+      },
+      include: { facture: { select: { montant_total: true } } },
+    }),
   ]);
-  return { enAttente, saisies, valides, urgents };
+
+  const recetteMois = examensPayesMois.reduce(
+    (sum, e) => sum + (e.facture?.montant_total ?? 0),
+    0
+  );
+
+  return { enAttente, saisies, valides, urgents, recetteMois };
 }
