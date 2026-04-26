@@ -7,6 +7,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { enregistrerAudit } from "@/lib/audit";
+import { verifierPermissionAction } from "@/lib/permissions.server";
 
 // ============================================================
 // Liste des factures de l'hôpital
@@ -53,6 +54,8 @@ export async function creerFacture(
     taux_assurance?: number;
   }
 ) {
+  await verifierPermissionAction(hospitalId, "FACTURATION", "peut_creer");
+
   const montantTotal     = data.lignes.reduce((sum, l) => sum + l.quantite * l.prix_unitaire, 0);
   const montantAssurance = Math.round(montantTotal * ((data.taux_assurance ?? 0) / 100));
   const montantPatient   = montantTotal - montantAssurance;
@@ -129,6 +132,8 @@ export async function payerFacture(
   utilisateurId: string,
   utilisateurNom: string
 ) {
+  await verifierPermissionAction(hospitalId, "FACTURATION", "peut_modifier");
+
   // 1. Met à jour la facture en PAYEE
   const facture = await prisma.facture.update({
     where: { id: factureId, hospital_id: hospitalId },
@@ -198,6 +203,8 @@ export async function annulerFacture(
   utilisateurId: string,
   utilisateurNom: string
 ) {
+  await verifierPermissionAction(hospitalId, "FACTURATION", "peut_modifier");
+
   const facture = await prisma.facture.update({
     where:   { id: factureId, hospital_id: hospitalId },
     data:    { statut: "ANNULEE" },

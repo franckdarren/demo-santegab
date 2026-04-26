@@ -1,6 +1,5 @@
-import { createClient } from "@/lib/supabase/server";
-import { prisma } from "@/lib/prisma";
-import { redirect } from "next/navigation";
+import { withPermission } from "@/lib/withPermission";
+import { getPermissionsModule } from "@/lib/permissions.server";
 import {
   getArticlesStock,
   getStatsPharmacieAction,
@@ -14,25 +13,23 @@ interface PharmacyPageProps {
 }
 
 export default async function PharmacyPage({ searchParams }: PharmacyPageProps) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
-
-  const utilisateur = await prisma.utilisateur.findFirst({
-    where: { email: user.email! },
-  });
-  if (!utilisateur) redirect("/login");
+  const utilisateur = await withPermission("PHARMACIE", "peut_voir");
 
   const { q } = await searchParams;
 
-  const [articles, stats, mouvements] = await Promise.all([
-    // ← search + mouvements activés pour la page pharmacie
+  const [articles, stats, mouvements, perms] = await Promise.all([
     getArticlesStock(utilisateur.hospital_id, {
       search:         q,
       avecMouvements: true,
     }),
     getStatsPharmacieAction(utilisateur.hospital_id),
     getMouvementsStock(utilisateur.hospital_id),
+    getPermissionsModule(
+      utilisateur.hospital_id,
+      utilisateur.role,
+      "PHARMACIE",
+      utilisateur.role_personnalise_id
+    ),
   ]);
 
   return (
@@ -53,6 +50,9 @@ export default async function PharmacyPage({ searchParams }: PharmacyPageProps) 
         utilisateurId={utilisateur.id}
         utilisateurNom={`${utilisateur.prenom} ${utilisateur.nom}`}
         searchQuery={q ?? ""}
+        peutCreer={perms.peut_creer}
+        peutModifier={perms.peut_modifier}
+        peutSupprimer={perms.peut_supprimer}
       />
     </div>
   );

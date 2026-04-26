@@ -2,9 +2,8 @@
 // PAGE PATIENTS — Liste avec recherche
 // ============================================================
 
-import { createClient } from "@/lib/supabase/server";
-import { prisma } from "@/lib/prisma";
-import { redirect } from "next/navigation";
+import { withPermission } from "@/lib/withPermission";
+import { getPermissionsModule } from "@/lib/permissions.server";
 import { getPatients } from "./actions";
 import { PatientsList } from "@/components/patients/PatientsList";
 
@@ -13,17 +12,19 @@ interface PatientsPageProps {
 }
 
 export default async function PatientsPage({ searchParams }: PatientsPageProps) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
-
-  const utilisateur = await prisma.utilisateur.findFirst({
-    where: { email: user.email! },
-  });
-  if (!utilisateur) redirect("/login");
+  const utilisateur = await withPermission("PATIENT", "peut_voir");
 
   const { q } = await searchParams;
-  const patients = await getPatients(utilisateur.hospital_id, q);
+
+  const [patients, perms] = await Promise.all([
+    getPatients(utilisateur.hospital_id, q),
+    getPermissionsModule(
+      utilisateur.hospital_id,
+      utilisateur.role,
+      "PATIENT",
+      utilisateur.role_personnalise_id
+    ),
+  ]);
 
   return (
     <div className="space-y-6">
@@ -39,6 +40,9 @@ export default async function PatientsPage({ searchParams }: PatientsPageProps) 
         hospitalId={utilisateur.hospital_id}
         utilisateurId={utilisateur.id}
         utilisateurNom={`${utilisateur.prenom} ${utilisateur.nom}`}
+        peutCreer={perms.peut_creer}
+        peutModifier={perms.peut_modifier}
+        peutSupprimer={perms.peut_supprimer}
       />
     </div>
   );

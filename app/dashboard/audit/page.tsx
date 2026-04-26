@@ -1,6 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
-import { prisma } from "@/lib/prisma";
-import { redirect } from "next/navigation";
+import { withPermission } from "@/lib/withPermission";
 import {
   getAuditLogs,
   getStatsAudit,
@@ -10,19 +8,7 @@ import { AuditStats } from "@/components/audit/AuditStats";
 import { AuditList } from "@/components/audit/AuditList";
 
 export default async function AuditPage() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
-
-  const utilisateur = await prisma.utilisateur.findFirst({
-    where: { email: user.email! },
-  });
-  if (!utilisateur) redirect("/login");
-
-  // Seuls les admins ont accès
-  if (utilisateur.role !== "ADMIN" && utilisateur.role !== "SUPER_ADMIN") {
-    redirect("/dashboard");
-  }
+  const utilisateur = await withPermission("AUDIT", "peut_voir");
 
   const [logs, stats, utilisateurs] = await Promise.all([
     getAuditLogs(utilisateur.hospital_id),

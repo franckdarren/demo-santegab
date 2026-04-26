@@ -95,6 +95,7 @@ interface FicheHospitalisationProps {
   hospitalId:      string;
   utilisateurId:   string;
   utilisateurNom:  string;
+  peutModifier:    boolean;
 }
 
 // ============================================================
@@ -133,6 +134,7 @@ export function FicheHospitalisation({
   hospitalId,
   utilisateurId,
   utilisateurNom,
+  peutModifier,
 }: FicheHospitalisationProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -286,7 +288,7 @@ export function FicheHospitalisation({
             </div>
 
             {/* Actions */}
-            {estEnCours && (
+            {estEnCours && peutModifier && (
               <div className="flex flex-col gap-2 shrink-0">
                 <Button
                   type="button"
@@ -320,7 +322,7 @@ export function FicheHospitalisation({
             )}
 
             {/* Bouton paiement si sorti non payé */}
-            {estSortie && !facturePay && (
+            {estSortie && !facturePay && peutModifier && (
               <Button
                 type="button"
                 onClick={() => setDialogSortie(true)}

@@ -64,7 +64,10 @@ interface JournalComptableProps {
   ecritures: Ecriture[];
   hospitalId: string;
   utilisateurId: string;
-  utilisateurNom: string; // ← ajouté pour l'audit
+  utilisateurNom: string;
+  peutCreer: boolean;
+  peutModifier: boolean;
+  peutSupprimer: boolean;
 }
 
 function FieldError({ message }: { message?: string }) {
@@ -92,6 +95,9 @@ export function JournalComptable({
   hospitalId,
   utilisateurId,
   utilisateurNom,
+  peutCreer,
+  peutModifier,
+  peutSupprimer,
 }: JournalComptableProps) {
   const router = useRouter();
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -210,14 +216,16 @@ export function JournalComptable({
             dateDebut={dateDebut}
             dateFin={dateFin}
           />
-          <Button
-            type="button"
-            onClick={() => setDialogOpen(true)}
-            className="bg-blue-700 hover:bg-blue-800 text-white"
-          >
-            <Plus className="h-4 w-4 mr-2" />
-            Nouvelle écriture
-          </Button>
+          {peutCreer && (
+            <Button
+              type="button"
+              onClick={() => setDialogOpen(true)}
+              className="bg-blue-700 hover:bg-blue-800 text-white"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              Nouvelle écriture
+            </Button>
+          )}
         </div>
       </div>
 

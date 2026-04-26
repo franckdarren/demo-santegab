@@ -70,9 +70,10 @@ interface FactureDetailDialogProps {
   facture: Facture;
   hospitalId: string;
   hospital: Hospital;
-  utilisateurId: string;  // ← ajouté pour l'audit
-  utilisateurNom: string; // ← ajouté pour l'audit
+  utilisateurId: string;
+  utilisateurNom: string;
   open: boolean;
+  peutModifier: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
@@ -80,9 +81,10 @@ export function FactureDetailDialog({
   facture,
   hospitalId,
   hospital,
-  utilisateurId,  // ← ajouté
-  utilisateurNom, // ← ajouté
+  utilisateurId,
+  utilisateurNom,
   open,
+  peutModifier,
   onOpenChange,
 }: FactureDetailDialogProps) {
   const router = useRouter();
@@ -93,8 +95,9 @@ export function FactureDetailDialog({
 
   const nomPatient   = `${facture.patient.prenom} ${facture.patient.nom}`;
   const statutConfig = STATUT_CONFIG[facture.statut];
-  const peutPayer    = facture.statut === "EN_ATTENTE" || facture.statut === "PARTIELLEMENT_PAYEE";
-  const peutAnnuler  = facture.statut === "EN_ATTENTE";
+  // peutPayer tient compte du statut ET de la permission
+  const peutPayer    = peutModifier && (facture.statut === "EN_ATTENTE" || facture.statut === "PARTIELLEMENT_PAYEE");
+  const peutAnnuler  = peutModifier && facture.statut === "EN_ATTENTE";
 
   function handlePayer() {
     startTransition(async () => {

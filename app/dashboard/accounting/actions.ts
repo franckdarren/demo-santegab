@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { startOfMonth, endOfMonth, subMonths, startOfYear } from "date-fns";
 import { TypeEcriture, CategorieDepense } from "@/app/generated/prisma/client";
 import { enregistrerAudit } from "@/lib/audit";
+import { verifierPermissionAction } from "@/lib/permissions.server";
 
 // ============================================================
 // Liste des écritures comptables
@@ -250,6 +251,8 @@ export async function creerEcriture(
     date_ecriture?: string;
   }
 ) {
+  await verifierPermissionAction(hospitalId, "COMPTABILITE", "peut_creer");
+
   const ecriture = await prisma.ecritureComptable.create({
     data: {
       hospital_id:   hospitalId,

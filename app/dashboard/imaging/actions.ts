@@ -5,6 +5,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { TypeExamenImagerie, StatutExamen } from "@/app/generated/prisma/client";
 import { enregistrerAudit } from "@/lib/audit";
 import { TARIFS_IMAGERIE } from "@/lib/tarifs";
+import { verifierPermissionAction } from "@/lib/permissions.server";
 
 export async function getExamensImagerie(hospitalId: string, search?: string) {
   return prisma.examenImagerie.findMany({
@@ -45,6 +46,8 @@ export async function creerExamenImagerie(
     urgence?:         boolean;
   }
 ) {
+  await verifierPermissionAction(hospitalId, "IMAGERIE", "peut_creer");
+
   const patientHospital = await prisma.patientHospital.findFirst({
     where:   { hospital_id: hospitalId, patient_id: data.patient_id },
     include: { patient: true },
@@ -140,6 +143,8 @@ export async function saisirResultatsImagerie(
     prix_unitaire?:   number;
   }
 ) {
+  await verifierPermissionAction(hospitalId, "IMAGERIE", "peut_modifier");
+
   const examen = await prisma.examenImagerie.update({
     where: { id: examenId, hospital_id: hospitalId },
     data: {
@@ -223,6 +228,8 @@ export async function uploadResultatImagerie(
   utilisateurNom: string,
   formData: FormData
 ) {
+  await verifierPermissionAction(hospitalId, "IMAGERIE", "peut_modifier");
+
   const file = formData.get("fichier") as File;
   if (!file) throw new Error("Aucun fichier fourni");
 
@@ -273,6 +280,8 @@ export async function validerExamenImagerie(
   validateurId: string,
   validateurNom: string
 ) {
+  await verifierPermissionAction(hospitalId, "IMAGERIE", "peut_modifier");
+
   const examen = await prisma.examenImagerie.update({
     where: { id: examenId, hospital_id: hospitalId },
     data:  { statut: "VALIDE", valide_par: validateurId, valide_le: new Date() },

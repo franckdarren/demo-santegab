@@ -2,9 +2,9 @@
 // PAGE FACTURATION — Liste avec KPIs et actions
 // ============================================================
 
-import { createClient } from "@/lib/supabase/server";
+import { withPermission } from "@/lib/withPermission";
+import { getPermissionsModule } from "@/lib/permissions.server";
 import { prisma } from "@/lib/prisma";
-import { redirect } from "next/navigation";
 import { getFactures, getStatsFacturation } from "./actions";
 import { getPatientsHospital } from "@/app/dashboard/consultations/actions";
 import { BillingStats } from "@/components/billing/BillingStats";
@@ -15,24 +15,23 @@ interface BillingPageProps {
 }
 
 export default async function BillingPage({ searchParams }: BillingPageProps) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
-
-  const utilisateur = await prisma.utilisateur.findFirst({
-    where: { email: user.email! },
-  });
-  if (!utilisateur) redirect("/login");
+  const utilisateur = await withPermission("FACTURATION", "peut_voir");
 
   const { q } = await searchParams;
 
-  const [factures, stats, patients, hospital] = await Promise.all([
+  const [factures, stats, patients, hospital, perms] = await Promise.all([
     getFactures(utilisateur.hospital_id, q),
     getStatsFacturation(utilisateur.hospital_id),
     getPatientsHospital(utilisateur.hospital_id),
     prisma.hospital.findUnique({
       where: { id: utilisateur.hospital_id },
     }),
+    getPermissionsModule(
+      utilisateur.hospital_id,
+      utilisateur.role,
+      "FACTURATION",
+      utilisateur.role_personnalise_id
+    ),
   ]);
 
   return (
@@ -57,10 +56,12 @@ export default async function BillingPage({ searchParams }: BillingPageProps) {
           telephone: hospital?.telephone ?? null,
           email:     hospital?.email     ?? null,
         }}
-        // ← Ajoutés pour la traçabilité audit
         utilisateurId={utilisateur.id}
         utilisateurNom={`${utilisateur.prenom} ${utilisateur.nom}`}
         searchQuery={q ?? ""}
+        peutCreer={perms.peut_creer}
+        peutModifier={perms.peut_modifier}
+        peutSupprimer={perms.peut_supprimer}
       />
     </div>
   );

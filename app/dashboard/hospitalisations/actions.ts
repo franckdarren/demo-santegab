@@ -13,6 +13,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { enregistrerAudit } from "@/lib/audit";
+import { verifierPermissionAction } from "@/lib/permissions.server";
 import {
   StatutHospitalisation,
   TypeLigneHospitalisation,
@@ -37,6 +38,8 @@ export async function admettrePatienten(
     motif_admission?: string;
   }
 ) {
+  await verifierPermissionAction(hospitalId, "HOSPITALISATION", "peut_creer");
+
   // Récupère la chambre et son tarif si sélectionnée
   const chambre = data.chambre_id
     ? await prisma.chambre.findUnique({ where: { id: data.chambre_id } })
@@ -162,6 +165,8 @@ export async function ajouterMedicamentHospitalisation(
     notes?:           string;
   }
 ) {
+  await verifierPermissionAction(hospitalId, "HOSPITALISATION", "peut_modifier");
+
   const hospitalisation = await prisma.hospitalisation.findUnique({
     where:   { id: hospitalisationId },
     include: { facture: true },
@@ -261,6 +266,8 @@ export async function ajouterActeInfirmier(
     notes?:        string;
   }
 ) {
+  await verifierPermissionAction(hospitalId, "HOSPITALISATION", "peut_modifier");
+
   const hospitalisation = await prisma.hospitalisation.findUnique({
     where: { id: hospitalisationId },
   });
@@ -320,6 +327,8 @@ export async function ajouterJourneeChambre(
   utilisateurId: string,
   utilisateurNom: string
 ) {
+  await verifierPermissionAction(hospitalId, "HOSPITALISATION", "peut_modifier");
+
   const hospitalisation = await prisma.hospitalisation.findUnique({
     where:   { id: hospitalisationId },
     include: { chambre: true, lignes: true },
@@ -391,6 +400,8 @@ export async function cloturerHospitalisation(
     notes?:      string;
   }
 ) {
+  await verifierPermissionAction(hospitalId, "HOSPITALISATION", "peut_modifier");
+
   const hospitalisation = await prisma.hospitalisation.findUnique({
     where:   { id: hospitalisationId },
     include: { patient: true, chambre: true, facture: true, lignes: true },
@@ -462,6 +473,8 @@ export async function payerHospitalisation(
   utilisateurId: string,
   utilisateurNom: string
 ) {
+  await verifierPermissionAction(hospitalId, "HOSPITALISATION", "peut_modifier");
+
   const hospitalisation = await prisma.hospitalisation.findUnique({
     where:   { id: hospitalisationId },
     include: {

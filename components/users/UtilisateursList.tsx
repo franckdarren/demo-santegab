@@ -55,13 +55,17 @@ interface UtilisateursListProps {
   hospitalId: string;
   utilisateurConnecteId: string;
   utilisateurConnecteNom: string; // ← ajouté pour l'audit
+  peutCreer: boolean;
+  peutModifier: boolean;
 }
 
 export function UtilisateursList({
   utilisateurs,
   hospitalId,
   utilisateurConnecteId,
-  utilisateurConnecteNom, // ← ajouté
+  utilisateurConnecteNom,
+  peutCreer,
+  peutModifier,
 }: UtilisateursListProps) {
   const [dialogCreer, setDialogCreer] = useState(false);
 
@@ -89,14 +93,16 @@ export function UtilisateursList({
             </div>
           )}
         </div>
-        <Button
-          type="button"
-          onClick={() => setDialogCreer(true)}
-          className="bg-blue-700 hover:bg-blue-800 text-white"
-        >
-          <UserPlus className="h-4 w-4 mr-2" />
-          <span className="hidden sm:inline">Nouvel utilisateur</span>
-        </Button>
+        {peutCreer && (
+          <Button
+            type="button"
+            onClick={() => setDialogCreer(true)}
+            className="bg-blue-700 hover:bg-blue-800 text-white"
+          >
+            <UserPlus className="h-4 w-4 mr-2" />
+            <span className="hidden sm:inline">Nouvel utilisateur</span>
+          </Button>
+        )}
       </div>
 
       {/* Liste */}
@@ -167,7 +173,7 @@ export function UtilisateursList({
                     </Badge>
 
                     {/* Actions — ne peut pas se modifier soi-même */}
-                    {!estMoi && (
+                    {!estMoi && peutModifier && (
                       <ModifierUtilisateurDialog
                         utilisateur={u}
                         hospitalId={hospitalId}

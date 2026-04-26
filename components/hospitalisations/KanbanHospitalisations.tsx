@@ -94,6 +94,9 @@ interface KanbanHospitalisationsProps {
   hospitalId:              string;
   utilisateurId:           string;
   utilisateurNom:          string;
+  peutCreer:               boolean;
+  peutModifier:            boolean;
+  peutSupprimer:           boolean;
 }
 
 // ============================================================
@@ -279,6 +282,9 @@ export function KanbanHospitalisations({
   hospitalId,
   utilisateurId,
   utilisateurNom,
+  peutCreer,
+  peutModifier,
+  peutSupprimer,
 }: KanbanHospitalisationsProps) {
   const [dialogAdmission, setDialogAdmission] = useState(false);
   const [filtreService,   setFiltreService]   = useState("");
@@ -331,14 +337,16 @@ export function KanbanHospitalisations({
           )}
         </div>
 
-        <Button
-          type="button"
-          onClick={() => setDialogAdmission(true)}
-          className="bg-blue-700 hover:bg-blue-800 text-white"
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          Admettre un patient
-        </Button>
+        {peutCreer && (
+          <Button
+            type="button"
+            onClick={() => setDialogAdmission(true)}
+            className="bg-blue-700 hover:bg-blue-800 text-white"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Admettre un patient
+          </Button>
+        )}
       </div>
 
       {/* Kanban */}

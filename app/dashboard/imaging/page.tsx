@@ -1,6 +1,5 @@
-import { createClient } from "@/lib/supabase/server";
-import { prisma } from "@/lib/prisma";
-import { redirect } from "next/navigation";
+import { withPermission } from "@/lib/withPermission";
+import { getPermissionsModule } from "@/lib/permissions.server";
 import { getExamensImagerie, getStatsImagerie } from "./actions";
 import { getMedecins, getPatientsHospital } from "@/app/dashboard/consultations/actions";
 import { ImagerieStats } from "@/components/imaging/ImagerieStats";
@@ -11,22 +10,21 @@ interface ImagingPageProps {
 }
 
 export default async function ImagingPage({ searchParams }: ImagingPageProps) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
-
-  const utilisateur = await prisma.utilisateur.findFirst({
-    where: { email: user.email! },
-  });
-  if (!utilisateur) redirect("/login");
+  const utilisateur = await withPermission("IMAGERIE", "peut_voir");
 
   const { q } = await searchParams;
 
-  const [examens, stats, medecins, patients] = await Promise.all([
+  const [examens, stats, medecins, patients, perms] = await Promise.all([
     getExamensImagerie(utilisateur.hospital_id, q),
     getStatsImagerie(utilisateur.hospital_id),
     getMedecins(utilisateur.hospital_id),
     getPatientsHospital(utilisateur.hospital_id),
+    getPermissionsModule(
+      utilisateur.hospital_id,
+      utilisateur.role,
+      "IMAGERIE",
+      utilisateur.role_personnalise_id
+    ),
   ]);
 
   return (
@@ -48,6 +46,9 @@ export default async function ImagingPage({ searchParams }: ImagingPageProps) {
         utilisateurId={utilisateur.id}
         utilisateurNom={`${utilisateur.prenom} ${utilisateur.nom}`}
         searchQuery={q ?? ""}
+        peutCreer={perms.peut_creer}
+        peutModifier={perms.peut_modifier}
+        peutSupprimer={perms.peut_supprimer}
       />
     </div>
   );

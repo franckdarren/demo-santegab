@@ -2,30 +2,26 @@
 // PAGE GESTION UTILISATEURS
 // ============================================================
 
-import { createClient } from "@/lib/supabase/server";
+import { withPermission } from "@/lib/withPermission";
+import { getPermissionsModule } from "@/lib/permissions.server";
 import { prisma } from "@/lib/prisma";
-import { redirect } from "next/navigation";
 import { UtilisateursList } from "@/components/users/UtilisateursList";
 
 export default async function UsersPage() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+  const utilisateur = await withPermission("UTILISATEUR", "peut_voir");
 
-  const utilisateur = await prisma.utilisateur.findFirst({
-    where: { email: user.email! },
-  });
-  if (!utilisateur) redirect("/login");
-
-  // Seuls les admins peuvent gérer les utilisateurs
-  if (utilisateur.role !== "ADMIN" && utilisateur.role !== "SUPER_ADMIN") {
-    redirect("/dashboard");
-  }
-
-  const utilisateurs = await prisma.utilisateur.findMany({
-    where: { hospital_id: utilisateur.hospital_id },
-    orderBy: [{ est_actif: "desc" }, { nom: "asc" }],
-  });
+  const [utilisateurs, perms] = await Promise.all([
+    prisma.utilisateur.findMany({
+      where:   { hospital_id: utilisateur.hospital_id },
+      orderBy: [{ est_actif: "desc" }, { nom: "asc" }],
+    }),
+    getPermissionsModule(
+      utilisateur.hospital_id,
+      utilisateur.role,
+      "UTILISATEUR",
+      utilisateur.role_personnalise_id
+    ),
+  ]);
 
   return (
     <div className="space-y-6">
@@ -43,6 +39,8 @@ export default async function UsersPage() {
         hospitalId={utilisateur.hospital_id}
         utilisateurConnecteId={utilisateur.id}
         utilisateurConnecteNom={`${utilisateur.prenom} ${utilisateur.nom}`}
+        peutCreer={perms.peut_creer}
+        peutModifier={perms.peut_modifier}
       />
     </div>
   );

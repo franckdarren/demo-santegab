@@ -39,6 +39,8 @@ interface ModifierArticleDialogProps {
   hospitalId: string;
   utilisateurId: string;
   utilisateurNom: string;
+  peutModifier: boolean;
+  peutSupprimer: boolean;
 }
 
 function FieldError({ message }: { message?: string }) {
@@ -56,6 +58,8 @@ export function ModifierArticleDialog({
   hospitalId,
   utilisateurId,
   utilisateurNom,
+  peutModifier,
+  peutSupprimer,
 }: ModifierArticleDialogProps) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -142,18 +146,23 @@ export function ModifierArticleDialog({
     });
   }
 
+  // Rien à afficher si aucune action permise
+  if (!peutModifier && !peutSupprimer) return null;
+
   return (
     <>
-      <Button
-        type="button"
-        size="sm"
-        variant="outline"
-        onClick={() => setOpen(true)}
-        className="flex-1 border-gray-200 text-gray-600 hover:text-blue-700 text-xs h-8"
-      >
-        <Pencil className="h-3 w-3 mr-1" />
-        Modifier
-      </Button>
+      {peutModifier && (
+        <Button
+          type="button"
+          size="sm"
+          variant="outline"
+          onClick={() => setOpen(true)}
+          className="flex-1 border-gray-200 text-gray-600 hover:text-blue-700 text-xs h-8"
+        >
+          <Pencil className="h-3 w-3 mr-1" />
+          Modifier
+        </Button>
+      )}
 
       <Dialog open={open} onOpenChange={close}>
         <DialogContent className="max-w-lg! w-full p-0 overflow-hidden gap-0">
@@ -330,16 +339,20 @@ export function ModifierArticleDialog({
 
               {/* Footer */}
               <div className="flex justify-between items-center px-6 py-4 border-t bg-gray-50">
-                {/* Bouton supprimer à gauche */}
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setConfirmation(true)}
-                  disabled={confirmation}
-                  className="text-red-600 border-red-200 hover:bg-red-50 text-xs"
-                >
-                  Supprimer l'article
-                </Button>
+                {/* Bouton supprimer à gauche — conditionné à peut_supprimer */}
+                {peutSupprimer ? (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setConfirmation(true)}
+                    disabled={confirmation}
+                    className="text-red-600 border-red-200 hover:bg-red-50 text-xs"
+                  >
+                    Supprimer l'article
+                  </Button>
+                ) : (
+                  <span />
+                )}
 
                 <div className="flex gap-2">
                   <Button

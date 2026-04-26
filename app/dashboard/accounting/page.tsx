@@ -1,6 +1,5 @@
-import { createClient } from "@/lib/supabase/server";
-import { prisma } from "@/lib/prisma";
-import { redirect } from "next/navigation";
+import { withPermission } from "@/lib/withPermission";
+import { getPermissionsModule } from "@/lib/permissions.server";
 import {
   getEcritures,
   getStatsComptables,
@@ -13,20 +12,19 @@ import { EvolutionChart } from "@/components/accounting/EvolutionChart";
 import { DepensesChart } from "@/components/accounting/DepensesChart";
 
 export default async function AccountingPage() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+  const utilisateur = await withPermission("COMPTABILITE", "peut_voir");
 
-  const utilisateur = await prisma.utilisateur.findFirst({
-    where: { email: user.email! },
-  });
-  if (!utilisateur) redirect("/login");
-
-  const [ecritures, stats, evolution, depensesCategories] = await Promise.all([
+  const [ecritures, stats, evolution, depensesCategories, perms] = await Promise.all([
     getEcritures(utilisateur.hospital_id),
     getStatsComptables(utilisateur.hospital_id),
     getEvolutionMensuelle(utilisateur.hospital_id),
     getDepensesParCategorie(utilisateur.hospital_id),
+    getPermissionsModule(
+      utilisateur.hospital_id,
+      utilisateur.role,
+      "COMPTABILITE",
+      utilisateur.role_personnalise_id
+    ),
   ]);
 
   return (
@@ -54,6 +52,9 @@ export default async function AccountingPage() {
         hospitalId={utilisateur.hospital_id}
         utilisateurId={utilisateur.id}
         utilisateurNom={`${utilisateur.prenom} ${utilisateur.nom}`}
+        peutCreer={perms.peut_creer}
+        peutModifier={perms.peut_modifier}
+        peutSupprimer={perms.peut_supprimer}
       />
     </div>
   );

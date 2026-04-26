@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { CategorieArticle, TypeMouvement } from "@/app/generated/prisma/client";
 import { enregistrerAudit } from "@/lib/audit";
+import { verifierPermissionAction } from "@/lib/permissions.server";
 
 // ============================================================
 // Liste des articles en stock
@@ -80,6 +81,8 @@ export async function creerArticleStock(
     code_article?:   string;
   }
 ) {
+  await verifierPermissionAction(hospitalId, "PHARMACIE", "peut_creer");
+
   const article = await prisma.articleStock.create({
     data: {
       hospital_id:     hospitalId,
@@ -145,6 +148,8 @@ export async function enregistrerMouvement(
     motif?:         string;
   }
 ) {
+  await verifierPermissionAction(hospitalId, "PHARMACIE", "peut_modifier");
+
   const article = await prisma.articleStock.findUnique({
     where: { id: data.article_id },
   });
@@ -235,6 +240,8 @@ export async function modifierArticleStock(
     code_article?:    string;
   }
 ) {
+  await verifierPermissionAction(hospitalId, "PHARMACIE", "peut_modifier");
+
   const article = await prisma.articleStock.update({
     where: { id: articleId, hospital_id: hospitalId },
     data: {
@@ -280,6 +287,8 @@ export async function supprimerArticleStock(
   utilisateurId: string,
   utilisateurNom: string
 ) {
+  await verifierPermissionAction(hospitalId, "PHARMACIE", "peut_supprimer");
+
   const article = await prisma.articleStock.update({
     where: { id: articleId, hospital_id: hospitalId },
     data:  { est_actif: false },

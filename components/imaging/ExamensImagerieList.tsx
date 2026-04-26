@@ -81,6 +81,9 @@ interface ExamensImagerieListProps {
   utilisateurId: string;
   utilisateurNom: string;
   searchQuery: string;
+  peutCreer: boolean;
+  peutModifier: boolean;
+  peutSupprimer: boolean;
 }
 
 export function ExamensImagerieList({
@@ -91,6 +94,9 @@ export function ExamensImagerieList({
   utilisateurId,
   utilisateurNom,
   searchQuery,
+  peutCreer,
+  peutModifier,
+  peutSupprimer,
 }: ExamensImagerieListProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -131,14 +137,16 @@ export function ExamensImagerieList({
             <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 animate-spin" />
           )}
         </div>
-        <Button
-          type="button"
-          onClick={() => setDialogCreer(true)}
-          className="bg-blue-700 hover:bg-blue-800 text-white shrink-0"
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          <span className="hidden sm:inline">Nouvelle demande</span>
-        </Button>
+        {peutCreer && (
+          <Button
+            type="button"
+            onClick={() => setDialogCreer(true)}
+            className="bg-blue-700 hover:bg-blue-800 text-white shrink-0"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            <span className="hidden sm:inline">Nouvelle demande</span>
+          </Button>
+        )}
       </div>
 
       {/* Filtres */}
@@ -261,6 +269,7 @@ export function ExamensImagerieList({
           utilisateurId={utilisateurId}
           utilisateurNom={utilisateurNom}
           open={!!examenSelectionne}
+          peutModifier={peutModifier}
           onOpenChange={(open) => {
             if (!open) setExamenSelectionne(null);
           }}

@@ -1,25 +1,16 @@
-import { createClient } from "@/lib/supabase/server";
-import { prisma } from "@/lib/prisma";
+import { getUtilisateurConnecte } from "@/lib/withPermission";
 import { redirect } from "next/navigation";
+import { prisma } from "@/lib/prisma";
 import { getPermissionsHospital, getRolesPersonnalises } from "./actions";
 import { PermissionsTable } from "@/components/permissions/PermissionsTable";
 import { RolesPersonnalisesManager } from "@/components/permissions/RolesPersonnalisesManager";
 import { initialiserPermissionsDefaut } from "@/lib/permissions.server";
 
 export default async function PermissionsPage() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+  const utilisateur = await getUtilisateurConnecte();
 
-  const utilisateur = await prisma.utilisateur.findFirst({
-    where: { email: user.email! },
-  });
-  if (!utilisateur) redirect("/login");
-
-  if (
-    utilisateur.role !== "ADMIN" &&
-    utilisateur.role !== "SUPER_ADMIN"
-  ) {
+  // Page réservée aux admins
+  if (utilisateur.role !== "ADMIN" && utilisateur.role !== "SUPER_ADMIN") {
     redirect("/dashboard");
   }
 

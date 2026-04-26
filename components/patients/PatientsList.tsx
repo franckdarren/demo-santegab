@@ -32,16 +32,22 @@ interface PatientsListProps {
   patients: Patient[];
   searchQuery: string;
   hospitalId: string;
-  utilisateurId: string;  // ← ajouté
-  utilisateurNom: string; // ← ajouté
+  utilisateurId: string;
+  utilisateurNom: string;
+  peutCreer: boolean;
+  peutModifier: boolean;
+  peutSupprimer: boolean;
 }
 
 export function PatientsList({
   patients,
   searchQuery,
   hospitalId,
-  utilisateurId,  // ← ajouté
-  utilisateurNom, // ← ajouté
+  utilisateurId,
+  utilisateurNom,
+  peutCreer,
+  peutModifier,
+  peutSupprimer,
 }: PatientsListProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -75,13 +81,15 @@ export function PatientsList({
             <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 animate-spin" />
           )}
         </div>
-        <Button
-          onClick={() => setDialogOuvert(true)}
-          className="bg-blue-700 hover:bg-blue-800 text-white shrink-0"
-        >
-          <UserPlus className="h-4 w-4 mr-2" />
-          <span className="hidden sm:inline">Nouveau patient</span>
-        </Button>
+        {peutCreer && (
+          <Button
+            onClick={() => setDialogOuvert(true)}
+            className="bg-blue-700 hover:bg-blue-800 text-white shrink-0"
+          >
+            <UserPlus className="h-4 w-4 mr-2" />
+            <span className="hidden sm:inline">Nouveau patient</span>
+          </Button>
+        )}
       </div>
 
       {/* Liste patients */}

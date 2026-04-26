@@ -2,9 +2,7 @@
 // PAGE STATISTIQUES & REPORTING
 // ============================================================
 
-import { createClient } from "@/lib/supabase/server";
-import { prisma } from "@/lib/prisma";
-import { redirect } from "next/navigation";
+import { withPermission } from "@/lib/withPermission";
 import { Suspense } from "react";
 import {
   getStatsGenerales,
@@ -23,16 +21,7 @@ export default async function StatsPage({
 }: {
   searchParams: Promise<{ debut?: string; fin?: string }>;
 }) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
-
-  const utilisateur = await prisma.utilisateur.findFirst({
-    where: { email: user.email! },
-  });
-  if (!utilisateur) redirect("/login");
+  const utilisateur = await withPermission("STATISTIQUES", "peut_voir");
 
   const { debut, fin } = await searchParams;
 

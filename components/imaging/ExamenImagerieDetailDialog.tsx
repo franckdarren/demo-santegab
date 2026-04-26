@@ -67,6 +67,7 @@ interface ExamenImagerieDetailDialogProps {
     utilisateurId: string;
     utilisateurNom: string;
     open: boolean;
+    peutModifier: boolean;
     onOpenChange: (open: boolean) => void;
 }
 
@@ -76,6 +77,7 @@ export function ExamenImagerieDetailDialog({
     utilisateurId,
     utilisateurNom,
     open,
+    peutModifier,
     onOpenChange,
 }: ExamenImagerieDetailDialogProps) {
     const router = useRouter();
@@ -99,7 +101,7 @@ export function ExamenImagerieDetailDialog({
 
     const statutConfig = STATUT_CONFIG[examen.statut];
     const nomPatient = `${examen.patient.prenom} ${examen.patient.nom}`;
-    const peutSaisir = examen.statut !== "VALIDE" && examen.statut !== "ANNULE";
+    const peutSaisir = peutModifier && examen.statut !== "VALIDE" && examen.statut !== "ANNULE";
     const peutValider = examen.statut === "RESULTAT_SAISI";
     const tarifSuggere = TARIFS_IMAGERIE[examen.type_examen];
 

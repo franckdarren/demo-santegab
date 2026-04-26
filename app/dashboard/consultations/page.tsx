@@ -2,9 +2,8 @@
 // PAGE CONSULTATIONS — Liste avec recherche et filtres
 // ============================================================
 
-import { createClient } from "@/lib/supabase/server";
-import { prisma } from "@/lib/prisma";
-import { redirect } from "next/navigation";
+import { withPermission } from "@/lib/withPermission";
+import { getPermissionsModule } from "@/lib/permissions.server";
 import {
   getConsultations,
   getMedecins,
@@ -20,22 +19,21 @@ interface ConsultationsPageProps {
 export default async function ConsultationsPage({
   searchParams,
 }: ConsultationsPageProps) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
-
-  const utilisateur = await prisma.utilisateur.findFirst({
-    where: { email: user.email! },
-  });
-  if (!utilisateur) redirect("/login");
+  const utilisateur = await withPermission("CONSULTATION", "peut_voir");
 
   const { q } = await searchParams;
 
-  const [consultations, medecins, patients, services] = await Promise.all([
+  const [consultations, medecins, patients, services, perms] = await Promise.all([
     getConsultations(utilisateur.hospital_id, q),
     getMedecins(utilisateur.hospital_id),
     getPatientsHospital(utilisateur.hospital_id),
     getServicesConsultation(utilisateur.hospital_id),
+    getPermissionsModule(
+      utilisateur.hospital_id,
+      utilisateur.role,
+      "CONSULTATION",
+      utilisateur.role_personnalise_id
+    ),
   ]);
 
   return (
@@ -58,6 +56,9 @@ export default async function ConsultationsPage({
         medecinConnecteId={utilisateur.id}
         medecinConnecteNom={`${utilisateur.prenom} ${utilisateur.nom}`}
         searchQuery={q ?? ""}
+        peutCreer={perms.peut_creer}
+        peutModifier={perms.peut_modifier}
+        peutSupprimer={perms.peut_supprimer}
       />
     </div>
   );

@@ -7,6 +7,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { enregistrerAudit } from "@/lib/audit";
+import { verifierPermissionAction } from "@/lib/permissions.server";
 
 // ============================================================
 // Liste des patients de l'hôpital avec recherche
@@ -97,6 +98,8 @@ export async function creerPatient(
     taux_couverture?: number;
   }
 ) {
+  await verifierPermissionAction(hospitalId, "PATIENT", "peut_creer");
+
   const count = await prisma.patient.count();
   const numeroDossier = `PAT-${new Date().getFullYear()}-${String(count + 1).padStart(5, "0")}`;
 
@@ -167,6 +170,8 @@ export async function modifierPatient(
     taux_couverture?: number;
   }
 ) {
+  await verifierPermissionAction(hospitalId, "PATIENT", "peut_modifier");
+
   await prisma.patient.update({
     where: { id: patientId },
     data: {
@@ -229,6 +234,8 @@ export async function supprimerPatient(
   utilisateurNom: string,
   nomPatient: string
 ) {
+  await verifierPermissionAction(hospitalId, "PATIENT", "peut_supprimer");
+
   const consultations = await prisma.consultation.findMany({
     where:  { patient_id: patientId, hospital_id: hospitalId },
     select: { id: true },

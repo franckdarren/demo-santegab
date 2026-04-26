@@ -2,9 +2,8 @@
 // PAGE HOSPITALISATIONS — Vue kanban des séjours
 // ============================================================
 
-import { createClient } from "@/lib/supabase/server";
-import { prisma } from "@/lib/prisma";
-import { redirect } from "next/navigation";
+import { withPermission } from "@/lib/withPermission";
+import { getPermissionsModule } from "@/lib/permissions.server";
 import {
   getHospitalisations,
   getStatsHospitalisations,
@@ -16,14 +15,7 @@ import { HospitalisationsStats } from "@/components/hospitalisations/Hospitalisa
 import { KanbanHospitalisations } from "@/components/hospitalisations/KanbanHospitalisations";
 
 export default async function HospitalisationsPage() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
-
-  const utilisateur = await prisma.utilisateur.findFirst({
-    where: { email: user.email! },
-  });
-  if (!utilisateur) redirect("/login");
+  const utilisateur = await withPermission("HOSPITALISATION", "peut_voir");
 
   const [
     hospitalisationsEnCours,
@@ -33,6 +25,7 @@ export default async function HospitalisationsPage() {
     patients,
     chambres,
     services,
+    perms,
   ] = await Promise.all([
     getHospitalisations(utilisateur.hospital_id, "EN_COURS"),
     getHospitalisations(utilisateur.hospital_id, "SORTIE"),
@@ -41,6 +34,12 @@ export default async function HospitalisationsPage() {
     getPatientsHospital(utilisateur.hospital_id),
     getChambres(utilisateur.hospital_id),
     getServices(utilisateur.hospital_id),
+    getPermissionsModule(
+      utilisateur.hospital_id,
+      utilisateur.role,
+      "HOSPITALISATION",
+      utilisateur.role_personnalise_id
+    ),
   ]);
 
   return (
@@ -64,6 +63,9 @@ export default async function HospitalisationsPage() {
         hospitalId={utilisateur.hospital_id}
         utilisateurId={utilisateur.id}
         utilisateurNom={`${utilisateur.prenom} ${utilisateur.nom}`}
+        peutCreer={perms.peut_creer}
+        peutModifier={perms.peut_modifier}
+        peutSupprimer={perms.peut_supprimer}
       />
     </div>
   );

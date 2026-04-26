@@ -42,6 +42,9 @@ interface PatientHeaderProps {
   utilisateurId: string;  // ← pour audit modifier/supprimer
   utilisateurNom: string; // ← pour audit modifier/supprimer
   medecins: Array<{ id: string; nom: string; prenom: string }>;
+  peutModifier: boolean;
+  peutSupprimer: boolean;
+  peutCreerConsultation: boolean;
 }
 
 export function PatientHeader({
@@ -52,6 +55,9 @@ export function PatientHeader({
   utilisateurId,
   utilisateurNom,
   medecins,
+  peutModifier,
+  peutSupprimer,
+  peutCreerConsultation,
 }: PatientHeaderProps) {
   const nomComplet = `${patient.prenom} ${patient.nom}`;
   const [dialogConsultation, setDialogConsultation] = useState(false);
@@ -115,14 +121,16 @@ export function PatientHeader({
             <div className="flex gap-2 shrink-0 flex-wrap">
 
               {/* Nouvelle consultation */}
-              <Button
-                type="button"
-                onClick={() => setDialogConsultation(true)}
-                className="bg-blue-700 hover:bg-blue-800 text-white text-sm"
-              >
-                <Stethoscope className="h-4 w-4 mr-1.5" />
-                Nouvelle consultation
-              </Button>
+              {peutCreerConsultation && (
+                <Button
+                  type="button"
+                  onClick={() => setDialogConsultation(true)}
+                  className="bg-blue-700 hover:bg-blue-800 text-white text-sm"
+                >
+                  <Stethoscope className="h-4 w-4 mr-1.5" />
+                  Nouvelle consultation
+                </Button>
+              )}
 
               {/* QR Code carnet de santé */}
               <QrCodeButton
@@ -134,21 +142,25 @@ export function PatientHeader({
               />
 
               {/* Modifier patient — avec audit */}
-              <ModifierPatientDialog
-                patient={patient}
-                hospitalId={hospitalId}
-                utilisateurId={utilisateurId}
-                utilisateurNom={utilisateurNom}
-              />
+              {peutModifier && (
+                <ModifierPatientDialog
+                  patient={patient}
+                  hospitalId={hospitalId}
+                  utilisateurId={utilisateurId}
+                  utilisateurNom={utilisateurNom}
+                />
+              )}
 
               {/* Supprimer patient — avec audit */}
-              <SupprimerPatientDialog
-                patientId={patient.id}
-                nomPatient={nomComplet}
-                hospitalId={hospitalId}
-                utilisateurId={utilisateurId}
-                utilisateurNom={utilisateurNom}
-              />
+              {peutSupprimer && (
+                <SupprimerPatientDialog
+                  patientId={patient.id}
+                  nomPatient={nomComplet}
+                  hospitalId={hospitalId}
+                  utilisateurId={utilisateurId}
+                  utilisateurNom={utilisateurNom}
+                />
+              )}
             </div>
           </div>
 

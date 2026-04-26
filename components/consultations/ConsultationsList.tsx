@@ -101,6 +101,9 @@ interface ConsultationsListProps {
   medecinConnecteId: string;
   medecinConnecteNom: string;
   searchQuery: string;
+  peutCreer: boolean;
+  peutModifier: boolean;
+  peutSupprimer: boolean;
 }
 
 export function ConsultationsList({
@@ -112,6 +115,9 @@ export function ConsultationsList({
   medecinConnecteId,
   medecinConnecteNom,
   searchQuery,
+  peutCreer,
+  peutModifier,
+  peutSupprimer,
 }: ConsultationsListProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -177,14 +183,16 @@ export function ConsultationsList({
             <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 animate-spin" />
           )}
         </div>
-        <Button
-          type="button"
-          onClick={() => setDialogCreer(true)}
-          className="bg-blue-700 hover:bg-blue-800 text-white shrink-0"
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          <span className="hidden sm:inline">Nouvelle consultation</span>
-        </Button>
+        {peutCreer && (
+          <Button
+            type="button"
+            onClick={() => setDialogCreer(true)}
+            className="bg-blue-700 hover:bg-blue-800 text-white shrink-0"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            <span className="hidden sm:inline">Nouvelle consultation</span>
+          </Button>
+        )}
       </div>
 
       {/* Filtres rapides statut */}

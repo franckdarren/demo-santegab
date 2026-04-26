@@ -68,6 +68,7 @@ interface ExamenLaboDetailDialogProps {
     utilisateurId: string;
     utilisateurNom: string;
     open: boolean;
+    peutModifier: boolean;
     onOpenChange: (open: boolean) => void;
 }
 
@@ -77,6 +78,7 @@ export function ExamenLaboDetailDialog({
     utilisateurId,
     utilisateurNom,
     open,
+    peutModifier,
     onOpenChange,
 }: ExamenLaboDetailDialogProps) {
     const router = useRouter();
@@ -99,7 +101,7 @@ export function ExamenLaboDetailDialog({
 
     const statutConfig = STATUT_CONFIG[examen.statut];
     const nomPatient = `${examen.patient.prenom} ${examen.patient.nom}`;
-    const peutSaisir = examen.statut !== "VALIDE" && examen.statut !== "ANNULE";
+    const peutSaisir = peutModifier && examen.statut !== "VALIDE" && examen.statut !== "ANNULE";
     const peutValider = examen.statut === "RESULTAT_SAISI";
     const tarifSuggere = TARIFS_LABO[examen.type_examen];
 

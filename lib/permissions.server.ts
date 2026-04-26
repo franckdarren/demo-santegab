@@ -7,6 +7,7 @@
 // ============================================================
 
 import { prisma } from "@/lib/prisma";
+import { createClient } from "@/lib/supabase/server";
 import { Role } from "@/app/generated/prisma/client";
 import {
   MODULES,
@@ -140,6 +141,73 @@ export async function peutFaire(
 
   if (!permission) return false;
   return permission[action];
+}
+
+// ============================================================
+// Retourne les 4 flags de permission d'un utilisateur pour
+// un module précis — 1 seule requête BDD
+// ============================================================
+export async function getPermissionsModule(
+  hospitalId: string,
+  role: Role,
+  module: Module,
+  rolePersonnaliseId?: string | null
+): Promise<PermissionModule> {
+  if (ROLES_ADMIN.includes(role)) {
+    return { peut_voir: true, peut_creer: true, peut_modifier: true, peut_supprimer: true };
+  }
+
+  let permission;
+  if (rolePersonnaliseId) {
+    permission = await prisma.permission.findFirst({
+      where: { hospital_id: hospitalId, role_personnalise_id: rolePersonnaliseId, module },
+    });
+  } else {
+    permission = await prisma.permission.findUnique({
+      where: { hospital_id_role_module: { hospital_id: hospitalId, role, module } },
+    });
+  }
+
+  return {
+    peut_voir:      permission?.peut_voir      ?? false,
+    peut_creer:     permission?.peut_creer     ?? false,
+    peut_modifier:  permission?.peut_modifier  ?? false,
+    peut_supprimer: permission?.peut_supprimer ?? false,
+  };
+}
+
+// ============================================================
+// Vérifie une permission depuis une server action.
+// Lance une Error si l'accès est refusé.
+// Vérifie aussi que hospitalId appartient bien à l'utilisateur
+// connecté (protection cross-tenant).
+// ============================================================
+export async function verifierPermissionAction(
+  hospitalId: string,
+  module: Module,
+  action: keyof PermissionModule
+): Promise<void> {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error("Non authentifié");
+
+  const utilisateur = await prisma.utilisateur.findFirst({
+    where: { email: user.email! },
+  });
+  if (!utilisateur || utilisateur.hospital_id !== hospitalId) {
+    throw new Error("Accès refusé");
+  }
+
+  if (ROLES_ADMIN.includes(utilisateur.role)) return;
+
+  const autorise = await peutFaire(
+    hospitalId,
+    utilisateur.role,
+    module,
+    action,
+    utilisateur.role_personnalise_id
+  );
+  if (!autorise) throw new Error(`Permission insuffisante : ${module}/${action}`);
 }
 
 // ============================================================

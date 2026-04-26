@@ -8,6 +8,7 @@
 import { prisma } from "@/lib/prisma";
 import { enregistrerAudit } from "@/lib/audit";
 import { TARIF_CONSULTATION } from "@/lib/tarifs";
+import { verifierPermissionAction } from "@/lib/permissions.server";
 
 // ============================================================
 // Liste des consultations de l'hôpital
@@ -113,6 +114,8 @@ export async function creerConsultation(
     }>;
   }
 ) {
+  await verifierPermissionAction(hospitalId, "CONSULTATION", "peut_creer");
+
   // Récupère le patient + son assurance dans cet établissement
   const patientHospital = await prisma.patientHospital.findFirst({
     where:   { hospital_id: hospitalId, patient_id: data.patient_id },
@@ -218,6 +221,8 @@ export async function updateStatutConsultation(
   utilisateurId: string,
   utilisateurNom: string
 ) {
+  await verifierPermissionAction(hospitalId, "CONSULTATION", "peut_modifier");
+
   const consultation = await prisma.consultation.update({
     where:   { id: consultationId, hospital_id: hospitalId },
     data:    { statut },
@@ -263,6 +268,8 @@ export async function updateConsultation(
     }>;
   }
 ) {
+  await verifierPermissionAction(hospitalId, "CONSULTATION", "peut_modifier");
+
   // Supprime les anciennes prescriptions et recrée les nouvelles
   await prisma.prescription.deleteMany({
     where: { consultation_id: consultationId },

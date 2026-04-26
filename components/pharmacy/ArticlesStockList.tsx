@@ -74,6 +74,9 @@ interface ArticlesStockListProps {
   utilisateurId: string;
   utilisateurNom: string;
   searchQuery: string;
+  peutCreer: boolean;
+  peutModifier: boolean;
+  peutSupprimer: boolean;
 }
 
 export function ArticlesStockList({
@@ -83,6 +86,9 @@ export function ArticlesStockList({
   utilisateurId,
   utilisateurNom,
   searchQuery,
+  peutCreer,
+  peutModifier,
+  peutSupprimer,
 }: ArticlesStockListProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -151,14 +157,16 @@ export function ArticlesStockList({
           <span className="hidden sm:inline">Historique</span>
         </Button>
 
-        <Button
-          type="button"
-          onClick={() => setDialogNouvel(true)}
-          className="bg-blue-700 hover:bg-blue-800 text-white shrink-0"
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          <span className="hidden sm:inline">Nouvel article</span>
-        </Button>
+        {peutCreer && (
+          <Button
+            type="button"
+            onClick={() => setDialogNouvel(true)}
+            className="bg-blue-700 hover:bg-blue-800 text-white shrink-0"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            <span className="hidden sm:inline">Nouvel article</span>
+          </Button>
+        )}
       </div>
 
       {/* Filtres rapides */}
@@ -292,26 +300,29 @@ export function ArticlesStockList({
                     )}
                   </div>
 
-                  {/* Actions */}
-                  <div className="flex gap-2 pt-1">
-                    {/* Bouton mouvement de stock */}
-                    <Button
-                      type="button"
-                      size="sm"
-                      onClick={() => setArticleSelectionne(article)}
-                      className="flex-1 bg-blue-700 hover:bg-blue-800 text-white text-xs h-8"
-                    >
-                      Mouvement
-                    </Button>
-
-                    {/* Bouton modifier / supprimer */}
-                    <ModifierArticleDialog
-                      article={article}
-                      hospitalId={hospitalId}
-                      utilisateurId={utilisateurId}
-                      utilisateurNom={utilisateurNom}
-                    />
-                  </div>
+                  {/* Actions — affichées uniquement si l'utilisateur a les droits */}
+                  {(peutModifier || peutSupprimer) && (
+                    <div className="flex gap-2 pt-1">
+                      {peutModifier && (
+                        <Button
+                          type="button"
+                          size="sm"
+                          onClick={() => setArticleSelectionne(article)}
+                          className="flex-1 bg-blue-700 hover:bg-blue-800 text-white text-xs h-8"
+                        >
+                          Mouvement
+                        </Button>
+                      )}
+                      <ModifierArticleDialog
+                        article={article}
+                        hospitalId={hospitalId}
+                        utilisateurId={utilisateurId}
+                        utilisateurNom={utilisateurNom}
+                        peutModifier={peutModifier}
+                        peutSupprimer={peutSupprimer}
+                      />
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             );
