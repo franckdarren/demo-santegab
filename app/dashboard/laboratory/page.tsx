@@ -5,6 +5,7 @@
 import { withPermission } from "@/lib/withPermission";
 import { getPermissionsModule } from "@/lib/permissions.server";
 import { getExamensLabo, getStatsLabo } from "./actions";
+import { getCatalogueActif } from "./catalogue/actions";
 import { getMedecins, getPatientsHospital } from "@/app/dashboard/consultations/actions";
 import { LaboStats } from "@/components/laboratory/LaboStats";
 import { ExamensLaboList } from "@/components/laboratory/ExamensLaboList";
@@ -18,7 +19,7 @@ export default async function LaboPage({ searchParams }: LaboPageProps) {
 
   const { q } = await searchParams;
 
-  const [examens, stats, medecins, patients, perms] = await Promise.all([
+  const [examens, stats, medecins, patients, perms, catalogue] = await Promise.all([
     getExamensLabo(utilisateur.hospital_id, q),
     getStatsLabo(utilisateur.hospital_id),
     getMedecins(utilisateur.hospital_id),
@@ -29,6 +30,7 @@ export default async function LaboPage({ searchParams }: LaboPageProps) {
       "LABORATOIRE",
       utilisateur.role_personnalise_id
     ),
+    getCatalogueActif(utilisateur.hospital_id),
   ]);
 
   return (
@@ -46,6 +48,7 @@ export default async function LaboPage({ searchParams }: LaboPageProps) {
         examens={examens}
         medecins={medecins}
         patients={patients}
+        catalogue={catalogue}
         hospitalId={utilisateur.hospital_id}
         utilisateurId={utilisateur.id}
         utilisateurNom={`${utilisateur.prenom} ${utilisateur.nom}`}

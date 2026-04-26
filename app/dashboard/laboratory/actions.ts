@@ -7,6 +7,21 @@ import { enregistrerAudit } from "@/lib/audit";
 import { TARIFS_LABO } from "@/lib/tarifs";
 import { verifierPermissionAction } from "@/lib/permissions.server";
 
+// Mapping famille catalogue → TypeExamenLabo (pour la compatibilité BDD)
+function familleVersTypeExamen(famille: string): TypeExamenLabo {
+  const f = famille.toUpperCase();
+  if (f === "HEMATOLOGIE" || f === "HÉMATOLOGIE") return "HEMATOLOGIE";
+  if (f === "BACTERIOLOGIE" || f === "BACTÉRIOLOGIE") return "BACTERIOLOGIE";
+  if (f === "BIOCHIMIE") return "BIOCHIMIE";
+  if (f === "PARASITOLOGIE") return "PARASITOLOGIE";
+  if (f === "SEROLOGIE" || f === "SÉROLOGIE") return "SEROLOGIE";
+  if (f === "HORMONES") return "SEROLOGIE";
+  if (f.includes("IMMUNOLOGIE")) return "SEROLOGIE";
+  if (f.includes("BILAN") && f.includes("SANGUIN")) return "BILAN_SANGUIN";
+  if (f.includes("BILAN") && f.includes("URINAIRE")) return "BILAN_URINAIRE";
+  return "AUTRE";
+}
+
 export async function getExamensLabo(hospitalId: string, search?: string) {
   return prisma.examenLabo.findMany({
     where: {
@@ -25,7 +40,15 @@ export async function getExamensLabo(hospitalId: string, search?: string) {
         ],
       }),
     },
-    include: { patient: true, medecin: true },
+    include: {
+      patient: true,
+      medecin: true,
+      // Inclut les examens spécifiques du catalogue
+      examens_details: {
+        include: { catalogue: true },
+        orderBy: { created_at: "asc" },
+      },
+    },
     orderBy: [{ urgence: "desc" }, { created_at: "desc" }],
   });
 }
@@ -40,7 +63,7 @@ export async function creerExamenLabo(
   data: {
     patient_id:  string;
     medecin_id:  string;
-    type_examen: TypeExamenLabo;
+    examens_ids: string[];   // IDs du catalogue ExamenCatalogue
     notes?:      string;
     urgence?:    boolean;
   }
@@ -55,26 +78,56 @@ export async function creerExamenLabo(
     ? `${patientHospital.patient.prenom} ${patientHospital.patient.nom}`
     : "Patient inconnu";
 
-  const tarifParDefaut = TARIFS_LABO[data.type_examen] ?? null;
+  // Récupère les examens sélectionnés depuis le catalogue
+  const examensChoisis = await prisma.examenCatalogue.findMany({
+    where: {
+      id:          { in: data.examens_ids },
+      hospital_id: hospitalId,
+      actif:       true,
+    },
+  });
+
+  if (examensChoisis.length === 0) {
+    throw new Error("Aucun examen valide sélectionné");
+  }
+
+  // Total = somme des prix individuels
+  const totalTarif = examensChoisis.reduce((sum, e) => sum + e.prix, 0);
+
+  // Dérive le type_examen depuis la famille du premier examen (compatibilité BDD)
+  const typeExamen: TypeExamenLabo = familleVersTypeExamen(examensChoisis[0].famille);
+
+  // Noms des examens pour les libellés
+  const nomsExamens = examensChoisis.map((e) => e.nom).join(", ");
 
   const examen = await prisma.examenLabo.create({
     data: {
       hospital_id:   hospitalId,
       patient_id:    data.patient_id,
       medecin_id:    data.medecin_id,
-      type_examen:   data.type_examen,
+      type_examen:   typeExamen,
       notes:         data.notes ?? null,
       urgence:       data.urgence ?? false,
       statut:        "EN_ATTENTE",
-      prix_unitaire: tarifParDefaut,
+      prix_unitaire: totalTarif > 0 ? totalTarif : null,
     },
     include: { patient: true, medecin: true },
   });
 
-  if (tarifParDefaut && tarifParDefaut > 0) {
+  // Crée les lignes de détail (ExamenLaboExamen)
+  await prisma.examenLaboExamen.createMany({
+    data: examensChoisis.map((e) => ({
+      examen_labo_id: examen.id,
+      catalogue_id:   e.id,
+      prix_snapshot:  e.prix,
+    })),
+  });
+
+  // Crée la facture si le total est > 0
+  if (totalTarif > 0) {
     const tauxCouverture   = patientHospital?.taux_couverture ?? 0;
-    const montantAssurance = Math.round(tarifParDefaut * (tauxCouverture / 100));
-    const montantPatient   = tarifParDefaut - montantAssurance;
+    const montantAssurance = Math.round(totalTarif * (tauxCouverture / 100));
+    const montantPatient   = totalTarif - montantAssurance;
 
     const count = await prisma.facture.count({ where: { hospital_id: hospitalId } });
     const numeroFacture = `FAC-LABO-${new Date().getFullYear()}-${String(count + 1).padStart(5, "0")}`;
@@ -85,17 +138,18 @@ export async function creerExamenLabo(
         patient_id:        data.patient_id,
         numero_facture:    numeroFacture,
         statut:            "EN_ATTENTE",
-        montant_total:     tarifParDefaut,
+        montant_total:     totalTarif,
         montant_assurance: montantAssurance,
         montant_patient:   montantPatient,
-        notes:             `Examen laboratoire — ${data.type_examen}${data.urgence ? " 🔴 URGENT" : ""}`,
+        notes:             `Examens laboratoire${data.urgence ? " 🔴 URGENT" : ""} — ${nomsExamens}`,
         lignes: {
-          create: [{
-            description:   `Examen labo — ${data.type_examen}`,
+          // Une ligne de facture par examen sélectionné
+          create: examensChoisis.map((e) => ({
+            description:   e.nom,
             quantite:      1,
-            prix_unitaire: tarifParDefaut,
-            montant_total: tarifParDefaut,
-          }],
+            prix_unitaire: e.prix,
+            montant_total: e.prix,
+          })),
         },
       },
     });
@@ -112,13 +166,13 @@ export async function creerExamenLabo(
     utilisateurNom,
     typeAction:  "CREATION",
     module:      "LABORATOIRE",
-    description: `Demande examen labo — ${data.type_examen} — ${nomPatient}${data.urgence ? " 🔴 URGENT" : ""}`,
+    description: `Demande labo — ${nomPatient} — ${nomsExamens}${data.urgence ? " 🔴 URGENT" : ""}`,
     entiteId:    examen.id,
     entiteNom:   nomPatient,
     metadonnees: {
-      type_examen:    data.type_examen,
+      examens:        examensChoisis.map((e) => ({ nom: e.nom, famille: e.famille, prix: e.prix })),
       urgence:        data.urgence ?? false,
-      tarif_applique: tarifParDefaut,
+      tarif_total:    totalTarif,
     },
   });
 

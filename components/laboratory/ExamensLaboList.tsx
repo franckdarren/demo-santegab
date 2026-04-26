@@ -44,6 +44,12 @@ const FILTRES = [
   { label: "Validés",    value: "VALIDE" },
 ];
 
+interface ExamenLaboExamenDetail {
+  id: string;
+  prix_snapshot: number;
+  catalogue: { id: string; nom: string; famille: string };
+}
+
 interface ExamenLabo {
   id: string;
   statut: StatutExamen;
@@ -61,6 +67,15 @@ interface ExamenLabo {
   updated_at: Date;
   patient: { id: string; nom: string; prenom: string; numero_dossier: string };
   medecin: { id: string; nom: string; prenom: string };
+  examens_details: ExamenLaboExamenDetail[];
+}
+
+interface CatalogueItem {
+  id: string;
+  famille: string;
+  nom: string;
+  prix: number;
+  actif: boolean;
 }
 
 interface Medecin {
@@ -82,6 +97,7 @@ interface ExamensLaboListProps {
   examens: ExamenLabo[];
   medecins: Medecin[];
   patients: PatientHospital[];
+  catalogue: CatalogueItem[];
   hospitalId: string;
   utilisateurId: string;
   utilisateurNom: string;
@@ -95,6 +111,7 @@ export function ExamensLaboList({
   examens,
   medecins,
   patients,
+  catalogue,
   hospitalId,
   utilisateurId,
   utilisateurNom,
@@ -283,8 +300,10 @@ export function ExamensLaboList({
                           </Badge>
                         )}
                       </div>
-                      <p className="text-xs text-gray-500 mt-0.5">
-                        {TYPE_LABELS[examen.type_examen] ?? examen.type_examen}
+                      <p className="text-xs text-gray-500 mt-0.5 truncate">
+                        {examen.examens_details.length > 0
+                          ? examen.examens_details.map((d) => d.catalogue.nom).join(", ")
+                          : (TYPE_LABELS[examen.type_examen] ?? examen.type_examen)}
                         {" · "}Dr. {examen.medecin.nom}
                       </p>
                     </div>
@@ -325,6 +344,7 @@ export function ExamensLaboList({
         hospitalId={hospitalId}
         medecins={medecins}
         patients={patients}
+        catalogue={catalogue}
         medecinConnecteId={utilisateurId}
         medecinConnecteNom={utilisateurNom}
       />

@@ -59,6 +59,16 @@ export type LigneFacture = $Result.DefaultSelection<Prisma.$LigneFacturePayload>
  */
 export type ExamenLabo = $Result.DefaultSelection<Prisma.$ExamenLaboPayload>
 /**
+ * Model ExamenCatalogue
+ * 
+ */
+export type ExamenCatalogue = $Result.DefaultSelection<Prisma.$ExamenCataloguePayload>
+/**
+ * Model ExamenLaboExamen
+ * 
+ */
+export type ExamenLaboExamen = $Result.DefaultSelection<Prisma.$ExamenLaboExamenPayload>
+/**
  * Model ExamenImagerie
  * 
  */
@@ -605,6 +615,26 @@ export class PrismaClient<
     * ```
     */
   get examenLabo(): Prisma.ExamenLaboDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.examenCatalogue`: Exposes CRUD operations for the **ExamenCatalogue** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ExamenCatalogues
+    * const examenCatalogues = await prisma.examenCatalogue.findMany()
+    * ```
+    */
+  get examenCatalogue(): Prisma.ExamenCatalogueDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.examenLaboExamen`: Exposes CRUD operations for the **ExamenLaboExamen** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ExamenLaboExamen
+    * const examenLaboExamen = await prisma.examenLaboExamen.findMany()
+    * ```
+    */
+  get examenLaboExamen(): Prisma.ExamenLaboExamenDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.examenImagerie`: Exposes CRUD operations for the **ExamenImagerie** model.
@@ -1178,6 +1208,8 @@ export namespace Prisma {
     Facture: 'Facture',
     LigneFacture: 'LigneFacture',
     ExamenLabo: 'ExamenLabo',
+    ExamenCatalogue: 'ExamenCatalogue',
+    ExamenLaboExamen: 'ExamenLaboExamen',
     ExamenImagerie: 'ExamenImagerie',
     ArticleStock: 'ArticleStock',
     MouvementStock: 'MouvementStock',
@@ -1206,7 +1238,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "hospital" | "utilisateur" | "patient" | "patientHospital" | "consultation" | "prescription" | "facture" | "ligneFacture" | "examenLabo" | "examenImagerie" | "articleStock" | "mouvementStock" | "ecritureComptable" | "qrToken" | "auditLogCarnet" | "auditTrail" | "chambre" | "hospitalisation" | "ligneHospitalisation" | "permission" | "rolePersonnalise" | "service"
+      modelProps: "hospital" | "utilisateur" | "patient" | "patientHospital" | "consultation" | "prescription" | "facture" | "ligneFacture" | "examenLabo" | "examenCatalogue" | "examenLaboExamen" | "examenImagerie" | "articleStock" | "mouvementStock" | "ecritureComptable" | "qrToken" | "auditLogCarnet" | "auditTrail" | "chambre" | "hospitalisation" | "ligneHospitalisation" | "permission" | "rolePersonnalise" | "service"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1873,6 +1905,154 @@ export namespace Prisma {
           count: {
             args: Prisma.ExamenLaboCountArgs<ExtArgs>
             result: $Utils.Optional<ExamenLaboCountAggregateOutputType> | number
+          }
+        }
+      }
+      ExamenCatalogue: {
+        payload: Prisma.$ExamenCataloguePayload<ExtArgs>
+        fields: Prisma.ExamenCatalogueFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ExamenCatalogueFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenCataloguePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ExamenCatalogueFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenCataloguePayload>
+          }
+          findFirst: {
+            args: Prisma.ExamenCatalogueFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenCataloguePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ExamenCatalogueFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenCataloguePayload>
+          }
+          findMany: {
+            args: Prisma.ExamenCatalogueFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenCataloguePayload>[]
+          }
+          create: {
+            args: Prisma.ExamenCatalogueCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenCataloguePayload>
+          }
+          createMany: {
+            args: Prisma.ExamenCatalogueCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ExamenCatalogueCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenCataloguePayload>[]
+          }
+          delete: {
+            args: Prisma.ExamenCatalogueDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenCataloguePayload>
+          }
+          update: {
+            args: Prisma.ExamenCatalogueUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenCataloguePayload>
+          }
+          deleteMany: {
+            args: Prisma.ExamenCatalogueDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ExamenCatalogueUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ExamenCatalogueUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenCataloguePayload>[]
+          }
+          upsert: {
+            args: Prisma.ExamenCatalogueUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenCataloguePayload>
+          }
+          aggregate: {
+            args: Prisma.ExamenCatalogueAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateExamenCatalogue>
+          }
+          groupBy: {
+            args: Prisma.ExamenCatalogueGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ExamenCatalogueGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ExamenCatalogueCountArgs<ExtArgs>
+            result: $Utils.Optional<ExamenCatalogueCountAggregateOutputType> | number
+          }
+        }
+      }
+      ExamenLaboExamen: {
+        payload: Prisma.$ExamenLaboExamenPayload<ExtArgs>
+        fields: Prisma.ExamenLaboExamenFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ExamenLaboExamenFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenLaboExamenPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ExamenLaboExamenFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenLaboExamenPayload>
+          }
+          findFirst: {
+            args: Prisma.ExamenLaboExamenFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenLaboExamenPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ExamenLaboExamenFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenLaboExamenPayload>
+          }
+          findMany: {
+            args: Prisma.ExamenLaboExamenFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenLaboExamenPayload>[]
+          }
+          create: {
+            args: Prisma.ExamenLaboExamenCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenLaboExamenPayload>
+          }
+          createMany: {
+            args: Prisma.ExamenLaboExamenCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ExamenLaboExamenCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenLaboExamenPayload>[]
+          }
+          delete: {
+            args: Prisma.ExamenLaboExamenDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenLaboExamenPayload>
+          }
+          update: {
+            args: Prisma.ExamenLaboExamenUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenLaboExamenPayload>
+          }
+          deleteMany: {
+            args: Prisma.ExamenLaboExamenDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ExamenLaboExamenUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ExamenLaboExamenUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenLaboExamenPayload>[]
+          }
+          upsert: {
+            args: Prisma.ExamenLaboExamenUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExamenLaboExamenPayload>
+          }
+          aggregate: {
+            args: Prisma.ExamenLaboExamenAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateExamenLaboExamen>
+          }
+          groupBy: {
+            args: Prisma.ExamenLaboExamenGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ExamenLaboExamenGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ExamenLaboExamenCountArgs<ExtArgs>
+            result: $Utils.Optional<ExamenLaboExamenCountAggregateOutputType> | number
           }
         }
       }
@@ -2955,6 +3135,8 @@ export namespace Prisma {
     facture?: FactureOmit
     ligneFacture?: LigneFactureOmit
     examenLabo?: ExamenLaboOmit
+    examenCatalogue?: ExamenCatalogueOmit
+    examenLaboExamen?: ExamenLaboExamenOmit
     examenImagerie?: ExamenImagerieOmit
     articleStock?: ArticleStockOmit
     mouvementStock?: MouvementStockOmit
@@ -3054,6 +3236,7 @@ export namespace Prisma {
     services: number
     factures: number
     examens_labo: number
+    examens_catalogue: number
     examens_imagerie: number
     articles_stock: number
     mouvements_stock: number
@@ -3073,6 +3256,7 @@ export namespace Prisma {
     services?: boolean | HospitalCountOutputTypeCountServicesArgs
     factures?: boolean | HospitalCountOutputTypeCountFacturesArgs
     examens_labo?: boolean | HospitalCountOutputTypeCountExamens_laboArgs
+    examens_catalogue?: boolean | HospitalCountOutputTypeCountExamens_catalogueArgs
     examens_imagerie?: boolean | HospitalCountOutputTypeCountExamens_imagerieArgs
     articles_stock?: boolean | HospitalCountOutputTypeCountArticles_stockArgs
     mouvements_stock?: boolean | HospitalCountOutputTypeCountMouvements_stockArgs
@@ -3136,6 +3320,13 @@ export namespace Prisma {
    */
   export type HospitalCountOutputTypeCountExamens_laboArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ExamenLaboWhereInput
+  }
+
+  /**
+   * HospitalCountOutputType without action
+   */
+  export type HospitalCountOutputTypeCountExamens_catalogueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExamenCatalogueWhereInput
   }
 
   /**
@@ -3429,6 +3620,68 @@ export namespace Prisma {
    */
   export type FactureCountOutputTypeCountExamens_imagerieArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ExamenImagerieWhereInput
+  }
+
+
+  /**
+   * Count Type ExamenLaboCountOutputType
+   */
+
+  export type ExamenLaboCountOutputType = {
+    examens_details: number
+  }
+
+  export type ExamenLaboCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    examens_details?: boolean | ExamenLaboCountOutputTypeCountExamens_detailsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ExamenLaboCountOutputType without action
+   */
+  export type ExamenLaboCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenLaboCountOutputType
+     */
+    select?: ExamenLaboCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ExamenLaboCountOutputType without action
+   */
+  export type ExamenLaboCountOutputTypeCountExamens_detailsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExamenLaboExamenWhereInput
+  }
+
+
+  /**
+   * Count Type ExamenCatalogueCountOutputType
+   */
+
+  export type ExamenCatalogueCountOutputType = {
+    examens: number
+  }
+
+  export type ExamenCatalogueCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    examens?: boolean | ExamenCatalogueCountOutputTypeCountExamensArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ExamenCatalogueCountOutputType without action
+   */
+  export type ExamenCatalogueCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenCatalogueCountOutputType
+     */
+    select?: ExamenCatalogueCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ExamenCatalogueCountOutputType without action
+   */
+  export type ExamenCatalogueCountOutputTypeCountExamensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExamenLaboExamenWhereInput
   }
 
 
@@ -3828,6 +4081,7 @@ export namespace Prisma {
     services?: boolean | Hospital$servicesArgs<ExtArgs>
     factures?: boolean | Hospital$facturesArgs<ExtArgs>
     examens_labo?: boolean | Hospital$examens_laboArgs<ExtArgs>
+    examens_catalogue?: boolean | Hospital$examens_catalogueArgs<ExtArgs>
     examens_imagerie?: boolean | Hospital$examens_imagerieArgs<ExtArgs>
     articles_stock?: boolean | Hospital$articles_stockArgs<ExtArgs>
     mouvements_stock?: boolean | Hospital$mouvements_stockArgs<ExtArgs>
@@ -3888,6 +4142,7 @@ export namespace Prisma {
     services?: boolean | Hospital$servicesArgs<ExtArgs>
     factures?: boolean | Hospital$facturesArgs<ExtArgs>
     examens_labo?: boolean | Hospital$examens_laboArgs<ExtArgs>
+    examens_catalogue?: boolean | Hospital$examens_catalogueArgs<ExtArgs>
     examens_imagerie?: boolean | Hospital$examens_imagerieArgs<ExtArgs>
     articles_stock?: boolean | Hospital$articles_stockArgs<ExtArgs>
     mouvements_stock?: boolean | Hospital$mouvements_stockArgs<ExtArgs>
@@ -3912,6 +4167,7 @@ export namespace Prisma {
       services: Prisma.$ServicePayload<ExtArgs>[]
       factures: Prisma.$FacturePayload<ExtArgs>[]
       examens_labo: Prisma.$ExamenLaboPayload<ExtArgs>[]
+      examens_catalogue: Prisma.$ExamenCataloguePayload<ExtArgs>[]
       examens_imagerie: Prisma.$ExamenImageriePayload<ExtArgs>[]
       articles_stock: Prisma.$ArticleStockPayload<ExtArgs>[]
       mouvements_stock: Prisma.$MouvementStockPayload<ExtArgs>[]
@@ -4334,6 +4590,7 @@ export namespace Prisma {
     services<T extends Hospital$servicesArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     factures<T extends Hospital$facturesArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$facturesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacturePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     examens_labo<T extends Hospital$examens_laboArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$examens_laboArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenLaboPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    examens_catalogue<T extends Hospital$examens_catalogueArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$examens_catalogueArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenCataloguePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     examens_imagerie<T extends Hospital$examens_imagerieArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$examens_imagerieArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenImageriePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     articles_stock<T extends Hospital$articles_stockArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$articles_stockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     mouvements_stock<T extends Hospital$mouvements_stockArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$mouvements_stockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MouvementStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -4917,6 +5174,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ExamenLaboScalarFieldEnum | ExamenLaboScalarFieldEnum[]
+  }
+
+  /**
+   * Hospital.examens_catalogue
+   */
+  export type Hospital$examens_catalogueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenCatalogue
+     */
+    select?: ExamenCatalogueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenCatalogue
+     */
+    omit?: ExamenCatalogueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenCatalogueInclude<ExtArgs> | null
+    where?: ExamenCatalogueWhereInput
+    orderBy?: ExamenCatalogueOrderByWithRelationInput | ExamenCatalogueOrderByWithRelationInput[]
+    cursor?: ExamenCatalogueWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExamenCatalogueScalarFieldEnum | ExamenCatalogueScalarFieldEnum[]
   }
 
   /**
@@ -14257,6 +14538,8 @@ export namespace Prisma {
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
     facture?: boolean | ExamenLabo$factureArgs<ExtArgs>
+    examens_details?: boolean | ExamenLabo$examens_detailsArgs<ExtArgs>
+    _count?: boolean | ExamenLaboCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["examenLabo"]>
 
   export type ExamenLaboSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -14333,6 +14616,8 @@ export namespace Prisma {
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
     facture?: boolean | ExamenLabo$factureArgs<ExtArgs>
+    examens_details?: boolean | ExamenLabo$examens_detailsArgs<ExtArgs>
+    _count?: boolean | ExamenLaboCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ExamenLaboIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
@@ -14354,6 +14639,7 @@ export namespace Prisma {
       patient: Prisma.$PatientPayload<ExtArgs>
       medecin: Prisma.$UtilisateurPayload<ExtArgs>
       facture: Prisma.$FacturePayload<ExtArgs> | null
+      examens_details: Prisma.$ExamenLaboExamenPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -14771,6 +15057,7 @@ export namespace Prisma {
     patient<T extends PatientDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PatientDefaultArgs<ExtArgs>>): Prisma__PatientClient<$Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     medecin<T extends UtilisateurDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UtilisateurDefaultArgs<ExtArgs>>): Prisma__UtilisateurClient<$Result.GetResult<Prisma.$UtilisateurPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     facture<T extends ExamenLabo$factureArgs<ExtArgs> = {}>(args?: Subset<T, ExamenLabo$factureArgs<ExtArgs>>): Prisma__FactureClient<$Result.GetResult<Prisma.$FacturePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    examens_details<T extends ExamenLabo$examens_detailsArgs<ExtArgs> = {}>(args?: Subset<T, ExamenLabo$examens_detailsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenLaboExamenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15237,6 +15524,30 @@ export namespace Prisma {
   }
 
   /**
+   * ExamenLabo.examens_details
+   */
+  export type ExamenLabo$examens_detailsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenLaboExamen
+     */
+    select?: ExamenLaboExamenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenLaboExamen
+     */
+    omit?: ExamenLaboExamenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenLaboExamenInclude<ExtArgs> | null
+    where?: ExamenLaboExamenWhereInput
+    orderBy?: ExamenLaboExamenOrderByWithRelationInput | ExamenLaboExamenOrderByWithRelationInput[]
+    cursor?: ExamenLaboExamenWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExamenLaboExamenScalarFieldEnum | ExamenLaboExamenScalarFieldEnum[]
+  }
+
+  /**
    * ExamenLabo without action
    */
   export type ExamenLaboDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15252,6 +15563,2307 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ExamenLaboInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ExamenCatalogue
+   */
+
+  export type AggregateExamenCatalogue = {
+    _count: ExamenCatalogueCountAggregateOutputType | null
+    _avg: ExamenCatalogueAvgAggregateOutputType | null
+    _sum: ExamenCatalogueSumAggregateOutputType | null
+    _min: ExamenCatalogueMinAggregateOutputType | null
+    _max: ExamenCatalogueMaxAggregateOutputType | null
+  }
+
+  export type ExamenCatalogueAvgAggregateOutputType = {
+    prix: number | null
+    ordre: number | null
+  }
+
+  export type ExamenCatalogueSumAggregateOutputType = {
+    prix: number | null
+    ordre: number | null
+  }
+
+  export type ExamenCatalogueMinAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    famille: string | null
+    nom: string | null
+    description: string | null
+    prix: number | null
+    actif: boolean | null
+    ordre: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ExamenCatalogueMaxAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    famille: string | null
+    nom: string | null
+    description: string | null
+    prix: number | null
+    actif: boolean | null
+    ordre: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ExamenCatalogueCountAggregateOutputType = {
+    id: number
+    hospital_id: number
+    famille: number
+    nom: number
+    description: number
+    prix: number
+    actif: number
+    ordre: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type ExamenCatalogueAvgAggregateInputType = {
+    prix?: true
+    ordre?: true
+  }
+
+  export type ExamenCatalogueSumAggregateInputType = {
+    prix?: true
+    ordre?: true
+  }
+
+  export type ExamenCatalogueMinAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    famille?: true
+    nom?: true
+    description?: true
+    prix?: true
+    actif?: true
+    ordre?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ExamenCatalogueMaxAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    famille?: true
+    nom?: true
+    description?: true
+    prix?: true
+    actif?: true
+    ordre?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ExamenCatalogueCountAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    famille?: true
+    nom?: true
+    description?: true
+    prix?: true
+    actif?: true
+    ordre?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type ExamenCatalogueAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ExamenCatalogue to aggregate.
+     */
+    where?: ExamenCatalogueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExamenCatalogues to fetch.
+     */
+    orderBy?: ExamenCatalogueOrderByWithRelationInput | ExamenCatalogueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ExamenCatalogueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExamenCatalogues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExamenCatalogues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ExamenCatalogues
+    **/
+    _count?: true | ExamenCatalogueCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ExamenCatalogueAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ExamenCatalogueSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ExamenCatalogueMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ExamenCatalogueMaxAggregateInputType
+  }
+
+  export type GetExamenCatalogueAggregateType<T extends ExamenCatalogueAggregateArgs> = {
+        [P in keyof T & keyof AggregateExamenCatalogue]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateExamenCatalogue[P]>
+      : GetScalarType<T[P], AggregateExamenCatalogue[P]>
+  }
+
+
+
+
+  export type ExamenCatalogueGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExamenCatalogueWhereInput
+    orderBy?: ExamenCatalogueOrderByWithAggregationInput | ExamenCatalogueOrderByWithAggregationInput[]
+    by: ExamenCatalogueScalarFieldEnum[] | ExamenCatalogueScalarFieldEnum
+    having?: ExamenCatalogueScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ExamenCatalogueCountAggregateInputType | true
+    _avg?: ExamenCatalogueAvgAggregateInputType
+    _sum?: ExamenCatalogueSumAggregateInputType
+    _min?: ExamenCatalogueMinAggregateInputType
+    _max?: ExamenCatalogueMaxAggregateInputType
+  }
+
+  export type ExamenCatalogueGroupByOutputType = {
+    id: string
+    hospital_id: string
+    famille: string
+    nom: string
+    description: string | null
+    prix: number
+    actif: boolean
+    ordre: number
+    created_at: Date
+    updated_at: Date
+    _count: ExamenCatalogueCountAggregateOutputType | null
+    _avg: ExamenCatalogueAvgAggregateOutputType | null
+    _sum: ExamenCatalogueSumAggregateOutputType | null
+    _min: ExamenCatalogueMinAggregateOutputType | null
+    _max: ExamenCatalogueMaxAggregateOutputType | null
+  }
+
+  type GetExamenCatalogueGroupByPayload<T extends ExamenCatalogueGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ExamenCatalogueGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ExamenCatalogueGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ExamenCatalogueGroupByOutputType[P]>
+            : GetScalarType<T[P], ExamenCatalogueGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ExamenCatalogueSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    famille?: boolean
+    nom?: boolean
+    description?: boolean
+    prix?: boolean
+    actif?: boolean
+    ordre?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    examens?: boolean | ExamenCatalogue$examensArgs<ExtArgs>
+    _count?: boolean | ExamenCatalogueCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["examenCatalogue"]>
+
+  export type ExamenCatalogueSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    famille?: boolean
+    nom?: boolean
+    description?: boolean
+    prix?: boolean
+    actif?: boolean
+    ordre?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["examenCatalogue"]>
+
+  export type ExamenCatalogueSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    famille?: boolean
+    nom?: boolean
+    description?: boolean
+    prix?: boolean
+    actif?: boolean
+    ordre?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["examenCatalogue"]>
+
+  export type ExamenCatalogueSelectScalar = {
+    id?: boolean
+    hospital_id?: boolean
+    famille?: boolean
+    nom?: boolean
+    description?: boolean
+    prix?: boolean
+    actif?: boolean
+    ordre?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type ExamenCatalogueOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "famille" | "nom" | "description" | "prix" | "actif" | "ordre" | "created_at" | "updated_at", ExtArgs["result"]["examenCatalogue"]>
+  export type ExamenCatalogueInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    examens?: boolean | ExamenCatalogue$examensArgs<ExtArgs>
+    _count?: boolean | ExamenCatalogueCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ExamenCatalogueIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
+  export type ExamenCatalogueIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+  }
+
+  export type $ExamenCataloguePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ExamenCatalogue"
+    objects: {
+      hospital: Prisma.$HospitalPayload<ExtArgs>
+      examens: Prisma.$ExamenLaboExamenPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      hospital_id: string
+      famille: string
+      nom: string
+      description: string | null
+      prix: number
+      actif: boolean
+      ordre: number
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["examenCatalogue"]>
+    composites: {}
+  }
+
+  type ExamenCatalogueGetPayload<S extends boolean | null | undefined | ExamenCatalogueDefaultArgs> = $Result.GetResult<Prisma.$ExamenCataloguePayload, S>
+
+  type ExamenCatalogueCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ExamenCatalogueFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ExamenCatalogueCountAggregateInputType | true
+    }
+
+  export interface ExamenCatalogueDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ExamenCatalogue'], meta: { name: 'ExamenCatalogue' } }
+    /**
+     * Find zero or one ExamenCatalogue that matches the filter.
+     * @param {ExamenCatalogueFindUniqueArgs} args - Arguments to find a ExamenCatalogue
+     * @example
+     * // Get one ExamenCatalogue
+     * const examenCatalogue = await prisma.examenCatalogue.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ExamenCatalogueFindUniqueArgs>(args: SelectSubset<T, ExamenCatalogueFindUniqueArgs<ExtArgs>>): Prisma__ExamenCatalogueClient<$Result.GetResult<Prisma.$ExamenCataloguePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ExamenCatalogue that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ExamenCatalogueFindUniqueOrThrowArgs} args - Arguments to find a ExamenCatalogue
+     * @example
+     * // Get one ExamenCatalogue
+     * const examenCatalogue = await prisma.examenCatalogue.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ExamenCatalogueFindUniqueOrThrowArgs>(args: SelectSubset<T, ExamenCatalogueFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ExamenCatalogueClient<$Result.GetResult<Prisma.$ExamenCataloguePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ExamenCatalogue that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExamenCatalogueFindFirstArgs} args - Arguments to find a ExamenCatalogue
+     * @example
+     * // Get one ExamenCatalogue
+     * const examenCatalogue = await prisma.examenCatalogue.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ExamenCatalogueFindFirstArgs>(args?: SelectSubset<T, ExamenCatalogueFindFirstArgs<ExtArgs>>): Prisma__ExamenCatalogueClient<$Result.GetResult<Prisma.$ExamenCataloguePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ExamenCatalogue that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExamenCatalogueFindFirstOrThrowArgs} args - Arguments to find a ExamenCatalogue
+     * @example
+     * // Get one ExamenCatalogue
+     * const examenCatalogue = await prisma.examenCatalogue.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ExamenCatalogueFindFirstOrThrowArgs>(args?: SelectSubset<T, ExamenCatalogueFindFirstOrThrowArgs<ExtArgs>>): Prisma__ExamenCatalogueClient<$Result.GetResult<Prisma.$ExamenCataloguePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ExamenCatalogues that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExamenCatalogueFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ExamenCatalogues
+     * const examenCatalogues = await prisma.examenCatalogue.findMany()
+     * 
+     * // Get first 10 ExamenCatalogues
+     * const examenCatalogues = await prisma.examenCatalogue.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const examenCatalogueWithIdOnly = await prisma.examenCatalogue.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ExamenCatalogueFindManyArgs>(args?: SelectSubset<T, ExamenCatalogueFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenCataloguePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ExamenCatalogue.
+     * @param {ExamenCatalogueCreateArgs} args - Arguments to create a ExamenCatalogue.
+     * @example
+     * // Create one ExamenCatalogue
+     * const ExamenCatalogue = await prisma.examenCatalogue.create({
+     *   data: {
+     *     // ... data to create a ExamenCatalogue
+     *   }
+     * })
+     * 
+     */
+    create<T extends ExamenCatalogueCreateArgs>(args: SelectSubset<T, ExamenCatalogueCreateArgs<ExtArgs>>): Prisma__ExamenCatalogueClient<$Result.GetResult<Prisma.$ExamenCataloguePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ExamenCatalogues.
+     * @param {ExamenCatalogueCreateManyArgs} args - Arguments to create many ExamenCatalogues.
+     * @example
+     * // Create many ExamenCatalogues
+     * const examenCatalogue = await prisma.examenCatalogue.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ExamenCatalogueCreateManyArgs>(args?: SelectSubset<T, ExamenCatalogueCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ExamenCatalogues and returns the data saved in the database.
+     * @param {ExamenCatalogueCreateManyAndReturnArgs} args - Arguments to create many ExamenCatalogues.
+     * @example
+     * // Create many ExamenCatalogues
+     * const examenCatalogue = await prisma.examenCatalogue.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ExamenCatalogues and only return the `id`
+     * const examenCatalogueWithIdOnly = await prisma.examenCatalogue.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ExamenCatalogueCreateManyAndReturnArgs>(args?: SelectSubset<T, ExamenCatalogueCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenCataloguePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ExamenCatalogue.
+     * @param {ExamenCatalogueDeleteArgs} args - Arguments to delete one ExamenCatalogue.
+     * @example
+     * // Delete one ExamenCatalogue
+     * const ExamenCatalogue = await prisma.examenCatalogue.delete({
+     *   where: {
+     *     // ... filter to delete one ExamenCatalogue
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ExamenCatalogueDeleteArgs>(args: SelectSubset<T, ExamenCatalogueDeleteArgs<ExtArgs>>): Prisma__ExamenCatalogueClient<$Result.GetResult<Prisma.$ExamenCataloguePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ExamenCatalogue.
+     * @param {ExamenCatalogueUpdateArgs} args - Arguments to update one ExamenCatalogue.
+     * @example
+     * // Update one ExamenCatalogue
+     * const examenCatalogue = await prisma.examenCatalogue.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ExamenCatalogueUpdateArgs>(args: SelectSubset<T, ExamenCatalogueUpdateArgs<ExtArgs>>): Prisma__ExamenCatalogueClient<$Result.GetResult<Prisma.$ExamenCataloguePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ExamenCatalogues.
+     * @param {ExamenCatalogueDeleteManyArgs} args - Arguments to filter ExamenCatalogues to delete.
+     * @example
+     * // Delete a few ExamenCatalogues
+     * const { count } = await prisma.examenCatalogue.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ExamenCatalogueDeleteManyArgs>(args?: SelectSubset<T, ExamenCatalogueDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ExamenCatalogues.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExamenCatalogueUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ExamenCatalogues
+     * const examenCatalogue = await prisma.examenCatalogue.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ExamenCatalogueUpdateManyArgs>(args: SelectSubset<T, ExamenCatalogueUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ExamenCatalogues and returns the data updated in the database.
+     * @param {ExamenCatalogueUpdateManyAndReturnArgs} args - Arguments to update many ExamenCatalogues.
+     * @example
+     * // Update many ExamenCatalogues
+     * const examenCatalogue = await prisma.examenCatalogue.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ExamenCatalogues and only return the `id`
+     * const examenCatalogueWithIdOnly = await prisma.examenCatalogue.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ExamenCatalogueUpdateManyAndReturnArgs>(args: SelectSubset<T, ExamenCatalogueUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenCataloguePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ExamenCatalogue.
+     * @param {ExamenCatalogueUpsertArgs} args - Arguments to update or create a ExamenCatalogue.
+     * @example
+     * // Update or create a ExamenCatalogue
+     * const examenCatalogue = await prisma.examenCatalogue.upsert({
+     *   create: {
+     *     // ... data to create a ExamenCatalogue
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ExamenCatalogue we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ExamenCatalogueUpsertArgs>(args: SelectSubset<T, ExamenCatalogueUpsertArgs<ExtArgs>>): Prisma__ExamenCatalogueClient<$Result.GetResult<Prisma.$ExamenCataloguePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ExamenCatalogues.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExamenCatalogueCountArgs} args - Arguments to filter ExamenCatalogues to count.
+     * @example
+     * // Count the number of ExamenCatalogues
+     * const count = await prisma.examenCatalogue.count({
+     *   where: {
+     *     // ... the filter for the ExamenCatalogues we want to count
+     *   }
+     * })
+    **/
+    count<T extends ExamenCatalogueCountArgs>(
+      args?: Subset<T, ExamenCatalogueCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ExamenCatalogueCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ExamenCatalogue.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExamenCatalogueAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ExamenCatalogueAggregateArgs>(args: Subset<T, ExamenCatalogueAggregateArgs>): Prisma.PrismaPromise<GetExamenCatalogueAggregateType<T>>
+
+    /**
+     * Group by ExamenCatalogue.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExamenCatalogueGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ExamenCatalogueGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ExamenCatalogueGroupByArgs['orderBy'] }
+        : { orderBy?: ExamenCatalogueGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ExamenCatalogueGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetExamenCatalogueGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ExamenCatalogue model
+   */
+  readonly fields: ExamenCatalogueFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ExamenCatalogue.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ExamenCatalogueClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    examens<T extends ExamenCatalogue$examensArgs<ExtArgs> = {}>(args?: Subset<T, ExamenCatalogue$examensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenLaboExamenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ExamenCatalogue model
+   */
+  interface ExamenCatalogueFieldRefs {
+    readonly id: FieldRef<"ExamenCatalogue", 'String'>
+    readonly hospital_id: FieldRef<"ExamenCatalogue", 'String'>
+    readonly famille: FieldRef<"ExamenCatalogue", 'String'>
+    readonly nom: FieldRef<"ExamenCatalogue", 'String'>
+    readonly description: FieldRef<"ExamenCatalogue", 'String'>
+    readonly prix: FieldRef<"ExamenCatalogue", 'Float'>
+    readonly actif: FieldRef<"ExamenCatalogue", 'Boolean'>
+    readonly ordre: FieldRef<"ExamenCatalogue", 'Int'>
+    readonly created_at: FieldRef<"ExamenCatalogue", 'DateTime'>
+    readonly updated_at: FieldRef<"ExamenCatalogue", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ExamenCatalogue findUnique
+   */
+  export type ExamenCatalogueFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenCatalogue
+     */
+    select?: ExamenCatalogueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenCatalogue
+     */
+    omit?: ExamenCatalogueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenCatalogueInclude<ExtArgs> | null
+    /**
+     * Filter, which ExamenCatalogue to fetch.
+     */
+    where: ExamenCatalogueWhereUniqueInput
+  }
+
+  /**
+   * ExamenCatalogue findUniqueOrThrow
+   */
+  export type ExamenCatalogueFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenCatalogue
+     */
+    select?: ExamenCatalogueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenCatalogue
+     */
+    omit?: ExamenCatalogueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenCatalogueInclude<ExtArgs> | null
+    /**
+     * Filter, which ExamenCatalogue to fetch.
+     */
+    where: ExamenCatalogueWhereUniqueInput
+  }
+
+  /**
+   * ExamenCatalogue findFirst
+   */
+  export type ExamenCatalogueFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenCatalogue
+     */
+    select?: ExamenCatalogueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenCatalogue
+     */
+    omit?: ExamenCatalogueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenCatalogueInclude<ExtArgs> | null
+    /**
+     * Filter, which ExamenCatalogue to fetch.
+     */
+    where?: ExamenCatalogueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExamenCatalogues to fetch.
+     */
+    orderBy?: ExamenCatalogueOrderByWithRelationInput | ExamenCatalogueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ExamenCatalogues.
+     */
+    cursor?: ExamenCatalogueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExamenCatalogues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExamenCatalogues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ExamenCatalogues.
+     */
+    distinct?: ExamenCatalogueScalarFieldEnum | ExamenCatalogueScalarFieldEnum[]
+  }
+
+  /**
+   * ExamenCatalogue findFirstOrThrow
+   */
+  export type ExamenCatalogueFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenCatalogue
+     */
+    select?: ExamenCatalogueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenCatalogue
+     */
+    omit?: ExamenCatalogueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenCatalogueInclude<ExtArgs> | null
+    /**
+     * Filter, which ExamenCatalogue to fetch.
+     */
+    where?: ExamenCatalogueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExamenCatalogues to fetch.
+     */
+    orderBy?: ExamenCatalogueOrderByWithRelationInput | ExamenCatalogueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ExamenCatalogues.
+     */
+    cursor?: ExamenCatalogueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExamenCatalogues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExamenCatalogues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ExamenCatalogues.
+     */
+    distinct?: ExamenCatalogueScalarFieldEnum | ExamenCatalogueScalarFieldEnum[]
+  }
+
+  /**
+   * ExamenCatalogue findMany
+   */
+  export type ExamenCatalogueFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenCatalogue
+     */
+    select?: ExamenCatalogueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenCatalogue
+     */
+    omit?: ExamenCatalogueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenCatalogueInclude<ExtArgs> | null
+    /**
+     * Filter, which ExamenCatalogues to fetch.
+     */
+    where?: ExamenCatalogueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExamenCatalogues to fetch.
+     */
+    orderBy?: ExamenCatalogueOrderByWithRelationInput | ExamenCatalogueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ExamenCatalogues.
+     */
+    cursor?: ExamenCatalogueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExamenCatalogues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExamenCatalogues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ExamenCatalogues.
+     */
+    distinct?: ExamenCatalogueScalarFieldEnum | ExamenCatalogueScalarFieldEnum[]
+  }
+
+  /**
+   * ExamenCatalogue create
+   */
+  export type ExamenCatalogueCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenCatalogue
+     */
+    select?: ExamenCatalogueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenCatalogue
+     */
+    omit?: ExamenCatalogueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenCatalogueInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ExamenCatalogue.
+     */
+    data: XOR<ExamenCatalogueCreateInput, ExamenCatalogueUncheckedCreateInput>
+  }
+
+  /**
+   * ExamenCatalogue createMany
+   */
+  export type ExamenCatalogueCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ExamenCatalogues.
+     */
+    data: ExamenCatalogueCreateManyInput | ExamenCatalogueCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ExamenCatalogue createManyAndReturn
+   */
+  export type ExamenCatalogueCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenCatalogue
+     */
+    select?: ExamenCatalogueSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenCatalogue
+     */
+    omit?: ExamenCatalogueOmit<ExtArgs> | null
+    /**
+     * The data used to create many ExamenCatalogues.
+     */
+    data: ExamenCatalogueCreateManyInput | ExamenCatalogueCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenCatalogueIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ExamenCatalogue update
+   */
+  export type ExamenCatalogueUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenCatalogue
+     */
+    select?: ExamenCatalogueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenCatalogue
+     */
+    omit?: ExamenCatalogueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenCatalogueInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ExamenCatalogue.
+     */
+    data: XOR<ExamenCatalogueUpdateInput, ExamenCatalogueUncheckedUpdateInput>
+    /**
+     * Choose, which ExamenCatalogue to update.
+     */
+    where: ExamenCatalogueWhereUniqueInput
+  }
+
+  /**
+   * ExamenCatalogue updateMany
+   */
+  export type ExamenCatalogueUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ExamenCatalogues.
+     */
+    data: XOR<ExamenCatalogueUpdateManyMutationInput, ExamenCatalogueUncheckedUpdateManyInput>
+    /**
+     * Filter which ExamenCatalogues to update
+     */
+    where?: ExamenCatalogueWhereInput
+    /**
+     * Limit how many ExamenCatalogues to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ExamenCatalogue updateManyAndReturn
+   */
+  export type ExamenCatalogueUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenCatalogue
+     */
+    select?: ExamenCatalogueSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenCatalogue
+     */
+    omit?: ExamenCatalogueOmit<ExtArgs> | null
+    /**
+     * The data used to update ExamenCatalogues.
+     */
+    data: XOR<ExamenCatalogueUpdateManyMutationInput, ExamenCatalogueUncheckedUpdateManyInput>
+    /**
+     * Filter which ExamenCatalogues to update
+     */
+    where?: ExamenCatalogueWhereInput
+    /**
+     * Limit how many ExamenCatalogues to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenCatalogueIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ExamenCatalogue upsert
+   */
+  export type ExamenCatalogueUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenCatalogue
+     */
+    select?: ExamenCatalogueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenCatalogue
+     */
+    omit?: ExamenCatalogueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenCatalogueInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ExamenCatalogue to update in case it exists.
+     */
+    where: ExamenCatalogueWhereUniqueInput
+    /**
+     * In case the ExamenCatalogue found by the `where` argument doesn't exist, create a new ExamenCatalogue with this data.
+     */
+    create: XOR<ExamenCatalogueCreateInput, ExamenCatalogueUncheckedCreateInput>
+    /**
+     * In case the ExamenCatalogue was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ExamenCatalogueUpdateInput, ExamenCatalogueUncheckedUpdateInput>
+  }
+
+  /**
+   * ExamenCatalogue delete
+   */
+  export type ExamenCatalogueDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenCatalogue
+     */
+    select?: ExamenCatalogueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenCatalogue
+     */
+    omit?: ExamenCatalogueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenCatalogueInclude<ExtArgs> | null
+    /**
+     * Filter which ExamenCatalogue to delete.
+     */
+    where: ExamenCatalogueWhereUniqueInput
+  }
+
+  /**
+   * ExamenCatalogue deleteMany
+   */
+  export type ExamenCatalogueDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ExamenCatalogues to delete
+     */
+    where?: ExamenCatalogueWhereInput
+    /**
+     * Limit how many ExamenCatalogues to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ExamenCatalogue.examens
+   */
+  export type ExamenCatalogue$examensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenLaboExamen
+     */
+    select?: ExamenLaboExamenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenLaboExamen
+     */
+    omit?: ExamenLaboExamenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenLaboExamenInclude<ExtArgs> | null
+    where?: ExamenLaboExamenWhereInput
+    orderBy?: ExamenLaboExamenOrderByWithRelationInput | ExamenLaboExamenOrderByWithRelationInput[]
+    cursor?: ExamenLaboExamenWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExamenLaboExamenScalarFieldEnum | ExamenLaboExamenScalarFieldEnum[]
+  }
+
+  /**
+   * ExamenCatalogue without action
+   */
+  export type ExamenCatalogueDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenCatalogue
+     */
+    select?: ExamenCatalogueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenCatalogue
+     */
+    omit?: ExamenCatalogueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenCatalogueInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ExamenLaboExamen
+   */
+
+  export type AggregateExamenLaboExamen = {
+    _count: ExamenLaboExamenCountAggregateOutputType | null
+    _avg: ExamenLaboExamenAvgAggregateOutputType | null
+    _sum: ExamenLaboExamenSumAggregateOutputType | null
+    _min: ExamenLaboExamenMinAggregateOutputType | null
+    _max: ExamenLaboExamenMaxAggregateOutputType | null
+  }
+
+  export type ExamenLaboExamenAvgAggregateOutputType = {
+    prix_snapshot: number | null
+  }
+
+  export type ExamenLaboExamenSumAggregateOutputType = {
+    prix_snapshot: number | null
+  }
+
+  export type ExamenLaboExamenMinAggregateOutputType = {
+    id: string | null
+    examen_labo_id: string | null
+    catalogue_id: string | null
+    prix_snapshot: number | null
+    created_at: Date | null
+  }
+
+  export type ExamenLaboExamenMaxAggregateOutputType = {
+    id: string | null
+    examen_labo_id: string | null
+    catalogue_id: string | null
+    prix_snapshot: number | null
+    created_at: Date | null
+  }
+
+  export type ExamenLaboExamenCountAggregateOutputType = {
+    id: number
+    examen_labo_id: number
+    catalogue_id: number
+    prix_snapshot: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type ExamenLaboExamenAvgAggregateInputType = {
+    prix_snapshot?: true
+  }
+
+  export type ExamenLaboExamenSumAggregateInputType = {
+    prix_snapshot?: true
+  }
+
+  export type ExamenLaboExamenMinAggregateInputType = {
+    id?: true
+    examen_labo_id?: true
+    catalogue_id?: true
+    prix_snapshot?: true
+    created_at?: true
+  }
+
+  export type ExamenLaboExamenMaxAggregateInputType = {
+    id?: true
+    examen_labo_id?: true
+    catalogue_id?: true
+    prix_snapshot?: true
+    created_at?: true
+  }
+
+  export type ExamenLaboExamenCountAggregateInputType = {
+    id?: true
+    examen_labo_id?: true
+    catalogue_id?: true
+    prix_snapshot?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type ExamenLaboExamenAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ExamenLaboExamen to aggregate.
+     */
+    where?: ExamenLaboExamenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExamenLaboExamen to fetch.
+     */
+    orderBy?: ExamenLaboExamenOrderByWithRelationInput | ExamenLaboExamenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ExamenLaboExamenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExamenLaboExamen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExamenLaboExamen.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ExamenLaboExamen
+    **/
+    _count?: true | ExamenLaboExamenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ExamenLaboExamenAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ExamenLaboExamenSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ExamenLaboExamenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ExamenLaboExamenMaxAggregateInputType
+  }
+
+  export type GetExamenLaboExamenAggregateType<T extends ExamenLaboExamenAggregateArgs> = {
+        [P in keyof T & keyof AggregateExamenLaboExamen]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateExamenLaboExamen[P]>
+      : GetScalarType<T[P], AggregateExamenLaboExamen[P]>
+  }
+
+
+
+
+  export type ExamenLaboExamenGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExamenLaboExamenWhereInput
+    orderBy?: ExamenLaboExamenOrderByWithAggregationInput | ExamenLaboExamenOrderByWithAggregationInput[]
+    by: ExamenLaboExamenScalarFieldEnum[] | ExamenLaboExamenScalarFieldEnum
+    having?: ExamenLaboExamenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ExamenLaboExamenCountAggregateInputType | true
+    _avg?: ExamenLaboExamenAvgAggregateInputType
+    _sum?: ExamenLaboExamenSumAggregateInputType
+    _min?: ExamenLaboExamenMinAggregateInputType
+    _max?: ExamenLaboExamenMaxAggregateInputType
+  }
+
+  export type ExamenLaboExamenGroupByOutputType = {
+    id: string
+    examen_labo_id: string
+    catalogue_id: string
+    prix_snapshot: number
+    created_at: Date
+    _count: ExamenLaboExamenCountAggregateOutputType | null
+    _avg: ExamenLaboExamenAvgAggregateOutputType | null
+    _sum: ExamenLaboExamenSumAggregateOutputType | null
+    _min: ExamenLaboExamenMinAggregateOutputType | null
+    _max: ExamenLaboExamenMaxAggregateOutputType | null
+  }
+
+  type GetExamenLaboExamenGroupByPayload<T extends ExamenLaboExamenGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ExamenLaboExamenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ExamenLaboExamenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ExamenLaboExamenGroupByOutputType[P]>
+            : GetScalarType<T[P], ExamenLaboExamenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ExamenLaboExamenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    examen_labo_id?: boolean
+    catalogue_id?: boolean
+    prix_snapshot?: boolean
+    created_at?: boolean
+    examen_labo?: boolean | ExamenLaboDefaultArgs<ExtArgs>
+    catalogue?: boolean | ExamenCatalogueDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["examenLaboExamen"]>
+
+  export type ExamenLaboExamenSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    examen_labo_id?: boolean
+    catalogue_id?: boolean
+    prix_snapshot?: boolean
+    created_at?: boolean
+    examen_labo?: boolean | ExamenLaboDefaultArgs<ExtArgs>
+    catalogue?: boolean | ExamenCatalogueDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["examenLaboExamen"]>
+
+  export type ExamenLaboExamenSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    examen_labo_id?: boolean
+    catalogue_id?: boolean
+    prix_snapshot?: boolean
+    created_at?: boolean
+    examen_labo?: boolean | ExamenLaboDefaultArgs<ExtArgs>
+    catalogue?: boolean | ExamenCatalogueDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["examenLaboExamen"]>
+
+  export type ExamenLaboExamenSelectScalar = {
+    id?: boolean
+    examen_labo_id?: boolean
+    catalogue_id?: boolean
+    prix_snapshot?: boolean
+    created_at?: boolean
+  }
+
+  export type ExamenLaboExamenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "examen_labo_id" | "catalogue_id" | "prix_snapshot" | "created_at", ExtArgs["result"]["examenLaboExamen"]>
+  export type ExamenLaboExamenInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    examen_labo?: boolean | ExamenLaboDefaultArgs<ExtArgs>
+    catalogue?: boolean | ExamenCatalogueDefaultArgs<ExtArgs>
+  }
+  export type ExamenLaboExamenIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    examen_labo?: boolean | ExamenLaboDefaultArgs<ExtArgs>
+    catalogue?: boolean | ExamenCatalogueDefaultArgs<ExtArgs>
+  }
+  export type ExamenLaboExamenIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    examen_labo?: boolean | ExamenLaboDefaultArgs<ExtArgs>
+    catalogue?: boolean | ExamenCatalogueDefaultArgs<ExtArgs>
+  }
+
+  export type $ExamenLaboExamenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ExamenLaboExamen"
+    objects: {
+      examen_labo: Prisma.$ExamenLaboPayload<ExtArgs>
+      catalogue: Prisma.$ExamenCataloguePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      examen_labo_id: string
+      catalogue_id: string
+      prix_snapshot: number
+      created_at: Date
+    }, ExtArgs["result"]["examenLaboExamen"]>
+    composites: {}
+  }
+
+  type ExamenLaboExamenGetPayload<S extends boolean | null | undefined | ExamenLaboExamenDefaultArgs> = $Result.GetResult<Prisma.$ExamenLaboExamenPayload, S>
+
+  type ExamenLaboExamenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ExamenLaboExamenFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ExamenLaboExamenCountAggregateInputType | true
+    }
+
+  export interface ExamenLaboExamenDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ExamenLaboExamen'], meta: { name: 'ExamenLaboExamen' } }
+    /**
+     * Find zero or one ExamenLaboExamen that matches the filter.
+     * @param {ExamenLaboExamenFindUniqueArgs} args - Arguments to find a ExamenLaboExamen
+     * @example
+     * // Get one ExamenLaboExamen
+     * const examenLaboExamen = await prisma.examenLaboExamen.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ExamenLaboExamenFindUniqueArgs>(args: SelectSubset<T, ExamenLaboExamenFindUniqueArgs<ExtArgs>>): Prisma__ExamenLaboExamenClient<$Result.GetResult<Prisma.$ExamenLaboExamenPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ExamenLaboExamen that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ExamenLaboExamenFindUniqueOrThrowArgs} args - Arguments to find a ExamenLaboExamen
+     * @example
+     * // Get one ExamenLaboExamen
+     * const examenLaboExamen = await prisma.examenLaboExamen.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ExamenLaboExamenFindUniqueOrThrowArgs>(args: SelectSubset<T, ExamenLaboExamenFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ExamenLaboExamenClient<$Result.GetResult<Prisma.$ExamenLaboExamenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ExamenLaboExamen that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExamenLaboExamenFindFirstArgs} args - Arguments to find a ExamenLaboExamen
+     * @example
+     * // Get one ExamenLaboExamen
+     * const examenLaboExamen = await prisma.examenLaboExamen.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ExamenLaboExamenFindFirstArgs>(args?: SelectSubset<T, ExamenLaboExamenFindFirstArgs<ExtArgs>>): Prisma__ExamenLaboExamenClient<$Result.GetResult<Prisma.$ExamenLaboExamenPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ExamenLaboExamen that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExamenLaboExamenFindFirstOrThrowArgs} args - Arguments to find a ExamenLaboExamen
+     * @example
+     * // Get one ExamenLaboExamen
+     * const examenLaboExamen = await prisma.examenLaboExamen.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ExamenLaboExamenFindFirstOrThrowArgs>(args?: SelectSubset<T, ExamenLaboExamenFindFirstOrThrowArgs<ExtArgs>>): Prisma__ExamenLaboExamenClient<$Result.GetResult<Prisma.$ExamenLaboExamenPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ExamenLaboExamen that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExamenLaboExamenFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ExamenLaboExamen
+     * const examenLaboExamen = await prisma.examenLaboExamen.findMany()
+     * 
+     * // Get first 10 ExamenLaboExamen
+     * const examenLaboExamen = await prisma.examenLaboExamen.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const examenLaboExamenWithIdOnly = await prisma.examenLaboExamen.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ExamenLaboExamenFindManyArgs>(args?: SelectSubset<T, ExamenLaboExamenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenLaboExamenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ExamenLaboExamen.
+     * @param {ExamenLaboExamenCreateArgs} args - Arguments to create a ExamenLaboExamen.
+     * @example
+     * // Create one ExamenLaboExamen
+     * const ExamenLaboExamen = await prisma.examenLaboExamen.create({
+     *   data: {
+     *     // ... data to create a ExamenLaboExamen
+     *   }
+     * })
+     * 
+     */
+    create<T extends ExamenLaboExamenCreateArgs>(args: SelectSubset<T, ExamenLaboExamenCreateArgs<ExtArgs>>): Prisma__ExamenLaboExamenClient<$Result.GetResult<Prisma.$ExamenLaboExamenPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ExamenLaboExamen.
+     * @param {ExamenLaboExamenCreateManyArgs} args - Arguments to create many ExamenLaboExamen.
+     * @example
+     * // Create many ExamenLaboExamen
+     * const examenLaboExamen = await prisma.examenLaboExamen.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ExamenLaboExamenCreateManyArgs>(args?: SelectSubset<T, ExamenLaboExamenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ExamenLaboExamen and returns the data saved in the database.
+     * @param {ExamenLaboExamenCreateManyAndReturnArgs} args - Arguments to create many ExamenLaboExamen.
+     * @example
+     * // Create many ExamenLaboExamen
+     * const examenLaboExamen = await prisma.examenLaboExamen.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ExamenLaboExamen and only return the `id`
+     * const examenLaboExamenWithIdOnly = await prisma.examenLaboExamen.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ExamenLaboExamenCreateManyAndReturnArgs>(args?: SelectSubset<T, ExamenLaboExamenCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenLaboExamenPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ExamenLaboExamen.
+     * @param {ExamenLaboExamenDeleteArgs} args - Arguments to delete one ExamenLaboExamen.
+     * @example
+     * // Delete one ExamenLaboExamen
+     * const ExamenLaboExamen = await prisma.examenLaboExamen.delete({
+     *   where: {
+     *     // ... filter to delete one ExamenLaboExamen
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ExamenLaboExamenDeleteArgs>(args: SelectSubset<T, ExamenLaboExamenDeleteArgs<ExtArgs>>): Prisma__ExamenLaboExamenClient<$Result.GetResult<Prisma.$ExamenLaboExamenPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ExamenLaboExamen.
+     * @param {ExamenLaboExamenUpdateArgs} args - Arguments to update one ExamenLaboExamen.
+     * @example
+     * // Update one ExamenLaboExamen
+     * const examenLaboExamen = await prisma.examenLaboExamen.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ExamenLaboExamenUpdateArgs>(args: SelectSubset<T, ExamenLaboExamenUpdateArgs<ExtArgs>>): Prisma__ExamenLaboExamenClient<$Result.GetResult<Prisma.$ExamenLaboExamenPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ExamenLaboExamen.
+     * @param {ExamenLaboExamenDeleteManyArgs} args - Arguments to filter ExamenLaboExamen to delete.
+     * @example
+     * // Delete a few ExamenLaboExamen
+     * const { count } = await prisma.examenLaboExamen.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ExamenLaboExamenDeleteManyArgs>(args?: SelectSubset<T, ExamenLaboExamenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ExamenLaboExamen.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExamenLaboExamenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ExamenLaboExamen
+     * const examenLaboExamen = await prisma.examenLaboExamen.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ExamenLaboExamenUpdateManyArgs>(args: SelectSubset<T, ExamenLaboExamenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ExamenLaboExamen and returns the data updated in the database.
+     * @param {ExamenLaboExamenUpdateManyAndReturnArgs} args - Arguments to update many ExamenLaboExamen.
+     * @example
+     * // Update many ExamenLaboExamen
+     * const examenLaboExamen = await prisma.examenLaboExamen.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ExamenLaboExamen and only return the `id`
+     * const examenLaboExamenWithIdOnly = await prisma.examenLaboExamen.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ExamenLaboExamenUpdateManyAndReturnArgs>(args: SelectSubset<T, ExamenLaboExamenUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenLaboExamenPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ExamenLaboExamen.
+     * @param {ExamenLaboExamenUpsertArgs} args - Arguments to update or create a ExamenLaboExamen.
+     * @example
+     * // Update or create a ExamenLaboExamen
+     * const examenLaboExamen = await prisma.examenLaboExamen.upsert({
+     *   create: {
+     *     // ... data to create a ExamenLaboExamen
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ExamenLaboExamen we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ExamenLaboExamenUpsertArgs>(args: SelectSubset<T, ExamenLaboExamenUpsertArgs<ExtArgs>>): Prisma__ExamenLaboExamenClient<$Result.GetResult<Prisma.$ExamenLaboExamenPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ExamenLaboExamen.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExamenLaboExamenCountArgs} args - Arguments to filter ExamenLaboExamen to count.
+     * @example
+     * // Count the number of ExamenLaboExamen
+     * const count = await prisma.examenLaboExamen.count({
+     *   where: {
+     *     // ... the filter for the ExamenLaboExamen we want to count
+     *   }
+     * })
+    **/
+    count<T extends ExamenLaboExamenCountArgs>(
+      args?: Subset<T, ExamenLaboExamenCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ExamenLaboExamenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ExamenLaboExamen.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExamenLaboExamenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ExamenLaboExamenAggregateArgs>(args: Subset<T, ExamenLaboExamenAggregateArgs>): Prisma.PrismaPromise<GetExamenLaboExamenAggregateType<T>>
+
+    /**
+     * Group by ExamenLaboExamen.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExamenLaboExamenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ExamenLaboExamenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ExamenLaboExamenGroupByArgs['orderBy'] }
+        : { orderBy?: ExamenLaboExamenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ExamenLaboExamenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetExamenLaboExamenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ExamenLaboExamen model
+   */
+  readonly fields: ExamenLaboExamenFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ExamenLaboExamen.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ExamenLaboExamenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    examen_labo<T extends ExamenLaboDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ExamenLaboDefaultArgs<ExtArgs>>): Prisma__ExamenLaboClient<$Result.GetResult<Prisma.$ExamenLaboPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    catalogue<T extends ExamenCatalogueDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ExamenCatalogueDefaultArgs<ExtArgs>>): Prisma__ExamenCatalogueClient<$Result.GetResult<Prisma.$ExamenCataloguePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ExamenLaboExamen model
+   */
+  interface ExamenLaboExamenFieldRefs {
+    readonly id: FieldRef<"ExamenLaboExamen", 'String'>
+    readonly examen_labo_id: FieldRef<"ExamenLaboExamen", 'String'>
+    readonly catalogue_id: FieldRef<"ExamenLaboExamen", 'String'>
+    readonly prix_snapshot: FieldRef<"ExamenLaboExamen", 'Float'>
+    readonly created_at: FieldRef<"ExamenLaboExamen", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ExamenLaboExamen findUnique
+   */
+  export type ExamenLaboExamenFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenLaboExamen
+     */
+    select?: ExamenLaboExamenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenLaboExamen
+     */
+    omit?: ExamenLaboExamenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenLaboExamenInclude<ExtArgs> | null
+    /**
+     * Filter, which ExamenLaboExamen to fetch.
+     */
+    where: ExamenLaboExamenWhereUniqueInput
+  }
+
+  /**
+   * ExamenLaboExamen findUniqueOrThrow
+   */
+  export type ExamenLaboExamenFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenLaboExamen
+     */
+    select?: ExamenLaboExamenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenLaboExamen
+     */
+    omit?: ExamenLaboExamenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenLaboExamenInclude<ExtArgs> | null
+    /**
+     * Filter, which ExamenLaboExamen to fetch.
+     */
+    where: ExamenLaboExamenWhereUniqueInput
+  }
+
+  /**
+   * ExamenLaboExamen findFirst
+   */
+  export type ExamenLaboExamenFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenLaboExamen
+     */
+    select?: ExamenLaboExamenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenLaboExamen
+     */
+    omit?: ExamenLaboExamenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenLaboExamenInclude<ExtArgs> | null
+    /**
+     * Filter, which ExamenLaboExamen to fetch.
+     */
+    where?: ExamenLaboExamenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExamenLaboExamen to fetch.
+     */
+    orderBy?: ExamenLaboExamenOrderByWithRelationInput | ExamenLaboExamenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ExamenLaboExamen.
+     */
+    cursor?: ExamenLaboExamenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExamenLaboExamen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExamenLaboExamen.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ExamenLaboExamen.
+     */
+    distinct?: ExamenLaboExamenScalarFieldEnum | ExamenLaboExamenScalarFieldEnum[]
+  }
+
+  /**
+   * ExamenLaboExamen findFirstOrThrow
+   */
+  export type ExamenLaboExamenFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenLaboExamen
+     */
+    select?: ExamenLaboExamenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenLaboExamen
+     */
+    omit?: ExamenLaboExamenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenLaboExamenInclude<ExtArgs> | null
+    /**
+     * Filter, which ExamenLaboExamen to fetch.
+     */
+    where?: ExamenLaboExamenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExamenLaboExamen to fetch.
+     */
+    orderBy?: ExamenLaboExamenOrderByWithRelationInput | ExamenLaboExamenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ExamenLaboExamen.
+     */
+    cursor?: ExamenLaboExamenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExamenLaboExamen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExamenLaboExamen.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ExamenLaboExamen.
+     */
+    distinct?: ExamenLaboExamenScalarFieldEnum | ExamenLaboExamenScalarFieldEnum[]
+  }
+
+  /**
+   * ExamenLaboExamen findMany
+   */
+  export type ExamenLaboExamenFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenLaboExamen
+     */
+    select?: ExamenLaboExamenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenLaboExamen
+     */
+    omit?: ExamenLaboExamenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenLaboExamenInclude<ExtArgs> | null
+    /**
+     * Filter, which ExamenLaboExamen to fetch.
+     */
+    where?: ExamenLaboExamenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExamenLaboExamen to fetch.
+     */
+    orderBy?: ExamenLaboExamenOrderByWithRelationInput | ExamenLaboExamenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ExamenLaboExamen.
+     */
+    cursor?: ExamenLaboExamenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExamenLaboExamen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExamenLaboExamen.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ExamenLaboExamen.
+     */
+    distinct?: ExamenLaboExamenScalarFieldEnum | ExamenLaboExamenScalarFieldEnum[]
+  }
+
+  /**
+   * ExamenLaboExamen create
+   */
+  export type ExamenLaboExamenCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenLaboExamen
+     */
+    select?: ExamenLaboExamenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenLaboExamen
+     */
+    omit?: ExamenLaboExamenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenLaboExamenInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ExamenLaboExamen.
+     */
+    data: XOR<ExamenLaboExamenCreateInput, ExamenLaboExamenUncheckedCreateInput>
+  }
+
+  /**
+   * ExamenLaboExamen createMany
+   */
+  export type ExamenLaboExamenCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ExamenLaboExamen.
+     */
+    data: ExamenLaboExamenCreateManyInput | ExamenLaboExamenCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ExamenLaboExamen createManyAndReturn
+   */
+  export type ExamenLaboExamenCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenLaboExamen
+     */
+    select?: ExamenLaboExamenSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenLaboExamen
+     */
+    omit?: ExamenLaboExamenOmit<ExtArgs> | null
+    /**
+     * The data used to create many ExamenLaboExamen.
+     */
+    data: ExamenLaboExamenCreateManyInput | ExamenLaboExamenCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenLaboExamenIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ExamenLaboExamen update
+   */
+  export type ExamenLaboExamenUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenLaboExamen
+     */
+    select?: ExamenLaboExamenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenLaboExamen
+     */
+    omit?: ExamenLaboExamenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenLaboExamenInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ExamenLaboExamen.
+     */
+    data: XOR<ExamenLaboExamenUpdateInput, ExamenLaboExamenUncheckedUpdateInput>
+    /**
+     * Choose, which ExamenLaboExamen to update.
+     */
+    where: ExamenLaboExamenWhereUniqueInput
+  }
+
+  /**
+   * ExamenLaboExamen updateMany
+   */
+  export type ExamenLaboExamenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ExamenLaboExamen.
+     */
+    data: XOR<ExamenLaboExamenUpdateManyMutationInput, ExamenLaboExamenUncheckedUpdateManyInput>
+    /**
+     * Filter which ExamenLaboExamen to update
+     */
+    where?: ExamenLaboExamenWhereInput
+    /**
+     * Limit how many ExamenLaboExamen to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ExamenLaboExamen updateManyAndReturn
+   */
+  export type ExamenLaboExamenUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenLaboExamen
+     */
+    select?: ExamenLaboExamenSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenLaboExamen
+     */
+    omit?: ExamenLaboExamenOmit<ExtArgs> | null
+    /**
+     * The data used to update ExamenLaboExamen.
+     */
+    data: XOR<ExamenLaboExamenUpdateManyMutationInput, ExamenLaboExamenUncheckedUpdateManyInput>
+    /**
+     * Filter which ExamenLaboExamen to update
+     */
+    where?: ExamenLaboExamenWhereInput
+    /**
+     * Limit how many ExamenLaboExamen to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenLaboExamenIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ExamenLaboExamen upsert
+   */
+  export type ExamenLaboExamenUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenLaboExamen
+     */
+    select?: ExamenLaboExamenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenLaboExamen
+     */
+    omit?: ExamenLaboExamenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenLaboExamenInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ExamenLaboExamen to update in case it exists.
+     */
+    where: ExamenLaboExamenWhereUniqueInput
+    /**
+     * In case the ExamenLaboExamen found by the `where` argument doesn't exist, create a new ExamenLaboExamen with this data.
+     */
+    create: XOR<ExamenLaboExamenCreateInput, ExamenLaboExamenUncheckedCreateInput>
+    /**
+     * In case the ExamenLaboExamen was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ExamenLaboExamenUpdateInput, ExamenLaboExamenUncheckedUpdateInput>
+  }
+
+  /**
+   * ExamenLaboExamen delete
+   */
+  export type ExamenLaboExamenDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenLaboExamen
+     */
+    select?: ExamenLaboExamenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenLaboExamen
+     */
+    omit?: ExamenLaboExamenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenLaboExamenInclude<ExtArgs> | null
+    /**
+     * Filter which ExamenLaboExamen to delete.
+     */
+    where: ExamenLaboExamenWhereUniqueInput
+  }
+
+  /**
+   * ExamenLaboExamen deleteMany
+   */
+  export type ExamenLaboExamenDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ExamenLaboExamen to delete
+     */
+    where?: ExamenLaboExamenWhereInput
+    /**
+     * Limit how many ExamenLaboExamen to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ExamenLaboExamen without action
+   */
+  export type ExamenLaboExamenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExamenLaboExamen
+     */
+    select?: ExamenLaboExamenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExamenLaboExamen
+     */
+    omit?: ExamenLaboExamenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExamenLaboExamenInclude<ExtArgs> | null
   }
 
 
@@ -30948,6 +33560,33 @@ export namespace Prisma {
   export type ExamenLaboScalarFieldEnum = (typeof ExamenLaboScalarFieldEnum)[keyof typeof ExamenLaboScalarFieldEnum]
 
 
+  export const ExamenCatalogueScalarFieldEnum: {
+    id: 'id',
+    hospital_id: 'hospital_id',
+    famille: 'famille',
+    nom: 'nom',
+    description: 'description',
+    prix: 'prix',
+    actif: 'actif',
+    ordre: 'ordre',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type ExamenCatalogueScalarFieldEnum = (typeof ExamenCatalogueScalarFieldEnum)[keyof typeof ExamenCatalogueScalarFieldEnum]
+
+
+  export const ExamenLaboExamenScalarFieldEnum: {
+    id: 'id',
+    examen_labo_id: 'examen_labo_id',
+    catalogue_id: 'catalogue_id',
+    prix_snapshot: 'prix_snapshot',
+    created_at: 'created_at'
+  };
+
+  export type ExamenLaboExamenScalarFieldEnum = (typeof ExamenLaboExamenScalarFieldEnum)[keyof typeof ExamenLaboExamenScalarFieldEnum]
+
+
   export const ExamenImagerieScalarFieldEnum: {
     id: 'id',
     hospital_id: 'hospital_id',
@@ -31559,6 +34198,7 @@ export namespace Prisma {
     services?: ServiceListRelationFilter
     factures?: FactureListRelationFilter
     examens_labo?: ExamenLaboListRelationFilter
+    examens_catalogue?: ExamenCatalogueListRelationFilter
     examens_imagerie?: ExamenImagerieListRelationFilter
     articles_stock?: ArticleStockListRelationFilter
     mouvements_stock?: MouvementStockListRelationFilter
@@ -31588,6 +34228,7 @@ export namespace Prisma {
     services?: ServiceOrderByRelationAggregateInput
     factures?: FactureOrderByRelationAggregateInput
     examens_labo?: ExamenLaboOrderByRelationAggregateInput
+    examens_catalogue?: ExamenCatalogueOrderByRelationAggregateInput
     examens_imagerie?: ExamenImagerieOrderByRelationAggregateInput
     articles_stock?: ArticleStockOrderByRelationAggregateInput
     mouvements_stock?: MouvementStockOrderByRelationAggregateInput
@@ -31620,6 +34261,7 @@ export namespace Prisma {
     services?: ServiceListRelationFilter
     factures?: FactureListRelationFilter
     examens_labo?: ExamenLaboListRelationFilter
+    examens_catalogue?: ExamenCatalogueListRelationFilter
     examens_imagerie?: ExamenImagerieListRelationFilter
     articles_stock?: ArticleStockListRelationFilter
     mouvements_stock?: MouvementStockListRelationFilter
@@ -32387,6 +35029,7 @@ export namespace Prisma {
     patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
     medecin?: XOR<UtilisateurScalarRelationFilter, UtilisateurWhereInput>
     facture?: XOR<FactureNullableScalarRelationFilter, FactureWhereInput> | null
+    examens_details?: ExamenLaboExamenListRelationFilter
   }
 
   export type ExamenLaboOrderByWithRelationInput = {
@@ -32411,6 +35054,7 @@ export namespace Prisma {
     patient?: PatientOrderByWithRelationInput
     medecin?: UtilisateurOrderByWithRelationInput
     facture?: FactureOrderByWithRelationInput
+    examens_details?: ExamenLaboExamenOrderByRelationAggregateInput
   }
 
   export type ExamenLaboWhereUniqueInput = Prisma.AtLeast<{
@@ -32438,6 +35082,7 @@ export namespace Prisma {
     patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
     medecin?: XOR<UtilisateurScalarRelationFilter, UtilisateurWhereInput>
     facture?: XOR<FactureNullableScalarRelationFilter, FactureWhereInput> | null
+    examens_details?: ExamenLaboExamenListRelationFilter
   }, "id">
 
   export type ExamenLaboOrderByWithAggregationInput = {
@@ -32486,6 +35131,151 @@ export namespace Prisma {
     facture_id?: StringNullableWithAggregatesFilter<"ExamenLabo"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"ExamenLabo"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"ExamenLabo"> | Date | string
+  }
+
+  export type ExamenCatalogueWhereInput = {
+    AND?: ExamenCatalogueWhereInput | ExamenCatalogueWhereInput[]
+    OR?: ExamenCatalogueWhereInput[]
+    NOT?: ExamenCatalogueWhereInput | ExamenCatalogueWhereInput[]
+    id?: StringFilter<"ExamenCatalogue"> | string
+    hospital_id?: StringFilter<"ExamenCatalogue"> | string
+    famille?: StringFilter<"ExamenCatalogue"> | string
+    nom?: StringFilter<"ExamenCatalogue"> | string
+    description?: StringNullableFilter<"ExamenCatalogue"> | string | null
+    prix?: FloatFilter<"ExamenCatalogue"> | number
+    actif?: BoolFilter<"ExamenCatalogue"> | boolean
+    ordre?: IntFilter<"ExamenCatalogue"> | number
+    created_at?: DateTimeFilter<"ExamenCatalogue"> | Date | string
+    updated_at?: DateTimeFilter<"ExamenCatalogue"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+    examens?: ExamenLaboExamenListRelationFilter
+  }
+
+  export type ExamenCatalogueOrderByWithRelationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    famille?: SortOrder
+    nom?: SortOrder
+    description?: SortOrderInput | SortOrder
+    prix?: SortOrder
+    actif?: SortOrder
+    ordre?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    hospital?: HospitalOrderByWithRelationInput
+    examens?: ExamenLaboExamenOrderByRelationAggregateInput
+  }
+
+  export type ExamenCatalogueWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ExamenCatalogueWhereInput | ExamenCatalogueWhereInput[]
+    OR?: ExamenCatalogueWhereInput[]
+    NOT?: ExamenCatalogueWhereInput | ExamenCatalogueWhereInput[]
+    hospital_id?: StringFilter<"ExamenCatalogue"> | string
+    famille?: StringFilter<"ExamenCatalogue"> | string
+    nom?: StringFilter<"ExamenCatalogue"> | string
+    description?: StringNullableFilter<"ExamenCatalogue"> | string | null
+    prix?: FloatFilter<"ExamenCatalogue"> | number
+    actif?: BoolFilter<"ExamenCatalogue"> | boolean
+    ordre?: IntFilter<"ExamenCatalogue"> | number
+    created_at?: DateTimeFilter<"ExamenCatalogue"> | Date | string
+    updated_at?: DateTimeFilter<"ExamenCatalogue"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+    examens?: ExamenLaboExamenListRelationFilter
+  }, "id">
+
+  export type ExamenCatalogueOrderByWithAggregationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    famille?: SortOrder
+    nom?: SortOrder
+    description?: SortOrderInput | SortOrder
+    prix?: SortOrder
+    actif?: SortOrder
+    ordre?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: ExamenCatalogueCountOrderByAggregateInput
+    _avg?: ExamenCatalogueAvgOrderByAggregateInput
+    _max?: ExamenCatalogueMaxOrderByAggregateInput
+    _min?: ExamenCatalogueMinOrderByAggregateInput
+    _sum?: ExamenCatalogueSumOrderByAggregateInput
+  }
+
+  export type ExamenCatalogueScalarWhereWithAggregatesInput = {
+    AND?: ExamenCatalogueScalarWhereWithAggregatesInput | ExamenCatalogueScalarWhereWithAggregatesInput[]
+    OR?: ExamenCatalogueScalarWhereWithAggregatesInput[]
+    NOT?: ExamenCatalogueScalarWhereWithAggregatesInput | ExamenCatalogueScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ExamenCatalogue"> | string
+    hospital_id?: StringWithAggregatesFilter<"ExamenCatalogue"> | string
+    famille?: StringWithAggregatesFilter<"ExamenCatalogue"> | string
+    nom?: StringWithAggregatesFilter<"ExamenCatalogue"> | string
+    description?: StringNullableWithAggregatesFilter<"ExamenCatalogue"> | string | null
+    prix?: FloatWithAggregatesFilter<"ExamenCatalogue"> | number
+    actif?: BoolWithAggregatesFilter<"ExamenCatalogue"> | boolean
+    ordre?: IntWithAggregatesFilter<"ExamenCatalogue"> | number
+    created_at?: DateTimeWithAggregatesFilter<"ExamenCatalogue"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"ExamenCatalogue"> | Date | string
+  }
+
+  export type ExamenLaboExamenWhereInput = {
+    AND?: ExamenLaboExamenWhereInput | ExamenLaboExamenWhereInput[]
+    OR?: ExamenLaboExamenWhereInput[]
+    NOT?: ExamenLaboExamenWhereInput | ExamenLaboExamenWhereInput[]
+    id?: StringFilter<"ExamenLaboExamen"> | string
+    examen_labo_id?: StringFilter<"ExamenLaboExamen"> | string
+    catalogue_id?: StringFilter<"ExamenLaboExamen"> | string
+    prix_snapshot?: FloatFilter<"ExamenLaboExamen"> | number
+    created_at?: DateTimeFilter<"ExamenLaboExamen"> | Date | string
+    examen_labo?: XOR<ExamenLaboScalarRelationFilter, ExamenLaboWhereInput>
+    catalogue?: XOR<ExamenCatalogueScalarRelationFilter, ExamenCatalogueWhereInput>
+  }
+
+  export type ExamenLaboExamenOrderByWithRelationInput = {
+    id?: SortOrder
+    examen_labo_id?: SortOrder
+    catalogue_id?: SortOrder
+    prix_snapshot?: SortOrder
+    created_at?: SortOrder
+    examen_labo?: ExamenLaboOrderByWithRelationInput
+    catalogue?: ExamenCatalogueOrderByWithRelationInput
+  }
+
+  export type ExamenLaboExamenWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ExamenLaboExamenWhereInput | ExamenLaboExamenWhereInput[]
+    OR?: ExamenLaboExamenWhereInput[]
+    NOT?: ExamenLaboExamenWhereInput | ExamenLaboExamenWhereInput[]
+    examen_labo_id?: StringFilter<"ExamenLaboExamen"> | string
+    catalogue_id?: StringFilter<"ExamenLaboExamen"> | string
+    prix_snapshot?: FloatFilter<"ExamenLaboExamen"> | number
+    created_at?: DateTimeFilter<"ExamenLaboExamen"> | Date | string
+    examen_labo?: XOR<ExamenLaboScalarRelationFilter, ExamenLaboWhereInput>
+    catalogue?: XOR<ExamenCatalogueScalarRelationFilter, ExamenCatalogueWhereInput>
+  }, "id">
+
+  export type ExamenLaboExamenOrderByWithAggregationInput = {
+    id?: SortOrder
+    examen_labo_id?: SortOrder
+    catalogue_id?: SortOrder
+    prix_snapshot?: SortOrder
+    created_at?: SortOrder
+    _count?: ExamenLaboExamenCountOrderByAggregateInput
+    _avg?: ExamenLaboExamenAvgOrderByAggregateInput
+    _max?: ExamenLaboExamenMaxOrderByAggregateInput
+    _min?: ExamenLaboExamenMinOrderByAggregateInput
+    _sum?: ExamenLaboExamenSumOrderByAggregateInput
+  }
+
+  export type ExamenLaboExamenScalarWhereWithAggregatesInput = {
+    AND?: ExamenLaboExamenScalarWhereWithAggregatesInput | ExamenLaboExamenScalarWhereWithAggregatesInput[]
+    OR?: ExamenLaboExamenScalarWhereWithAggregatesInput[]
+    NOT?: ExamenLaboExamenScalarWhereWithAggregatesInput | ExamenLaboExamenScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ExamenLaboExamen"> | string
+    examen_labo_id?: StringWithAggregatesFilter<"ExamenLaboExamen"> | string
+    catalogue_id?: StringWithAggregatesFilter<"ExamenLaboExamen"> | string
+    prix_snapshot?: FloatWithAggregatesFilter<"ExamenLaboExamen"> | number
+    created_at?: DateTimeWithAggregatesFilter<"ExamenLaboExamen"> | Date | string
   }
 
   export type ExamenImagerieWhereInput = {
@@ -33713,6 +36503,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
@@ -33742,6 +36533,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
@@ -33771,6 +36563,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
@@ -33800,6 +36593,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
@@ -34645,6 +37439,7 @@ export namespace Prisma {
     patient: PatientCreateNestedOneWithoutExamens_laboInput
     medecin: UtilisateurCreateNestedOneWithoutExamens_labo_prescritsInput
     facture?: FactureCreateNestedOneWithoutExamens_laboInput
+    examens_details?: ExamenLaboExamenCreateNestedManyWithoutExamen_laboInput
   }
 
   export type ExamenLaboUncheckedCreateInput = {
@@ -34665,6 +37460,7 @@ export namespace Prisma {
     facture_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    examens_details?: ExamenLaboExamenUncheckedCreateNestedManyWithoutExamen_laboInput
   }
 
   export type ExamenLaboUpdateInput = {
@@ -34685,6 +37481,7 @@ export namespace Prisma {
     patient?: PatientUpdateOneRequiredWithoutExamens_laboNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutExamens_labo_prescritsNestedInput
     facture?: FactureUpdateOneWithoutExamens_laboNestedInput
+    examens_details?: ExamenLaboExamenUpdateManyWithoutExamen_laboNestedInput
   }
 
   export type ExamenLaboUncheckedUpdateInput = {
@@ -34705,6 +37502,7 @@ export namespace Prisma {
     facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    examens_details?: ExamenLaboExamenUncheckedUpdateManyWithoutExamen_laboNestedInput
   }
 
   export type ExamenLaboCreateManyInput = {
@@ -34761,6 +37559,154 @@ export namespace Prisma {
     facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExamenCatalogueCreateInput = {
+    id?: string
+    famille: string
+    nom: string
+    description?: string | null
+    prix?: number
+    actif?: boolean
+    ordre?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutExamens_catalogueInput
+    examens?: ExamenLaboExamenCreateNestedManyWithoutCatalogueInput
+  }
+
+  export type ExamenCatalogueUncheckedCreateInput = {
+    id?: string
+    hospital_id: string
+    famille: string
+    nom: string
+    description?: string | null
+    prix?: number
+    actif?: boolean
+    ordre?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    examens?: ExamenLaboExamenUncheckedCreateNestedManyWithoutCatalogueInput
+  }
+
+  export type ExamenCatalogueUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    famille?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    prix?: FloatFieldUpdateOperationsInput | number
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    ordre?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutExamens_catalogueNestedInput
+    examens?: ExamenLaboExamenUpdateManyWithoutCatalogueNestedInput
+  }
+
+  export type ExamenCatalogueUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    famille?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    prix?: FloatFieldUpdateOperationsInput | number
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    ordre?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    examens?: ExamenLaboExamenUncheckedUpdateManyWithoutCatalogueNestedInput
+  }
+
+  export type ExamenCatalogueCreateManyInput = {
+    id?: string
+    hospital_id: string
+    famille: string
+    nom: string
+    description?: string | null
+    prix?: number
+    actif?: boolean
+    ordre?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ExamenCatalogueUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    famille?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    prix?: FloatFieldUpdateOperationsInput | number
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    ordre?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExamenCatalogueUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    famille?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    prix?: FloatFieldUpdateOperationsInput | number
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    ordre?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExamenLaboExamenCreateInput = {
+    id?: string
+    prix_snapshot: number
+    created_at?: Date | string
+    examen_labo: ExamenLaboCreateNestedOneWithoutExamens_detailsInput
+    catalogue: ExamenCatalogueCreateNestedOneWithoutExamensInput
+  }
+
+  export type ExamenLaboExamenUncheckedCreateInput = {
+    id?: string
+    examen_labo_id: string
+    catalogue_id: string
+    prix_snapshot: number
+    created_at?: Date | string
+  }
+
+  export type ExamenLaboExamenUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    prix_snapshot?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    examen_labo?: ExamenLaboUpdateOneRequiredWithoutExamens_detailsNestedInput
+    catalogue?: ExamenCatalogueUpdateOneRequiredWithoutExamensNestedInput
+  }
+
+  export type ExamenLaboExamenUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    examen_labo_id?: StringFieldUpdateOperationsInput | string
+    catalogue_id?: StringFieldUpdateOperationsInput | string
+    prix_snapshot?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExamenLaboExamenCreateManyInput = {
+    id?: string
+    examen_labo_id: string
+    catalogue_id: string
+    prix_snapshot: number
+    created_at?: Date | string
+  }
+
+  export type ExamenLaboExamenUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    prix_snapshot?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExamenLaboExamenUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    examen_labo_id?: StringFieldUpdateOperationsInput | string
+    catalogue_id?: StringFieldUpdateOperationsInput | string
+    prix_snapshot?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ExamenImagerieCreateInput = {
@@ -36169,6 +39115,12 @@ export namespace Prisma {
     none?: ExamenLaboWhereInput
   }
 
+  export type ExamenCatalogueListRelationFilter = {
+    every?: ExamenCatalogueWhereInput
+    some?: ExamenCatalogueWhereInput
+    none?: ExamenCatalogueWhereInput
+  }
+
   export type ExamenImagerieListRelationFilter = {
     every?: ExamenImagerieWhereInput
     some?: ExamenImagerieWhereInput
@@ -36255,6 +39207,10 @@ export namespace Prisma {
   }
 
   export type ExamenLaboOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ExamenCatalogueOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -37028,6 +39984,16 @@ export namespace Prisma {
     not?: NestedEnumStatutExamenFilter<$PrismaModel> | $Enums.StatutExamen
   }
 
+  export type ExamenLaboExamenListRelationFilter = {
+    every?: ExamenLaboExamenWhereInput
+    some?: ExamenLaboExamenWhereInput
+    none?: ExamenLaboExamenWhereInput
+  }
+
+  export type ExamenLaboExamenOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type ExamenLaboCountOrderByAggregateInput = {
     id?: SortOrder
     hospital_id?: SortOrder
@@ -37114,6 +40080,97 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumStatutExamenFilter<$PrismaModel>
     _max?: NestedEnumStatutExamenFilter<$PrismaModel>
+  }
+
+  export type ExamenCatalogueCountOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    famille?: SortOrder
+    nom?: SortOrder
+    description?: SortOrder
+    prix?: SortOrder
+    actif?: SortOrder
+    ordre?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ExamenCatalogueAvgOrderByAggregateInput = {
+    prix?: SortOrder
+    ordre?: SortOrder
+  }
+
+  export type ExamenCatalogueMaxOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    famille?: SortOrder
+    nom?: SortOrder
+    description?: SortOrder
+    prix?: SortOrder
+    actif?: SortOrder
+    ordre?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ExamenCatalogueMinOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    famille?: SortOrder
+    nom?: SortOrder
+    description?: SortOrder
+    prix?: SortOrder
+    actif?: SortOrder
+    ordre?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ExamenCatalogueSumOrderByAggregateInput = {
+    prix?: SortOrder
+    ordre?: SortOrder
+  }
+
+  export type ExamenLaboScalarRelationFilter = {
+    is?: ExamenLaboWhereInput
+    isNot?: ExamenLaboWhereInput
+  }
+
+  export type ExamenCatalogueScalarRelationFilter = {
+    is?: ExamenCatalogueWhereInput
+    isNot?: ExamenCatalogueWhereInput
+  }
+
+  export type ExamenLaboExamenCountOrderByAggregateInput = {
+    id?: SortOrder
+    examen_labo_id?: SortOrder
+    catalogue_id?: SortOrder
+    prix_snapshot?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type ExamenLaboExamenAvgOrderByAggregateInput = {
+    prix_snapshot?: SortOrder
+  }
+
+  export type ExamenLaboExamenMaxOrderByAggregateInput = {
+    id?: SortOrder
+    examen_labo_id?: SortOrder
+    catalogue_id?: SortOrder
+    prix_snapshot?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type ExamenLaboExamenMinOrderByAggregateInput = {
+    id?: SortOrder
+    examen_labo_id?: SortOrder
+    catalogue_id?: SortOrder
+    prix_snapshot?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type ExamenLaboExamenSumOrderByAggregateInput = {
+    prix_snapshot?: SortOrder
   }
 
   export type EnumTypeExamenImagerieFilter<$PrismaModel = never> = {
@@ -38068,6 +41125,13 @@ export namespace Prisma {
     connect?: ExamenLaboWhereUniqueInput | ExamenLaboWhereUniqueInput[]
   }
 
+  export type ExamenCatalogueCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<ExamenCatalogueCreateWithoutHospitalInput, ExamenCatalogueUncheckedCreateWithoutHospitalInput> | ExamenCatalogueCreateWithoutHospitalInput[] | ExamenCatalogueUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: ExamenCatalogueCreateOrConnectWithoutHospitalInput | ExamenCatalogueCreateOrConnectWithoutHospitalInput[]
+    createMany?: ExamenCatalogueCreateManyHospitalInputEnvelope
+    connect?: ExamenCatalogueWhereUniqueInput | ExamenCatalogueWhereUniqueInput[]
+  }
+
   export type ExamenImagerieCreateNestedManyWithoutHospitalInput = {
     create?: XOR<ExamenImagerieCreateWithoutHospitalInput, ExamenImagerieUncheckedCreateWithoutHospitalInput> | ExamenImagerieCreateWithoutHospitalInput[] | ExamenImagerieUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: ExamenImagerieCreateOrConnectWithoutHospitalInput | ExamenImagerieCreateOrConnectWithoutHospitalInput[]
@@ -38178,6 +41242,13 @@ export namespace Prisma {
     connectOrCreate?: ExamenLaboCreateOrConnectWithoutHospitalInput | ExamenLaboCreateOrConnectWithoutHospitalInput[]
     createMany?: ExamenLaboCreateManyHospitalInputEnvelope
     connect?: ExamenLaboWhereUniqueInput | ExamenLaboWhereUniqueInput[]
+  }
+
+  export type ExamenCatalogueUncheckedCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<ExamenCatalogueCreateWithoutHospitalInput, ExamenCatalogueUncheckedCreateWithoutHospitalInput> | ExamenCatalogueCreateWithoutHospitalInput[] | ExamenCatalogueUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: ExamenCatalogueCreateOrConnectWithoutHospitalInput | ExamenCatalogueCreateOrConnectWithoutHospitalInput[]
+    createMany?: ExamenCatalogueCreateManyHospitalInputEnvelope
+    connect?: ExamenCatalogueWhereUniqueInput | ExamenCatalogueWhereUniqueInput[]
   }
 
   export type ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput = {
@@ -38348,6 +41419,20 @@ export namespace Prisma {
     update?: ExamenLaboUpdateWithWhereUniqueWithoutHospitalInput | ExamenLaboUpdateWithWhereUniqueWithoutHospitalInput[]
     updateMany?: ExamenLaboUpdateManyWithWhereWithoutHospitalInput | ExamenLaboUpdateManyWithWhereWithoutHospitalInput[]
     deleteMany?: ExamenLaboScalarWhereInput | ExamenLaboScalarWhereInput[]
+  }
+
+  export type ExamenCatalogueUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<ExamenCatalogueCreateWithoutHospitalInput, ExamenCatalogueUncheckedCreateWithoutHospitalInput> | ExamenCatalogueCreateWithoutHospitalInput[] | ExamenCatalogueUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: ExamenCatalogueCreateOrConnectWithoutHospitalInput | ExamenCatalogueCreateOrConnectWithoutHospitalInput[]
+    upsert?: ExamenCatalogueUpsertWithWhereUniqueWithoutHospitalInput | ExamenCatalogueUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: ExamenCatalogueCreateManyHospitalInputEnvelope
+    set?: ExamenCatalogueWhereUniqueInput | ExamenCatalogueWhereUniqueInput[]
+    disconnect?: ExamenCatalogueWhereUniqueInput | ExamenCatalogueWhereUniqueInput[]
+    delete?: ExamenCatalogueWhereUniqueInput | ExamenCatalogueWhereUniqueInput[]
+    connect?: ExamenCatalogueWhereUniqueInput | ExamenCatalogueWhereUniqueInput[]
+    update?: ExamenCatalogueUpdateWithWhereUniqueWithoutHospitalInput | ExamenCatalogueUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: ExamenCatalogueUpdateManyWithWhereWithoutHospitalInput | ExamenCatalogueUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: ExamenCatalogueScalarWhereInput | ExamenCatalogueScalarWhereInput[]
   }
 
   export type ExamenImagerieUpdateManyWithoutHospitalNestedInput = {
@@ -38572,6 +41657,20 @@ export namespace Prisma {
     update?: ExamenLaboUpdateWithWhereUniqueWithoutHospitalInput | ExamenLaboUpdateWithWhereUniqueWithoutHospitalInput[]
     updateMany?: ExamenLaboUpdateManyWithWhereWithoutHospitalInput | ExamenLaboUpdateManyWithWhereWithoutHospitalInput[]
     deleteMany?: ExamenLaboScalarWhereInput | ExamenLaboScalarWhereInput[]
+  }
+
+  export type ExamenCatalogueUncheckedUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<ExamenCatalogueCreateWithoutHospitalInput, ExamenCatalogueUncheckedCreateWithoutHospitalInput> | ExamenCatalogueCreateWithoutHospitalInput[] | ExamenCatalogueUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: ExamenCatalogueCreateOrConnectWithoutHospitalInput | ExamenCatalogueCreateOrConnectWithoutHospitalInput[]
+    upsert?: ExamenCatalogueUpsertWithWhereUniqueWithoutHospitalInput | ExamenCatalogueUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: ExamenCatalogueCreateManyHospitalInputEnvelope
+    set?: ExamenCatalogueWhereUniqueInput | ExamenCatalogueWhereUniqueInput[]
+    disconnect?: ExamenCatalogueWhereUniqueInput | ExamenCatalogueWhereUniqueInput[]
+    delete?: ExamenCatalogueWhereUniqueInput | ExamenCatalogueWhereUniqueInput[]
+    connect?: ExamenCatalogueWhereUniqueInput | ExamenCatalogueWhereUniqueInput[]
+    update?: ExamenCatalogueUpdateWithWhereUniqueWithoutHospitalInput | ExamenCatalogueUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: ExamenCatalogueUpdateManyWithWhereWithoutHospitalInput | ExamenCatalogueUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: ExamenCatalogueScalarWhereInput | ExamenCatalogueScalarWhereInput[]
   }
 
   export type ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput = {
@@ -39668,6 +42767,20 @@ export namespace Prisma {
     connect?: FactureWhereUniqueInput
   }
 
+  export type ExamenLaboExamenCreateNestedManyWithoutExamen_laboInput = {
+    create?: XOR<ExamenLaboExamenCreateWithoutExamen_laboInput, ExamenLaboExamenUncheckedCreateWithoutExamen_laboInput> | ExamenLaboExamenCreateWithoutExamen_laboInput[] | ExamenLaboExamenUncheckedCreateWithoutExamen_laboInput[]
+    connectOrCreate?: ExamenLaboExamenCreateOrConnectWithoutExamen_laboInput | ExamenLaboExamenCreateOrConnectWithoutExamen_laboInput[]
+    createMany?: ExamenLaboExamenCreateManyExamen_laboInputEnvelope
+    connect?: ExamenLaboExamenWhereUniqueInput | ExamenLaboExamenWhereUniqueInput[]
+  }
+
+  export type ExamenLaboExamenUncheckedCreateNestedManyWithoutExamen_laboInput = {
+    create?: XOR<ExamenLaboExamenCreateWithoutExamen_laboInput, ExamenLaboExamenUncheckedCreateWithoutExamen_laboInput> | ExamenLaboExamenCreateWithoutExamen_laboInput[] | ExamenLaboExamenUncheckedCreateWithoutExamen_laboInput[]
+    connectOrCreate?: ExamenLaboExamenCreateOrConnectWithoutExamen_laboInput | ExamenLaboExamenCreateOrConnectWithoutExamen_laboInput[]
+    createMany?: ExamenLaboExamenCreateManyExamen_laboInputEnvelope
+    connect?: ExamenLaboExamenWhereUniqueInput | ExamenLaboExamenWhereUniqueInput[]
+  }
+
   export type EnumTypeExamenLaboFieldUpdateOperationsInput = {
     set?: $Enums.TypeExamenLabo
   }
@@ -39708,6 +42821,118 @@ export namespace Prisma {
     delete?: FactureWhereInput | boolean
     connect?: FactureWhereUniqueInput
     update?: XOR<XOR<FactureUpdateToOneWithWhereWithoutExamens_laboInput, FactureUpdateWithoutExamens_laboInput>, FactureUncheckedUpdateWithoutExamens_laboInput>
+  }
+
+  export type ExamenLaboExamenUpdateManyWithoutExamen_laboNestedInput = {
+    create?: XOR<ExamenLaboExamenCreateWithoutExamen_laboInput, ExamenLaboExamenUncheckedCreateWithoutExamen_laboInput> | ExamenLaboExamenCreateWithoutExamen_laboInput[] | ExamenLaboExamenUncheckedCreateWithoutExamen_laboInput[]
+    connectOrCreate?: ExamenLaboExamenCreateOrConnectWithoutExamen_laboInput | ExamenLaboExamenCreateOrConnectWithoutExamen_laboInput[]
+    upsert?: ExamenLaboExamenUpsertWithWhereUniqueWithoutExamen_laboInput | ExamenLaboExamenUpsertWithWhereUniqueWithoutExamen_laboInput[]
+    createMany?: ExamenLaboExamenCreateManyExamen_laboInputEnvelope
+    set?: ExamenLaboExamenWhereUniqueInput | ExamenLaboExamenWhereUniqueInput[]
+    disconnect?: ExamenLaboExamenWhereUniqueInput | ExamenLaboExamenWhereUniqueInput[]
+    delete?: ExamenLaboExamenWhereUniqueInput | ExamenLaboExamenWhereUniqueInput[]
+    connect?: ExamenLaboExamenWhereUniqueInput | ExamenLaboExamenWhereUniqueInput[]
+    update?: ExamenLaboExamenUpdateWithWhereUniqueWithoutExamen_laboInput | ExamenLaboExamenUpdateWithWhereUniqueWithoutExamen_laboInput[]
+    updateMany?: ExamenLaboExamenUpdateManyWithWhereWithoutExamen_laboInput | ExamenLaboExamenUpdateManyWithWhereWithoutExamen_laboInput[]
+    deleteMany?: ExamenLaboExamenScalarWhereInput | ExamenLaboExamenScalarWhereInput[]
+  }
+
+  export type ExamenLaboExamenUncheckedUpdateManyWithoutExamen_laboNestedInput = {
+    create?: XOR<ExamenLaboExamenCreateWithoutExamen_laboInput, ExamenLaboExamenUncheckedCreateWithoutExamen_laboInput> | ExamenLaboExamenCreateWithoutExamen_laboInput[] | ExamenLaboExamenUncheckedCreateWithoutExamen_laboInput[]
+    connectOrCreate?: ExamenLaboExamenCreateOrConnectWithoutExamen_laboInput | ExamenLaboExamenCreateOrConnectWithoutExamen_laboInput[]
+    upsert?: ExamenLaboExamenUpsertWithWhereUniqueWithoutExamen_laboInput | ExamenLaboExamenUpsertWithWhereUniqueWithoutExamen_laboInput[]
+    createMany?: ExamenLaboExamenCreateManyExamen_laboInputEnvelope
+    set?: ExamenLaboExamenWhereUniqueInput | ExamenLaboExamenWhereUniqueInput[]
+    disconnect?: ExamenLaboExamenWhereUniqueInput | ExamenLaboExamenWhereUniqueInput[]
+    delete?: ExamenLaboExamenWhereUniqueInput | ExamenLaboExamenWhereUniqueInput[]
+    connect?: ExamenLaboExamenWhereUniqueInput | ExamenLaboExamenWhereUniqueInput[]
+    update?: ExamenLaboExamenUpdateWithWhereUniqueWithoutExamen_laboInput | ExamenLaboExamenUpdateWithWhereUniqueWithoutExamen_laboInput[]
+    updateMany?: ExamenLaboExamenUpdateManyWithWhereWithoutExamen_laboInput | ExamenLaboExamenUpdateManyWithWhereWithoutExamen_laboInput[]
+    deleteMany?: ExamenLaboExamenScalarWhereInput | ExamenLaboExamenScalarWhereInput[]
+  }
+
+  export type HospitalCreateNestedOneWithoutExamens_catalogueInput = {
+    create?: XOR<HospitalCreateWithoutExamens_catalogueInput, HospitalUncheckedCreateWithoutExamens_catalogueInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutExamens_catalogueInput
+    connect?: HospitalWhereUniqueInput
+  }
+
+  export type ExamenLaboExamenCreateNestedManyWithoutCatalogueInput = {
+    create?: XOR<ExamenLaboExamenCreateWithoutCatalogueInput, ExamenLaboExamenUncheckedCreateWithoutCatalogueInput> | ExamenLaboExamenCreateWithoutCatalogueInput[] | ExamenLaboExamenUncheckedCreateWithoutCatalogueInput[]
+    connectOrCreate?: ExamenLaboExamenCreateOrConnectWithoutCatalogueInput | ExamenLaboExamenCreateOrConnectWithoutCatalogueInput[]
+    createMany?: ExamenLaboExamenCreateManyCatalogueInputEnvelope
+    connect?: ExamenLaboExamenWhereUniqueInput | ExamenLaboExamenWhereUniqueInput[]
+  }
+
+  export type ExamenLaboExamenUncheckedCreateNestedManyWithoutCatalogueInput = {
+    create?: XOR<ExamenLaboExamenCreateWithoutCatalogueInput, ExamenLaboExamenUncheckedCreateWithoutCatalogueInput> | ExamenLaboExamenCreateWithoutCatalogueInput[] | ExamenLaboExamenUncheckedCreateWithoutCatalogueInput[]
+    connectOrCreate?: ExamenLaboExamenCreateOrConnectWithoutCatalogueInput | ExamenLaboExamenCreateOrConnectWithoutCatalogueInput[]
+    createMany?: ExamenLaboExamenCreateManyCatalogueInputEnvelope
+    connect?: ExamenLaboExamenWhereUniqueInput | ExamenLaboExamenWhereUniqueInput[]
+  }
+
+  export type HospitalUpdateOneRequiredWithoutExamens_catalogueNestedInput = {
+    create?: XOR<HospitalCreateWithoutExamens_catalogueInput, HospitalUncheckedCreateWithoutExamens_catalogueInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutExamens_catalogueInput
+    upsert?: HospitalUpsertWithoutExamens_catalogueInput
+    connect?: HospitalWhereUniqueInput
+    update?: XOR<XOR<HospitalUpdateToOneWithWhereWithoutExamens_catalogueInput, HospitalUpdateWithoutExamens_catalogueInput>, HospitalUncheckedUpdateWithoutExamens_catalogueInput>
+  }
+
+  export type ExamenLaboExamenUpdateManyWithoutCatalogueNestedInput = {
+    create?: XOR<ExamenLaboExamenCreateWithoutCatalogueInput, ExamenLaboExamenUncheckedCreateWithoutCatalogueInput> | ExamenLaboExamenCreateWithoutCatalogueInput[] | ExamenLaboExamenUncheckedCreateWithoutCatalogueInput[]
+    connectOrCreate?: ExamenLaboExamenCreateOrConnectWithoutCatalogueInput | ExamenLaboExamenCreateOrConnectWithoutCatalogueInput[]
+    upsert?: ExamenLaboExamenUpsertWithWhereUniqueWithoutCatalogueInput | ExamenLaboExamenUpsertWithWhereUniqueWithoutCatalogueInput[]
+    createMany?: ExamenLaboExamenCreateManyCatalogueInputEnvelope
+    set?: ExamenLaboExamenWhereUniqueInput | ExamenLaboExamenWhereUniqueInput[]
+    disconnect?: ExamenLaboExamenWhereUniqueInput | ExamenLaboExamenWhereUniqueInput[]
+    delete?: ExamenLaboExamenWhereUniqueInput | ExamenLaboExamenWhereUniqueInput[]
+    connect?: ExamenLaboExamenWhereUniqueInput | ExamenLaboExamenWhereUniqueInput[]
+    update?: ExamenLaboExamenUpdateWithWhereUniqueWithoutCatalogueInput | ExamenLaboExamenUpdateWithWhereUniqueWithoutCatalogueInput[]
+    updateMany?: ExamenLaboExamenUpdateManyWithWhereWithoutCatalogueInput | ExamenLaboExamenUpdateManyWithWhereWithoutCatalogueInput[]
+    deleteMany?: ExamenLaboExamenScalarWhereInput | ExamenLaboExamenScalarWhereInput[]
+  }
+
+  export type ExamenLaboExamenUncheckedUpdateManyWithoutCatalogueNestedInput = {
+    create?: XOR<ExamenLaboExamenCreateWithoutCatalogueInput, ExamenLaboExamenUncheckedCreateWithoutCatalogueInput> | ExamenLaboExamenCreateWithoutCatalogueInput[] | ExamenLaboExamenUncheckedCreateWithoutCatalogueInput[]
+    connectOrCreate?: ExamenLaboExamenCreateOrConnectWithoutCatalogueInput | ExamenLaboExamenCreateOrConnectWithoutCatalogueInput[]
+    upsert?: ExamenLaboExamenUpsertWithWhereUniqueWithoutCatalogueInput | ExamenLaboExamenUpsertWithWhereUniqueWithoutCatalogueInput[]
+    createMany?: ExamenLaboExamenCreateManyCatalogueInputEnvelope
+    set?: ExamenLaboExamenWhereUniqueInput | ExamenLaboExamenWhereUniqueInput[]
+    disconnect?: ExamenLaboExamenWhereUniqueInput | ExamenLaboExamenWhereUniqueInput[]
+    delete?: ExamenLaboExamenWhereUniqueInput | ExamenLaboExamenWhereUniqueInput[]
+    connect?: ExamenLaboExamenWhereUniqueInput | ExamenLaboExamenWhereUniqueInput[]
+    update?: ExamenLaboExamenUpdateWithWhereUniqueWithoutCatalogueInput | ExamenLaboExamenUpdateWithWhereUniqueWithoutCatalogueInput[]
+    updateMany?: ExamenLaboExamenUpdateManyWithWhereWithoutCatalogueInput | ExamenLaboExamenUpdateManyWithWhereWithoutCatalogueInput[]
+    deleteMany?: ExamenLaboExamenScalarWhereInput | ExamenLaboExamenScalarWhereInput[]
+  }
+
+  export type ExamenLaboCreateNestedOneWithoutExamens_detailsInput = {
+    create?: XOR<ExamenLaboCreateWithoutExamens_detailsInput, ExamenLaboUncheckedCreateWithoutExamens_detailsInput>
+    connectOrCreate?: ExamenLaboCreateOrConnectWithoutExamens_detailsInput
+    connect?: ExamenLaboWhereUniqueInput
+  }
+
+  export type ExamenCatalogueCreateNestedOneWithoutExamensInput = {
+    create?: XOR<ExamenCatalogueCreateWithoutExamensInput, ExamenCatalogueUncheckedCreateWithoutExamensInput>
+    connectOrCreate?: ExamenCatalogueCreateOrConnectWithoutExamensInput
+    connect?: ExamenCatalogueWhereUniqueInput
+  }
+
+  export type ExamenLaboUpdateOneRequiredWithoutExamens_detailsNestedInput = {
+    create?: XOR<ExamenLaboCreateWithoutExamens_detailsInput, ExamenLaboUncheckedCreateWithoutExamens_detailsInput>
+    connectOrCreate?: ExamenLaboCreateOrConnectWithoutExamens_detailsInput
+    upsert?: ExamenLaboUpsertWithoutExamens_detailsInput
+    connect?: ExamenLaboWhereUniqueInput
+    update?: XOR<XOR<ExamenLaboUpdateToOneWithWhereWithoutExamens_detailsInput, ExamenLaboUpdateWithoutExamens_detailsInput>, ExamenLaboUncheckedUpdateWithoutExamens_detailsInput>
+  }
+
+  export type ExamenCatalogueUpdateOneRequiredWithoutExamensNestedInput = {
+    create?: XOR<ExamenCatalogueCreateWithoutExamensInput, ExamenCatalogueUncheckedCreateWithoutExamensInput>
+    connectOrCreate?: ExamenCatalogueCreateOrConnectWithoutExamensInput
+    upsert?: ExamenCatalogueUpsertWithoutExamensInput
+    connect?: ExamenCatalogueWhereUniqueInput
+    update?: XOR<XOR<ExamenCatalogueUpdateToOneWithWhereWithoutExamensInput, ExamenCatalogueUpdateWithoutExamensInput>, ExamenCatalogueUncheckedUpdateWithoutExamensInput>
   }
 
   export type HospitalCreateNestedOneWithoutExamens_imagerieInput = {
@@ -41215,6 +44440,7 @@ export namespace Prisma {
     patient: PatientCreateNestedOneWithoutExamens_laboInput
     medecin: UtilisateurCreateNestedOneWithoutExamens_labo_prescritsInput
     facture?: FactureCreateNestedOneWithoutExamens_laboInput
+    examens_details?: ExamenLaboExamenCreateNestedManyWithoutExamen_laboInput
   }
 
   export type ExamenLaboUncheckedCreateWithoutHospitalInput = {
@@ -41234,6 +44460,7 @@ export namespace Prisma {
     facture_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    examens_details?: ExamenLaboExamenUncheckedCreateNestedManyWithoutExamen_laboInput
   }
 
   export type ExamenLaboCreateOrConnectWithoutHospitalInput = {
@@ -41243,6 +44470,42 @@ export namespace Prisma {
 
   export type ExamenLaboCreateManyHospitalInputEnvelope = {
     data: ExamenLaboCreateManyHospitalInput | ExamenLaboCreateManyHospitalInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ExamenCatalogueCreateWithoutHospitalInput = {
+    id?: string
+    famille: string
+    nom: string
+    description?: string | null
+    prix?: number
+    actif?: boolean
+    ordre?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    examens?: ExamenLaboExamenCreateNestedManyWithoutCatalogueInput
+  }
+
+  export type ExamenCatalogueUncheckedCreateWithoutHospitalInput = {
+    id?: string
+    famille: string
+    nom: string
+    description?: string | null
+    prix?: number
+    actif?: boolean
+    ordre?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    examens?: ExamenLaboExamenUncheckedCreateNestedManyWithoutCatalogueInput
+  }
+
+  export type ExamenCatalogueCreateOrConnectWithoutHospitalInput = {
+    where: ExamenCatalogueWhereUniqueInput
+    create: XOR<ExamenCatalogueCreateWithoutHospitalInput, ExamenCatalogueUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type ExamenCatalogueCreateManyHospitalInputEnvelope = {
+    data: ExamenCatalogueCreateManyHospitalInput | ExamenCatalogueCreateManyHospitalInput[]
     skipDuplicates?: boolean
   }
 
@@ -41847,6 +45110,38 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"ExamenLabo"> | Date | string
   }
 
+  export type ExamenCatalogueUpsertWithWhereUniqueWithoutHospitalInput = {
+    where: ExamenCatalogueWhereUniqueInput
+    update: XOR<ExamenCatalogueUpdateWithoutHospitalInput, ExamenCatalogueUncheckedUpdateWithoutHospitalInput>
+    create: XOR<ExamenCatalogueCreateWithoutHospitalInput, ExamenCatalogueUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type ExamenCatalogueUpdateWithWhereUniqueWithoutHospitalInput = {
+    where: ExamenCatalogueWhereUniqueInput
+    data: XOR<ExamenCatalogueUpdateWithoutHospitalInput, ExamenCatalogueUncheckedUpdateWithoutHospitalInput>
+  }
+
+  export type ExamenCatalogueUpdateManyWithWhereWithoutHospitalInput = {
+    where: ExamenCatalogueScalarWhereInput
+    data: XOR<ExamenCatalogueUpdateManyMutationInput, ExamenCatalogueUncheckedUpdateManyWithoutHospitalInput>
+  }
+
+  export type ExamenCatalogueScalarWhereInput = {
+    AND?: ExamenCatalogueScalarWhereInput | ExamenCatalogueScalarWhereInput[]
+    OR?: ExamenCatalogueScalarWhereInput[]
+    NOT?: ExamenCatalogueScalarWhereInput | ExamenCatalogueScalarWhereInput[]
+    id?: StringFilter<"ExamenCatalogue"> | string
+    hospital_id?: StringFilter<"ExamenCatalogue"> | string
+    famille?: StringFilter<"ExamenCatalogue"> | string
+    nom?: StringFilter<"ExamenCatalogue"> | string
+    description?: StringNullableFilter<"ExamenCatalogue"> | string | null
+    prix?: FloatFilter<"ExamenCatalogue"> | number
+    actif?: BoolFilter<"ExamenCatalogue"> | boolean
+    ordre?: IntFilter<"ExamenCatalogue"> | number
+    created_at?: DateTimeFilter<"ExamenCatalogue"> | Date | string
+    updated_at?: DateTimeFilter<"ExamenCatalogue"> | Date | string
+  }
+
   export type ExamenImagerieUpsertWithWhereUniqueWithoutHospitalInput = {
     where: ExamenImagerieWhereUniqueInput
     update: XOR<ExamenImagerieUpdateWithoutHospitalInput, ExamenImagerieUncheckedUpdateWithoutHospitalInput>
@@ -42203,6 +45498,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
@@ -42231,6 +45527,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
@@ -42315,6 +45612,7 @@ export namespace Prisma {
     hospital: HospitalCreateNestedOneWithoutExamens_laboInput
     patient: PatientCreateNestedOneWithoutExamens_laboInput
     facture?: FactureCreateNestedOneWithoutExamens_laboInput
+    examens_details?: ExamenLaboExamenCreateNestedManyWithoutExamen_laboInput
   }
 
   export type ExamenLaboUncheckedCreateWithoutMedecinInput = {
@@ -42334,6 +45632,7 @@ export namespace Prisma {
     facture_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    examens_details?: ExamenLaboExamenUncheckedCreateNestedManyWithoutExamen_laboInput
   }
 
   export type ExamenLaboCreateOrConnectWithoutMedecinInput = {
@@ -42498,6 +45797,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
@@ -42526,6 +45826,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
@@ -42786,6 +46087,7 @@ export namespace Prisma {
     hospital: HospitalCreateNestedOneWithoutExamens_laboInput
     medecin: UtilisateurCreateNestedOneWithoutExamens_labo_prescritsInput
     facture?: FactureCreateNestedOneWithoutExamens_laboInput
+    examens_details?: ExamenLaboExamenCreateNestedManyWithoutExamen_laboInput
   }
 
   export type ExamenLaboUncheckedCreateWithoutPatientInput = {
@@ -42805,6 +46107,7 @@ export namespace Prisma {
     facture_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    examens_details?: ExamenLaboExamenUncheckedCreateNestedManyWithoutExamen_laboInput
   }
 
   export type ExamenLaboCreateOrConnectWithoutPatientInput = {
@@ -43124,6 +46427,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
@@ -43152,6 +46456,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
@@ -43255,6 +46560,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
@@ -43283,6 +46589,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
@@ -43311,6 +46618,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
@@ -43339,6 +46647,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
@@ -43583,6 +46892,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
@@ -43611,6 +46921,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
@@ -43959,6 +47270,7 @@ export namespace Prisma {
     consultations?: ConsultationCreateNestedManyWithoutHospitalInput
     services?: ServiceCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
@@ -43987,6 +47299,7 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
     services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
@@ -44147,6 +47460,7 @@ export namespace Prisma {
     hospital: HospitalCreateNestedOneWithoutExamens_laboInput
     patient: PatientCreateNestedOneWithoutExamens_laboInput
     medecin: UtilisateurCreateNestedOneWithoutExamens_labo_prescritsInput
+    examens_details?: ExamenLaboExamenCreateNestedManyWithoutExamen_laboInput
   }
 
   export type ExamenLaboUncheckedCreateWithoutFactureInput = {
@@ -44166,6 +47480,7 @@ export namespace Prisma {
     prix_unitaire?: number | null
     created_at?: Date | string
     updated_at?: Date | string
+    examens_details?: ExamenLaboExamenUncheckedCreateNestedManyWithoutExamen_laboInput
   }
 
   export type ExamenLaboCreateOrConnectWithoutFactureInput = {
@@ -44296,6 +47611,7 @@ export namespace Prisma {
     consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
     services?: ServiceUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
@@ -44324,6 +47640,7 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
     services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
@@ -44666,6 +47983,7 @@ export namespace Prisma {
     consultations?: ConsultationCreateNestedManyWithoutHospitalInput
     services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
@@ -44694,6 +48012,7 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
     services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
@@ -44852,6 +48171,30 @@ export namespace Prisma {
     create: XOR<FactureCreateWithoutExamens_laboInput, FactureUncheckedCreateWithoutExamens_laboInput>
   }
 
+  export type ExamenLaboExamenCreateWithoutExamen_laboInput = {
+    id?: string
+    prix_snapshot: number
+    created_at?: Date | string
+    catalogue: ExamenCatalogueCreateNestedOneWithoutExamensInput
+  }
+
+  export type ExamenLaboExamenUncheckedCreateWithoutExamen_laboInput = {
+    id?: string
+    catalogue_id: string
+    prix_snapshot: number
+    created_at?: Date | string
+  }
+
+  export type ExamenLaboExamenCreateOrConnectWithoutExamen_laboInput = {
+    where: ExamenLaboExamenWhereUniqueInput
+    create: XOR<ExamenLaboExamenCreateWithoutExamen_laboInput, ExamenLaboExamenUncheckedCreateWithoutExamen_laboInput>
+  }
+
+  export type ExamenLaboExamenCreateManyExamen_laboInputEnvelope = {
+    data: ExamenLaboExamenCreateManyExamen_laboInput | ExamenLaboExamenCreateManyExamen_laboInput[]
+    skipDuplicates?: boolean
+  }
+
   export type HospitalUpsertWithoutExamens_laboInput = {
     update: XOR<HospitalUpdateWithoutExamens_laboInput, HospitalUncheckedUpdateWithoutExamens_laboInput>
     create: XOR<HospitalCreateWithoutExamens_laboInput, HospitalUncheckedCreateWithoutExamens_laboInput>
@@ -44879,6 +48222,7 @@ export namespace Prisma {
     consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
     services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
@@ -44907,6 +48251,7 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
     services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
@@ -45078,6 +48423,369 @@ export namespace Prisma {
     hospitalisation?: HospitalisationUncheckedUpdateOneWithoutFactureNestedInput
   }
 
+  export type ExamenLaboExamenUpsertWithWhereUniqueWithoutExamen_laboInput = {
+    where: ExamenLaboExamenWhereUniqueInput
+    update: XOR<ExamenLaboExamenUpdateWithoutExamen_laboInput, ExamenLaboExamenUncheckedUpdateWithoutExamen_laboInput>
+    create: XOR<ExamenLaboExamenCreateWithoutExamen_laboInput, ExamenLaboExamenUncheckedCreateWithoutExamen_laboInput>
+  }
+
+  export type ExamenLaboExamenUpdateWithWhereUniqueWithoutExamen_laboInput = {
+    where: ExamenLaboExamenWhereUniqueInput
+    data: XOR<ExamenLaboExamenUpdateWithoutExamen_laboInput, ExamenLaboExamenUncheckedUpdateWithoutExamen_laboInput>
+  }
+
+  export type ExamenLaboExamenUpdateManyWithWhereWithoutExamen_laboInput = {
+    where: ExamenLaboExamenScalarWhereInput
+    data: XOR<ExamenLaboExamenUpdateManyMutationInput, ExamenLaboExamenUncheckedUpdateManyWithoutExamen_laboInput>
+  }
+
+  export type ExamenLaboExamenScalarWhereInput = {
+    AND?: ExamenLaboExamenScalarWhereInput | ExamenLaboExamenScalarWhereInput[]
+    OR?: ExamenLaboExamenScalarWhereInput[]
+    NOT?: ExamenLaboExamenScalarWhereInput | ExamenLaboExamenScalarWhereInput[]
+    id?: StringFilter<"ExamenLaboExamen"> | string
+    examen_labo_id?: StringFilter<"ExamenLaboExamen"> | string
+    catalogue_id?: StringFilter<"ExamenLaboExamen"> | string
+    prix_snapshot?: FloatFilter<"ExamenLaboExamen"> | number
+    created_at?: DateTimeFilter<"ExamenLaboExamen"> | Date | string
+  }
+
+  export type HospitalCreateWithoutExamens_catalogueInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    services?: ServiceCreateNestedManyWithoutHospitalInput
+    factures?: FactureCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
+    audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
+    chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalUncheckedCreateWithoutExamens_catalogueInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
+    factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
+    audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
+    chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalCreateOrConnectWithoutExamens_catalogueInput = {
+    where: HospitalWhereUniqueInput
+    create: XOR<HospitalCreateWithoutExamens_catalogueInput, HospitalUncheckedCreateWithoutExamens_catalogueInput>
+  }
+
+  export type ExamenLaboExamenCreateWithoutCatalogueInput = {
+    id?: string
+    prix_snapshot: number
+    created_at?: Date | string
+    examen_labo: ExamenLaboCreateNestedOneWithoutExamens_detailsInput
+  }
+
+  export type ExamenLaboExamenUncheckedCreateWithoutCatalogueInput = {
+    id?: string
+    examen_labo_id: string
+    prix_snapshot: number
+    created_at?: Date | string
+  }
+
+  export type ExamenLaboExamenCreateOrConnectWithoutCatalogueInput = {
+    where: ExamenLaboExamenWhereUniqueInput
+    create: XOR<ExamenLaboExamenCreateWithoutCatalogueInput, ExamenLaboExamenUncheckedCreateWithoutCatalogueInput>
+  }
+
+  export type ExamenLaboExamenCreateManyCatalogueInputEnvelope = {
+    data: ExamenLaboExamenCreateManyCatalogueInput | ExamenLaboExamenCreateManyCatalogueInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type HospitalUpsertWithoutExamens_catalogueInput = {
+    update: XOR<HospitalUpdateWithoutExamens_catalogueInput, HospitalUncheckedUpdateWithoutExamens_catalogueInput>
+    create: XOR<HospitalCreateWithoutExamens_catalogueInput, HospitalUncheckedCreateWithoutExamens_catalogueInput>
+    where?: HospitalWhereInput
+  }
+
+  export type HospitalUpdateToOneWithWhereWithoutExamens_catalogueInput = {
+    where?: HospitalWhereInput
+    data: XOR<HospitalUpdateWithoutExamens_catalogueInput, HospitalUncheckedUpdateWithoutExamens_catalogueInput>
+  }
+
+  export type HospitalUpdateWithoutExamens_catalogueInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
+    audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
+    chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type HospitalUncheckedUpdateWithoutExamens_catalogueInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
+    audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
+    chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type ExamenLaboExamenUpsertWithWhereUniqueWithoutCatalogueInput = {
+    where: ExamenLaboExamenWhereUniqueInput
+    update: XOR<ExamenLaboExamenUpdateWithoutCatalogueInput, ExamenLaboExamenUncheckedUpdateWithoutCatalogueInput>
+    create: XOR<ExamenLaboExamenCreateWithoutCatalogueInput, ExamenLaboExamenUncheckedCreateWithoutCatalogueInput>
+  }
+
+  export type ExamenLaboExamenUpdateWithWhereUniqueWithoutCatalogueInput = {
+    where: ExamenLaboExamenWhereUniqueInput
+    data: XOR<ExamenLaboExamenUpdateWithoutCatalogueInput, ExamenLaboExamenUncheckedUpdateWithoutCatalogueInput>
+  }
+
+  export type ExamenLaboExamenUpdateManyWithWhereWithoutCatalogueInput = {
+    where: ExamenLaboExamenScalarWhereInput
+    data: XOR<ExamenLaboExamenUpdateManyMutationInput, ExamenLaboExamenUncheckedUpdateManyWithoutCatalogueInput>
+  }
+
+  export type ExamenLaboCreateWithoutExamens_detailsInput = {
+    id?: string
+    type_examen: $Enums.TypeExamenLabo
+    statut?: $Enums.StatutExamen
+    resultats?: string | null
+    fichier_url?: string | null
+    fichier_nom?: string | null
+    valide_par?: string | null
+    valide_le?: Date | string | null
+    notes?: string | null
+    urgence?: boolean
+    prix_unitaire?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutExamens_laboInput
+    patient: PatientCreateNestedOneWithoutExamens_laboInput
+    medecin: UtilisateurCreateNestedOneWithoutExamens_labo_prescritsInput
+    facture?: FactureCreateNestedOneWithoutExamens_laboInput
+  }
+
+  export type ExamenLaboUncheckedCreateWithoutExamens_detailsInput = {
+    id?: string
+    hospital_id: string
+    patient_id: string
+    medecin_id: string
+    type_examen: $Enums.TypeExamenLabo
+    statut?: $Enums.StatutExamen
+    resultats?: string | null
+    fichier_url?: string | null
+    fichier_nom?: string | null
+    valide_par?: string | null
+    valide_le?: Date | string | null
+    notes?: string | null
+    urgence?: boolean
+    prix_unitaire?: number | null
+    facture_id?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ExamenLaboCreateOrConnectWithoutExamens_detailsInput = {
+    where: ExamenLaboWhereUniqueInput
+    create: XOR<ExamenLaboCreateWithoutExamens_detailsInput, ExamenLaboUncheckedCreateWithoutExamens_detailsInput>
+  }
+
+  export type ExamenCatalogueCreateWithoutExamensInput = {
+    id?: string
+    famille: string
+    nom: string
+    description?: string | null
+    prix?: number
+    actif?: boolean
+    ordre?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutExamens_catalogueInput
+  }
+
+  export type ExamenCatalogueUncheckedCreateWithoutExamensInput = {
+    id?: string
+    hospital_id: string
+    famille: string
+    nom: string
+    description?: string | null
+    prix?: number
+    actif?: boolean
+    ordre?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ExamenCatalogueCreateOrConnectWithoutExamensInput = {
+    where: ExamenCatalogueWhereUniqueInput
+    create: XOR<ExamenCatalogueCreateWithoutExamensInput, ExamenCatalogueUncheckedCreateWithoutExamensInput>
+  }
+
+  export type ExamenLaboUpsertWithoutExamens_detailsInput = {
+    update: XOR<ExamenLaboUpdateWithoutExamens_detailsInput, ExamenLaboUncheckedUpdateWithoutExamens_detailsInput>
+    create: XOR<ExamenLaboCreateWithoutExamens_detailsInput, ExamenLaboUncheckedCreateWithoutExamens_detailsInput>
+    where?: ExamenLaboWhereInput
+  }
+
+  export type ExamenLaboUpdateToOneWithWhereWithoutExamens_detailsInput = {
+    where?: ExamenLaboWhereInput
+    data: XOR<ExamenLaboUpdateWithoutExamens_detailsInput, ExamenLaboUncheckedUpdateWithoutExamens_detailsInput>
+  }
+
+  export type ExamenLaboUpdateWithoutExamens_detailsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type_examen?: EnumTypeExamenLaboFieldUpdateOperationsInput | $Enums.TypeExamenLabo
+    statut?: EnumStatutExamenFieldUpdateOperationsInput | $Enums.StatutExamen
+    resultats?: NullableStringFieldUpdateOperationsInput | string | null
+    fichier_url?: NullableStringFieldUpdateOperationsInput | string | null
+    fichier_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    valide_par?: NullableStringFieldUpdateOperationsInput | string | null
+    valide_le?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    urgence?: BoolFieldUpdateOperationsInput | boolean
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutExamens_laboNestedInput
+    patient?: PatientUpdateOneRequiredWithoutExamens_laboNestedInput
+    medecin?: UtilisateurUpdateOneRequiredWithoutExamens_labo_prescritsNestedInput
+    facture?: FactureUpdateOneWithoutExamens_laboNestedInput
+  }
+
+  export type ExamenLaboUncheckedUpdateWithoutExamens_detailsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    medecin_id?: StringFieldUpdateOperationsInput | string
+    type_examen?: EnumTypeExamenLaboFieldUpdateOperationsInput | $Enums.TypeExamenLabo
+    statut?: EnumStatutExamenFieldUpdateOperationsInput | $Enums.StatutExamen
+    resultats?: NullableStringFieldUpdateOperationsInput | string | null
+    fichier_url?: NullableStringFieldUpdateOperationsInput | string | null
+    fichier_nom?: NullableStringFieldUpdateOperationsInput | string | null
+    valide_par?: NullableStringFieldUpdateOperationsInput | string | null
+    valide_le?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    urgence?: BoolFieldUpdateOperationsInput | boolean
+    prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExamenCatalogueUpsertWithoutExamensInput = {
+    update: XOR<ExamenCatalogueUpdateWithoutExamensInput, ExamenCatalogueUncheckedUpdateWithoutExamensInput>
+    create: XOR<ExamenCatalogueCreateWithoutExamensInput, ExamenCatalogueUncheckedCreateWithoutExamensInput>
+    where?: ExamenCatalogueWhereInput
+  }
+
+  export type ExamenCatalogueUpdateToOneWithWhereWithoutExamensInput = {
+    where?: ExamenCatalogueWhereInput
+    data: XOR<ExamenCatalogueUpdateWithoutExamensInput, ExamenCatalogueUncheckedUpdateWithoutExamensInput>
+  }
+
+  export type ExamenCatalogueUpdateWithoutExamensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    famille?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    prix?: FloatFieldUpdateOperationsInput | number
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    ordre?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutExamens_catalogueNestedInput
+  }
+
+  export type ExamenCatalogueUncheckedUpdateWithoutExamensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    famille?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    prix?: FloatFieldUpdateOperationsInput | number
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    ordre?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type HospitalCreateWithoutExamens_imagerieInput = {
     id?: string
     nom: string
@@ -45095,6 +48803,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
@@ -45123,6 +48832,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
@@ -45308,6 +49018,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
@@ -45336,6 +49047,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
@@ -45523,6 +49235,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
@@ -45551,6 +49264,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
@@ -45669,6 +49383,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
@@ -45697,6 +49412,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
@@ -45776,6 +49492,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
@@ -45804,6 +49521,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
@@ -45889,6 +49607,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
@@ -45917,6 +49636,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
@@ -45992,6 +49712,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
@@ -46020,6 +49741,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
@@ -46064,6 +49786,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
@@ -46092,6 +49815,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
@@ -46173,6 +49897,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
@@ -46201,6 +49926,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
@@ -46304,6 +50030,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
@@ -46332,6 +50059,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
@@ -46360,6 +50088,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
@@ -46388,6 +50117,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
@@ -46432,6 +50162,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
@@ -46460,6 +50191,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
@@ -46488,6 +50220,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
@@ -46516,6 +50249,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
@@ -46606,6 +50340,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
@@ -46634,6 +50369,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
@@ -46678,6 +50414,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
@@ -46706,6 +50443,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
@@ -46993,6 +50731,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
@@ -47021,6 +50760,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
@@ -47474,6 +51214,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
@@ -47502,6 +51243,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
@@ -47575,6 +51317,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
@@ -47603,6 +51346,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
@@ -47666,6 +51410,7 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
@@ -47694,6 +51439,7 @@ export namespace Prisma {
     services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
@@ -47822,6 +51568,7 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
@@ -47850,6 +51597,7 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
@@ -47909,6 +51657,7 @@ export namespace Prisma {
     consultations?: ConsultationCreateNestedManyWithoutHospitalInput
     factures?: FactureCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
@@ -47937,6 +51686,7 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
     factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueUncheckedCreateNestedManyWithoutHospitalInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
     articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
     mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
@@ -48077,6 +51827,7 @@ export namespace Prisma {
     consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
     factures?: FactureUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
@@ -48105,6 +51856,7 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
     factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUncheckedUpdateManyWithoutHospitalNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
     articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
     mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
@@ -48234,6 +51986,18 @@ export namespace Prisma {
     urgence?: boolean
     prix_unitaire?: number | null
     facture_id?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ExamenCatalogueCreateManyHospitalInput = {
+    id?: string
+    famille: string
+    nom: string
+    description?: string | null
+    prix?: number
+    actif?: boolean
+    ordre?: number
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -48629,6 +52393,7 @@ export namespace Prisma {
     patient?: PatientUpdateOneRequiredWithoutExamens_laboNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutExamens_labo_prescritsNestedInput
     facture?: FactureUpdateOneWithoutExamens_laboNestedInput
+    examens_details?: ExamenLaboExamenUpdateManyWithoutExamen_laboNestedInput
   }
 
   export type ExamenLaboUncheckedUpdateWithoutHospitalInput = {
@@ -48648,6 +52413,7 @@ export namespace Prisma {
     facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    examens_details?: ExamenLaboExamenUncheckedUpdateManyWithoutExamen_laboNestedInput
   }
 
   export type ExamenLaboUncheckedUpdateManyWithoutHospitalInput = {
@@ -48665,6 +52431,44 @@ export namespace Prisma {
     urgence?: BoolFieldUpdateOperationsInput | boolean
     prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
     facture_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExamenCatalogueUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    famille?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    prix?: FloatFieldUpdateOperationsInput | number
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    ordre?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    examens?: ExamenLaboExamenUpdateManyWithoutCatalogueNestedInput
+  }
+
+  export type ExamenCatalogueUncheckedUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    famille?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    prix?: FloatFieldUpdateOperationsInput | number
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    ordre?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    examens?: ExamenLaboExamenUncheckedUpdateManyWithoutCatalogueNestedInput
+  }
+
+  export type ExamenCatalogueUncheckedUpdateManyWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    famille?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    prix?: FloatFieldUpdateOperationsInput | number
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    ordre?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -49250,6 +53054,7 @@ export namespace Prisma {
     hospital?: HospitalUpdateOneRequiredWithoutExamens_laboNestedInput
     patient?: PatientUpdateOneRequiredWithoutExamens_laboNestedInput
     facture?: FactureUpdateOneWithoutExamens_laboNestedInput
+    examens_details?: ExamenLaboExamenUpdateManyWithoutExamen_laboNestedInput
   }
 
   export type ExamenLaboUncheckedUpdateWithoutMedecinInput = {
@@ -49269,6 +53074,7 @@ export namespace Prisma {
     facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    examens_details?: ExamenLaboExamenUncheckedUpdateManyWithoutExamen_laboNestedInput
   }
 
   export type ExamenLaboUncheckedUpdateManyWithoutMedecinInput = {
@@ -49678,6 +53484,7 @@ export namespace Prisma {
     hospital?: HospitalUpdateOneRequiredWithoutExamens_laboNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutExamens_labo_prescritsNestedInput
     facture?: FactureUpdateOneWithoutExamens_laboNestedInput
+    examens_details?: ExamenLaboExamenUpdateManyWithoutExamen_laboNestedInput
   }
 
   export type ExamenLaboUncheckedUpdateWithoutPatientInput = {
@@ -49697,6 +53504,7 @@ export namespace Prisma {
     facture_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    examens_details?: ExamenLaboExamenUncheckedUpdateManyWithoutExamen_laboNestedInput
   }
 
   export type ExamenLaboUncheckedUpdateManyWithoutPatientInput = {
@@ -49993,6 +53801,7 @@ export namespace Prisma {
     hospital?: HospitalUpdateOneRequiredWithoutExamens_laboNestedInput
     patient?: PatientUpdateOneRequiredWithoutExamens_laboNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutExamens_labo_prescritsNestedInput
+    examens_details?: ExamenLaboExamenUpdateManyWithoutExamen_laboNestedInput
   }
 
   export type ExamenLaboUncheckedUpdateWithoutFactureInput = {
@@ -50012,6 +53821,7 @@ export namespace Prisma {
     prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    examens_details?: ExamenLaboExamenUncheckedUpdateManyWithoutExamen_laboNestedInput
   }
 
   export type ExamenLaboUncheckedUpdateManyWithoutFactureInput = {
@@ -50091,6 +53901,62 @@ export namespace Prisma {
     prix_unitaire?: NullableFloatFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExamenLaboExamenCreateManyExamen_laboInput = {
+    id?: string
+    catalogue_id: string
+    prix_snapshot: number
+    created_at?: Date | string
+  }
+
+  export type ExamenLaboExamenUpdateWithoutExamen_laboInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    prix_snapshot?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    catalogue?: ExamenCatalogueUpdateOneRequiredWithoutExamensNestedInput
+  }
+
+  export type ExamenLaboExamenUncheckedUpdateWithoutExamen_laboInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    catalogue_id?: StringFieldUpdateOperationsInput | string
+    prix_snapshot?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExamenLaboExamenUncheckedUpdateManyWithoutExamen_laboInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    catalogue_id?: StringFieldUpdateOperationsInput | string
+    prix_snapshot?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExamenLaboExamenCreateManyCatalogueInput = {
+    id?: string
+    examen_labo_id: string
+    prix_snapshot: number
+    created_at?: Date | string
+  }
+
+  export type ExamenLaboExamenUpdateWithoutCatalogueInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    prix_snapshot?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    examen_labo?: ExamenLaboUpdateOneRequiredWithoutExamens_detailsNestedInput
+  }
+
+  export type ExamenLaboExamenUncheckedUpdateWithoutCatalogueInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    examen_labo_id?: StringFieldUpdateOperationsInput | string
+    prix_snapshot?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExamenLaboExamenUncheckedUpdateManyWithoutCatalogueInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    examen_labo_id?: StringFieldUpdateOperationsInput | string
+    prix_snapshot?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MouvementStockCreateManyArticleInput = {

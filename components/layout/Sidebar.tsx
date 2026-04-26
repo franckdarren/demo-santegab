@@ -108,6 +108,13 @@ const NAVIGATION: NavItem[] = [
     module: "LABORATOIRE",
   },
   {
+    label:          "Catalogue examens",
+    href:           "/dashboard/laboratory/catalogue",
+    icon:           BookOpen,
+    module:         null,
+    adminSeulement: true,
+  },
+  {
     label:  "Imagerie",
     href:   "/dashboard/imaging",
     icon:   ScanLine,
@@ -200,6 +207,21 @@ export function AppSidebar({
   const itemsVisibles  = NAVIGATION.filter(estVisible).filter((i) => !i.comingSoon);
   const itemsBientot   = NAVIGATION.filter(estVisible).filter((i) => i.comingSoon);
 
+  // Détermine si un item est actif sans être "surclassé" par un enfant plus spécifique
+  function estActif(item: NavItem): boolean {
+    if (pathname === item.href) return true;
+    if (item.href === "/dashboard") return false;
+    if (!pathname.startsWith(item.href)) return false;
+    // Un item parent n'est actif que si aucun enfant plus spécifique ne matche
+    const enfantPlusSpecifique = itemsVisibles.some(
+      (autre) =>
+        autre.href !== item.href &&
+        autre.href.startsWith(item.href) &&
+        pathname.startsWith(autre.href)
+    );
+    return !enfantPlusSpecifique;
+  }
+
   return (
     <Sidebar className="border-r-0">
 
@@ -234,10 +256,7 @@ export function AppSidebar({
             <SidebarMenu>
               {itemsVisibles.map((item) => {
                 const Icon = item.icon;
-                const isActive =
-                  pathname === item.href ||
-                  (item.href !== "/dashboard" &&
-                    pathname.startsWith(item.href));
+                const isActive = estActif(item);
 
                 return (
                   <SidebarMenuItem key={item.href}>

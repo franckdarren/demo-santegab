@@ -256,6 +256,27 @@ exports.Prisma.ExamenLaboScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.ExamenCatalogueScalarFieldEnum = {
+  id: 'id',
+  hospital_id: 'hospital_id',
+  famille: 'famille',
+  nom: 'nom',
+  description: 'description',
+  prix: 'prix',
+  actif: 'actif',
+  ordre: 'ordre',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ExamenLaboExamenScalarFieldEnum = {
+  id: 'id',
+  examen_labo_id: 'examen_labo_id',
+  catalogue_id: 'catalogue_id',
+  prix_snapshot: 'prix_snapshot',
+  created_at: 'created_at'
+};
+
 exports.Prisma.ExamenImagerieScalarFieldEnum = {
   id: 'id',
   hospital_id: 'hospital_id',
@@ -626,6 +647,8 @@ exports.Prisma.ModelName = {
   Facture: 'Facture',
   LigneFacture: 'LigneFacture',
   ExamenLabo: 'ExamenLabo',
+  ExamenCatalogue: 'ExamenCatalogue',
+  ExamenLaboExamen: 'ExamenLaboExamen',
   ExamenImagerie: 'ExamenImagerie',
   ArticleStock: 'ArticleStock',
   MouvementStock: 'MouvementStock',

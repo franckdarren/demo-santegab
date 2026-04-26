@@ -43,6 +43,12 @@ const TYPE_LABELS: Record<string, string> = {
 const selectClass =
     "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring";
 
+interface ExamenLaboExamenDetail {
+    id: string;
+    prix_snapshot: number;
+    catalogue: { id: string; nom: string; famille: string };
+}
+
 interface ExamenLabo {
     id: string;
     statut: StatutExamen;
@@ -54,12 +60,13 @@ interface ExamenLabo {
     valide_par: string | null;
     valide_le: Date | null;
     notes: string | null;
-    prix_unitaire: number | null; // ← ajouté
-    facture_id: string | null;   // ← ajouté
+    prix_unitaire: number | null;
+    facture_id: string | null;
     created_at: Date;
     updated_at: Date;
     patient: { id: string; nom: string; prenom: string; numero_dossier: string };
     medecin: { id: string; nom: string; prenom: string };
+    examens_details?: ExamenLaboExamenDetail[];
 }
 
 interface ExamenLaboDetailDialogProps {
@@ -249,6 +256,37 @@ export function ExamenLaboDetailDialog({
                                     <p className="text-xs text-gray-400">{formatTime(examen.created_at)}</p>
                                 </div>
                             </div>
+
+                            {/* Examens spécifiques demandés */}
+                            {examen.examens_details && examen.examens_details.length > 0 && (
+                                <div className="border border-gray-200 rounded-lg overflow-hidden">
+                                    <div className="px-4 py-2.5 bg-gray-50 border-b border-gray-200">
+                                        <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
+                                            Examens demandés ({examen.examens_details.length})
+                                        </p>
+                                    </div>
+                                    <div className="divide-y divide-gray-100">
+                                        {examen.examens_details.map((detail) => (
+                                            <div
+                                                key={detail.id}
+                                                className="flex items-center justify-between px-4 py-2.5"
+                                            >
+                                                <div>
+                                                    <p className="text-sm text-gray-800 font-medium">
+                                                        {detail.catalogue.nom}
+                                                    </p>
+                                                    <p className="text-xs text-gray-400">
+                                                        {detail.catalogue.famille}
+                                                    </p>
+                                                </div>
+                                                <span className="text-sm font-semibold text-gray-600">
+                                                    {formatCurrency(detail.prix_snapshot)}
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
 
                             {/* Tarif + statut facturation — toujours visible */}
                             <div className={cn(

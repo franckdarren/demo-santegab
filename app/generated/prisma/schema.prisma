@@ -180,6 +180,7 @@ model Hospital {
   services             Service[]           @relation("HospitalServices")
   factures             Facture[]
   examens_labo         ExamenLabo[]        @relation("HospitalExamensLabo")
+  examens_catalogue    ExamenCatalogue[]   @relation("HospitalExamensCatalogue")
   examens_imagerie     ExamenImagerie[]    @relation("HospitalExamensImagerie")
   articles_stock       ArticleStock[]      @relation("HospitalArticlesStock")
   mouvements_stock     MouvementStock[]    @relation("HospitalMouvementsStock")
@@ -401,15 +402,57 @@ model ExamenLabo {
   created_at    DateTime       @default(now())
   updated_at    DateTime       @updatedAt
 
-  hospital Hospital    @relation("HospitalExamensLabo", fields: [hospital_id], references: [id])
-  patient  Patient     @relation("PatientExamensLabo", fields: [patient_id], references: [id])
-  medecin  Utilisateur @relation("MedecinExamensLabo", fields: [medecin_id], references: [id])
-  facture  Facture?    @relation("FactureExamensLabo", fields: [facture_id], references: [id])
+  hospital        Hospital           @relation("HospitalExamensLabo", fields: [hospital_id], references: [id])
+  patient         Patient            @relation("PatientExamensLabo", fields: [patient_id], references: [id])
+  medecin         Utilisateur        @relation("MedecinExamensLabo", fields: [medecin_id], references: [id])
+  facture         Facture?           @relation("FactureExamensLabo", fields: [facture_id], references: [id])
+  examens_details ExamenLaboExamen[] @relation("ExamenLaboExamens")
 
   @@index([hospital_id])
   @@index([patient_id])
   @@index([facture_id])
   @@map("examens_labo")
+}
+
+// ============================================================
+// TABLE : examens_catalogue
+// Catalogue des examens biologiques propre à chaque hôpital
+// ============================================================
+model ExamenCatalogue {
+  id          String   @id @default(uuid())
+  hospital_id String
+  famille     String
+  nom         String
+  description String?
+  prix        Float    @default(0)
+  actif       Boolean  @default(true)
+  ordre       Int      @default(0)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  hospital Hospital           @relation("HospitalExamensCatalogue", fields: [hospital_id], references: [id])
+  examens  ExamenLaboExamen[] @relation("CatalogueExamens")
+
+  @@index([hospital_id])
+  @@map("examens_catalogue")
+}
+
+// ============================================================
+// TABLE : examen_labo_examens
+// Examens spécifiques demandés dans une demande labo
+// ============================================================
+model ExamenLaboExamen {
+  id             String   @id @default(uuid())
+  examen_labo_id String
+  catalogue_id   String
+  prix_snapshot  Float
+  created_at     DateTime @default(now())
+
+  examen_labo ExamenLabo      @relation("ExamenLaboExamens", fields: [examen_labo_id], references: [id], onDelete: Cascade)
+  catalogue   ExamenCatalogue @relation("CatalogueExamens", fields: [catalogue_id], references: [id])
+
+  @@index([examen_labo_id])
+  @@map("examen_labo_examens")
 }
 
 // ============================================================
