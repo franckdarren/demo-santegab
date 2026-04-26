@@ -1,8 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
-  Users, Stethoscope, FlaskConical, ScanLine,
-  TrendingUp, TrendingDown, UserPlus,
+  Users,
+  Stethoscope,
+  FlaskConical,
+  ScanLine,
+  TrendingUp,
+  TrendingDown,
 } from "lucide-react";
 
 interface StatsGeneralesProps {
@@ -14,36 +18,41 @@ interface StatsGeneralesProps {
     totalExamensLabo: number;
     totalExamensImagerie: number;
   };
+  labelPeriode?: string;
 }
 
-export function StatsGenerales({ stats }: StatsGeneralesProps) {
+export function StatsGenerales({
+  stats,
+  labelPeriode = "ce mois",
+}: StatsGeneralesProps) {
   const cards = [
     {
       titre: "Total patients",
       valeur: stats.totalPatients.toString(),
-      description: `+${stats.nouveauxPatientsMois} ce mois`,
+      description: `+${stats.nouveauxPatientsMois} ${labelPeriode}`,
       icon: Users,
       couleur: "text-blue-600",
       bg: "bg-blue-50",
       badge: null,
     },
     {
-      titre: "Consultations ce mois",
+      titre: `Consultations ${labelPeriode}`,
       valeur: stats.totalConsultationsMois.toString(),
-      description: "vs mois précédent",
+      description: "vs période précédente",
       icon: Stethoscope,
       couleur: "text-green-600",
       bg: "bg-green-50",
       badge: {
         label: `${stats.evolutionConsultations > 0 ? "+" : ""}${stats.evolutionConsultations}%`,
-        color: stats.evolutionConsultations >= 0
-          ? "bg-green-100 text-green-700"
-          : "bg-red-100 text-red-700",
+        color:
+          stats.evolutionConsultations >= 0
+            ? "bg-green-100 text-green-700"
+            : "bg-red-100 text-red-700",
         icon: stats.evolutionConsultations >= 0 ? TrendingUp : TrendingDown,
       },
     },
     {
-      titre: "Examens labo ce mois",
+      titre: `Examens labo ${labelPeriode}`,
       valeur: stats.totalExamensLabo.toString(),
       description: "Demandes enregistrées",
       icon: FlaskConical,
@@ -52,7 +61,7 @@ export function StatsGenerales({ stats }: StatsGeneralesProps) {
       badge: null,
     },
     {
-      titre: "Examens imagerie",
+      titre: `Imagerie ${labelPeriode}`,
       valeur: stats.totalExamensImagerie.toString(),
       description: "Radios, écho, scanners",
       icon: ScanLine,
@@ -81,7 +90,9 @@ export function StatsGenerales({ stats }: StatsGeneralesProps) {
               <div className="flex items-center gap-2 mt-1">
                 <p className="text-xs text-gray-500">{card.description}</p>
                 {card.badge && (
-                  <Badge className={`text-[10px] border-0 flex items-center gap-0.5 ${card.badge.color}`}>
+                  <Badge
+                    className={`text-[10px] border-0 flex items-center gap-0.5 ${card.badge.color}`}
+                  >
                     <card.badge.icon className="h-2.5 w-2.5" />
                     {card.badge.label}
                   </Badge>

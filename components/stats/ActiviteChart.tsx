@@ -1,9 +1,21 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  AreaChart, Area, XAxis, YAxis,
-  CartesianGrid, Tooltip, Legend, ResponsiveContainer,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
 } from "recharts";
 
 interface ActiviteChartProps {
@@ -12,11 +24,18 @@ interface ActiviteChartProps {
     consultations: number;
     examens: number;
   }>;
+  labelPeriode?: string;
 }
 
-export function ActiviteChart({ data }: ActiviteChartProps) {
-  // Affiche seulement 1 point sur 3 pour éviter la surcharge
-  const dataFiltered = data.filter((_, i) => i % 3 === 0 || i === data.length - 1);
+export function ActiviteChart({
+  data,
+  labelPeriode = "30 derniers jours",
+}: ActiviteChartProps) {
+  // Réduit l'affichage si trop de points (lisibilité axe X)
+  const dataFiltered =
+    data.length > 20
+      ? data.filter((_, i) => i % 2 === 0 || i === data.length - 1)
+      : data;
 
   return (
     <Card className="border border-gray-200 shadow-sm">
@@ -25,7 +44,7 @@ export function ActiviteChart({ data }: ActiviteChartProps) {
           Activité médicale
         </CardTitle>
         <CardDescription className="text-xs text-gray-500">
-          Consultations et examens — 30 derniers jours
+          Consultations et examens — {labelPeriode}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -65,9 +84,7 @@ export function ActiviteChart({ data }: ActiviteChartProps) {
               }}
               formatter={(value) => [String(value), ""]}
             />
-            <Legend
-              wrapperStyle={{ fontSize: 11, paddingTop: 8 }}
-            />
+            <Legend wrapperStyle={{ fontSize: 11, paddingTop: 8 }} />
             <Area
               type="monotone"
               dataKey="consultations"

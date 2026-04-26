@@ -1,7 +1,21 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 import { formatCurrency } from "@/lib/utils";
 
 interface StatsFinancieresProps {
@@ -11,17 +25,21 @@ interface StatsFinancieresProps {
     facturesEnAttente: number;
     revenusMois: number;
   };
+  labelPeriode?: string;
 }
 
-export function StatsFinancieres({ stats }: StatsFinancieresProps) {
+export function StatsFinancieres({
+  stats,
+  labelPeriode = "ce mois",
+}: StatsFinancieresProps) {
   return (
     <Card className="border border-gray-200 shadow-sm">
       <CardHeader className="pb-2">
         <CardTitle className="text-base font-semibold text-gray-800">
-          Revenus mensuels
+          Revenus par période
         </CardTitle>
         <CardDescription className="text-xs text-gray-500">
-          6 derniers mois · Part patient encaissée
+          Part patient encaissée · {labelPeriode}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -44,20 +62,24 @@ export function StatsFinancieres({ stats }: StatsFinancieresProps) {
               tickFormatter={(v) => `${(v / 1000).toFixed(0)}k`}
             />
             <Tooltip
-              contentStyle={{ fontSize: 12, borderRadius: 8, border: "1px solid #e5e7eb" }}
+              contentStyle={{
+                fontSize: 12,
+                borderRadius: 8,
+                border: "1px solid #e5e7eb",
+              }}
               formatter={(value) => [formatCurrency(Number(value)), "Revenus"]}
             />
             <Bar dataKey="revenus" fill="#1d4ed8" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
 
-        {/* KPIs financiers */}
+        {/* KPIs financiers de la période */}
         <div className="grid grid-cols-3 gap-3 pt-2 border-t border-gray-100">
           <div className="text-center">
             <p className="text-lg font-bold text-gray-900">
               {stats.facturesMois}
             </p>
-            <p className="text-xs text-gray-400">Factures ce mois</p>
+            <p className="text-xs text-gray-400">Factures émises</p>
           </div>
           <div className="text-center">
             <p className="text-lg font-bold text-orange-600">
@@ -69,7 +91,7 @@ export function StatsFinancieres({ stats }: StatsFinancieresProps) {
             <p className="text-lg font-bold text-green-600">
               {formatCurrency(stats.revenusMois)}
             </p>
-            <p className="text-xs text-gray-400">Encaissé ce mois</p>
+            <p className="text-xs text-gray-400">Encaissé</p>
           </div>
         </div>
       </CardContent>
