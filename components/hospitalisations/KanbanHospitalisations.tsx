@@ -316,9 +316,14 @@ export function KanbanHospitalisations({
   const sortieEnAttente = sortieFiltrees.filter(
     (h) => h.facture?.statut !== "PAYEE"
   );
-  const sortiePayees = sortieFiltrees.filter(
-    (h) => h.facture?.statut === "PAYEE"
-  );
+
+  // Filtre "Payées ce mois" : statut PAYEE + date_paiement dans le mois courant
+  const debutMoisCourant = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+  const sortiePayees = sortieFiltrees.filter((h) => {
+    if (h.facture?.statut !== "PAYEE") return false;
+    if (!h.facture.date_paiement) return false;
+    return new Date(h.facture.date_paiement) >= debutMoisCourant;
+  });
 
   const selectClass =
     "flex h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring";
