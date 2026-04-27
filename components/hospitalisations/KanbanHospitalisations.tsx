@@ -95,6 +95,7 @@ interface Hospitalisation {
     statut:          string;
     montant_total:   number;
     montant_patient: number;
+    date_paiement:   Date | string | null;
   } | null;
 }
 
