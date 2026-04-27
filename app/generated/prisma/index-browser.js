@@ -386,11 +386,20 @@ exports.Prisma.ChambreScalarFieldEnum = {
   hospital_id: 'hospital_id',
   numero: 'numero',
   service: 'service',
-  lit: 'lit',
   type_chambre: 'type_chambre',
   prix_journalier: 'prix_journalier',
   est_disponible: 'est_disponible',
   description: 'description',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.LitScalarFieldEnum = {
+  id: 'id',
+  hospital_id: 'hospital_id',
+  chambre_id: 'chambre_id',
+  nom: 'nom',
+  est_disponible: 'est_disponible',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -401,6 +410,7 @@ exports.Prisma.HospitalisationScalarFieldEnum = {
   patient_id: 'patient_id',
   medecin_id: 'medecin_id',
   chambre_id: 'chambre_id',
+  lit_id: 'lit_id',
   service_id: 'service_id',
   statut: 'statut',
   date_entree: 'date_entree',
@@ -657,6 +667,7 @@ exports.Prisma.ModelName = {
   AuditLogCarnet: 'AuditLogCarnet',
   AuditTrail: 'AuditTrail',
   Chambre: 'Chambre',
+  Lit: 'Lit',
   Hospitalisation: 'Hospitalisation',
   LigneHospitalisation: 'LigneHospitalisation',
   Permission: 'Permission',

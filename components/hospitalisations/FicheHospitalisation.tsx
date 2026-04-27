@@ -77,6 +77,10 @@ interface Hospitalisation {
     type_chambre:    string;
     prix_journalier: number;
   } | null;
+  lit: {
+    id:  string;
+    nom: string;
+  } | null;
   facture: {
     id:               string;
     numero_facture:   string;
@@ -255,12 +259,15 @@ export function FicheHospitalisation({
                 </div>
               </div>
 
-              {/* Chambre */}
+              {/* Chambre + Lit */}
               {hospitalisation.chambre && (
                 <div className="flex items-center gap-2">
                   <BedDouble className="h-3.5 w-3.5 text-gray-400 shrink-0" />
                   <p className="text-sm text-gray-600">
                     Chambre <strong>{hospitalisation.chambre.numero}</strong>
+                    {hospitalisation.lit && (
+                      <> — <strong>{hospitalisation.lit.nom}</strong></>
+                    )}
                     {" — "}
                     {hospitalisation.chambre.type_chambre}
                     {" — "}

@@ -34,6 +34,7 @@ export async function admettrePatienten(
     patient_id:       string;
     medecin_id:       string;
     chambre_id?:      string;
+    lit_id?:          string;
     service_id?:      string;
     motif_admission?: string;
   }
@@ -43,6 +44,11 @@ export async function admettrePatienten(
   // Récupère la chambre et son tarif si sélectionnée
   const chambre = data.chambre_id
     ? await prisma.chambre.findUnique({ where: { id: data.chambre_id } })
+    : null;
+
+  // Récupère le lit sélectionné
+  const lit = data.lit_id
+    ? await prisma.lit.findUnique({ where: { id: data.lit_id } })
     : null;
 
   // Récupère le patient + son taux d'assurance
@@ -65,6 +71,10 @@ export async function admettrePatienten(
   const numeroFacture = `FAC-HOSPIT-${new Date().getFullYear()}-${String(count + 1).padStart(5, "0")}`;
 
   // Crée la facture EN_ATTENTE immédiatement
+  const descriptionChambre = chambre
+    ? `Chambre ${chambre.numero}${lit ? ` — ${lit.nom}` : ""} — ${chambre.type_chambre} (Jour 1)`
+    : null;
+
   const facture = await prisma.facture.create({
     data: {
       hospital_id:       hospitalId,
@@ -77,7 +87,7 @@ export async function admettrePatienten(
       notes:             `Hospitalisation — ${data.motif_admission ?? "Admission"}`,
       lignes: chambre ? {
         create: [{
-          description:   `Chambre ${chambre.numero} — ${chambre.type_chambre} (Jour 1)`,
+          description:   descriptionChambre!,
           quantite:      1,
           prix_unitaire: chambre.prix_journalier,
           montant_total: chambre.prix_journalier,
@@ -86,12 +96,32 @@ export async function admettrePatienten(
     },
   });
 
-  // Marque la chambre comme occupée
-  if (data.chambre_id) {
-    await prisma.chambre.update({
-      where: { id: data.chambre_id },
+  // Marque le lit comme occupé et recalcule la disponibilité de la chambre
+  if (data.lit_id) {
+    await prisma.lit.update({
+      where: { id: data.lit_id },
       data:  { est_disponible: false },
     });
+  }
+
+  // Recalcule est_disponible de la chambre (= au moins un lit encore libre)
+  if (data.chambre_id) {
+    if (data.lit_id) {
+      const litsRestants = await prisma.lit.findMany({
+        where: { chambre_id: data.chambre_id },
+      });
+      const auMoinsUnLibre = litsRestants.some((l) => l.est_disponible);
+      await prisma.chambre.update({
+        where: { id: data.chambre_id },
+        data:  { est_disponible: auMoinsUnLibre },
+      });
+    } else {
+      // Chambre sans gestion de lits — on bloque directement
+      await prisma.chambre.update({
+        where: { id: data.chambre_id },
+        data:  { est_disponible: false },
+      });
+    }
   }
 
   // Crée l'hospitalisation liée à la facture
@@ -101,6 +131,7 @@ export async function admettrePatienten(
       patient_id:      data.patient_id,
       medecin_id:      data.medecin_id,
       chambre_id:      data.chambre_id ?? null,
+      lit_id:          data.lit_id     ?? null,
       service_id:      data.service_id ?? null,
       motif_admission: data.motif_admission ?? null,
       statut:          "EN_COURS",
@@ -110,7 +141,7 @@ export async function admettrePatienten(
         create: [{
           type_ligne:    "CHAMBRE",
           statut:        "SERVI",
-          description:   `Chambre ${chambre.numero} — ${chambre.type_chambre}`,
+          description:   descriptionChambre!,
           quantite:      1,
           prix_unitaire: chambre.prix_journalier,
           montant_total: chambre.prix_journalier,
@@ -132,11 +163,12 @@ export async function admettrePatienten(
     utilisateurNom,
     typeAction:  "CREATION",
     module:      "HOSPITALISATION",
-    description: `Admission — ${nomPatient}${data.motif_admission ? ` — ${data.motif_admission}` : ""}${chambre ? ` — Chambre ${chambre.numero}` : ""}`,
+    description: `Admission — ${nomPatient}${data.motif_admission ? ` — ${data.motif_admission}` : ""}${chambre ? ` — Chambre ${chambre.numero}${lit ? ` ${lit.nom}` : ""}` : ""}`,
     entiteId:    hospitalisation.id,
     entiteNom:   nomPatient,
     metadonnees: {
-      chambre_numero:  chambre?.numero ?? null,
+      chambre_numero:  chambre?.numero   ?? null,
+      lit_nom:         lit?.nom          ?? null,
       prix_journalier: chambre?.prix_journalier ?? 0,
       facture_numero:  numeroFacture,
       taux_couverture: tauxCouverture,
@@ -433,7 +465,13 @@ export async function cloturerHospitalisation(
     include: { patient: true, facture: true },
   });
 
-  // Libère la chambre
+  // Libère le lit spécifique et recalcule la disponibilité de la chambre
+  if (hospitalisation.lit_id) {
+    await prisma.lit.update({
+      where: { id: hospitalisation.lit_id },
+      data:  { est_disponible: true },
+    });
+  }
   if (hospitalisation.chambre_id) {
     await prisma.chambre.update({
       where: { id: hospitalisation.chambre_id },
@@ -570,6 +608,7 @@ export async function getHospitalisations(
       patient: true,
       medecin: true,
       chambre: true,
+      lit:     true,
       service: true,
       lignes:  true,
       facture: true,
@@ -591,6 +630,7 @@ export async function getHospitalisationById(
       patient: true,
       medecin: true,
       chambre: true,
+      lit:     true,
       service: true,
       facture: { include: { lignes: true } },
       lignes: {
@@ -631,8 +671,8 @@ export async function getStatsHospitalisations(hospitalId: string) {
     }),
   ]);
 
-  // Nombre de chambres disponibles
-  const chambresDisponibles = await prisma.chambre.count({
+  // Nombre de lits disponibles (ou chambres sans lits configurés)
+  const chambresDisponibles = await prisma.lit.count({
     where: { hospital_id: hospitalId, est_disponible: true },
   });
 

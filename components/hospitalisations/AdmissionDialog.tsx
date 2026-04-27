@@ -39,12 +39,19 @@ interface PatientHospital {
   };
 }
 
+interface Lit {
+  id:             string;
+  nom:            string;
+  est_disponible: boolean;
+}
+
 interface Chambre {
   id:              string;
   numero:          string;
   type_chambre:    string;
   prix_journalier: number;
   est_disponible:  boolean;
+  lits:            Lit[];
 }
 
 interface Service {
@@ -95,17 +102,31 @@ export function AdmissionDialog({
   const [patientId,   setPatientId]   = useState("");
   const [medecinId,   setMedecinId]   = useState("");
   const [chambreId,   setChambreId]   = useState("");
+  const [litId,       setLitId]       = useState("");
   const [serviceId,   setServiceId]   = useState("");
   const [motif,       setMotif]       = useState("");
 
-  // Chambre sélectionnée pour afficher le tarif
-  const chambreSelectionnee = chambres.find((c) => c.id === chambreId);
+  // Chambres avec au moins un lit disponible (ou sans lits = mode legacy)
   const chambresDisponibles = chambres.filter((c) => c.est_disponible);
+  const chambreSelectionnee = chambres.find((c) => c.id === chambreId);
+
+  // Lits disponibles de la chambre sélectionnée
+  const litsDisponibles = chambreSelectionnee
+    ? chambreSelectionnee.lits.filter((l) => l.est_disponible)
+    : [];
+
+  const chambreADesLits = chambreSelectionnee && chambreSelectionnee.lits.length > 0;
+
+  function handleChangerChambre(id: string) {
+    setChambreId(id);
+    setLitId(""); // Réinitialise le lit quand la chambre change
+  }
 
   function valider(): boolean {
     const newErrors: Record<string, string> = {};
     if (!patientId) newErrors.patient  = "Veuillez sélectionner un patient";
     if (!medecinId) newErrors.medecin  = "Veuillez sélectionner un médecin";
+    if (chambreADesLits && !litId) newErrors.lit = "Veuillez sélectionner un lit";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   }
@@ -115,6 +136,7 @@ export function AdmissionDialog({
     setPatientId("");
     setMedecinId("");
     setChambreId("");
+    setLitId("");
     setServiceId("");
     setMotif("");
     setErrors({});
@@ -131,11 +153,12 @@ export function AdmissionDialog({
           utilisateurId,
           utilisateurNom,
           {
-            patient_id:       patientId,
-            medecin_id:       medecinId,
-            chambre_id:       chambreId  || undefined,
-            service_id:       serviceId  || undefined,
-            motif_admission:  motif      || undefined,
+            patient_id:      patientId,
+            medecin_id:      medecinId,
+            chambre_id:      chambreId  || undefined,
+            lit_id:          litId      || undefined,
+            service_id:      serviceId  || undefined,
+            motif_admission: motif      || undefined,
           }
         );
         setSucces(true);
@@ -270,7 +293,7 @@ export function AdmissionDialog({
                 </Label>
                 <select
                   value={chambreId}
-                  onChange={(e) => setChambreId(e.target.value)}
+                  onChange={(e) => handleChangerChambre(e.target.value)}
                   className={selectClass}
                 >
                   <option value="">Sans chambre assignée</option>
@@ -281,25 +304,59 @@ export function AdmissionDialog({
                   ))}
                 </select>
 
-                {/* Aperçu tarif chambre */}
-                {chambreSelectionnee && (
-                  <div className="flex items-center gap-2 p-2.5 bg-blue-50 rounded-lg border border-blue-100">
-                    <BedDouble className="h-4 w-4 text-blue-600 shrink-0" />
-                    <p className="text-xs text-blue-700">
-                      <span className="font-semibold">
-                        {formatCurrency(chambreSelectionnee.prix_journalier)}
-                      </span>
-                      {" "}/jour — La première journée sera facturée à l&apos;admission
-                    </p>
-                  </div>
-                )}
-
                 {chambresDisponibles.length === 0 && (
                   <p className="text-xs text-orange-600">
                     ⚠️ Aucune chambre disponible actuellement
                   </p>
                 )}
               </div>
+
+              {/* Lit — affiché uniquement si la chambre a des lits */}
+              {chambreSelectionnee && chambreADesLits && (
+                <div className="space-y-1.5">
+                  <Label>
+                    Lit <span className="text-red-500">*</span>
+                  </Label>
+                  <select
+                    value={litId}
+                    onChange={(e) => {
+                      setLitId(e.target.value);
+                      if (errors.lit) setErrors((p) => ({ ...p, lit: "" }));
+                    }}
+                    className={cn(selectClass, errors.lit && "border-red-400")}
+                  >
+                    <option value="">Sélectionner un lit</option>
+                    {litsDisponibles.map((l) => (
+                      <option key={l.id} value={l.id}>
+                        {l.nom}
+                      </option>
+                    ))}
+                  </select>
+                  <FieldError message={errors.lit} />
+
+                  {litsDisponibles.length === 0 && (
+                    <p className="text-xs text-orange-600">
+                      ⚠️ Tous les lits de cette chambre sont occupés
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {/* Aperçu tarif chambre */}
+              {chambreSelectionnee && (
+                <div className="flex items-center gap-2 p-2.5 bg-blue-50 rounded-lg border border-blue-100">
+                  <BedDouble className="h-4 w-4 text-blue-600 shrink-0" />
+                  <p className="text-xs text-blue-700">
+                    <span className="font-semibold">
+                      {formatCurrency(chambreSelectionnee.prix_journalier)}
+                    </span>
+                    {litId && litsDisponibles.find((l) => l.id === litId) && (
+                      <span> — {litsDisponibles.find((l) => l.id === litId)?.nom}</span>
+                    )}
+                    {" "}/jour — La première journée sera facturée à l&apos;admission
+                  </p>
+                </div>
+              )}
 
               {/* Motif d'admission */}
               <div className="space-y-1.5">

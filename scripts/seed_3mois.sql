@@ -26,33 +26,64 @@ ALTER TABLE hospitalisations   ALTER COLUMN id SET DEFAULT gen_random_uuid();
 ALTER TABLE lignes_hospitalisation ALTER COLUMN id SET DEFAULT gen_random_uuid();
 ALTER TABLE mouvements_stock   ALTER COLUMN id SET DEFAULT gen_random_uuid();
 ALTER TABLE ecritures_comptables ALTER COLUMN id SET DEFAULT gen_random_uuid();
+ALTER TABLE lits                ALTER COLUMN id SET DEFAULT gen_random_uuid();
 ALTER TABLE audit_trail        ALTER COLUMN id SET DEFAULT gen_random_uuid();
 
 BEGIN;
 
 -- ============================================================
 -- 1. NETTOYAGE — toutes les tables sauf utilisateurs et hospitals
+--
+-- Ordre respectant les contraintes FK (enfants avant parents) :
+--   1. Détacher utilisateurs de leurs rôles personnalisés
+--   2. Supprimer dans l'ordre topologique des dépendances
 -- ============================================================
+
+-- Détacher les utilisateurs de leurs rôles perso (FK vers roles_personnalises)
+UPDATE utilisateurs SET role_personnalise_id = NULL;
+
+-- Logs et jetons
 DELETE FROM audit_trail;
 DELETE FROM audit_logs_carnet;
 DELETE FROM qr_tokens;
+
+-- Permissions et rôles personnalisés
 DELETE FROM permissions;
 DELETE FROM roles_personnalises;
+
+-- Comptabilité
 DELETE FROM ecritures_comptables;
+
+-- Hospitalisations (lignes d'abord, puis séjours, puis lits et chambres)
 DELETE FROM lignes_hospitalisation;
 DELETE FROM hospitalisations;
+DELETE FROM lits;
 DELETE FROM chambres;
+
+-- Stock
 DELETE FROM mouvements_stock;
 DELETE FROM articles_stock;
+
+-- Examens labo (détails d'abord, puis demandes)
 DELETE FROM examen_labo_examens;
 DELETE FROM examens_labo;
+
+-- Imagerie
 DELETE FROM examens_imagerie;
+
+-- Facturation (lignes d'abord, puis factures)
 DELETE FROM ligne_factures;
 DELETE FROM factures;
+
+-- Consultations (prescriptions d'abord)
 DELETE FROM prescriptions;
 DELETE FROM consultations;
+
+-- Référentiels
 DELETE FROM examens_catalogue;
 DELETE FROM services;
+
+-- Patients (jonction d'abord, puis patients)
 DELETE FROM patient_hospitals;
 DELETE FROM patients;
 
@@ -206,6 +237,47 @@ INSERT INTO chambres (id, hospital_id, numero, type_chambre, prix_journalier, es
 ('33333333-7001-0000-0000-000000007001', '11111111-1111-1111-1111-111111111111', 'REA-01', 'REANIMATION', 120000, TRUE, 'Unité réanimation — Monitoring continu — Ventilateur', NOW()),
 
 ('33333333-7002-0000-0000-000000007002', '11111111-1111-1111-1111-111111111111', 'REA-02', 'REANIMATION', 120000, TRUE, 'Unité réanimation — Monitoring continu — Ventilateur', NOW());
+
+
+-- ============================================================
+-- 5bis. LITS (un lit référence une chambre)
+-- Communes : 4 lits chacune | Privées/VIP/Réa : 1 lit
+-- ============================================================
+INSERT INTO lits (hospital_id, chambre_id, nom, est_disponible, updated_at)
+-- Chambre 101 — Commune (4 lits)
+SELECT '11111111-1111-1111-1111-111111111111', id, 'Lit 101-' || l.lettre, TRUE, NOW()
+FROM chambres, (VALUES ('A'), ('B'), ('C'), ('D')) AS l(lettre)
+WHERE numero = '101' AND hospital_id = '11111111-1111-1111-1111-111111111111';
+
+INSERT INTO lits (hospital_id, chambre_id, nom, est_disponible, updated_at)
+-- Chambre 102 — Commune (4 lits)
+SELECT '11111111-1111-1111-1111-111111111111', id, 'Lit 102-' || l.lettre, TRUE, NOW()
+FROM chambres, (VALUES ('A'), ('B'), ('C'), ('D')) AS l(lettre)
+WHERE numero = '102' AND hospital_id = '11111111-1111-1111-1111-111111111111';
+
+INSERT INTO lits (hospital_id, chambre_id, nom, est_disponible, updated_at)
+-- Chambre 103 — Commune (4 lits)
+SELECT '11111111-1111-1111-1111-111111111111', id, 'Lit 103-' || l.lettre, TRUE, NOW()
+FROM chambres, (VALUES ('A'), ('B'), ('C'), ('D')) AS l(lettre)
+WHERE numero = '103' AND hospital_id = '11111111-1111-1111-1111-111111111111';
+
+INSERT INTO lits (hospital_id, chambre_id, nom, est_disponible, updated_at)
+-- Chambres Privées 201, 202, 203 — 1 lit chacune
+SELECT '11111111-1111-1111-1111-111111111111', id, 'Lit ' || numero, TRUE, NOW()
+FROM chambres
+WHERE numero IN ('201', '202', '203') AND hospital_id = '11111111-1111-1111-1111-111111111111';
+
+INSERT INTO lits (hospital_id, chambre_id, nom, est_disponible, updated_at)
+-- Suites VIP-01, VIP-02 — 1 lit chacune
+SELECT '11111111-1111-1111-1111-111111111111', id, 'Lit ' || numero, TRUE, NOW()
+FROM chambres
+WHERE numero IN ('VIP-01', 'VIP-02') AND hospital_id = '11111111-1111-1111-1111-111111111111';
+
+INSERT INTO lits (hospital_id, chambre_id, nom, est_disponible, updated_at)
+-- Réanimation REA-01, REA-02 — 1 lit chacune
+SELECT '11111111-1111-1111-1111-111111111111', id, 'Lit ' || numero, TRUE, NOW()
+FROM chambres
+WHERE numero IN ('REA-01', 'REA-02') AND hospital_id = '11111111-1111-1111-1111-111111111111';
 
 
 -- ============================================================
@@ -551,6 +623,7 @@ DECLARE
   medecin_id_v TEXT;
   service_id_v TEXT;
   chambre_id_v TEXT;
+  lit_id_v     TEXT;
   prix_total   FLOAT;
   prix_chambre FLOAT;
   taux         FLOAT;
@@ -1006,6 +1079,13 @@ BEGIN
 
     SELECT id INTO chambre_id_v FROM chambres WHERE hospital_id = hosp_id AND numero = rec.ch_num;
 
+    -- Premier lit de la chambre (trié par nom)
+    SELECT id INTO lit_id_v
+    FROM lits
+    WHERE chambre_id = chambre_id_v AND hospital_id = hosp_id
+    ORDER BY nom ASC
+    LIMIT 1;
+
     date_v := debut + (rec.day_entree || ' days')::INTERVAL + INTERVAL '8 hours';
     IF rec.duree IS NOT NULL THEN
       duree := rec.duree;
@@ -1060,8 +1140,8 @@ BEGIN
     FROM _hacte WHERE ord = rec.ord;
 
     -- Hospitalisation
-    INSERT INTO hospitalisations (id, hospital_id, patient_id, medecin_id, chambre_id, service_id, statut, date_entree, date_sortie, motif_admission, diagnostic, notes, facture_id, created_at, updated_at)
-    VALUES (hospit_id, hosp_id, patient_id_v, medecin_id_v, chambre_id_v, service_id_v,
+    INSERT INTO hospitalisations (id, hospital_id, patient_id, medecin_id, chambre_id, lit_id, service_id, statut, date_entree, date_sortie, motif_admission, diagnostic, notes, facture_id, created_at, updated_at)
+    VALUES (hospit_id, hosp_id, patient_id_v, medecin_id_v, chambre_id_v, lit_id_v, service_id_v,
             rec.statut::"StatutHospitalisation", date_v, date_sortie, rec.motif, rec.diagnostic, rec.notes, fact_id, date_v, date_v);
 
     -- Lignes hospitalisation : chambre (une par jour)
@@ -1111,9 +1191,12 @@ BEGIN
       WHERE id = mrec.aid;
     END LOOP;
 
-    -- Marquer chambre indisponible si EN_COURS
+    -- Marquer chambre et lit indisponibles si EN_COURS
     IF rec.statut = 'EN_COURS' THEN
       UPDATE chambres SET est_disponible = FALSE WHERE id = chambre_id_v;
+      IF lit_id_v IS NOT NULL THEN
+        UPDATE lits SET est_disponible = FALSE WHERE id = lit_id_v;
+      END IF;
     END IF;
 
     -- Écriture comptable si payée

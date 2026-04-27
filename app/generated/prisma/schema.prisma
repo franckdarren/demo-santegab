@@ -188,6 +188,7 @@ model Hospital {
   qr_tokens            QrToken[]           @relation("HospitalQrTokens")
   audit_trail          AuditTrail[]        @relation("HospitalAuditTrail")
   chambres             Chambre[]           @relation("HospitalChambres")
+  lits                 Lit[]               @relation("HospitalLits")
   hospitalisations     Hospitalisation[]   @relation("HospitalHospitalisations")
   permissions          Permission[]        @relation("HospitalPermissions")
   roles_personnalises  RolePersonnalise[]  @relation("HospitalRolesPersonnalises")
@@ -638,7 +639,6 @@ model Chambre {
   hospital_id     String
   numero          String
   service         String?
-  lit             String?
   type_chambre    String   @default("COMMUNE")
   prix_journalier Float    @default(0)
   est_disponible  Boolean  @default(true)
@@ -647,10 +647,34 @@ model Chambre {
   updated_at      DateTime @updatedAt
 
   hospital         Hospital          @relation("HospitalChambres", fields: [hospital_id], references: [id])
+  lits             Lit[]             @relation("ChambreLits")
   hospitalisations Hospitalisation[] @relation("ChambreHospitalisations")
 
   @@index([hospital_id])
   @@map("chambres")
+}
+
+// ============================================================
+// TABLE : lits
+// Un lit appartient à une chambre.
+// est_disponible = false quand un patient y est hospitalisé.
+// ============================================================
+model Lit {
+  id             String   @id @default(uuid())
+  hospital_id    String
+  chambre_id     String
+  nom            String
+  est_disponible Boolean  @default(true)
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+  hospital         Hospital          @relation("HospitalLits", fields: [hospital_id], references: [id])
+  chambre          Chambre           @relation("ChambreLits", fields: [chambre_id], references: [id], onDelete: Cascade)
+  hospitalisations Hospitalisation[] @relation("LitHospitalisations")
+
+  @@index([chambre_id])
+  @@index([hospital_id])
+  @@map("lits")
 }
 
 // ============================================================
@@ -662,6 +686,7 @@ model Hospitalisation {
   patient_id      String
   medecin_id      String
   chambre_id      String?
+  lit_id          String?
   service_id      String?
   statut          StatutHospitalisation @default(EN_COURS)
   date_entree     DateTime              @default(now())
@@ -677,6 +702,7 @@ model Hospitalisation {
   patient  Patient                @relation("PatientHospitalisations", fields: [patient_id], references: [id])
   medecin  Utilisateur            @relation("MedecinHospitalisations", fields: [medecin_id], references: [id])
   chambre  Chambre?               @relation("ChambreHospitalisations", fields: [chambre_id], references: [id])
+  lit      Lit?                   @relation("LitHospitalisations", fields: [lit_id], references: [id])
   service  Service?               @relation("ServiceHospitalisations", fields: [service_id], references: [id])
   facture  Facture?               @relation("FactureHospitalisation", fields: [facture_id], references: [id])
   lignes   LigneHospitalisation[] @relation("HospitalisationLignes")

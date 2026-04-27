@@ -1,5 +1,5 @@
 // ============================================================
-// CHAMBRES GRID — Gestion des chambres et tarifs
+// CHAMBRES GRID — Gestion des chambres et de leurs lits
 // ============================================================
 
 "use client";
@@ -14,13 +14,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   BedDouble, Plus, Check, Loader2,
-  Pencil, Trash2, AlertCircle,
+  Pencil, Trash2, AlertCircle, X,
 } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import {
   creerChambre,
   modifierChambre,
   supprimerChambre,
+  creerLit,
+  supprimerLit,
 } from "@/app/dashboard/chambres/actions";
 
 const selectClass =
@@ -33,17 +35,24 @@ const TYPES_CHAMBRE = [
   { value: "REANIMATION", label: "Réanimation", couleur: "bg-red-100 text-red-700" },
 ];
 
+interface Lit {
+  id:             string;
+  nom:            string;
+  est_disponible: boolean;
+}
+
 interface Chambre {
   id:              string;
   numero:          string;
   service:         string | null;
-  lit:             string | null;
   type_chambre:    string;
   prix_journalier: number;
   est_disponible:  boolean;
   description:     string | null;
+  lits:            Lit[];
   hospitalisations: Array<{
     patient: { nom: string; prenom: string };
+    lit:     { nom: string } | null;
   }>;
 }
 
@@ -64,6 +73,239 @@ function FieldError({ message }: { message?: string }) {
   );
 }
 
+// ============================================================
+// Carte individuelle d'une chambre
+// ============================================================
+interface ChambreCardProps {
+  chambre:        Chambre;
+  hospitalId:     string;
+  utilisateurId:  string;
+  utilisateurNom: string;
+  onEdit:         (c: Chambre) => void;
+  onDelete:       (c: Chambre) => void;
+}
+
+function ChambreCard({
+  chambre,
+  hospitalId,
+  utilisateurId,
+  utilisateurNom,
+  onEdit,
+  onDelete,
+}: ChambreCardProps) {
+  const router = useRouter();
+  const [isPendingLit, startLit] = useTransition();
+  const [nouveauLit, setNouveauLit] = useState("");
+  const [ajouterMode, setAjouterMode] = useState(false);
+
+  const typeConfig      = TYPES_CHAMBRE.find((t) => t.value === chambre.type_chambre);
+  const patientEnCours  = chambre.hospitalisations[0];
+  const nbLits          = chambre.lits.length;
+  const nbLibres        = chambre.lits.filter((l) => l.est_disponible).length;
+
+  function handleAjouterLit() {
+    if (!nouveauLit.trim()) return;
+    startLit(async () => {
+      try {
+        await creerLit(chambre.id, hospitalId, utilisateurId, utilisateurNom, nouveauLit.trim());
+        setNouveauLit("");
+        setAjouterMode(false);
+        router.refresh();
+      } catch (e) {
+        alert(e instanceof Error ? e.message : "Erreur");
+      }
+    });
+  }
+
+  function handleSupprimerLit(lit: Lit) {
+    if (!confirm(`Supprimer le lit "${lit.nom}" ?`)) return;
+    startLit(async () => {
+      try {
+        await supprimerLit(lit.id, hospitalId, utilisateurId, utilisateurNom);
+        router.refresh();
+      } catch (e) {
+        alert(e instanceof Error ? e.message : "Erreur");
+      }
+    });
+  }
+
+  return (
+    <Card className={cn(
+      "border shadow-sm transition-shadow hover:shadow-md",
+      chambre.est_disponible
+        ? "border-gray-200"
+        : "border-orange-200 bg-orange-50/30"
+    )}>
+      <CardContent className="p-4 space-y-3">
+
+        {/* Header carte */}
+        <div className="flex items-start justify-between gap-2">
+          <div className="flex items-center gap-3">
+            <div className={cn(
+              "w-10 h-10 rounded-xl flex items-center justify-center shrink-0",
+              typeConfig?.couleur ?? "bg-gray-100 text-gray-700"
+            )}>
+              <BedDouble className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-base font-bold text-gray-900">
+                Chambre {chambre.numero}
+              </p>
+              <Badge className={cn(
+                "text-[10px] border-0",
+                typeConfig?.couleur ?? "bg-gray-100 text-gray-700"
+              )}>
+                {typeConfig?.label ?? chambre.type_chambre}
+              </Badge>
+            </div>
+          </div>
+
+          {/* Statut global */}
+          <Badge className={cn(
+            "text-[10px] border-0 shrink-0",
+            chambre.est_disponible
+              ? "bg-green-100 text-green-700"
+              : "bg-orange-100 text-orange-700"
+          )}>
+            {chambre.est_disponible ? "Places libres" : "Complet"}
+          </Badge>
+        </div>
+
+        {/* Service */}
+        {chambre.service && (
+          <p className="text-xs text-gray-500">🏥 {chambre.service}</p>
+        )}
+
+        {/* Liste des lits */}
+        {nbLits > 0 ? (
+          <div className="space-y-1.5">
+            <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+              Lits ({nbLibres}/{nbLits} libres)
+            </p>
+            <div className="space-y-1">
+              {chambre.lits.map((lit) => (
+                <div
+                  key={lit.id}
+                  className="flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-md bg-gray-50 border border-gray-100"
+                >
+                  <div className="flex items-center gap-2">
+                    <span className={cn(
+                      "w-2 h-2 rounded-full shrink-0",
+                      lit.est_disponible ? "bg-green-500" : "bg-orange-400"
+                    )} />
+                    <span className="text-xs text-gray-700">{lit.nom}</span>
+                    {!lit.est_disponible && (
+                      <span className="text-[10px] text-orange-600">Occupé</span>
+                    )}
+                  </div>
+                  <button
+                    type="button"
+                    disabled={isPendingLit || !lit.est_disponible}
+                    onClick={() => handleSupprimerLit(lit)}
+                    className="text-gray-300 hover:text-red-500 disabled:opacity-30 transition-colors"
+                    title="Supprimer ce lit"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <p className="text-xs text-gray-400 italic">Aucun lit configuré</p>
+        )}
+
+        {/* Patient en cours */}
+        {patientEnCours && (
+          <p className="text-xs text-gray-500">
+            👤 {patientEnCours.patient.prenom} {patientEnCours.patient.nom}
+            {patientEnCours.lit && (
+              <span className="text-gray-400"> — {patientEnCours.lit.nom}</span>
+            )}
+          </p>
+        )}
+
+        {/* Ajouter un lit */}
+        {ajouterMode ? (
+          <div className="flex gap-2">
+            <Input
+              placeholder="Nom du lit (ex: Lit A)"
+              value={nouveauLit}
+              onChange={(e) => setNouveauLit(e.target.value)}
+              onKeyDown={(e) => { if (e.key === "Enter") handleAjouterLit(); }}
+              className="h-8 text-xs"
+              autoFocus
+            />
+            <Button
+              type="button"
+              size="sm"
+              disabled={isPendingLit || !nouveauLit.trim()}
+              onClick={handleAjouterLit}
+              className="h-8 px-2.5 bg-blue-700 hover:bg-blue-800 text-white"
+            >
+              {isPendingLit ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Check className="h-3.5 w-3.5" />}
+            </Button>
+            <Button
+              type="button"
+              size="sm"
+              variant="ghost"
+              onClick={() => { setAjouterMode(false); setNouveauLit(""); }}
+              className="h-8 px-2 text-gray-400"
+            >
+              <X className="h-3.5 w-3.5" />
+            </Button>
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setAjouterMode(true)}
+            className="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1"
+          >
+            <Plus className="h-3 w-3" />
+            Ajouter un lit
+          </button>
+        )}
+
+        {/* Tarif */}
+        <div className="flex items-center justify-between pt-2 border-t border-gray-100">
+          <span className="text-xs text-gray-400">Tarif journalier</span>
+          <span className="text-base font-bold text-blue-700">
+            {formatCurrency(chambre.prix_journalier)}/jour
+          </span>
+        </div>
+
+        {/* Actions */}
+        <div className="flex gap-2">
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            onClick={() => onEdit(chambre)}
+            className="flex-1 border-gray-200 text-gray-600 hover:text-blue-700 text-xs h-8"
+          >
+            <Pencil className="h-3 w-3 mr-1" />
+            Modifier
+          </Button>
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            disabled={!chambre.est_disponible || isPendingLit}
+            onClick={() => onDelete(chambre)}
+            className="flex-1 border-red-200 text-red-600 hover:bg-red-50 text-xs h-8 disabled:opacity-30"
+          >
+            <Trash2 className="h-3 w-3 mr-1" />
+            Supprimer
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+// ============================================================
+// Composant principal
+// ============================================================
 export function ChambresGrid({
   chambres,
   hospitalId,
@@ -77,19 +319,20 @@ export function ChambresGrid({
   const [succes,         setSucces]         = useState(false);
   const [errors,         setErrors]         = useState<Record<string, string>>({});
 
-  // Formulaire
+  // Champs du formulaire chambre
   const [numero,      setNumero]      = useState("");
   const [service,     setService]     = useState("");
-  const [lit,         setLit]         = useState("");
   const [type,        setType]        = useState("COMMUNE");
   const [prix,        setPrix]        = useState("");
   const [description, setDescription] = useState("");
+
+  // Lits à créer (uniquement en mode création)
+  const [nomsLits,    setNomsLits]    = useState<string[]>([""]);
 
   function ouvrirEdition(chambre: Chambre) {
     setChambreEdition(chambre);
     setNumero(chambre.numero);
     setService(chambre.service ?? "");
-    setLit(chambre.lit ?? "");
     setType(chambre.type_chambre);
     setPrix(chambre.prix_journalier.toString());
     setDescription(chambre.description ?? "");
@@ -103,10 +346,10 @@ export function ChambresGrid({
     setSucces(false);
     setNumero("");
     setService("");
-    setLit("");
     setType("COMMUNE");
     setPrix("");
     setDescription("");
+    setNomsLits([""]);
     setErrors({});
   }
 
@@ -132,13 +375,13 @@ export function ChambresGrid({
             {
               numero,
               service:         service || null,
-              lit:             lit     || null,
               type_chambre:    type,
               prix_journalier: Number(prix),
               description:     description || null,
             }
           );
         } else {
+          const lits = nomsLits.map((n) => n.trim()).filter(Boolean);
           await creerChambre(
             hospitalId,
             utilisateurId,
@@ -146,10 +389,10 @@ export function ChambresGrid({
             {
               numero,
               service:         service || undefined,
-              lit:             lit     || undefined,
               type_chambre:    type,
               prix_journalier: Number(prix),
               description:     description || undefined,
+              noms_lits:       lits.length > 0 ? lits : undefined,
             }
           );
         }
@@ -214,106 +457,17 @@ export function ChambresGrid({
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-          {chambres.map((chambre) => {
-            const typeConfig = TYPES_CHAMBRE.find((t) => t.value === chambre.type_chambre);
-            const patientEnCours = chambre.hospitalisations[0]?.patient;
-
-            return (
-              <Card
-                key={chambre.id}
-                className={cn(
-                  "border shadow-sm transition-shadow hover:shadow-md",
-                  chambre.est_disponible
-                    ? "border-gray-200"
-                    : "border-orange-200 bg-orange-50/30"
-                )}
-              >
-                <CardContent className="p-4 space-y-3">
-
-                  {/* Header carte */}
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="flex items-center gap-3">
-                      <div className={cn(
-                        "w-10 h-10 rounded-xl flex items-center justify-center shrink-0",
-                        typeConfig?.couleur ?? "bg-gray-100 text-gray-700"
-                      )}>
-                        <BedDouble className="h-5 w-5" />
-                      </div>
-                      <div>
-                        <p className="text-base font-bold text-gray-900">
-                          Chambre {chambre.numero}
-                        </p>
-                        <Badge className={cn(
-                          "text-[10px] border-0",
-                          typeConfig?.couleur ?? "bg-gray-100 text-gray-700"
-                        )}>
-                          {typeConfig?.label ?? chambre.type_chambre}
-                        </Badge>
-                      </div>
-                    </div>
-
-                    {/* Statut disponibilité */}
-                    <Badge className={cn(
-                      "text-[10px] border-0 shrink-0",
-                      chambre.est_disponible
-                        ? "bg-green-100 text-green-700"
-                        : "bg-orange-100 text-orange-700"
-                    )}>
-                      {chambre.est_disponible ? "Libre" : "Occupée"}
-                    </Badge>
-                  </div>
-
-                  {/* Service + Lit */}
-                  {(chambre.service || chambre.lit) && (
-                    <div className="flex items-center gap-3 text-xs text-gray-500">
-                      {chambre.service && <span>🏥 {chambre.service}</span>}
-                      {chambre.lit     && <span>🛏 Lit {chambre.lit}</span>}
-                    </div>
-                  )}
-
-                  {/* Patient en cours */}
-                  {patientEnCours && (
-                    <p className="text-xs text-gray-500">
-                      👤 {patientEnCours.prenom} {patientEnCours.nom}
-                    </p>
-                  )}
-
-                  {/* Tarif */}
-                  <div className="flex items-center justify-between pt-2 border-t border-gray-100">
-                    <span className="text-xs text-gray-400">Tarif journalier</span>
-                    <span className="text-base font-bold text-blue-700">
-                      {formatCurrency(chambre.prix_journalier)}/jour
-                    </span>
-                  </div>
-
-                  {/* Actions */}
-                  <div className="flex gap-2">
-                    <Button
-                      type="button"
-                      size="sm"
-                      variant="outline"
-                      onClick={() => ouvrirEdition(chambre)}
-                      className="flex-1 border-gray-200 text-gray-600 hover:text-blue-700 text-xs h-8"
-                    >
-                      <Pencil className="h-3 w-3 mr-1" />
-                      Modifier
-                    </Button>
-                    <Button
-                      type="button"
-                      size="sm"
-                      variant="outline"
-                      disabled={!chambre.est_disponible || isPending}
-                      onClick={() => handleSupprimer(chambre)}
-                      className="flex-1 border-red-200 text-red-600 hover:bg-red-50 text-xs h-8 disabled:opacity-30"
-                    >
-                      <Trash2 className="h-3 w-3 mr-1" />
-                      Supprimer
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
+          {chambres.map((chambre) => (
+            <ChambreCard
+              key={chambre.id}
+              chambre={chambre}
+              hospitalId={hospitalId}
+              utilisateurId={utilisateurId}
+              utilisateurNom={utilisateurNom}
+              onEdit={ouvrirEdition}
+              onDelete={handleSupprimer}
+            />
+          ))}
         </div>
       )}
 
@@ -343,7 +497,7 @@ export function ChambresGrid({
                 </h2>
               </div>
 
-              <div className="p-5 space-y-4">
+              <div className="p-5 space-y-4 max-h-[70vh] overflow-y-auto">
                 {errors.global && (
                   <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
                     <AlertCircle className="h-4 w-4 text-red-500 shrink-0" />
@@ -380,24 +534,14 @@ export function ChambresGrid({
                   </div>
                 </div>
 
-                {/* Service + Lit */}
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="space-y-1.5">
-                    <Label>Service</Label>
-                    <Input
-                      placeholder="Chirurgie, Médecine..."
-                      value={service}
-                      onChange={(e) => setService(e.target.value)}
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label>Lit</Label>
-                    <Input
-                      placeholder="A, B, 1, 2..."
-                      value={lit}
-                      onChange={(e) => setLit(e.target.value)}
-                    />
-                  </div>
+                {/* Service */}
+                <div className="space-y-1.5">
+                  <Label>Service</Label>
+                  <Input
+                    placeholder="Chirurgie, Médecine..."
+                    value={service}
+                    onChange={(e) => setService(e.target.value)}
+                  />
                 </div>
 
                 {/* Prix journalier */}
@@ -426,6 +570,59 @@ export function ChambresGrid({
                     onChange={(e) => setDescription(e.target.value)}
                   />
                 </div>
+
+                {/* Lits — uniquement en mode création */}
+                {!chambreEdition && (
+                  <div className="space-y-2">
+                    <Label>
+                      Lits
+                      <span className="text-gray-400 font-normal ml-1">(optionnel)</span>
+                    </Label>
+                    <p className="text-xs text-gray-400">
+                      Vous pouvez ajouter les lits maintenant ou plus tard depuis la grille.
+                    </p>
+                    <div className="space-y-2">
+                      {nomsLits.map((nom, i) => (
+                        <div key={i} className="flex gap-2">
+                          <Input
+                            placeholder={`Lit ${i + 1} (ex: Lit A)`}
+                            value={nom}
+                            onChange={(e) => {
+                              const copy = [...nomsLits];
+                              copy[i] = e.target.value;
+                              setNomsLits(copy);
+                            }}
+                            className="h-8 text-sm"
+                          />
+                          {nomsLits.length > 1 && (
+                            <button
+                              type="button"
+                              onClick={() => setNomsLits(nomsLits.filter((_, j) => j !== i))}
+                              className="text-gray-300 hover:text-red-500 transition-colors"
+                            >
+                              <X className="h-4 w-4" />
+                            </button>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setNomsLits([...nomsLits, ""])}
+                      className="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1"
+                    >
+                      <Plus className="h-3 w-3" />
+                      Ajouter un lit
+                    </button>
+                  </div>
+                )}
+
+                {/* En mode édition : rappel que les lits se gèrent depuis la carte */}
+                {chambreEdition && (
+                  <p className="text-xs text-gray-400 bg-gray-50 rounded-lg p-2.5">
+                    💡 Pour gérer les lits, utilisez les boutons directement sur la carte de la chambre.
+                  </p>
+                )}
               </div>
 
               <div className="flex justify-between items-center px-5 py-4 border-t bg-gray-50">

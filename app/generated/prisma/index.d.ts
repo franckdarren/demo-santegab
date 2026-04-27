@@ -109,6 +109,11 @@ export type AuditTrail = $Result.DefaultSelection<Prisma.$AuditTrailPayload>
  */
 export type Chambre = $Result.DefaultSelection<Prisma.$ChambrePayload>
 /**
+ * Model Lit
+ * 
+ */
+export type Lit = $Result.DefaultSelection<Prisma.$LitPayload>
+/**
  * Model Hospitalisation
  * 
  */
@@ -717,6 +722,16 @@ export class PrismaClient<
   get chambre(): Prisma.ChambreDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.lit`: Exposes CRUD operations for the **Lit** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Lits
+    * const lits = await prisma.lit.findMany()
+    * ```
+    */
+  get lit(): Prisma.LitDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.hospitalisation`: Exposes CRUD operations for the **Hospitalisation** model.
     * Example usage:
     * ```ts
@@ -1218,6 +1233,7 @@ export namespace Prisma {
     AuditLogCarnet: 'AuditLogCarnet',
     AuditTrail: 'AuditTrail',
     Chambre: 'Chambre',
+    Lit: 'Lit',
     Hospitalisation: 'Hospitalisation',
     LigneHospitalisation: 'LigneHospitalisation',
     Permission: 'Permission',
@@ -1238,7 +1254,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "hospital" | "utilisateur" | "patient" | "patientHospital" | "consultation" | "prescription" | "facture" | "ligneFacture" | "examenLabo" | "examenCatalogue" | "examenLaboExamen" | "examenImagerie" | "articleStock" | "mouvementStock" | "ecritureComptable" | "qrToken" | "auditLogCarnet" | "auditTrail" | "chambre" | "hospitalisation" | "ligneHospitalisation" | "permission" | "rolePersonnalise" | "service"
+      modelProps: "hospital" | "utilisateur" | "patient" | "patientHospital" | "consultation" | "prescription" | "facture" | "ligneFacture" | "examenLabo" | "examenCatalogue" | "examenLaboExamen" | "examenImagerie" | "articleStock" | "mouvementStock" | "ecritureComptable" | "qrToken" | "auditLogCarnet" | "auditTrail" | "chambre" | "lit" | "hospitalisation" | "ligneHospitalisation" | "permission" | "rolePersonnalise" | "service"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2648,6 +2664,80 @@ export namespace Prisma {
           }
         }
       }
+      Lit: {
+        payload: Prisma.$LitPayload<ExtArgs>
+        fields: Prisma.LitFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LitFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LitPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LitFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LitPayload>
+          }
+          findFirst: {
+            args: Prisma.LitFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LitPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LitFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LitPayload>
+          }
+          findMany: {
+            args: Prisma.LitFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LitPayload>[]
+          }
+          create: {
+            args: Prisma.LitCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LitPayload>
+          }
+          createMany: {
+            args: Prisma.LitCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LitCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LitPayload>[]
+          }
+          delete: {
+            args: Prisma.LitDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LitPayload>
+          }
+          update: {
+            args: Prisma.LitUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LitPayload>
+          }
+          deleteMany: {
+            args: Prisma.LitDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LitUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LitUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LitPayload>[]
+          }
+          upsert: {
+            args: Prisma.LitUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LitPayload>
+          }
+          aggregate: {
+            args: Prisma.LitAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLit>
+          }
+          groupBy: {
+            args: Prisma.LitGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LitGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LitCountArgs<ExtArgs>
+            result: $Utils.Optional<LitCountAggregateOutputType> | number
+          }
+        }
+      }
       Hospitalisation: {
         payload: Prisma.$HospitalisationPayload<ExtArgs>
         fields: Prisma.HospitalisationFieldRefs
@@ -3145,6 +3235,7 @@ export namespace Prisma {
     auditLogCarnet?: AuditLogCarnetOmit
     auditTrail?: AuditTrailOmit
     chambre?: ChambreOmit
+    lit?: LitOmit
     hospitalisation?: HospitalisationOmit
     ligneHospitalisation?: LigneHospitalisationOmit
     permission?: PermissionOmit
@@ -3244,6 +3335,7 @@ export namespace Prisma {
     qr_tokens: number
     audit_trail: number
     chambres: number
+    lits: number
     hospitalisations: number
     permissions: number
     roles_personnalises: number
@@ -3264,6 +3356,7 @@ export namespace Prisma {
     qr_tokens?: boolean | HospitalCountOutputTypeCountQr_tokensArgs
     audit_trail?: boolean | HospitalCountOutputTypeCountAudit_trailArgs
     chambres?: boolean | HospitalCountOutputTypeCountChambresArgs
+    lits?: boolean | HospitalCountOutputTypeCountLitsArgs
     hospitalisations?: boolean | HospitalCountOutputTypeCountHospitalisationsArgs
     permissions?: boolean | HospitalCountOutputTypeCountPermissionsArgs
     roles_personnalises?: boolean | HospitalCountOutputTypeCountRoles_personnalisesArgs
@@ -3376,6 +3469,13 @@ export namespace Prisma {
    */
   export type HospitalCountOutputTypeCountChambresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ChambreWhereInput
+  }
+
+  /**
+   * HospitalCountOutputType without action
+   */
+  export type HospitalCountOutputTypeCountLitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LitWhereInput
   }
 
   /**
@@ -3730,10 +3830,12 @@ export namespace Prisma {
    */
 
   export type ChambreCountOutputType = {
+    lits: number
     hospitalisations: number
   }
 
   export type ChambreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lits?: boolean | ChambreCountOutputTypeCountLitsArgs
     hospitalisations?: boolean | ChambreCountOutputTypeCountHospitalisationsArgs
   }
 
@@ -3751,7 +3853,45 @@ export namespace Prisma {
   /**
    * ChambreCountOutputType without action
    */
+  export type ChambreCountOutputTypeCountLitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LitWhereInput
+  }
+
+  /**
+   * ChambreCountOutputType without action
+   */
   export type ChambreCountOutputTypeCountHospitalisationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HospitalisationWhereInput
+  }
+
+
+  /**
+   * Count Type LitCountOutputType
+   */
+
+  export type LitCountOutputType = {
+    hospitalisations: number
+  }
+
+  export type LitCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospitalisations?: boolean | LitCountOutputTypeCountHospitalisationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * LitCountOutputType without action
+   */
+  export type LitCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LitCountOutputType
+     */
+    select?: LitCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * LitCountOutputType without action
+   */
+  export type LitCountOutputTypeCountHospitalisationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: HospitalisationWhereInput
   }
 
@@ -4089,6 +4229,7 @@ export namespace Prisma {
     qr_tokens?: boolean | Hospital$qr_tokensArgs<ExtArgs>
     audit_trail?: boolean | Hospital$audit_trailArgs<ExtArgs>
     chambres?: boolean | Hospital$chambresArgs<ExtArgs>
+    lits?: boolean | Hospital$litsArgs<ExtArgs>
     hospitalisations?: boolean | Hospital$hospitalisationsArgs<ExtArgs>
     permissions?: boolean | Hospital$permissionsArgs<ExtArgs>
     roles_personnalises?: boolean | Hospital$roles_personnalisesArgs<ExtArgs>
@@ -4150,6 +4291,7 @@ export namespace Prisma {
     qr_tokens?: boolean | Hospital$qr_tokensArgs<ExtArgs>
     audit_trail?: boolean | Hospital$audit_trailArgs<ExtArgs>
     chambres?: boolean | Hospital$chambresArgs<ExtArgs>
+    lits?: boolean | Hospital$litsArgs<ExtArgs>
     hospitalisations?: boolean | Hospital$hospitalisationsArgs<ExtArgs>
     permissions?: boolean | Hospital$permissionsArgs<ExtArgs>
     roles_personnalises?: boolean | Hospital$roles_personnalisesArgs<ExtArgs>
@@ -4175,6 +4317,7 @@ export namespace Prisma {
       qr_tokens: Prisma.$QrTokenPayload<ExtArgs>[]
       audit_trail: Prisma.$AuditTrailPayload<ExtArgs>[]
       chambres: Prisma.$ChambrePayload<ExtArgs>[]
+      lits: Prisma.$LitPayload<ExtArgs>[]
       hospitalisations: Prisma.$HospitalisationPayload<ExtArgs>[]
       permissions: Prisma.$PermissionPayload<ExtArgs>[]
       roles_personnalises: Prisma.$RolePersonnalisePayload<ExtArgs>[]
@@ -4598,6 +4741,7 @@ export namespace Prisma {
     qr_tokens<T extends Hospital$qr_tokensArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$qr_tokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     audit_trail<T extends Hospital$audit_trailArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$audit_trailArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditTrailPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     chambres<T extends Hospital$chambresArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$chambresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChambrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    lits<T extends Hospital$litsArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$litsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     hospitalisations<T extends Hospital$hospitalisationsArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$hospitalisationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HospitalisationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     permissions<T extends Hospital$permissionsArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$permissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     roles_personnalises<T extends Hospital$roles_personnalisesArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$roles_personnalisesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePersonnalisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -5366,6 +5510,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ChambreScalarFieldEnum | ChambreScalarFieldEnum[]
+  }
+
+  /**
+   * Hospital.lits
+   */
+  export type Hospital$litsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lit
+     */
+    select?: LitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lit
+     */
+    omit?: LitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LitInclude<ExtArgs> | null
+    where?: LitWhereInput
+    orderBy?: LitOrderByWithRelationInput | LitOrderByWithRelationInput[]
+    cursor?: LitWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LitScalarFieldEnum | LitScalarFieldEnum[]
   }
 
   /**
@@ -26159,7 +26327,6 @@ export namespace Prisma {
     hospital_id: string | null
     numero: string | null
     service: string | null
-    lit: string | null
     type_chambre: string | null
     prix_journalier: number | null
     est_disponible: boolean | null
@@ -26173,7 +26340,6 @@ export namespace Prisma {
     hospital_id: string | null
     numero: string | null
     service: string | null
-    lit: string | null
     type_chambre: string | null
     prix_journalier: number | null
     est_disponible: boolean | null
@@ -26187,7 +26353,6 @@ export namespace Prisma {
     hospital_id: number
     numero: number
     service: number
-    lit: number
     type_chambre: number
     prix_journalier: number
     est_disponible: number
@@ -26211,7 +26376,6 @@ export namespace Prisma {
     hospital_id?: true
     numero?: true
     service?: true
-    lit?: true
     type_chambre?: true
     prix_journalier?: true
     est_disponible?: true
@@ -26225,7 +26389,6 @@ export namespace Prisma {
     hospital_id?: true
     numero?: true
     service?: true
-    lit?: true
     type_chambre?: true
     prix_journalier?: true
     est_disponible?: true
@@ -26239,7 +26402,6 @@ export namespace Prisma {
     hospital_id?: true
     numero?: true
     service?: true
-    lit?: true
     type_chambre?: true
     prix_journalier?: true
     est_disponible?: true
@@ -26340,7 +26502,6 @@ export namespace Prisma {
     hospital_id: string
     numero: string
     service: string | null
-    lit: string | null
     type_chambre: string
     prix_journalier: number
     est_disponible: boolean
@@ -26373,7 +26534,6 @@ export namespace Prisma {
     hospital_id?: boolean
     numero?: boolean
     service?: boolean
-    lit?: boolean
     type_chambre?: boolean
     prix_journalier?: boolean
     est_disponible?: boolean
@@ -26381,6 +26541,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    lits?: boolean | Chambre$litsArgs<ExtArgs>
     hospitalisations?: boolean | Chambre$hospitalisationsArgs<ExtArgs>
     _count?: boolean | ChambreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["chambre"]>
@@ -26390,7 +26551,6 @@ export namespace Prisma {
     hospital_id?: boolean
     numero?: boolean
     service?: boolean
-    lit?: boolean
     type_chambre?: boolean
     prix_journalier?: boolean
     est_disponible?: boolean
@@ -26405,7 +26565,6 @@ export namespace Prisma {
     hospital_id?: boolean
     numero?: boolean
     service?: boolean
-    lit?: boolean
     type_chambre?: boolean
     prix_journalier?: boolean
     est_disponible?: boolean
@@ -26420,7 +26579,6 @@ export namespace Prisma {
     hospital_id?: boolean
     numero?: boolean
     service?: boolean
-    lit?: boolean
     type_chambre?: boolean
     prix_journalier?: boolean
     est_disponible?: boolean
@@ -26429,9 +26587,10 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type ChambreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "numero" | "service" | "lit" | "type_chambre" | "prix_journalier" | "est_disponible" | "description" | "created_at" | "updated_at", ExtArgs["result"]["chambre"]>
+  export type ChambreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "numero" | "service" | "type_chambre" | "prix_journalier" | "est_disponible" | "description" | "created_at" | "updated_at", ExtArgs["result"]["chambre"]>
   export type ChambreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    lits?: boolean | Chambre$litsArgs<ExtArgs>
     hospitalisations?: boolean | Chambre$hospitalisationsArgs<ExtArgs>
     _count?: boolean | ChambreCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -26446,6 +26605,7 @@ export namespace Prisma {
     name: "Chambre"
     objects: {
       hospital: Prisma.$HospitalPayload<ExtArgs>
+      lits: Prisma.$LitPayload<ExtArgs>[]
       hospitalisations: Prisma.$HospitalisationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -26453,7 +26613,6 @@ export namespace Prisma {
       hospital_id: string
       numero: string
       service: string | null
-      lit: string | null
       type_chambre: string
       prix_journalier: number
       est_disponible: boolean
@@ -26855,6 +27014,7 @@ export namespace Prisma {
   export interface Prisma__ChambreClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    lits<T extends Chambre$litsArgs<ExtArgs> = {}>(args?: Subset<T, Chambre$litsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     hospitalisations<T extends Chambre$hospitalisationsArgs<ExtArgs> = {}>(args?: Subset<T, Chambre$hospitalisationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HospitalisationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -26889,7 +27049,6 @@ export namespace Prisma {
     readonly hospital_id: FieldRef<"Chambre", 'String'>
     readonly numero: FieldRef<"Chambre", 'String'>
     readonly service: FieldRef<"Chambre", 'String'>
-    readonly lit: FieldRef<"Chambre", 'String'>
     readonly type_chambre: FieldRef<"Chambre", 'String'>
     readonly prix_journalier: FieldRef<"Chambre", 'Float'>
     readonly est_disponible: FieldRef<"Chambre", 'Boolean'>
@@ -27297,6 +27456,30 @@ export namespace Prisma {
   }
 
   /**
+   * Chambre.lits
+   */
+  export type Chambre$litsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lit
+     */
+    select?: LitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lit
+     */
+    omit?: LitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LitInclude<ExtArgs> | null
+    where?: LitWhereInput
+    orderBy?: LitOrderByWithRelationInput | LitOrderByWithRelationInput[]
+    cursor?: LitWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LitScalarFieldEnum | LitScalarFieldEnum[]
+  }
+
+  /**
    * Chambre.hospitalisations
    */
   export type Chambre$hospitalisationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -27340,6 +27523,1133 @@ export namespace Prisma {
 
 
   /**
+   * Model Lit
+   */
+
+  export type AggregateLit = {
+    _count: LitCountAggregateOutputType | null
+    _min: LitMinAggregateOutputType | null
+    _max: LitMaxAggregateOutputType | null
+  }
+
+  export type LitMinAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    chambre_id: string | null
+    nom: string | null
+    est_disponible: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type LitMaxAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    chambre_id: string | null
+    nom: string | null
+    est_disponible: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type LitCountAggregateOutputType = {
+    id: number
+    hospital_id: number
+    chambre_id: number
+    nom: number
+    est_disponible: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type LitMinAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    chambre_id?: true
+    nom?: true
+    est_disponible?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type LitMaxAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    chambre_id?: true
+    nom?: true
+    est_disponible?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type LitCountAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    chambre_id?: true
+    nom?: true
+    est_disponible?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type LitAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Lit to aggregate.
+     */
+    where?: LitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lits to fetch.
+     */
+    orderBy?: LitOrderByWithRelationInput | LitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Lits
+    **/
+    _count?: true | LitCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LitMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LitMaxAggregateInputType
+  }
+
+  export type GetLitAggregateType<T extends LitAggregateArgs> = {
+        [P in keyof T & keyof AggregateLit]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLit[P]>
+      : GetScalarType<T[P], AggregateLit[P]>
+  }
+
+
+
+
+  export type LitGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LitWhereInput
+    orderBy?: LitOrderByWithAggregationInput | LitOrderByWithAggregationInput[]
+    by: LitScalarFieldEnum[] | LitScalarFieldEnum
+    having?: LitScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LitCountAggregateInputType | true
+    _min?: LitMinAggregateInputType
+    _max?: LitMaxAggregateInputType
+  }
+
+  export type LitGroupByOutputType = {
+    id: string
+    hospital_id: string
+    chambre_id: string
+    nom: string
+    est_disponible: boolean
+    created_at: Date
+    updated_at: Date
+    _count: LitCountAggregateOutputType | null
+    _min: LitMinAggregateOutputType | null
+    _max: LitMaxAggregateOutputType | null
+  }
+
+  type GetLitGroupByPayload<T extends LitGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LitGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LitGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LitGroupByOutputType[P]>
+            : GetScalarType<T[P], LitGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LitSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    chambre_id?: boolean
+    nom?: boolean
+    est_disponible?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    chambre?: boolean | ChambreDefaultArgs<ExtArgs>
+    hospitalisations?: boolean | Lit$hospitalisationsArgs<ExtArgs>
+    _count?: boolean | LitCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lit"]>
+
+  export type LitSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    chambre_id?: boolean
+    nom?: boolean
+    est_disponible?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    chambre?: boolean | ChambreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lit"]>
+
+  export type LitSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    chambre_id?: boolean
+    nom?: boolean
+    est_disponible?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    chambre?: boolean | ChambreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lit"]>
+
+  export type LitSelectScalar = {
+    id?: boolean
+    hospital_id?: boolean
+    chambre_id?: boolean
+    nom?: boolean
+    est_disponible?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type LitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "chambre_id" | "nom" | "est_disponible" | "created_at" | "updated_at", ExtArgs["result"]["lit"]>
+  export type LitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    chambre?: boolean | ChambreDefaultArgs<ExtArgs>
+    hospitalisations?: boolean | Lit$hospitalisationsArgs<ExtArgs>
+    _count?: boolean | LitCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type LitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    chambre?: boolean | ChambreDefaultArgs<ExtArgs>
+  }
+  export type LitIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    chambre?: boolean | ChambreDefaultArgs<ExtArgs>
+  }
+
+  export type $LitPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Lit"
+    objects: {
+      hospital: Prisma.$HospitalPayload<ExtArgs>
+      chambre: Prisma.$ChambrePayload<ExtArgs>
+      hospitalisations: Prisma.$HospitalisationPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      hospital_id: string
+      chambre_id: string
+      nom: string
+      est_disponible: boolean
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["lit"]>
+    composites: {}
+  }
+
+  type LitGetPayload<S extends boolean | null | undefined | LitDefaultArgs> = $Result.GetResult<Prisma.$LitPayload, S>
+
+  type LitCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LitFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LitCountAggregateInputType | true
+    }
+
+  export interface LitDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Lit'], meta: { name: 'Lit' } }
+    /**
+     * Find zero or one Lit that matches the filter.
+     * @param {LitFindUniqueArgs} args - Arguments to find a Lit
+     * @example
+     * // Get one Lit
+     * const lit = await prisma.lit.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LitFindUniqueArgs>(args: SelectSubset<T, LitFindUniqueArgs<ExtArgs>>): Prisma__LitClient<$Result.GetResult<Prisma.$LitPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Lit that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LitFindUniqueOrThrowArgs} args - Arguments to find a Lit
+     * @example
+     * // Get one Lit
+     * const lit = await prisma.lit.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LitFindUniqueOrThrowArgs>(args: SelectSubset<T, LitFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LitClient<$Result.GetResult<Prisma.$LitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Lit that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LitFindFirstArgs} args - Arguments to find a Lit
+     * @example
+     * // Get one Lit
+     * const lit = await prisma.lit.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LitFindFirstArgs>(args?: SelectSubset<T, LitFindFirstArgs<ExtArgs>>): Prisma__LitClient<$Result.GetResult<Prisma.$LitPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Lit that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LitFindFirstOrThrowArgs} args - Arguments to find a Lit
+     * @example
+     * // Get one Lit
+     * const lit = await prisma.lit.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LitFindFirstOrThrowArgs>(args?: SelectSubset<T, LitFindFirstOrThrowArgs<ExtArgs>>): Prisma__LitClient<$Result.GetResult<Prisma.$LitPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Lits that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LitFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Lits
+     * const lits = await prisma.lit.findMany()
+     * 
+     * // Get first 10 Lits
+     * const lits = await prisma.lit.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const litWithIdOnly = await prisma.lit.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LitFindManyArgs>(args?: SelectSubset<T, LitFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Lit.
+     * @param {LitCreateArgs} args - Arguments to create a Lit.
+     * @example
+     * // Create one Lit
+     * const Lit = await prisma.lit.create({
+     *   data: {
+     *     // ... data to create a Lit
+     *   }
+     * })
+     * 
+     */
+    create<T extends LitCreateArgs>(args: SelectSubset<T, LitCreateArgs<ExtArgs>>): Prisma__LitClient<$Result.GetResult<Prisma.$LitPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Lits.
+     * @param {LitCreateManyArgs} args - Arguments to create many Lits.
+     * @example
+     * // Create many Lits
+     * const lit = await prisma.lit.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LitCreateManyArgs>(args?: SelectSubset<T, LitCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Lits and returns the data saved in the database.
+     * @param {LitCreateManyAndReturnArgs} args - Arguments to create many Lits.
+     * @example
+     * // Create many Lits
+     * const lit = await prisma.lit.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Lits and only return the `id`
+     * const litWithIdOnly = await prisma.lit.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LitCreateManyAndReturnArgs>(args?: SelectSubset<T, LitCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LitPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Lit.
+     * @param {LitDeleteArgs} args - Arguments to delete one Lit.
+     * @example
+     * // Delete one Lit
+     * const Lit = await prisma.lit.delete({
+     *   where: {
+     *     // ... filter to delete one Lit
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LitDeleteArgs>(args: SelectSubset<T, LitDeleteArgs<ExtArgs>>): Prisma__LitClient<$Result.GetResult<Prisma.$LitPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Lit.
+     * @param {LitUpdateArgs} args - Arguments to update one Lit.
+     * @example
+     * // Update one Lit
+     * const lit = await prisma.lit.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LitUpdateArgs>(args: SelectSubset<T, LitUpdateArgs<ExtArgs>>): Prisma__LitClient<$Result.GetResult<Prisma.$LitPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Lits.
+     * @param {LitDeleteManyArgs} args - Arguments to filter Lits to delete.
+     * @example
+     * // Delete a few Lits
+     * const { count } = await prisma.lit.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LitDeleteManyArgs>(args?: SelectSubset<T, LitDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Lits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LitUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Lits
+     * const lit = await prisma.lit.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LitUpdateManyArgs>(args: SelectSubset<T, LitUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Lits and returns the data updated in the database.
+     * @param {LitUpdateManyAndReturnArgs} args - Arguments to update many Lits.
+     * @example
+     * // Update many Lits
+     * const lit = await prisma.lit.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Lits and only return the `id`
+     * const litWithIdOnly = await prisma.lit.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LitUpdateManyAndReturnArgs>(args: SelectSubset<T, LitUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LitPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Lit.
+     * @param {LitUpsertArgs} args - Arguments to update or create a Lit.
+     * @example
+     * // Update or create a Lit
+     * const lit = await prisma.lit.upsert({
+     *   create: {
+     *     // ... data to create a Lit
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Lit we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LitUpsertArgs>(args: SelectSubset<T, LitUpsertArgs<ExtArgs>>): Prisma__LitClient<$Result.GetResult<Prisma.$LitPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Lits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LitCountArgs} args - Arguments to filter Lits to count.
+     * @example
+     * // Count the number of Lits
+     * const count = await prisma.lit.count({
+     *   where: {
+     *     // ... the filter for the Lits we want to count
+     *   }
+     * })
+    **/
+    count<T extends LitCountArgs>(
+      args?: Subset<T, LitCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LitCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Lit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LitAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LitAggregateArgs>(args: Subset<T, LitAggregateArgs>): Prisma.PrismaPromise<GetLitAggregateType<T>>
+
+    /**
+     * Group by Lit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LitGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LitGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LitGroupByArgs['orderBy'] }
+        : { orderBy?: LitGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LitGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLitGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Lit model
+   */
+  readonly fields: LitFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Lit.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LitClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    chambre<T extends ChambreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ChambreDefaultArgs<ExtArgs>>): Prisma__ChambreClient<$Result.GetResult<Prisma.$ChambrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    hospitalisations<T extends Lit$hospitalisationsArgs<ExtArgs> = {}>(args?: Subset<T, Lit$hospitalisationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HospitalisationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Lit model
+   */
+  interface LitFieldRefs {
+    readonly id: FieldRef<"Lit", 'String'>
+    readonly hospital_id: FieldRef<"Lit", 'String'>
+    readonly chambre_id: FieldRef<"Lit", 'String'>
+    readonly nom: FieldRef<"Lit", 'String'>
+    readonly est_disponible: FieldRef<"Lit", 'Boolean'>
+    readonly created_at: FieldRef<"Lit", 'DateTime'>
+    readonly updated_at: FieldRef<"Lit", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Lit findUnique
+   */
+  export type LitFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lit
+     */
+    select?: LitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lit
+     */
+    omit?: LitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LitInclude<ExtArgs> | null
+    /**
+     * Filter, which Lit to fetch.
+     */
+    where: LitWhereUniqueInput
+  }
+
+  /**
+   * Lit findUniqueOrThrow
+   */
+  export type LitFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lit
+     */
+    select?: LitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lit
+     */
+    omit?: LitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LitInclude<ExtArgs> | null
+    /**
+     * Filter, which Lit to fetch.
+     */
+    where: LitWhereUniqueInput
+  }
+
+  /**
+   * Lit findFirst
+   */
+  export type LitFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lit
+     */
+    select?: LitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lit
+     */
+    omit?: LitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LitInclude<ExtArgs> | null
+    /**
+     * Filter, which Lit to fetch.
+     */
+    where?: LitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lits to fetch.
+     */
+    orderBy?: LitOrderByWithRelationInput | LitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Lits.
+     */
+    cursor?: LitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Lits.
+     */
+    distinct?: LitScalarFieldEnum | LitScalarFieldEnum[]
+  }
+
+  /**
+   * Lit findFirstOrThrow
+   */
+  export type LitFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lit
+     */
+    select?: LitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lit
+     */
+    omit?: LitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LitInclude<ExtArgs> | null
+    /**
+     * Filter, which Lit to fetch.
+     */
+    where?: LitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lits to fetch.
+     */
+    orderBy?: LitOrderByWithRelationInput | LitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Lits.
+     */
+    cursor?: LitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Lits.
+     */
+    distinct?: LitScalarFieldEnum | LitScalarFieldEnum[]
+  }
+
+  /**
+   * Lit findMany
+   */
+  export type LitFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lit
+     */
+    select?: LitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lit
+     */
+    omit?: LitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LitInclude<ExtArgs> | null
+    /**
+     * Filter, which Lits to fetch.
+     */
+    where?: LitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lits to fetch.
+     */
+    orderBy?: LitOrderByWithRelationInput | LitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Lits.
+     */
+    cursor?: LitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Lits.
+     */
+    distinct?: LitScalarFieldEnum | LitScalarFieldEnum[]
+  }
+
+  /**
+   * Lit create
+   */
+  export type LitCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lit
+     */
+    select?: LitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lit
+     */
+    omit?: LitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LitInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Lit.
+     */
+    data: XOR<LitCreateInput, LitUncheckedCreateInput>
+  }
+
+  /**
+   * Lit createMany
+   */
+  export type LitCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Lits.
+     */
+    data: LitCreateManyInput | LitCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Lit createManyAndReturn
+   */
+  export type LitCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lit
+     */
+    select?: LitSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lit
+     */
+    omit?: LitOmit<ExtArgs> | null
+    /**
+     * The data used to create many Lits.
+     */
+    data: LitCreateManyInput | LitCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LitIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Lit update
+   */
+  export type LitUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lit
+     */
+    select?: LitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lit
+     */
+    omit?: LitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LitInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Lit.
+     */
+    data: XOR<LitUpdateInput, LitUncheckedUpdateInput>
+    /**
+     * Choose, which Lit to update.
+     */
+    where: LitWhereUniqueInput
+  }
+
+  /**
+   * Lit updateMany
+   */
+  export type LitUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Lits.
+     */
+    data: XOR<LitUpdateManyMutationInput, LitUncheckedUpdateManyInput>
+    /**
+     * Filter which Lits to update
+     */
+    where?: LitWhereInput
+    /**
+     * Limit how many Lits to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Lit updateManyAndReturn
+   */
+  export type LitUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lit
+     */
+    select?: LitSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lit
+     */
+    omit?: LitOmit<ExtArgs> | null
+    /**
+     * The data used to update Lits.
+     */
+    data: XOR<LitUpdateManyMutationInput, LitUncheckedUpdateManyInput>
+    /**
+     * Filter which Lits to update
+     */
+    where?: LitWhereInput
+    /**
+     * Limit how many Lits to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LitIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Lit upsert
+   */
+  export type LitUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lit
+     */
+    select?: LitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lit
+     */
+    omit?: LitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LitInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Lit to update in case it exists.
+     */
+    where: LitWhereUniqueInput
+    /**
+     * In case the Lit found by the `where` argument doesn't exist, create a new Lit with this data.
+     */
+    create: XOR<LitCreateInput, LitUncheckedCreateInput>
+    /**
+     * In case the Lit was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LitUpdateInput, LitUncheckedUpdateInput>
+  }
+
+  /**
+   * Lit delete
+   */
+  export type LitDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lit
+     */
+    select?: LitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lit
+     */
+    omit?: LitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LitInclude<ExtArgs> | null
+    /**
+     * Filter which Lit to delete.
+     */
+    where: LitWhereUniqueInput
+  }
+
+  /**
+   * Lit deleteMany
+   */
+  export type LitDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Lits to delete
+     */
+    where?: LitWhereInput
+    /**
+     * Limit how many Lits to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Lit.hospitalisations
+   */
+  export type Lit$hospitalisationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hospitalisation
+     */
+    select?: HospitalisationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hospitalisation
+     */
+    omit?: HospitalisationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalisationInclude<ExtArgs> | null
+    where?: HospitalisationWhereInput
+    orderBy?: HospitalisationOrderByWithRelationInput | HospitalisationOrderByWithRelationInput[]
+    cursor?: HospitalisationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HospitalisationScalarFieldEnum | HospitalisationScalarFieldEnum[]
+  }
+
+  /**
+   * Lit without action
+   */
+  export type LitDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lit
+     */
+    select?: LitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lit
+     */
+    omit?: LitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LitInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Hospitalisation
    */
 
@@ -27355,6 +28665,7 @@ export namespace Prisma {
     patient_id: string | null
     medecin_id: string | null
     chambre_id: string | null
+    lit_id: string | null
     service_id: string | null
     statut: $Enums.StatutHospitalisation | null
     date_entree: Date | null
@@ -27373,6 +28684,7 @@ export namespace Prisma {
     patient_id: string | null
     medecin_id: string | null
     chambre_id: string | null
+    lit_id: string | null
     service_id: string | null
     statut: $Enums.StatutHospitalisation | null
     date_entree: Date | null
@@ -27391,6 +28703,7 @@ export namespace Prisma {
     patient_id: number
     medecin_id: number
     chambre_id: number
+    lit_id: number
     service_id: number
     statut: number
     date_entree: number
@@ -27411,6 +28724,7 @@ export namespace Prisma {
     patient_id?: true
     medecin_id?: true
     chambre_id?: true
+    lit_id?: true
     service_id?: true
     statut?: true
     date_entree?: true
@@ -27429,6 +28743,7 @@ export namespace Prisma {
     patient_id?: true
     medecin_id?: true
     chambre_id?: true
+    lit_id?: true
     service_id?: true
     statut?: true
     date_entree?: true
@@ -27447,6 +28762,7 @@ export namespace Prisma {
     patient_id?: true
     medecin_id?: true
     chambre_id?: true
+    lit_id?: true
     service_id?: true
     statut?: true
     date_entree?: true
@@ -27538,6 +28854,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     chambre_id: string | null
+    lit_id: string | null
     service_id: string | null
     statut: $Enums.StatutHospitalisation
     date_entree: Date
@@ -27573,6 +28890,7 @@ export namespace Prisma {
     patient_id?: boolean
     medecin_id?: boolean
     chambre_id?: boolean
+    lit_id?: boolean
     service_id?: boolean
     statut?: boolean
     date_entree?: boolean
@@ -27587,6 +28905,7 @@ export namespace Prisma {
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
     chambre?: boolean | Hospitalisation$chambreArgs<ExtArgs>
+    lit?: boolean | Hospitalisation$litArgs<ExtArgs>
     service?: boolean | Hospitalisation$serviceArgs<ExtArgs>
     facture?: boolean | Hospitalisation$factureArgs<ExtArgs>
     lignes?: boolean | Hospitalisation$lignesArgs<ExtArgs>
@@ -27599,6 +28918,7 @@ export namespace Prisma {
     patient_id?: boolean
     medecin_id?: boolean
     chambre_id?: boolean
+    lit_id?: boolean
     service_id?: boolean
     statut?: boolean
     date_entree?: boolean
@@ -27613,6 +28933,7 @@ export namespace Prisma {
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
     chambre?: boolean | Hospitalisation$chambreArgs<ExtArgs>
+    lit?: boolean | Hospitalisation$litArgs<ExtArgs>
     service?: boolean | Hospitalisation$serviceArgs<ExtArgs>
     facture?: boolean | Hospitalisation$factureArgs<ExtArgs>
   }, ExtArgs["result"]["hospitalisation"]>
@@ -27623,6 +28944,7 @@ export namespace Prisma {
     patient_id?: boolean
     medecin_id?: boolean
     chambre_id?: boolean
+    lit_id?: boolean
     service_id?: boolean
     statut?: boolean
     date_entree?: boolean
@@ -27637,6 +28959,7 @@ export namespace Prisma {
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
     chambre?: boolean | Hospitalisation$chambreArgs<ExtArgs>
+    lit?: boolean | Hospitalisation$litArgs<ExtArgs>
     service?: boolean | Hospitalisation$serviceArgs<ExtArgs>
     facture?: boolean | Hospitalisation$factureArgs<ExtArgs>
   }, ExtArgs["result"]["hospitalisation"]>
@@ -27647,6 +28970,7 @@ export namespace Prisma {
     patient_id?: boolean
     medecin_id?: boolean
     chambre_id?: boolean
+    lit_id?: boolean
     service_id?: boolean
     statut?: boolean
     date_entree?: boolean
@@ -27659,12 +28983,13 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type HospitalisationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "patient_id" | "medecin_id" | "chambre_id" | "service_id" | "statut" | "date_entree" | "date_sortie" | "motif_admission" | "diagnostic" | "notes" | "facture_id" | "created_at" | "updated_at", ExtArgs["result"]["hospitalisation"]>
+  export type HospitalisationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "patient_id" | "medecin_id" | "chambre_id" | "lit_id" | "service_id" | "statut" | "date_entree" | "date_sortie" | "motif_admission" | "diagnostic" | "notes" | "facture_id" | "created_at" | "updated_at", ExtArgs["result"]["hospitalisation"]>
   export type HospitalisationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
     chambre?: boolean | Hospitalisation$chambreArgs<ExtArgs>
+    lit?: boolean | Hospitalisation$litArgs<ExtArgs>
     service?: boolean | Hospitalisation$serviceArgs<ExtArgs>
     facture?: boolean | Hospitalisation$factureArgs<ExtArgs>
     lignes?: boolean | Hospitalisation$lignesArgs<ExtArgs>
@@ -27675,6 +29000,7 @@ export namespace Prisma {
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
     chambre?: boolean | Hospitalisation$chambreArgs<ExtArgs>
+    lit?: boolean | Hospitalisation$litArgs<ExtArgs>
     service?: boolean | Hospitalisation$serviceArgs<ExtArgs>
     facture?: boolean | Hospitalisation$factureArgs<ExtArgs>
   }
@@ -27683,6 +29009,7 @@ export namespace Prisma {
     patient?: boolean | PatientDefaultArgs<ExtArgs>
     medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
     chambre?: boolean | Hospitalisation$chambreArgs<ExtArgs>
+    lit?: boolean | Hospitalisation$litArgs<ExtArgs>
     service?: boolean | Hospitalisation$serviceArgs<ExtArgs>
     facture?: boolean | Hospitalisation$factureArgs<ExtArgs>
   }
@@ -27694,6 +29021,7 @@ export namespace Prisma {
       patient: Prisma.$PatientPayload<ExtArgs>
       medecin: Prisma.$UtilisateurPayload<ExtArgs>
       chambre: Prisma.$ChambrePayload<ExtArgs> | null
+      lit: Prisma.$LitPayload<ExtArgs> | null
       service: Prisma.$ServicePayload<ExtArgs> | null
       facture: Prisma.$FacturePayload<ExtArgs> | null
       lignes: Prisma.$LigneHospitalisationPayload<ExtArgs>[]
@@ -27704,6 +29032,7 @@ export namespace Prisma {
       patient_id: string
       medecin_id: string
       chambre_id: string | null
+      lit_id: string | null
       service_id: string | null
       statut: $Enums.StatutHospitalisation
       date_entree: Date
@@ -28112,6 +29441,7 @@ export namespace Prisma {
     patient<T extends PatientDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PatientDefaultArgs<ExtArgs>>): Prisma__PatientClient<$Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     medecin<T extends UtilisateurDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UtilisateurDefaultArgs<ExtArgs>>): Prisma__UtilisateurClient<$Result.GetResult<Prisma.$UtilisateurPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     chambre<T extends Hospitalisation$chambreArgs<ExtArgs> = {}>(args?: Subset<T, Hospitalisation$chambreArgs<ExtArgs>>): Prisma__ChambreClient<$Result.GetResult<Prisma.$ChambrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    lit<T extends Hospitalisation$litArgs<ExtArgs> = {}>(args?: Subset<T, Hospitalisation$litArgs<ExtArgs>>): Prisma__LitClient<$Result.GetResult<Prisma.$LitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     service<T extends Hospitalisation$serviceArgs<ExtArgs> = {}>(args?: Subset<T, Hospitalisation$serviceArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     facture<T extends Hospitalisation$factureArgs<ExtArgs> = {}>(args?: Subset<T, Hospitalisation$factureArgs<ExtArgs>>): Prisma__FactureClient<$Result.GetResult<Prisma.$FacturePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     lignes<T extends Hospitalisation$lignesArgs<ExtArgs> = {}>(args?: Subset<T, Hospitalisation$lignesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LigneHospitalisationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -28149,6 +29479,7 @@ export namespace Prisma {
     readonly patient_id: FieldRef<"Hospitalisation", 'String'>
     readonly medecin_id: FieldRef<"Hospitalisation", 'String'>
     readonly chambre_id: FieldRef<"Hospitalisation", 'String'>
+    readonly lit_id: FieldRef<"Hospitalisation", 'String'>
     readonly service_id: FieldRef<"Hospitalisation", 'String'>
     readonly statut: FieldRef<"Hospitalisation", 'StatutHospitalisation'>
     readonly date_entree: FieldRef<"Hospitalisation", 'DateTime'>
@@ -28576,6 +29907,25 @@ export namespace Prisma {
      */
     include?: ChambreInclude<ExtArgs> | null
     where?: ChambreWhereInput
+  }
+
+  /**
+   * Hospitalisation.lit
+   */
+  export type Hospitalisation$litArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lit
+     */
+    select?: LitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lit
+     */
+    omit?: LitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LitInclude<ExtArgs> | null
+    where?: LitWhereInput
   }
 
   /**
@@ -33717,7 +35067,6 @@ export namespace Prisma {
     hospital_id: 'hospital_id',
     numero: 'numero',
     service: 'service',
-    lit: 'lit',
     type_chambre: 'type_chambre',
     prix_journalier: 'prix_journalier',
     est_disponible: 'est_disponible',
@@ -33729,12 +35078,26 @@ export namespace Prisma {
   export type ChambreScalarFieldEnum = (typeof ChambreScalarFieldEnum)[keyof typeof ChambreScalarFieldEnum]
 
 
+  export const LitScalarFieldEnum: {
+    id: 'id',
+    hospital_id: 'hospital_id',
+    chambre_id: 'chambre_id',
+    nom: 'nom',
+    est_disponible: 'est_disponible',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type LitScalarFieldEnum = (typeof LitScalarFieldEnum)[keyof typeof LitScalarFieldEnum]
+
+
   export const HospitalisationScalarFieldEnum: {
     id: 'id',
     hospital_id: 'hospital_id',
     patient_id: 'patient_id',
     medecin_id: 'medecin_id',
     chambre_id: 'chambre_id',
+    lit_id: 'lit_id',
     service_id: 'service_id',
     statut: 'statut',
     date_entree: 'date_entree',
@@ -34206,6 +35569,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenListRelationFilter
     audit_trail?: AuditTrailListRelationFilter
     chambres?: ChambreListRelationFilter
+    lits?: LitListRelationFilter
     hospitalisations?: HospitalisationListRelationFilter
     permissions?: PermissionListRelationFilter
     roles_personnalises?: RolePersonnaliseListRelationFilter
@@ -34236,6 +35600,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenOrderByRelationAggregateInput
     audit_trail?: AuditTrailOrderByRelationAggregateInput
     chambres?: ChambreOrderByRelationAggregateInput
+    lits?: LitOrderByRelationAggregateInput
     hospitalisations?: HospitalisationOrderByRelationAggregateInput
     permissions?: PermissionOrderByRelationAggregateInput
     roles_personnalises?: RolePersonnaliseOrderByRelationAggregateInput
@@ -34269,6 +35634,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenListRelationFilter
     audit_trail?: AuditTrailListRelationFilter
     chambres?: ChambreListRelationFilter
+    lits?: LitListRelationFilter
     hospitalisations?: HospitalisationListRelationFilter
     permissions?: PermissionListRelationFilter
     roles_personnalises?: RolePersonnaliseListRelationFilter
@@ -35937,7 +37303,6 @@ export namespace Prisma {
     hospital_id?: StringFilter<"Chambre"> | string
     numero?: StringFilter<"Chambre"> | string
     service?: StringNullableFilter<"Chambre"> | string | null
-    lit?: StringNullableFilter<"Chambre"> | string | null
     type_chambre?: StringFilter<"Chambre"> | string
     prix_journalier?: FloatFilter<"Chambre"> | number
     est_disponible?: BoolFilter<"Chambre"> | boolean
@@ -35945,6 +37310,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Chambre"> | Date | string
     updated_at?: DateTimeFilter<"Chambre"> | Date | string
     hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+    lits?: LitListRelationFilter
     hospitalisations?: HospitalisationListRelationFilter
   }
 
@@ -35953,7 +37319,6 @@ export namespace Prisma {
     hospital_id?: SortOrder
     numero?: SortOrder
     service?: SortOrderInput | SortOrder
-    lit?: SortOrderInput | SortOrder
     type_chambre?: SortOrder
     prix_journalier?: SortOrder
     est_disponible?: SortOrder
@@ -35961,6 +37326,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     hospital?: HospitalOrderByWithRelationInput
+    lits?: LitOrderByRelationAggregateInput
     hospitalisations?: HospitalisationOrderByRelationAggregateInput
   }
 
@@ -35972,7 +37338,6 @@ export namespace Prisma {
     hospital_id?: StringFilter<"Chambre"> | string
     numero?: StringFilter<"Chambre"> | string
     service?: StringNullableFilter<"Chambre"> | string | null
-    lit?: StringNullableFilter<"Chambre"> | string | null
     type_chambre?: StringFilter<"Chambre"> | string
     prix_journalier?: FloatFilter<"Chambre"> | number
     est_disponible?: BoolFilter<"Chambre"> | boolean
@@ -35980,6 +37345,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Chambre"> | Date | string
     updated_at?: DateTimeFilter<"Chambre"> | Date | string
     hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+    lits?: LitListRelationFilter
     hospitalisations?: HospitalisationListRelationFilter
   }, "id">
 
@@ -35988,7 +37354,6 @@ export namespace Prisma {
     hospital_id?: SortOrder
     numero?: SortOrder
     service?: SortOrderInput | SortOrder
-    lit?: SortOrderInput | SortOrder
     type_chambre?: SortOrder
     prix_journalier?: SortOrder
     est_disponible?: SortOrder
@@ -36010,13 +37375,83 @@ export namespace Prisma {
     hospital_id?: StringWithAggregatesFilter<"Chambre"> | string
     numero?: StringWithAggregatesFilter<"Chambre"> | string
     service?: StringNullableWithAggregatesFilter<"Chambre"> | string | null
-    lit?: StringNullableWithAggregatesFilter<"Chambre"> | string | null
     type_chambre?: StringWithAggregatesFilter<"Chambre"> | string
     prix_journalier?: FloatWithAggregatesFilter<"Chambre"> | number
     est_disponible?: BoolWithAggregatesFilter<"Chambre"> | boolean
     description?: StringNullableWithAggregatesFilter<"Chambre"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Chambre"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Chambre"> | Date | string
+  }
+
+  export type LitWhereInput = {
+    AND?: LitWhereInput | LitWhereInput[]
+    OR?: LitWhereInput[]
+    NOT?: LitWhereInput | LitWhereInput[]
+    id?: StringFilter<"Lit"> | string
+    hospital_id?: StringFilter<"Lit"> | string
+    chambre_id?: StringFilter<"Lit"> | string
+    nom?: StringFilter<"Lit"> | string
+    est_disponible?: BoolFilter<"Lit"> | boolean
+    created_at?: DateTimeFilter<"Lit"> | Date | string
+    updated_at?: DateTimeFilter<"Lit"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+    chambre?: XOR<ChambreScalarRelationFilter, ChambreWhereInput>
+    hospitalisations?: HospitalisationListRelationFilter
+  }
+
+  export type LitOrderByWithRelationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    chambre_id?: SortOrder
+    nom?: SortOrder
+    est_disponible?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    hospital?: HospitalOrderByWithRelationInput
+    chambre?: ChambreOrderByWithRelationInput
+    hospitalisations?: HospitalisationOrderByRelationAggregateInput
+  }
+
+  export type LitWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LitWhereInput | LitWhereInput[]
+    OR?: LitWhereInput[]
+    NOT?: LitWhereInput | LitWhereInput[]
+    hospital_id?: StringFilter<"Lit"> | string
+    chambre_id?: StringFilter<"Lit"> | string
+    nom?: StringFilter<"Lit"> | string
+    est_disponible?: BoolFilter<"Lit"> | boolean
+    created_at?: DateTimeFilter<"Lit"> | Date | string
+    updated_at?: DateTimeFilter<"Lit"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+    chambre?: XOR<ChambreScalarRelationFilter, ChambreWhereInput>
+    hospitalisations?: HospitalisationListRelationFilter
+  }, "id">
+
+  export type LitOrderByWithAggregationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    chambre_id?: SortOrder
+    nom?: SortOrder
+    est_disponible?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: LitCountOrderByAggregateInput
+    _max?: LitMaxOrderByAggregateInput
+    _min?: LitMinOrderByAggregateInput
+  }
+
+  export type LitScalarWhereWithAggregatesInput = {
+    AND?: LitScalarWhereWithAggregatesInput | LitScalarWhereWithAggregatesInput[]
+    OR?: LitScalarWhereWithAggregatesInput[]
+    NOT?: LitScalarWhereWithAggregatesInput | LitScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Lit"> | string
+    hospital_id?: StringWithAggregatesFilter<"Lit"> | string
+    chambre_id?: StringWithAggregatesFilter<"Lit"> | string
+    nom?: StringWithAggregatesFilter<"Lit"> | string
+    est_disponible?: BoolWithAggregatesFilter<"Lit"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"Lit"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Lit"> | Date | string
   }
 
   export type HospitalisationWhereInput = {
@@ -36028,6 +37463,7 @@ export namespace Prisma {
     patient_id?: StringFilter<"Hospitalisation"> | string
     medecin_id?: StringFilter<"Hospitalisation"> | string
     chambre_id?: StringNullableFilter<"Hospitalisation"> | string | null
+    lit_id?: StringNullableFilter<"Hospitalisation"> | string | null
     service_id?: StringNullableFilter<"Hospitalisation"> | string | null
     statut?: EnumStatutHospitalisationFilter<"Hospitalisation"> | $Enums.StatutHospitalisation
     date_entree?: DateTimeFilter<"Hospitalisation"> | Date | string
@@ -36042,6 +37478,7 @@ export namespace Prisma {
     patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
     medecin?: XOR<UtilisateurScalarRelationFilter, UtilisateurWhereInput>
     chambre?: XOR<ChambreNullableScalarRelationFilter, ChambreWhereInput> | null
+    lit?: XOR<LitNullableScalarRelationFilter, LitWhereInput> | null
     service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
     facture?: XOR<FactureNullableScalarRelationFilter, FactureWhereInput> | null
     lignes?: LigneHospitalisationListRelationFilter
@@ -36053,6 +37490,7 @@ export namespace Prisma {
     patient_id?: SortOrder
     medecin_id?: SortOrder
     chambre_id?: SortOrderInput | SortOrder
+    lit_id?: SortOrderInput | SortOrder
     service_id?: SortOrderInput | SortOrder
     statut?: SortOrder
     date_entree?: SortOrder
@@ -36067,6 +37505,7 @@ export namespace Prisma {
     patient?: PatientOrderByWithRelationInput
     medecin?: UtilisateurOrderByWithRelationInput
     chambre?: ChambreOrderByWithRelationInput
+    lit?: LitOrderByWithRelationInput
     service?: ServiceOrderByWithRelationInput
     facture?: FactureOrderByWithRelationInput
     lignes?: LigneHospitalisationOrderByRelationAggregateInput
@@ -36082,6 +37521,7 @@ export namespace Prisma {
     patient_id?: StringFilter<"Hospitalisation"> | string
     medecin_id?: StringFilter<"Hospitalisation"> | string
     chambre_id?: StringNullableFilter<"Hospitalisation"> | string | null
+    lit_id?: StringNullableFilter<"Hospitalisation"> | string | null
     service_id?: StringNullableFilter<"Hospitalisation"> | string | null
     statut?: EnumStatutHospitalisationFilter<"Hospitalisation"> | $Enums.StatutHospitalisation
     date_entree?: DateTimeFilter<"Hospitalisation"> | Date | string
@@ -36095,6 +37535,7 @@ export namespace Prisma {
     patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
     medecin?: XOR<UtilisateurScalarRelationFilter, UtilisateurWhereInput>
     chambre?: XOR<ChambreNullableScalarRelationFilter, ChambreWhereInput> | null
+    lit?: XOR<LitNullableScalarRelationFilter, LitWhereInput> | null
     service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
     facture?: XOR<FactureNullableScalarRelationFilter, FactureWhereInput> | null
     lignes?: LigneHospitalisationListRelationFilter
@@ -36106,6 +37547,7 @@ export namespace Prisma {
     patient_id?: SortOrder
     medecin_id?: SortOrder
     chambre_id?: SortOrderInput | SortOrder
+    lit_id?: SortOrderInput | SortOrder
     service_id?: SortOrderInput | SortOrder
     statut?: SortOrder
     date_entree?: SortOrder
@@ -36130,6 +37572,7 @@ export namespace Prisma {
     patient_id?: StringWithAggregatesFilter<"Hospitalisation"> | string
     medecin_id?: StringWithAggregatesFilter<"Hospitalisation"> | string
     chambre_id?: StringNullableWithAggregatesFilter<"Hospitalisation"> | string | null
+    lit_id?: StringNullableWithAggregatesFilter<"Hospitalisation"> | string | null
     service_id?: StringNullableWithAggregatesFilter<"Hospitalisation"> | string | null
     statut?: EnumStatutHospitalisationWithAggregatesFilter<"Hospitalisation"> | $Enums.StatutHospitalisation
     date_entree?: DateTimeWithAggregatesFilter<"Hospitalisation"> | Date | string
@@ -36511,6 +37954,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    lits?: LitCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
@@ -36541,6 +37985,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
@@ -36571,6 +38016,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    lits?: LitUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
@@ -36601,6 +38047,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
@@ -38438,7 +39885,6 @@ export namespace Prisma {
     id?: string
     numero: string
     service?: string | null
-    lit?: string | null
     type_chambre?: string
     prix_journalier?: number
     est_disponible?: boolean
@@ -38446,6 +39892,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     hospital: HospitalCreateNestedOneWithoutChambresInput
+    lits?: LitCreateNestedManyWithoutChambreInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutChambreInput
   }
 
@@ -38454,13 +39901,13 @@ export namespace Prisma {
     hospital_id: string
     numero: string
     service?: string | null
-    lit?: string | null
     type_chambre?: string
     prix_journalier?: number
     est_disponible?: boolean
     description?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    lits?: LitUncheckedCreateNestedManyWithoutChambreInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutChambreInput
   }
 
@@ -38468,7 +39915,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     numero?: StringFieldUpdateOperationsInput | string
     service?: NullableStringFieldUpdateOperationsInput | string | null
-    lit?: NullableStringFieldUpdateOperationsInput | string | null
     type_chambre?: StringFieldUpdateOperationsInput | string
     prix_journalier?: FloatFieldUpdateOperationsInput | number
     est_disponible?: BoolFieldUpdateOperationsInput | boolean
@@ -38476,6 +39922,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     hospital?: HospitalUpdateOneRequiredWithoutChambresNestedInput
+    lits?: LitUpdateManyWithoutChambreNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutChambreNestedInput
   }
 
@@ -38484,13 +39931,13 @@ export namespace Prisma {
     hospital_id?: StringFieldUpdateOperationsInput | string
     numero?: StringFieldUpdateOperationsInput | string
     service?: NullableStringFieldUpdateOperationsInput | string | null
-    lit?: NullableStringFieldUpdateOperationsInput | string | null
     type_chambre?: StringFieldUpdateOperationsInput | string
     prix_journalier?: FloatFieldUpdateOperationsInput | number
     est_disponible?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    lits?: LitUncheckedUpdateManyWithoutChambreNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutChambreNestedInput
   }
 
@@ -38499,7 +39946,6 @@ export namespace Prisma {
     hospital_id: string
     numero: string
     service?: string | null
-    lit?: string | null
     type_chambre?: string
     prix_journalier?: number
     est_disponible?: boolean
@@ -38512,7 +39958,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     numero?: StringFieldUpdateOperationsInput | string
     service?: NullableStringFieldUpdateOperationsInput | string | null
-    lit?: NullableStringFieldUpdateOperationsInput | string | null
     type_chambre?: StringFieldUpdateOperationsInput | string
     prix_journalier?: FloatFieldUpdateOperationsInput | number
     est_disponible?: BoolFieldUpdateOperationsInput | boolean
@@ -38526,11 +39971,82 @@ export namespace Prisma {
     hospital_id?: StringFieldUpdateOperationsInput | string
     numero?: StringFieldUpdateOperationsInput | string
     service?: NullableStringFieldUpdateOperationsInput | string | null
-    lit?: NullableStringFieldUpdateOperationsInput | string | null
     type_chambre?: StringFieldUpdateOperationsInput | string
     prix_journalier?: FloatFieldUpdateOperationsInput | number
     est_disponible?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LitCreateInput = {
+    id?: string
+    nom: string
+    est_disponible?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutLitsInput
+    chambre: ChambreCreateNestedOneWithoutLitsInput
+    hospitalisations?: HospitalisationCreateNestedManyWithoutLitInput
+  }
+
+  export type LitUncheckedCreateInput = {
+    id?: string
+    hospital_id: string
+    chambre_id: string
+    nom: string
+    est_disponible?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutLitInput
+  }
+
+  export type LitUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    est_disponible?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutLitsNestedInput
+    chambre?: ChambreUpdateOneRequiredWithoutLitsNestedInput
+    hospitalisations?: HospitalisationUpdateManyWithoutLitNestedInput
+  }
+
+  export type LitUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    chambre_id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    est_disponible?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospitalisations?: HospitalisationUncheckedUpdateManyWithoutLitNestedInput
+  }
+
+  export type LitCreateManyInput = {
+    id?: string
+    hospital_id: string
+    chambre_id: string
+    nom: string
+    est_disponible?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type LitUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    est_disponible?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LitUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    chambre_id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    est_disponible?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -38549,6 +40065,7 @@ export namespace Prisma {
     patient: PatientCreateNestedOneWithoutSejoursInput
     medecin: UtilisateurCreateNestedOneWithoutHospitalisations_responsableInput
     chambre?: ChambreCreateNestedOneWithoutHospitalisationsInput
+    lit?: LitCreateNestedOneWithoutHospitalisationsInput
     service?: ServiceCreateNestedOneWithoutHospitalisationsInput
     facture?: FactureCreateNestedOneWithoutHospitalisationInput
     lignes?: LigneHospitalisationCreateNestedManyWithoutHospitalisationInput
@@ -38560,6 +40077,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     chambre_id?: string | null
+    lit_id?: string | null
     service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
@@ -38587,6 +40105,7 @@ export namespace Prisma {
     patient?: PatientUpdateOneRequiredWithoutSejoursNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutHospitalisations_responsableNestedInput
     chambre?: ChambreUpdateOneWithoutHospitalisationsNestedInput
+    lit?: LitUpdateOneWithoutHospitalisationsNestedInput
     service?: ServiceUpdateOneWithoutHospitalisationsNestedInput
     facture?: FactureUpdateOneWithoutHospitalisationNestedInput
     lignes?: LigneHospitalisationUpdateManyWithoutHospitalisationNestedInput
@@ -38598,6 +40117,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    lit_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -38617,6 +40137,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     chambre_id?: string | null
+    lit_id?: string | null
     service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
@@ -38647,6 +40168,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    lit_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39163,6 +40685,12 @@ export namespace Prisma {
     none?: ChambreWhereInput
   }
 
+  export type LitListRelationFilter = {
+    every?: LitWhereInput
+    some?: LitWhereInput
+    none?: LitWhereInput
+  }
+
   export type HospitalisationListRelationFilter = {
     every?: HospitalisationWhereInput
     some?: HospitalisationWhereInput
@@ -39239,6 +40767,10 @@ export namespace Prisma {
   }
 
   export type ChambreOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LitOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -40711,7 +42243,6 @@ export namespace Prisma {
     hospital_id?: SortOrder
     numero?: SortOrder
     service?: SortOrder
-    lit?: SortOrder
     type_chambre?: SortOrder
     prix_journalier?: SortOrder
     est_disponible?: SortOrder
@@ -40729,7 +42260,6 @@ export namespace Prisma {
     hospital_id?: SortOrder
     numero?: SortOrder
     service?: SortOrder
-    lit?: SortOrder
     type_chambre?: SortOrder
     prix_journalier?: SortOrder
     est_disponible?: SortOrder
@@ -40743,7 +42273,6 @@ export namespace Prisma {
     hospital_id?: SortOrder
     numero?: SortOrder
     service?: SortOrder
-    lit?: SortOrder
     type_chambre?: SortOrder
     prix_journalier?: SortOrder
     est_disponible?: SortOrder
@@ -40754,6 +42283,41 @@ export namespace Prisma {
 
   export type ChambreSumOrderByAggregateInput = {
     prix_journalier?: SortOrder
+  }
+
+  export type ChambreScalarRelationFilter = {
+    is?: ChambreWhereInput
+    isNot?: ChambreWhereInput
+  }
+
+  export type LitCountOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    chambre_id?: SortOrder
+    nom?: SortOrder
+    est_disponible?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type LitMaxOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    chambre_id?: SortOrder
+    nom?: SortOrder
+    est_disponible?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type LitMinOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    chambre_id?: SortOrder
+    nom?: SortOrder
+    est_disponible?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type EnumStatutHospitalisationFilter<$PrismaModel = never> = {
@@ -40768,12 +42332,18 @@ export namespace Prisma {
     isNot?: ChambreWhereInput | null
   }
 
+  export type LitNullableScalarRelationFilter = {
+    is?: LitWhereInput | null
+    isNot?: LitWhereInput | null
+  }
+
   export type HospitalisationCountOrderByAggregateInput = {
     id?: SortOrder
     hospital_id?: SortOrder
     patient_id?: SortOrder
     medecin_id?: SortOrder
     chambre_id?: SortOrder
+    lit_id?: SortOrder
     service_id?: SortOrder
     statut?: SortOrder
     date_entree?: SortOrder
@@ -40792,6 +42362,7 @@ export namespace Prisma {
     patient_id?: SortOrder
     medecin_id?: SortOrder
     chambre_id?: SortOrder
+    lit_id?: SortOrder
     service_id?: SortOrder
     statut?: SortOrder
     date_entree?: SortOrder
@@ -40810,6 +42381,7 @@ export namespace Prisma {
     patient_id?: SortOrder
     medecin_id?: SortOrder
     chambre_id?: SortOrder
+    lit_id?: SortOrder
     service_id?: SortOrder
     statut?: SortOrder
     date_entree?: SortOrder
@@ -41181,6 +42753,13 @@ export namespace Prisma {
     connect?: ChambreWhereUniqueInput | ChambreWhereUniqueInput[]
   }
 
+  export type LitCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<LitCreateWithoutHospitalInput, LitUncheckedCreateWithoutHospitalInput> | LitCreateWithoutHospitalInput[] | LitUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: LitCreateOrConnectWithoutHospitalInput | LitCreateOrConnectWithoutHospitalInput[]
+    createMany?: LitCreateManyHospitalInputEnvelope
+    connect?: LitWhereUniqueInput | LitWhereUniqueInput[]
+  }
+
   export type HospitalisationCreateNestedManyWithoutHospitalInput = {
     create?: XOR<HospitalisationCreateWithoutHospitalInput, HospitalisationUncheckedCreateWithoutHospitalInput> | HospitalisationCreateWithoutHospitalInput[] | HospitalisationUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: HospitalisationCreateOrConnectWithoutHospitalInput | HospitalisationCreateOrConnectWithoutHospitalInput[]
@@ -41298,6 +42877,13 @@ export namespace Prisma {
     connectOrCreate?: ChambreCreateOrConnectWithoutHospitalInput | ChambreCreateOrConnectWithoutHospitalInput[]
     createMany?: ChambreCreateManyHospitalInputEnvelope
     connect?: ChambreWhereUniqueInput | ChambreWhereUniqueInput[]
+  }
+
+  export type LitUncheckedCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<LitCreateWithoutHospitalInput, LitUncheckedCreateWithoutHospitalInput> | LitCreateWithoutHospitalInput[] | LitUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: LitCreateOrConnectWithoutHospitalInput | LitCreateOrConnectWithoutHospitalInput[]
+    createMany?: LitCreateManyHospitalInputEnvelope
+    connect?: LitWhereUniqueInput | LitWhereUniqueInput[]
   }
 
   export type HospitalisationUncheckedCreateNestedManyWithoutHospitalInput = {
@@ -41531,6 +43117,20 @@ export namespace Prisma {
     update?: ChambreUpdateWithWhereUniqueWithoutHospitalInput | ChambreUpdateWithWhereUniqueWithoutHospitalInput[]
     updateMany?: ChambreUpdateManyWithWhereWithoutHospitalInput | ChambreUpdateManyWithWhereWithoutHospitalInput[]
     deleteMany?: ChambreScalarWhereInput | ChambreScalarWhereInput[]
+  }
+
+  export type LitUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<LitCreateWithoutHospitalInput, LitUncheckedCreateWithoutHospitalInput> | LitCreateWithoutHospitalInput[] | LitUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: LitCreateOrConnectWithoutHospitalInput | LitCreateOrConnectWithoutHospitalInput[]
+    upsert?: LitUpsertWithWhereUniqueWithoutHospitalInput | LitUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: LitCreateManyHospitalInputEnvelope
+    set?: LitWhereUniqueInput | LitWhereUniqueInput[]
+    disconnect?: LitWhereUniqueInput | LitWhereUniqueInput[]
+    delete?: LitWhereUniqueInput | LitWhereUniqueInput[]
+    connect?: LitWhereUniqueInput | LitWhereUniqueInput[]
+    update?: LitUpdateWithWhereUniqueWithoutHospitalInput | LitUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: LitUpdateManyWithWhereWithoutHospitalInput | LitUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: LitScalarWhereInput | LitScalarWhereInput[]
   }
 
   export type HospitalisationUpdateManyWithoutHospitalNestedInput = {
@@ -41769,6 +43369,20 @@ export namespace Prisma {
     update?: ChambreUpdateWithWhereUniqueWithoutHospitalInput | ChambreUpdateWithWhereUniqueWithoutHospitalInput[]
     updateMany?: ChambreUpdateManyWithWhereWithoutHospitalInput | ChambreUpdateManyWithWhereWithoutHospitalInput[]
     deleteMany?: ChambreScalarWhereInput | ChambreScalarWhereInput[]
+  }
+
+  export type LitUncheckedUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<LitCreateWithoutHospitalInput, LitUncheckedCreateWithoutHospitalInput> | LitCreateWithoutHospitalInput[] | LitUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: LitCreateOrConnectWithoutHospitalInput | LitCreateOrConnectWithoutHospitalInput[]
+    upsert?: LitUpsertWithWhereUniqueWithoutHospitalInput | LitUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: LitCreateManyHospitalInputEnvelope
+    set?: LitWhereUniqueInput | LitWhereUniqueInput[]
+    disconnect?: LitWhereUniqueInput | LitWhereUniqueInput[]
+    delete?: LitWhereUniqueInput | LitWhereUniqueInput[]
+    connect?: LitWhereUniqueInput | LitWhereUniqueInput[]
+    update?: LitUpdateWithWhereUniqueWithoutHospitalInput | LitUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: LitUpdateManyWithWhereWithoutHospitalInput | LitUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: LitScalarWhereInput | LitScalarWhereInput[]
   }
 
   export type HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput = {
@@ -43209,11 +44823,25 @@ export namespace Prisma {
     connect?: HospitalWhereUniqueInput
   }
 
+  export type LitCreateNestedManyWithoutChambreInput = {
+    create?: XOR<LitCreateWithoutChambreInput, LitUncheckedCreateWithoutChambreInput> | LitCreateWithoutChambreInput[] | LitUncheckedCreateWithoutChambreInput[]
+    connectOrCreate?: LitCreateOrConnectWithoutChambreInput | LitCreateOrConnectWithoutChambreInput[]
+    createMany?: LitCreateManyChambreInputEnvelope
+    connect?: LitWhereUniqueInput | LitWhereUniqueInput[]
+  }
+
   export type HospitalisationCreateNestedManyWithoutChambreInput = {
     create?: XOR<HospitalisationCreateWithoutChambreInput, HospitalisationUncheckedCreateWithoutChambreInput> | HospitalisationCreateWithoutChambreInput[] | HospitalisationUncheckedCreateWithoutChambreInput[]
     connectOrCreate?: HospitalisationCreateOrConnectWithoutChambreInput | HospitalisationCreateOrConnectWithoutChambreInput[]
     createMany?: HospitalisationCreateManyChambreInputEnvelope
     connect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+  }
+
+  export type LitUncheckedCreateNestedManyWithoutChambreInput = {
+    create?: XOR<LitCreateWithoutChambreInput, LitUncheckedCreateWithoutChambreInput> | LitCreateWithoutChambreInput[] | LitUncheckedCreateWithoutChambreInput[]
+    connectOrCreate?: LitCreateOrConnectWithoutChambreInput | LitCreateOrConnectWithoutChambreInput[]
+    createMany?: LitCreateManyChambreInputEnvelope
+    connect?: LitWhereUniqueInput | LitWhereUniqueInput[]
   }
 
   export type HospitalisationUncheckedCreateNestedManyWithoutChambreInput = {
@@ -43231,6 +44859,20 @@ export namespace Prisma {
     update?: XOR<XOR<HospitalUpdateToOneWithWhereWithoutChambresInput, HospitalUpdateWithoutChambresInput>, HospitalUncheckedUpdateWithoutChambresInput>
   }
 
+  export type LitUpdateManyWithoutChambreNestedInput = {
+    create?: XOR<LitCreateWithoutChambreInput, LitUncheckedCreateWithoutChambreInput> | LitCreateWithoutChambreInput[] | LitUncheckedCreateWithoutChambreInput[]
+    connectOrCreate?: LitCreateOrConnectWithoutChambreInput | LitCreateOrConnectWithoutChambreInput[]
+    upsert?: LitUpsertWithWhereUniqueWithoutChambreInput | LitUpsertWithWhereUniqueWithoutChambreInput[]
+    createMany?: LitCreateManyChambreInputEnvelope
+    set?: LitWhereUniqueInput | LitWhereUniqueInput[]
+    disconnect?: LitWhereUniqueInput | LitWhereUniqueInput[]
+    delete?: LitWhereUniqueInput | LitWhereUniqueInput[]
+    connect?: LitWhereUniqueInput | LitWhereUniqueInput[]
+    update?: LitUpdateWithWhereUniqueWithoutChambreInput | LitUpdateWithWhereUniqueWithoutChambreInput[]
+    updateMany?: LitUpdateManyWithWhereWithoutChambreInput | LitUpdateManyWithWhereWithoutChambreInput[]
+    deleteMany?: LitScalarWhereInput | LitScalarWhereInput[]
+  }
+
   export type HospitalisationUpdateManyWithoutChambreNestedInput = {
     create?: XOR<HospitalisationCreateWithoutChambreInput, HospitalisationUncheckedCreateWithoutChambreInput> | HospitalisationCreateWithoutChambreInput[] | HospitalisationUncheckedCreateWithoutChambreInput[]
     connectOrCreate?: HospitalisationCreateOrConnectWithoutChambreInput | HospitalisationCreateOrConnectWithoutChambreInput[]
@@ -43245,6 +44887,20 @@ export namespace Prisma {
     deleteMany?: HospitalisationScalarWhereInput | HospitalisationScalarWhereInput[]
   }
 
+  export type LitUncheckedUpdateManyWithoutChambreNestedInput = {
+    create?: XOR<LitCreateWithoutChambreInput, LitUncheckedCreateWithoutChambreInput> | LitCreateWithoutChambreInput[] | LitUncheckedCreateWithoutChambreInput[]
+    connectOrCreate?: LitCreateOrConnectWithoutChambreInput | LitCreateOrConnectWithoutChambreInput[]
+    upsert?: LitUpsertWithWhereUniqueWithoutChambreInput | LitUpsertWithWhereUniqueWithoutChambreInput[]
+    createMany?: LitCreateManyChambreInputEnvelope
+    set?: LitWhereUniqueInput | LitWhereUniqueInput[]
+    disconnect?: LitWhereUniqueInput | LitWhereUniqueInput[]
+    delete?: LitWhereUniqueInput | LitWhereUniqueInput[]
+    connect?: LitWhereUniqueInput | LitWhereUniqueInput[]
+    update?: LitUpdateWithWhereUniqueWithoutChambreInput | LitUpdateWithWhereUniqueWithoutChambreInput[]
+    updateMany?: LitUpdateManyWithWhereWithoutChambreInput | LitUpdateManyWithWhereWithoutChambreInput[]
+    deleteMany?: LitScalarWhereInput | LitScalarWhereInput[]
+  }
+
   export type HospitalisationUncheckedUpdateManyWithoutChambreNestedInput = {
     create?: XOR<HospitalisationCreateWithoutChambreInput, HospitalisationUncheckedCreateWithoutChambreInput> | HospitalisationCreateWithoutChambreInput[] | HospitalisationUncheckedCreateWithoutChambreInput[]
     connectOrCreate?: HospitalisationCreateOrConnectWithoutChambreInput | HospitalisationCreateOrConnectWithoutChambreInput[]
@@ -43256,6 +44912,76 @@ export namespace Prisma {
     connect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
     update?: HospitalisationUpdateWithWhereUniqueWithoutChambreInput | HospitalisationUpdateWithWhereUniqueWithoutChambreInput[]
     updateMany?: HospitalisationUpdateManyWithWhereWithoutChambreInput | HospitalisationUpdateManyWithWhereWithoutChambreInput[]
+    deleteMany?: HospitalisationScalarWhereInput | HospitalisationScalarWhereInput[]
+  }
+
+  export type HospitalCreateNestedOneWithoutLitsInput = {
+    create?: XOR<HospitalCreateWithoutLitsInput, HospitalUncheckedCreateWithoutLitsInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutLitsInput
+    connect?: HospitalWhereUniqueInput
+  }
+
+  export type ChambreCreateNestedOneWithoutLitsInput = {
+    create?: XOR<ChambreCreateWithoutLitsInput, ChambreUncheckedCreateWithoutLitsInput>
+    connectOrCreate?: ChambreCreateOrConnectWithoutLitsInput
+    connect?: ChambreWhereUniqueInput
+  }
+
+  export type HospitalisationCreateNestedManyWithoutLitInput = {
+    create?: XOR<HospitalisationCreateWithoutLitInput, HospitalisationUncheckedCreateWithoutLitInput> | HospitalisationCreateWithoutLitInput[] | HospitalisationUncheckedCreateWithoutLitInput[]
+    connectOrCreate?: HospitalisationCreateOrConnectWithoutLitInput | HospitalisationCreateOrConnectWithoutLitInput[]
+    createMany?: HospitalisationCreateManyLitInputEnvelope
+    connect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+  }
+
+  export type HospitalisationUncheckedCreateNestedManyWithoutLitInput = {
+    create?: XOR<HospitalisationCreateWithoutLitInput, HospitalisationUncheckedCreateWithoutLitInput> | HospitalisationCreateWithoutLitInput[] | HospitalisationUncheckedCreateWithoutLitInput[]
+    connectOrCreate?: HospitalisationCreateOrConnectWithoutLitInput | HospitalisationCreateOrConnectWithoutLitInput[]
+    createMany?: HospitalisationCreateManyLitInputEnvelope
+    connect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+  }
+
+  export type HospitalUpdateOneRequiredWithoutLitsNestedInput = {
+    create?: XOR<HospitalCreateWithoutLitsInput, HospitalUncheckedCreateWithoutLitsInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutLitsInput
+    upsert?: HospitalUpsertWithoutLitsInput
+    connect?: HospitalWhereUniqueInput
+    update?: XOR<XOR<HospitalUpdateToOneWithWhereWithoutLitsInput, HospitalUpdateWithoutLitsInput>, HospitalUncheckedUpdateWithoutLitsInput>
+  }
+
+  export type ChambreUpdateOneRequiredWithoutLitsNestedInput = {
+    create?: XOR<ChambreCreateWithoutLitsInput, ChambreUncheckedCreateWithoutLitsInput>
+    connectOrCreate?: ChambreCreateOrConnectWithoutLitsInput
+    upsert?: ChambreUpsertWithoutLitsInput
+    connect?: ChambreWhereUniqueInput
+    update?: XOR<XOR<ChambreUpdateToOneWithWhereWithoutLitsInput, ChambreUpdateWithoutLitsInput>, ChambreUncheckedUpdateWithoutLitsInput>
+  }
+
+  export type HospitalisationUpdateManyWithoutLitNestedInput = {
+    create?: XOR<HospitalisationCreateWithoutLitInput, HospitalisationUncheckedCreateWithoutLitInput> | HospitalisationCreateWithoutLitInput[] | HospitalisationUncheckedCreateWithoutLitInput[]
+    connectOrCreate?: HospitalisationCreateOrConnectWithoutLitInput | HospitalisationCreateOrConnectWithoutLitInput[]
+    upsert?: HospitalisationUpsertWithWhereUniqueWithoutLitInput | HospitalisationUpsertWithWhereUniqueWithoutLitInput[]
+    createMany?: HospitalisationCreateManyLitInputEnvelope
+    set?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+    disconnect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+    delete?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+    connect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+    update?: HospitalisationUpdateWithWhereUniqueWithoutLitInput | HospitalisationUpdateWithWhereUniqueWithoutLitInput[]
+    updateMany?: HospitalisationUpdateManyWithWhereWithoutLitInput | HospitalisationUpdateManyWithWhereWithoutLitInput[]
+    deleteMany?: HospitalisationScalarWhereInput | HospitalisationScalarWhereInput[]
+  }
+
+  export type HospitalisationUncheckedUpdateManyWithoutLitNestedInput = {
+    create?: XOR<HospitalisationCreateWithoutLitInput, HospitalisationUncheckedCreateWithoutLitInput> | HospitalisationCreateWithoutLitInput[] | HospitalisationUncheckedCreateWithoutLitInput[]
+    connectOrCreate?: HospitalisationCreateOrConnectWithoutLitInput | HospitalisationCreateOrConnectWithoutLitInput[]
+    upsert?: HospitalisationUpsertWithWhereUniqueWithoutLitInput | HospitalisationUpsertWithWhereUniqueWithoutLitInput[]
+    createMany?: HospitalisationCreateManyLitInputEnvelope
+    set?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+    disconnect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+    delete?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+    connect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+    update?: HospitalisationUpdateWithWhereUniqueWithoutLitInput | HospitalisationUpdateWithWhereUniqueWithoutLitInput[]
+    updateMany?: HospitalisationUpdateManyWithWhereWithoutLitInput | HospitalisationUpdateManyWithWhereWithoutLitInput[]
     deleteMany?: HospitalisationScalarWhereInput | HospitalisationScalarWhereInput[]
   }
 
@@ -43281,6 +45007,12 @@ export namespace Prisma {
     create?: XOR<ChambreCreateWithoutHospitalisationsInput, ChambreUncheckedCreateWithoutHospitalisationsInput>
     connectOrCreate?: ChambreCreateOrConnectWithoutHospitalisationsInput
     connect?: ChambreWhereUniqueInput
+  }
+
+  export type LitCreateNestedOneWithoutHospitalisationsInput = {
+    create?: XOR<LitCreateWithoutHospitalisationsInput, LitUncheckedCreateWithoutHospitalisationsInput>
+    connectOrCreate?: LitCreateOrConnectWithoutHospitalisationsInput
+    connect?: LitWhereUniqueInput
   }
 
   export type ServiceCreateNestedOneWithoutHospitalisationsInput = {
@@ -43345,6 +45077,16 @@ export namespace Prisma {
     delete?: ChambreWhereInput | boolean
     connect?: ChambreWhereUniqueInput
     update?: XOR<XOR<ChambreUpdateToOneWithWhereWithoutHospitalisationsInput, ChambreUpdateWithoutHospitalisationsInput>, ChambreUncheckedUpdateWithoutHospitalisationsInput>
+  }
+
+  export type LitUpdateOneWithoutHospitalisationsNestedInput = {
+    create?: XOR<LitCreateWithoutHospitalisationsInput, LitUncheckedCreateWithoutHospitalisationsInput>
+    connectOrCreate?: LitCreateOrConnectWithoutHospitalisationsInput
+    upsert?: LitUpsertWithoutHospitalisationsInput
+    disconnect?: LitWhereInput | boolean
+    delete?: LitWhereInput | boolean
+    connect?: LitWhereUniqueInput
+    update?: XOR<XOR<LitUpdateToOneWithWhereWithoutHospitalisationsInput, LitUpdateWithoutHospitalisationsInput>, LitUncheckedUpdateWithoutHospitalisationsInput>
   }
 
   export type ServiceUpdateOneWithoutHospitalisationsNestedInput = {
@@ -44751,13 +46493,13 @@ export namespace Prisma {
     id?: string
     numero: string
     service?: string | null
-    lit?: string | null
     type_chambre?: string
     prix_journalier?: number
     est_disponible?: boolean
     description?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    lits?: LitCreateNestedManyWithoutChambreInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutChambreInput
   }
 
@@ -44765,13 +46507,13 @@ export namespace Prisma {
     id?: string
     numero: string
     service?: string | null
-    lit?: string | null
     type_chambre?: string
     prix_journalier?: number
     est_disponible?: boolean
     description?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    lits?: LitUncheckedCreateNestedManyWithoutChambreInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutChambreInput
   }
 
@@ -44782,6 +46524,36 @@ export namespace Prisma {
 
   export type ChambreCreateManyHospitalInputEnvelope = {
     data: ChambreCreateManyHospitalInput | ChambreCreateManyHospitalInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LitCreateWithoutHospitalInput = {
+    id?: string
+    nom: string
+    est_disponible?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    chambre: ChambreCreateNestedOneWithoutLitsInput
+    hospitalisations?: HospitalisationCreateNestedManyWithoutLitInput
+  }
+
+  export type LitUncheckedCreateWithoutHospitalInput = {
+    id?: string
+    chambre_id: string
+    nom: string
+    est_disponible?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutLitInput
+  }
+
+  export type LitCreateOrConnectWithoutHospitalInput = {
+    where: LitWhereUniqueInput
+    create: XOR<LitCreateWithoutHospitalInput, LitUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type LitCreateManyHospitalInputEnvelope = {
+    data: LitCreateManyHospitalInput | LitCreateManyHospitalInput[]
     skipDuplicates?: boolean
   }
 
@@ -44798,6 +46570,7 @@ export namespace Prisma {
     patient: PatientCreateNestedOneWithoutSejoursInput
     medecin: UtilisateurCreateNestedOneWithoutHospitalisations_responsableInput
     chambre?: ChambreCreateNestedOneWithoutHospitalisationsInput
+    lit?: LitCreateNestedOneWithoutHospitalisationsInput
     service?: ServiceCreateNestedOneWithoutHospitalisationsInput
     facture?: FactureCreateNestedOneWithoutHospitalisationInput
     lignes?: LigneHospitalisationCreateNestedManyWithoutHospitalisationInput
@@ -44808,6 +46581,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     chambre_id?: string | null
+    lit_id?: string | null
     service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
@@ -45373,13 +47147,41 @@ export namespace Prisma {
     hospital_id?: StringFilter<"Chambre"> | string
     numero?: StringFilter<"Chambre"> | string
     service?: StringNullableFilter<"Chambre"> | string | null
-    lit?: StringNullableFilter<"Chambre"> | string | null
     type_chambre?: StringFilter<"Chambre"> | string
     prix_journalier?: FloatFilter<"Chambre"> | number
     est_disponible?: BoolFilter<"Chambre"> | boolean
     description?: StringNullableFilter<"Chambre"> | string | null
     created_at?: DateTimeFilter<"Chambre"> | Date | string
     updated_at?: DateTimeFilter<"Chambre"> | Date | string
+  }
+
+  export type LitUpsertWithWhereUniqueWithoutHospitalInput = {
+    where: LitWhereUniqueInput
+    update: XOR<LitUpdateWithoutHospitalInput, LitUncheckedUpdateWithoutHospitalInput>
+    create: XOR<LitCreateWithoutHospitalInput, LitUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type LitUpdateWithWhereUniqueWithoutHospitalInput = {
+    where: LitWhereUniqueInput
+    data: XOR<LitUpdateWithoutHospitalInput, LitUncheckedUpdateWithoutHospitalInput>
+  }
+
+  export type LitUpdateManyWithWhereWithoutHospitalInput = {
+    where: LitScalarWhereInput
+    data: XOR<LitUpdateManyMutationInput, LitUncheckedUpdateManyWithoutHospitalInput>
+  }
+
+  export type LitScalarWhereInput = {
+    AND?: LitScalarWhereInput | LitScalarWhereInput[]
+    OR?: LitScalarWhereInput[]
+    NOT?: LitScalarWhereInput | LitScalarWhereInput[]
+    id?: StringFilter<"Lit"> | string
+    hospital_id?: StringFilter<"Lit"> | string
+    chambre_id?: StringFilter<"Lit"> | string
+    nom?: StringFilter<"Lit"> | string
+    est_disponible?: BoolFilter<"Lit"> | boolean
+    created_at?: DateTimeFilter<"Lit"> | Date | string
+    updated_at?: DateTimeFilter<"Lit"> | Date | string
   }
 
   export type HospitalisationUpsertWithWhereUniqueWithoutHospitalInput = {
@@ -45407,6 +47209,7 @@ export namespace Prisma {
     patient_id?: StringFilter<"Hospitalisation"> | string
     medecin_id?: StringFilter<"Hospitalisation"> | string
     chambre_id?: StringNullableFilter<"Hospitalisation"> | string | null
+    lit_id?: StringNullableFilter<"Hospitalisation"> | string | null
     service_id?: StringNullableFilter<"Hospitalisation"> | string | null
     statut?: EnumStatutHospitalisationFilter<"Hospitalisation"> | $Enums.StatutHospitalisation
     date_entree?: DateTimeFilter<"Hospitalisation"> | Date | string
@@ -45506,6 +47309,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    lits?: LitCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
@@ -45535,6 +47339,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
@@ -45708,6 +47513,7 @@ export namespace Prisma {
     hospital: HospitalCreateNestedOneWithoutHospitalisationsInput
     patient: PatientCreateNestedOneWithoutSejoursInput
     chambre?: ChambreCreateNestedOneWithoutHospitalisationsInput
+    lit?: LitCreateNestedOneWithoutHospitalisationsInput
     service?: ServiceCreateNestedOneWithoutHospitalisationsInput
     facture?: FactureCreateNestedOneWithoutHospitalisationInput
     lignes?: LigneHospitalisationCreateNestedManyWithoutHospitalisationInput
@@ -45718,6 +47524,7 @@ export namespace Prisma {
     hospital_id: string
     patient_id: string
     chambre_id?: string | null
+    lit_id?: string | null
     service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
@@ -45805,6 +47612,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    lits?: LitUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
@@ -45834,6 +47642,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
@@ -46213,6 +48022,7 @@ export namespace Prisma {
     hospital: HospitalCreateNestedOneWithoutHospitalisationsInput
     medecin: UtilisateurCreateNestedOneWithoutHospitalisations_responsableInput
     chambre?: ChambreCreateNestedOneWithoutHospitalisationsInput
+    lit?: LitCreateNestedOneWithoutHospitalisationsInput
     service?: ServiceCreateNestedOneWithoutHospitalisationsInput
     facture?: FactureCreateNestedOneWithoutHospitalisationInput
     lignes?: LigneHospitalisationCreateNestedManyWithoutHospitalisationInput
@@ -46223,6 +48033,7 @@ export namespace Prisma {
     hospital_id: string
     medecin_id: string
     chambre_id?: string | null
+    lit_id?: string | null
     service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
@@ -46435,6 +48246,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    lits?: LitCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
@@ -46464,6 +48276,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
@@ -46568,6 +48381,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    lits?: LitUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
@@ -46597,6 +48411,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
@@ -46626,6 +48441,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    lits?: LitCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
@@ -46655,6 +48471,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
@@ -46900,6 +48717,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    lits?: LitUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
@@ -46929,6 +48747,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
@@ -47278,6 +49097,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    lits?: LitCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
@@ -47307,6 +49127,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
@@ -47557,6 +49378,7 @@ export namespace Prisma {
     patient: PatientCreateNestedOneWithoutSejoursInput
     medecin: UtilisateurCreateNestedOneWithoutHospitalisations_responsableInput
     chambre?: ChambreCreateNestedOneWithoutHospitalisationsInput
+    lit?: LitCreateNestedOneWithoutHospitalisationsInput
     service?: ServiceCreateNestedOneWithoutHospitalisationsInput
     lignes?: LigneHospitalisationCreateNestedManyWithoutHospitalisationInput
   }
@@ -47567,6 +49389,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     chambre_id?: string | null
+    lit_id?: string | null
     service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
@@ -47619,6 +49442,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    lits?: LitUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
@@ -47648,6 +49472,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
@@ -47849,6 +49674,7 @@ export namespace Prisma {
     patient?: PatientUpdateOneRequiredWithoutSejoursNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutHospitalisations_responsableNestedInput
     chambre?: ChambreUpdateOneWithoutHospitalisationsNestedInput
+    lit?: LitUpdateOneWithoutHospitalisationsNestedInput
     service?: ServiceUpdateOneWithoutHospitalisationsNestedInput
     lignes?: LigneHospitalisationUpdateManyWithoutHospitalisationNestedInput
   }
@@ -47859,6 +49685,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    lit_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -47991,6 +49818,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    lits?: LitCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
@@ -48020,6 +49848,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
@@ -48230,6 +50059,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    lits?: LitUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
@@ -48259,6 +50089,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
@@ -48474,6 +50305,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    lits?: LitCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
@@ -48503,6 +50335,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
@@ -48572,6 +50405,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    lits?: LitUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
@@ -48601,6 +50435,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
@@ -48810,6 +50645,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    lits?: LitCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
@@ -48839,6 +50675,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
@@ -49025,6 +50862,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    lits?: LitUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
@@ -49054,6 +50892,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
@@ -49242,6 +51081,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    lits?: LitCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
@@ -49271,6 +51111,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
@@ -49390,6 +51231,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    lits?: LitUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
@@ -49419,6 +51261,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
@@ -49499,6 +51342,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    lits?: LitCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
@@ -49528,6 +51372,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
@@ -49614,6 +51459,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    lits?: LitUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
@@ -49643,6 +51489,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
@@ -49719,6 +51566,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    lits?: LitCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
@@ -49748,6 +51596,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
@@ -49793,6 +51642,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    lits?: LitUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
@@ -49822,6 +51672,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
@@ -49904,6 +51755,7 @@ export namespace Prisma {
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    lits?: LitCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
@@ -49933,6 +51785,7 @@ export namespace Prisma {
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
@@ -50037,6 +51890,7 @@ export namespace Prisma {
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    lits?: LitUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
@@ -50066,6 +51920,7 @@ export namespace Prisma {
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
@@ -50095,6 +51950,7 @@ export namespace Prisma {
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    lits?: LitCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
@@ -50124,6 +51980,7 @@ export namespace Prisma {
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
@@ -50169,6 +52026,7 @@ export namespace Prisma {
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    lits?: LitUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
@@ -50198,6 +52056,7 @@ export namespace Prisma {
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
@@ -50227,6 +52086,7 @@ export namespace Prisma {
     ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
+    lits?: LitCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
@@ -50256,6 +52116,7 @@ export namespace Prisma {
     ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
+    lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
@@ -50264,6 +52125,36 @@ export namespace Prisma {
   export type HospitalCreateOrConnectWithoutChambresInput = {
     where: HospitalWhereUniqueInput
     create: XOR<HospitalCreateWithoutChambresInput, HospitalUncheckedCreateWithoutChambresInput>
+  }
+
+  export type LitCreateWithoutChambreInput = {
+    id?: string
+    nom: string
+    est_disponible?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutLitsInput
+    hospitalisations?: HospitalisationCreateNestedManyWithoutLitInput
+  }
+
+  export type LitUncheckedCreateWithoutChambreInput = {
+    id?: string
+    hospital_id: string
+    nom: string
+    est_disponible?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutLitInput
+  }
+
+  export type LitCreateOrConnectWithoutChambreInput = {
+    where: LitWhereUniqueInput
+    create: XOR<LitCreateWithoutChambreInput, LitUncheckedCreateWithoutChambreInput>
+  }
+
+  export type LitCreateManyChambreInputEnvelope = {
+    data: LitCreateManyChambreInput | LitCreateManyChambreInput[]
+    skipDuplicates?: boolean
   }
 
   export type HospitalisationCreateWithoutChambreInput = {
@@ -50279,6 +52170,7 @@ export namespace Prisma {
     hospital: HospitalCreateNestedOneWithoutHospitalisationsInput
     patient: PatientCreateNestedOneWithoutSejoursInput
     medecin: UtilisateurCreateNestedOneWithoutHospitalisations_responsableInput
+    lit?: LitCreateNestedOneWithoutHospitalisationsInput
     service?: ServiceCreateNestedOneWithoutHospitalisationsInput
     facture?: FactureCreateNestedOneWithoutHospitalisationInput
     lignes?: LigneHospitalisationCreateNestedManyWithoutHospitalisationInput
@@ -50289,6 +52181,7 @@ export namespace Prisma {
     hospital_id: string
     patient_id: string
     medecin_id: string
+    lit_id?: string | null
     service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
@@ -50347,6 +52240,7 @@ export namespace Prisma {
     ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
+    lits?: LitUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
@@ -50376,9 +52270,26 @@ export namespace Prisma {
     ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
+    lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type LitUpsertWithWhereUniqueWithoutChambreInput = {
+    where: LitWhereUniqueInput
+    update: XOR<LitUpdateWithoutChambreInput, LitUncheckedUpdateWithoutChambreInput>
+    create: XOR<LitCreateWithoutChambreInput, LitUncheckedCreateWithoutChambreInput>
+  }
+
+  export type LitUpdateWithWhereUniqueWithoutChambreInput = {
+    where: LitWhereUniqueInput
+    data: XOR<LitUpdateWithoutChambreInput, LitUncheckedUpdateWithoutChambreInput>
+  }
+
+  export type LitUpdateManyWithWhereWithoutChambreInput = {
+    where: LitScalarWhereInput
+    data: XOR<LitUpdateManyMutationInput, LitUncheckedUpdateManyWithoutChambreInput>
   }
 
   export type HospitalisationUpsertWithWhereUniqueWithoutChambreInput = {
@@ -50395,6 +52306,278 @@ export namespace Prisma {
   export type HospitalisationUpdateManyWithWhereWithoutChambreInput = {
     where: HospitalisationScalarWhereInput
     data: XOR<HospitalisationUpdateManyMutationInput, HospitalisationUncheckedUpdateManyWithoutChambreInput>
+  }
+
+  export type HospitalCreateWithoutLitsInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    services?: ServiceCreateNestedManyWithoutHospitalInput
+    factures?: FactureCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
+    audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
+    chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalUncheckedCreateWithoutLitsInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
+    factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueUncheckedCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
+    audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
+    chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalCreateOrConnectWithoutLitsInput = {
+    where: HospitalWhereUniqueInput
+    create: XOR<HospitalCreateWithoutLitsInput, HospitalUncheckedCreateWithoutLitsInput>
+  }
+
+  export type ChambreCreateWithoutLitsInput = {
+    id?: string
+    numero: string
+    service?: string | null
+    type_chambre?: string
+    prix_journalier?: number
+    est_disponible?: boolean
+    description?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutChambresInput
+    hospitalisations?: HospitalisationCreateNestedManyWithoutChambreInput
+  }
+
+  export type ChambreUncheckedCreateWithoutLitsInput = {
+    id?: string
+    hospital_id: string
+    numero: string
+    service?: string | null
+    type_chambre?: string
+    prix_journalier?: number
+    est_disponible?: boolean
+    description?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutChambreInput
+  }
+
+  export type ChambreCreateOrConnectWithoutLitsInput = {
+    where: ChambreWhereUniqueInput
+    create: XOR<ChambreCreateWithoutLitsInput, ChambreUncheckedCreateWithoutLitsInput>
+  }
+
+  export type HospitalisationCreateWithoutLitInput = {
+    id?: string
+    statut?: $Enums.StatutHospitalisation
+    date_entree?: Date | string
+    date_sortie?: Date | string | null
+    motif_admission?: string | null
+    diagnostic?: string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutHospitalisationsInput
+    patient: PatientCreateNestedOneWithoutSejoursInput
+    medecin: UtilisateurCreateNestedOneWithoutHospitalisations_responsableInput
+    chambre?: ChambreCreateNestedOneWithoutHospitalisationsInput
+    service?: ServiceCreateNestedOneWithoutHospitalisationsInput
+    facture?: FactureCreateNestedOneWithoutHospitalisationInput
+    lignes?: LigneHospitalisationCreateNestedManyWithoutHospitalisationInput
+  }
+
+  export type HospitalisationUncheckedCreateWithoutLitInput = {
+    id?: string
+    hospital_id: string
+    patient_id: string
+    medecin_id: string
+    chambre_id?: string | null
+    service_id?: string | null
+    statut?: $Enums.StatutHospitalisation
+    date_entree?: Date | string
+    date_sortie?: Date | string | null
+    motif_admission?: string | null
+    diagnostic?: string | null
+    notes?: string | null
+    facture_id?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    lignes?: LigneHospitalisationUncheckedCreateNestedManyWithoutHospitalisationInput
+  }
+
+  export type HospitalisationCreateOrConnectWithoutLitInput = {
+    where: HospitalisationWhereUniqueInput
+    create: XOR<HospitalisationCreateWithoutLitInput, HospitalisationUncheckedCreateWithoutLitInput>
+  }
+
+  export type HospitalisationCreateManyLitInputEnvelope = {
+    data: HospitalisationCreateManyLitInput | HospitalisationCreateManyLitInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type HospitalUpsertWithoutLitsInput = {
+    update: XOR<HospitalUpdateWithoutLitsInput, HospitalUncheckedUpdateWithoutLitsInput>
+    create: XOR<HospitalCreateWithoutLitsInput, HospitalUncheckedCreateWithoutLitsInput>
+    where?: HospitalWhereInput
+  }
+
+  export type HospitalUpdateToOneWithWhereWithoutLitsInput = {
+    where?: HospitalWhereInput
+    data: XOR<HospitalUpdateWithoutLitsInput, HospitalUncheckedUpdateWithoutLitsInput>
+  }
+
+  export type HospitalUpdateWithoutLitsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
+    audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
+    chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type HospitalUncheckedUpdateWithoutLitsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
+    audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
+    chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type ChambreUpsertWithoutLitsInput = {
+    update: XOR<ChambreUpdateWithoutLitsInput, ChambreUncheckedUpdateWithoutLitsInput>
+    create: XOR<ChambreCreateWithoutLitsInput, ChambreUncheckedCreateWithoutLitsInput>
+    where?: ChambreWhereInput
+  }
+
+  export type ChambreUpdateToOneWithWhereWithoutLitsInput = {
+    where?: ChambreWhereInput
+    data: XOR<ChambreUpdateWithoutLitsInput, ChambreUncheckedUpdateWithoutLitsInput>
+  }
+
+  export type ChambreUpdateWithoutLitsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    service?: NullableStringFieldUpdateOperationsInput | string | null
+    type_chambre?: StringFieldUpdateOperationsInput | string
+    prix_journalier?: FloatFieldUpdateOperationsInput | number
+    est_disponible?: BoolFieldUpdateOperationsInput | boolean
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutChambresNestedInput
+    hospitalisations?: HospitalisationUpdateManyWithoutChambreNestedInput
+  }
+
+  export type ChambreUncheckedUpdateWithoutLitsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    service?: NullableStringFieldUpdateOperationsInput | string | null
+    type_chambre?: StringFieldUpdateOperationsInput | string
+    prix_journalier?: FloatFieldUpdateOperationsInput | number
+    est_disponible?: BoolFieldUpdateOperationsInput | boolean
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospitalisations?: HospitalisationUncheckedUpdateManyWithoutChambreNestedInput
+  }
+
+  export type HospitalisationUpsertWithWhereUniqueWithoutLitInput = {
+    where: HospitalisationWhereUniqueInput
+    update: XOR<HospitalisationUpdateWithoutLitInput, HospitalisationUncheckedUpdateWithoutLitInput>
+    create: XOR<HospitalisationCreateWithoutLitInput, HospitalisationUncheckedCreateWithoutLitInput>
+  }
+
+  export type HospitalisationUpdateWithWhereUniqueWithoutLitInput = {
+    where: HospitalisationWhereUniqueInput
+    data: XOR<HospitalisationUpdateWithoutLitInput, HospitalisationUncheckedUpdateWithoutLitInput>
+  }
+
+  export type HospitalisationUpdateManyWithWhereWithoutLitInput = {
+    where: HospitalisationScalarWhereInput
+    data: XOR<HospitalisationUpdateManyMutationInput, HospitalisationUncheckedUpdateManyWithoutLitInput>
   }
 
   export type HospitalCreateWithoutHospitalisationsInput = {
@@ -50422,6 +52605,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    lits?: LitCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
   }
@@ -50451,6 +52635,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
   }
@@ -50560,7 +52745,6 @@ export namespace Prisma {
     id?: string
     numero: string
     service?: string | null
-    lit?: string | null
     type_chambre?: string
     prix_journalier?: number
     est_disponible?: boolean
@@ -50568,6 +52752,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     hospital: HospitalCreateNestedOneWithoutChambresInput
+    lits?: LitCreateNestedManyWithoutChambreInput
   }
 
   export type ChambreUncheckedCreateWithoutHospitalisationsInput = {
@@ -50575,18 +52760,43 @@ export namespace Prisma {
     hospital_id: string
     numero: string
     service?: string | null
-    lit?: string | null
     type_chambre?: string
     prix_journalier?: number
     est_disponible?: boolean
     description?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    lits?: LitUncheckedCreateNestedManyWithoutChambreInput
   }
 
   export type ChambreCreateOrConnectWithoutHospitalisationsInput = {
     where: ChambreWhereUniqueInput
     create: XOR<ChambreCreateWithoutHospitalisationsInput, ChambreUncheckedCreateWithoutHospitalisationsInput>
+  }
+
+  export type LitCreateWithoutHospitalisationsInput = {
+    id?: string
+    nom: string
+    est_disponible?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutLitsInput
+    chambre: ChambreCreateNestedOneWithoutLitsInput
+  }
+
+  export type LitUncheckedCreateWithoutHospitalisationsInput = {
+    id?: string
+    hospital_id: string
+    chambre_id: string
+    nom: string
+    est_disponible?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type LitCreateOrConnectWithoutHospitalisationsInput = {
+    where: LitWhereUniqueInput
+    create: XOR<LitCreateWithoutHospitalisationsInput, LitUncheckedCreateWithoutHospitalisationsInput>
   }
 
   export type ServiceCreateWithoutHospitalisationsInput = {
@@ -50739,6 +52949,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    lits?: LitUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
   }
@@ -50768,6 +52979,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
   }
@@ -50895,7 +53107,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     numero?: StringFieldUpdateOperationsInput | string
     service?: NullableStringFieldUpdateOperationsInput | string | null
-    lit?: NullableStringFieldUpdateOperationsInput | string | null
     type_chambre?: StringFieldUpdateOperationsInput | string
     prix_journalier?: FloatFieldUpdateOperationsInput | number
     est_disponible?: BoolFieldUpdateOperationsInput | boolean
@@ -50903,6 +53114,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     hospital?: HospitalUpdateOneRequiredWithoutChambresNestedInput
+    lits?: LitUpdateManyWithoutChambreNestedInput
   }
 
   export type ChambreUncheckedUpdateWithoutHospitalisationsInput = {
@@ -50910,11 +53122,42 @@ export namespace Prisma {
     hospital_id?: StringFieldUpdateOperationsInput | string
     numero?: StringFieldUpdateOperationsInput | string
     service?: NullableStringFieldUpdateOperationsInput | string | null
-    lit?: NullableStringFieldUpdateOperationsInput | string | null
     type_chambre?: StringFieldUpdateOperationsInput | string
     prix_journalier?: FloatFieldUpdateOperationsInput | number
     est_disponible?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    lits?: LitUncheckedUpdateManyWithoutChambreNestedInput
+  }
+
+  export type LitUpsertWithoutHospitalisationsInput = {
+    update: XOR<LitUpdateWithoutHospitalisationsInput, LitUncheckedUpdateWithoutHospitalisationsInput>
+    create: XOR<LitCreateWithoutHospitalisationsInput, LitUncheckedCreateWithoutHospitalisationsInput>
+    where?: LitWhereInput
+  }
+
+  export type LitUpdateToOneWithWhereWithoutHospitalisationsInput = {
+    where?: LitWhereInput
+    data: XOR<LitUpdateWithoutHospitalisationsInput, LitUncheckedUpdateWithoutHospitalisationsInput>
+  }
+
+  export type LitUpdateWithoutHospitalisationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    est_disponible?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutLitsNestedInput
+    chambre?: ChambreUpdateOneRequiredWithoutLitsNestedInput
+  }
+
+  export type LitUncheckedUpdateWithoutHospitalisationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    chambre_id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    est_disponible?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -51035,6 +53278,7 @@ export namespace Prisma {
     patient: PatientCreateNestedOneWithoutSejoursInput
     medecin: UtilisateurCreateNestedOneWithoutHospitalisations_responsableInput
     chambre?: ChambreCreateNestedOneWithoutHospitalisationsInput
+    lit?: LitCreateNestedOneWithoutHospitalisationsInput
     service?: ServiceCreateNestedOneWithoutHospitalisationsInput
     facture?: FactureCreateNestedOneWithoutHospitalisationInput
   }
@@ -51045,6 +53289,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     chambre_id?: string | null
+    lit_id?: string | null
     service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
@@ -51128,6 +53373,7 @@ export namespace Prisma {
     patient?: PatientUpdateOneRequiredWithoutSejoursNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutHospitalisations_responsableNestedInput
     chambre?: ChambreUpdateOneWithoutHospitalisationsNestedInput
+    lit?: LitUpdateOneWithoutHospitalisationsNestedInput
     service?: ServiceUpdateOneWithoutHospitalisationsNestedInput
     facture?: FactureUpdateOneWithoutHospitalisationNestedInput
   }
@@ -51138,6 +53384,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    lit_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -51222,6 +53469,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    lits?: LitCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
   }
@@ -51251,6 +53499,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
   }
@@ -51325,6 +53574,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    lits?: LitUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
   }
@@ -51354,6 +53604,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
   }
@@ -51418,6 +53669,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    lits?: LitCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
   }
@@ -51447,6 +53699,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
   }
@@ -51576,6 +53829,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    lits?: LitUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
   }
@@ -51605,6 +53859,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
   }
@@ -51665,6 +53920,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
     chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    lits?: LitCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
@@ -51694,6 +53950,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
     audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
     chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
@@ -51768,6 +54025,7 @@ export namespace Prisma {
     patient: PatientCreateNestedOneWithoutSejoursInput
     medecin: UtilisateurCreateNestedOneWithoutHospitalisations_responsableInput
     chambre?: ChambreCreateNestedOneWithoutHospitalisationsInput
+    lit?: LitCreateNestedOneWithoutHospitalisationsInput
     facture?: FactureCreateNestedOneWithoutHospitalisationInput
     lignes?: LigneHospitalisationCreateNestedManyWithoutHospitalisationInput
   }
@@ -51778,6 +54036,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     chambre_id?: string | null
+    lit_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
     date_sortie?: Date | string | null
@@ -51835,6 +54094,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    lits?: LitUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
@@ -51864,6 +54124,7 @@ export namespace Prisma {
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
     audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
     chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
@@ -52093,11 +54354,19 @@ export namespace Prisma {
     id?: string
     numero: string
     service?: string | null
-    lit?: string | null
     type_chambre?: string
     prix_journalier?: number
     est_disponible?: boolean
     description?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type LitCreateManyHospitalInput = {
+    id?: string
+    chambre_id: string
+    nom: string
+    est_disponible?: boolean
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -52107,6 +54376,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     chambre_id?: string | null
+    lit_id?: string | null
     service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
@@ -52742,13 +55012,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     numero?: StringFieldUpdateOperationsInput | string
     service?: NullableStringFieldUpdateOperationsInput | string | null
-    lit?: NullableStringFieldUpdateOperationsInput | string | null
     type_chambre?: StringFieldUpdateOperationsInput | string
     prix_journalier?: FloatFieldUpdateOperationsInput | number
     est_disponible?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    lits?: LitUpdateManyWithoutChambreNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutChambreNestedInput
   }
 
@@ -52756,13 +55026,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     numero?: StringFieldUpdateOperationsInput | string
     service?: NullableStringFieldUpdateOperationsInput | string | null
-    lit?: NullableStringFieldUpdateOperationsInput | string | null
     type_chambre?: StringFieldUpdateOperationsInput | string
     prix_journalier?: FloatFieldUpdateOperationsInput | number
     est_disponible?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    lits?: LitUncheckedUpdateManyWithoutChambreNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutChambreNestedInput
   }
 
@@ -52770,11 +55040,39 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     numero?: StringFieldUpdateOperationsInput | string
     service?: NullableStringFieldUpdateOperationsInput | string | null
-    lit?: NullableStringFieldUpdateOperationsInput | string | null
     type_chambre?: StringFieldUpdateOperationsInput | string
     prix_journalier?: FloatFieldUpdateOperationsInput | number
     est_disponible?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LitUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    est_disponible?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    chambre?: ChambreUpdateOneRequiredWithoutLitsNestedInput
+    hospitalisations?: HospitalisationUpdateManyWithoutLitNestedInput
+  }
+
+  export type LitUncheckedUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chambre_id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    est_disponible?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospitalisations?: HospitalisationUncheckedUpdateManyWithoutLitNestedInput
+  }
+
+  export type LitUncheckedUpdateManyWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chambre_id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    est_disponible?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -52792,6 +55090,7 @@ export namespace Prisma {
     patient?: PatientUpdateOneRequiredWithoutSejoursNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutHospitalisations_responsableNestedInput
     chambre?: ChambreUpdateOneWithoutHospitalisationsNestedInput
+    lit?: LitUpdateOneWithoutHospitalisationsNestedInput
     service?: ServiceUpdateOneWithoutHospitalisationsNestedInput
     facture?: FactureUpdateOneWithoutHospitalisationNestedInput
     lignes?: LigneHospitalisationUpdateManyWithoutHospitalisationNestedInput
@@ -52802,6 +55101,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    lit_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -52820,6 +55120,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    lit_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -52967,6 +55268,7 @@ export namespace Prisma {
     hospital_id: string
     patient_id: string
     chambre_id?: string | null
+    lit_id?: string | null
     service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
@@ -53169,6 +55471,7 @@ export namespace Prisma {
     hospital?: HospitalUpdateOneRequiredWithoutHospitalisationsNestedInput
     patient?: PatientUpdateOneRequiredWithoutSejoursNestedInput
     chambre?: ChambreUpdateOneWithoutHospitalisationsNestedInput
+    lit?: LitUpdateOneWithoutHospitalisationsNestedInput
     service?: ServiceUpdateOneWithoutHospitalisationsNestedInput
     facture?: FactureUpdateOneWithoutHospitalisationNestedInput
     lignes?: LigneHospitalisationUpdateManyWithoutHospitalisationNestedInput
@@ -53179,6 +55482,7 @@ export namespace Prisma {
     hospital_id?: StringFieldUpdateOperationsInput | string
     patient_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    lit_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -53197,6 +55501,7 @@ export namespace Prisma {
     hospital_id?: StringFieldUpdateOperationsInput | string
     patient_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    lit_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -53308,6 +55613,7 @@ export namespace Prisma {
     hospital_id: string
     medecin_id: string
     chambre_id?: string | null
+    lit_id?: string | null
     service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
@@ -53629,6 +55935,7 @@ export namespace Prisma {
     hospital?: HospitalUpdateOneRequiredWithoutHospitalisationsNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutHospitalisations_responsableNestedInput
     chambre?: ChambreUpdateOneWithoutHospitalisationsNestedInput
+    lit?: LitUpdateOneWithoutHospitalisationsNestedInput
     service?: ServiceUpdateOneWithoutHospitalisationsNestedInput
     facture?: FactureUpdateOneWithoutHospitalisationNestedInput
     lignes?: LigneHospitalisationUpdateManyWithoutHospitalisationNestedInput
@@ -53639,6 +55946,7 @@ export namespace Prisma {
     hospital_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    lit_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -53657,6 +55965,7 @@ export namespace Prisma {
     hospital_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    lit_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54067,11 +56376,21 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type LitCreateManyChambreInput = {
+    id?: string
+    hospital_id: string
+    nom: string
+    est_disponible?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
   export type HospitalisationCreateManyChambreInput = {
     id?: string
     hospital_id: string
     patient_id: string
     medecin_id: string
+    lit_id?: string | null
     service_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
@@ -54082,6 +56401,35 @@ export namespace Prisma {
     facture_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+  }
+
+  export type LitUpdateWithoutChambreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    est_disponible?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutLitsNestedInput
+    hospitalisations?: HospitalisationUpdateManyWithoutLitNestedInput
+  }
+
+  export type LitUncheckedUpdateWithoutChambreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    est_disponible?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospitalisations?: HospitalisationUncheckedUpdateManyWithoutLitNestedInput
+  }
+
+  export type LitUncheckedUpdateManyWithoutChambreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    est_disponible?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type HospitalisationUpdateWithoutChambreInput = {
@@ -54097,6 +56445,7 @@ export namespace Prisma {
     hospital?: HospitalUpdateOneRequiredWithoutHospitalisationsNestedInput
     patient?: PatientUpdateOneRequiredWithoutSejoursNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutHospitalisations_responsableNestedInput
+    lit?: LitUpdateOneWithoutHospitalisationsNestedInput
     service?: ServiceUpdateOneWithoutHospitalisationsNestedInput
     facture?: FactureUpdateOneWithoutHospitalisationNestedInput
     lignes?: LigneHospitalisationUpdateManyWithoutHospitalisationNestedInput
@@ -54107,6 +56456,7 @@ export namespace Prisma {
     hospital_id?: StringFieldUpdateOperationsInput | string
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
+    lit_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54125,6 +56475,81 @@ export namespace Prisma {
     hospital_id?: StringFieldUpdateOperationsInput | string
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
+    lit_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
+    statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
+    date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
+    date_sortie?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    motif_admission?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HospitalisationCreateManyLitInput = {
+    id?: string
+    hospital_id: string
+    patient_id: string
+    medecin_id: string
+    chambre_id?: string | null
+    service_id?: string | null
+    statut?: $Enums.StatutHospitalisation
+    date_entree?: Date | string
+    date_sortie?: Date | string | null
+    motif_admission?: string | null
+    diagnostic?: string | null
+    notes?: string | null
+    facture_id?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type HospitalisationUpdateWithoutLitInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
+    date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
+    date_sortie?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    motif_admission?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutHospitalisationsNestedInput
+    patient?: PatientUpdateOneRequiredWithoutSejoursNestedInput
+    medecin?: UtilisateurUpdateOneRequiredWithoutHospitalisations_responsableNestedInput
+    chambre?: ChambreUpdateOneWithoutHospitalisationsNestedInput
+    service?: ServiceUpdateOneWithoutHospitalisationsNestedInput
+    facture?: FactureUpdateOneWithoutHospitalisationNestedInput
+    lignes?: LigneHospitalisationUpdateManyWithoutHospitalisationNestedInput
+  }
+
+  export type HospitalisationUncheckedUpdateWithoutLitInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    medecin_id?: StringFieldUpdateOperationsInput | string
+    chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
+    statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
+    date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
+    date_sortie?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    motif_admission?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    facture_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    lignes?: LigneHospitalisationUncheckedUpdateManyWithoutHospitalisationNestedInput
+  }
+
+  export type HospitalisationUncheckedUpdateManyWithoutLitInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    medecin_id?: StringFieldUpdateOperationsInput | string
+    chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
     service_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54341,6 +56766,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     chambre_id?: string | null
+    lit_id?: string | null
     statut?: $Enums.StatutHospitalisation
     date_entree?: Date | string
     date_sortie?: Date | string | null
@@ -54424,6 +56850,7 @@ export namespace Prisma {
     patient?: PatientUpdateOneRequiredWithoutSejoursNestedInput
     medecin?: UtilisateurUpdateOneRequiredWithoutHospitalisations_responsableNestedInput
     chambre?: ChambreUpdateOneWithoutHospitalisationsNestedInput
+    lit?: LitUpdateOneWithoutHospitalisationsNestedInput
     facture?: FactureUpdateOneWithoutHospitalisationNestedInput
     lignes?: LigneHospitalisationUpdateManyWithoutHospitalisationNestedInput
   }
@@ -54434,6 +56861,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    lit_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
     date_sortie?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -54452,6 +56880,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     chambre_id?: NullableStringFieldUpdateOperationsInput | string | null
+    lit_id?: NullableStringFieldUpdateOperationsInput | string | null
     statut?: EnumStatutHospitalisationFieldUpdateOperationsInput | $Enums.StatutHospitalisation
     date_entree?: DateTimeFieldUpdateOperationsInput | Date | string
     date_sortie?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

@@ -21,12 +21,19 @@ import { AdmissionDialog } from "./AdmissionDialog";
 // ============================================================
 // Types
 // ============================================================
+interface Lit {
+  id:             string;
+  nom:            string;
+  est_disponible: boolean;
+}
+
 interface Chambre {
   id:              string;
   numero:          string;
   type_chambre:    string;
   prix_journalier: number;
   est_disponible:  boolean;
+  lits:            Lit[];
 }
 
 interface Medecin {
@@ -67,7 +74,14 @@ interface Hospitalisation {
     nom:    string;
     prenom: string;
   };
-  chambre:  Chambre | null;
+  // chambre sans lits — le kanban n'en a pas besoin
+  chambre: {
+    id:              string;
+    numero:          string;
+    type_chambre:    string;
+    prix_journalier: number;
+    est_disponible:  boolean;
+  } | null;
   service:  Service | null;
   lignes:  Array<{
     id:            string;
