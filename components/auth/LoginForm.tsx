@@ -47,15 +47,15 @@ export function LoginForm() {
   }
 
   return (
-    <Card className="border border-white/10 bg-white/5 backdrop-blur-xl shadow-xl rounded-2xl">
+    <Card className="border border-gray-200 bg-white shadow-sm rounded-xl">
       <CardContent className="p-6 space-y-6">
 
         {/* HEADER */}
         <div className="space-y-1 text-center">
-          <h2 className="text-xl font-semibold text-white">
+          <h2 className="text-xl font-semibold text-slate-900">
             Connexion
           </h2>
-          <p className="text-sm text-blue-200/70">
+          <p className="text-sm text-slate-500">
             Accédez à votre espace sécurisé
           </p>
         </div>
@@ -64,9 +64,9 @@ export function LoginForm() {
 
           {/* EMAIL */}
           <div className="space-y-1.5">
-            <Label className="text-sm text-blue-100">Email</Label>
+            <Label className="text-sm text-slate-700">Email</Label>
             <div className="relative group">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-blue-300/60 group-focus-within:text-cyan-400 transition" />
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 group-focus-within:text-blue-600 transition" />
               <Input
                 type="email"
                 placeholder="ex: medecin@hopital.ga"
@@ -75,7 +75,7 @@ export function LoginForm() {
                   setEmail(e.target.value);
                   setError(null);
                 }}
-                className="pl-10 h-11 bg-white/5 border-white/10 text-white placeholder:text-blue-300/40 focus:border-cyan-400 focus:ring-cyan-400 transition"
+                className="pl-10 h-11 bg-white border-gray-300 text-slate-900 placeholder:text-slate-400 focus:border-blue-600 focus:ring-blue-600 transition"
                 required
               />
             </div>
@@ -83,9 +83,9 @@ export function LoginForm() {
 
           {/* PASSWORD */}
           <div className="space-y-1.5">
-            <Label className="text-sm text-blue-100">Mot de passe</Label>
+            <Label className="text-sm text-slate-700">Mot de passe</Label>
             <div className="relative group">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-blue-300/60 group-focus-within:text-cyan-400 transition" />
+              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 group-focus-within:text-blue-600 transition" />
               <Input
                 type={showPassword ? "text" : "password"}
                 placeholder="••••••••"
@@ -94,13 +94,13 @@ export function LoginForm() {
                   setPassword(e.target.value);
                   setError(null);
                 }}
-                className="pl-10 pr-10 h-11 bg-white/5 border-white/10 text-white placeholder:text-blue-300/40 focus:border-cyan-400"
+                className="pl-10 pr-10 h-11 bg-white border-gray-300 text-slate-900 placeholder:text-slate-400 focus:border-blue-600"
                 required
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-blue-300/60 hover:text-white transition"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 transition"
               >
                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
@@ -109,7 +109,7 @@ export function LoginForm() {
 
           {/* ERROR */}
           {error && (
-            <div className="bg-red-500/10 border border-red-500/30 text-red-300 text-sm rounded-lg px-4 py-3">
+            <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg px-4 py-3">
               {error}
             </div>
           )}
@@ -118,7 +118,7 @@ export function LoginForm() {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full h-11 bg-cyan-500 hover:bg-cyan-400 text-black font-semibold transition-transform active:scale-[0.98]"
+            className="w-full h-11 bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-transform active:scale-[0.98]"
           >
             {loading ? (
               <>
@@ -131,13 +131,13 @@ export function LoginForm() {
           </Button>
 
           {/* SECURITY NOTE */}
-          <p className="text-xs text-center text-blue-300/50">
+          <p className="text-xs text-center text-slate-400">
             🔒 Vos données sont chiffrées et sécurisées
           </p>
 
           {/* DEMO ACCOUNTS */}
-          <div className="pt-4 border-t border-white/10 space-y-3">
-            <p className="text-xs text-center text-blue-300/60">
+          <div className="pt-4 border-t border-gray-200 space-y-3">
+            <p className="text-xs text-center text-slate-500">
               Accès rapide (démo)
             </p>
 
@@ -160,12 +160,12 @@ export function LoginForm() {
                     setEmail(compte.email);
                     setPassword("password");
                   }}
-                  className="text-left p-3 rounded-xl bg-white/5 hover:bg-cyan-500/10 border border-white/10 transition"
+                  className="text-left p-3 rounded-lg bg-gray-50 hover:bg-blue-50 hover:border-blue-200 border border-gray-200 transition"
                 >
-                  <p className="text-sm text-white font-medium">
+                  <p className="text-sm text-slate-900 font-medium">
                     {compte.role}
                   </p>
-                  <p className="text-xs text-blue-300/60">
+                  <p className="text-xs text-slate-500">
                     {compte.email}
                   </p>
                 </button>
