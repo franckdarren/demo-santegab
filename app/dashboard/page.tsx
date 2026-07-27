@@ -16,6 +16,9 @@ import { StatsCards } from "@/components/dashboard/StatsCards";
 import { ConsultationsChart } from "@/components/dashboard/ConsultationsChart";
 import { AssuranceChart } from "@/components/dashboard/AssuranceChart";
 import { DernieresConsultations } from "@/components/dashboard/DernieresConsultations";
+import { RendezVousDuJour } from "@/components/rendez-vous/RendezVousDuJour";
+import { getRendezVousDuJour } from "./rendez-vous/actions";
+import { MASQUAGE_KIMBA_ACTIF } from "@/lib/kimba-scope";
 
 interface DashboardPageProps {
   searchParams: Promise<{ erreur?: string }>;
@@ -35,13 +38,22 @@ export default async function DashboardPage({
 
   const { erreur } = await searchParams;
 
-  const [stats, consultationsParJour, revenusParAssurance, dernieres] =
+  const [stats, consultationsParJour, dernieres, rendezVousDuJour] =
     await Promise.all([
       getDashboardStats(utilisateur.hospital_id),
       getConsultationsParJour(utilisateur.hospital_id),
-      getRevenusParAssurance(utilisateur.hospital_id),
       getDerniersConsultations(utilisateur.hospital_id),
+      getRendezVousDuJour(utilisateur.hospital_id),
     ]);
+
+  // ----------------------------------------------------------
+  // Revenus par assurance — donnée financière, hors périmètre
+  // du cahier des charges KIMBA. On évite carrément la requête
+  // quand le masquage est actif.
+  // ----------------------------------------------------------
+  const revenusParAssurance = MASQUAGE_KIMBA_ACTIF
+    ? []
+    : await getRevenusParAssurance(utilisateur.hospital_id);
 
   return (
     <div className="space-y-6">
@@ -86,14 +98,21 @@ export default async function DashboardPage({
       {/* KPIs */}
       <StatsCards stats={stats} />
 
+      {/* Rappel des rendez-vous du jour (CDC KIMBA §5.7) */}
+      <RendezVousDuJour rendezVous={rendezVousDuJour} />
+
       {/* Graphiques */}
+      {/* Sans le graphique des assurances (hors périmètre KIMBA), */}
+      {/* les consultations occupent toute la largeur.             */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
+        <div className={MASQUAGE_KIMBA_ACTIF ? "lg:col-span-3" : "lg:col-span-2"}>
           <ConsultationsChart data={consultationsParJour} />
         </div>
-        <div className="lg:col-span-1">
-          <AssuranceChart data={revenusParAssurance} />
-        </div>
+        {!MASQUAGE_KIMBA_ACTIF && (
+          <div className="lg:col-span-1">
+            <AssuranceChart data={revenusParAssurance} />
+          </div>
+        )}
       </div>
 
       {/* Tableau activité récente */}

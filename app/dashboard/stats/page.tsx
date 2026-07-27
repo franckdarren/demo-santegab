@@ -15,6 +15,7 @@ import { ActiviteChart } from "@/components/stats/ActiviteChart";
 import { StatsFinancieres } from "@/components/stats/StatsFinancieres";
 import { StatsStock } from "@/components/stats/StatsStock";
 import { StatsControles } from "@/components/stats/StatsControles";
+import { MASQUAGE_KIMBA_ACTIF } from "@/lib/kimba-scope";
 
 export default async function StatsPage({
   searchParams,
@@ -25,12 +26,22 @@ export default async function StatsPage({
 
   const { debut, fin } = await searchParams;
 
-  const [generales, activite, financieres, stock] = await Promise.all([
+  const [generales, activite] = await Promise.all([
     getStatsGenerales(utilisateur.hospital_id, debut, fin),
     getStatsActivite(utilisateur.hospital_id, debut, fin),
-    getStatsFinancieres(utilisateur.hospital_id, debut, fin),
-    getStatsStock(utilisateur.hospital_id),
   ]);
+
+  // ----------------------------------------------------------
+  // Statistiques financières et de stock — hors périmètre du
+  // cahier des charges KIMBA. Requêtes évitées si masquage actif.
+  // ----------------------------------------------------------
+  const financieres = MASQUAGE_KIMBA_ACTIF
+    ? null
+    : await getStatsFinancieres(utilisateur.hospital_id, debut, fin);
+
+  const stock = MASQUAGE_KIMBA_ACTIF
+    ? null
+    : await getStatsStock(utilisateur.hospital_id);
 
   // Label de période affiché dans les composants
   const labelPeriode = debut ? "sur la période" : "ce mois";
@@ -59,12 +70,22 @@ export default async function StatsPage({
 
       <StatsGenerales stats={generales} labelPeriode={labelPeriode} />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Sans le bloc financier (hors périmètre KIMBA),         */}
+      {/* le graphique d'activité occupe toute la largeur.       */}
+      <div
+        className={
+          financieres
+            ? "grid grid-cols-1 lg:grid-cols-2 gap-6"
+            : "grid grid-cols-1 gap-6"
+        }
+      >
         <ActiviteChart data={activite} labelPeriode={labelPeriode} />
-        <StatsFinancieres stats={financieres} labelPeriode={labelPeriode} />
+        {financieres && (
+          <StatsFinancieres stats={financieres} labelPeriode={labelPeriode} />
+        )}
       </div>
 
-      <StatsStock stats={stock} />
+      {stock && <StatsStock stats={stock} />}
     </div>
   );
 }

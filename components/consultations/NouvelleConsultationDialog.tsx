@@ -87,6 +87,8 @@ export function NouvelleConsultationDialog({
   const [medecinId, setMedecinId] = useState(medecinConnecteId);
   const [serviceId, setServiceId] = useState("");
   const [statut, setStatut] = useState("EN_ATTENTE");
+  // Nature de l'acte (CDC §5.5) — consultation médicale ou soin infirmier
+  const [typeActe, setTypeActe] = useState("CONSULTATION");
   const [formData, setFormData] = useState({
     motif: "",
     diagnostic: "",
@@ -152,6 +154,7 @@ export function NouvelleConsultationDialog({
     setMedecinId(medecinConnecteId);
     setServiceId("");
     setStatut("EN_ATTENTE");
+    setTypeActe("CONSULTATION");
     setFormData({
       motif: "", diagnostic: "", notes: "",
       tension: "", poids_kg: "", taille_cm: "", temperature: "",
@@ -177,6 +180,7 @@ export function NouvelleConsultationDialog({
           taille_cm: formData.taille_cm ? Number(formData.taille_cm) : undefined,
           temperature: formData.temperature ? Number(formData.temperature) : undefined,
           statut: statut as "EN_ATTENTE" | "EN_COURS" | "TERMINEE" | "ANNULEE",
+          type_acte: typeActe as "CONSULTATION" | "SOIN",
           prescriptions: prescriptions.filter((p) => p.medicament.trim()),
         });
         setSucces(true);
@@ -191,7 +195,7 @@ export function NouvelleConsultationDialog({
 
   return (
     <Dialog open={open} onOpenChange={close}>
-      <DialogContent className="max-w-2xl! w-full p-0 overflow-hidden gap-0">
+      <DialogContent className="sm:max-w-2xl! w-full p-0 overflow-hidden gap-0">
         <DialogTitle className="sr-only">Nouvelle consultation</DialogTitle>
 
         {succes ? (
@@ -209,7 +213,7 @@ export function NouvelleConsultationDialog({
           <div className="flex flex-col">
 
             {/* Header */}
-            <div className="px-6 py-4 border-b bg-gray-50">
+            <div className="px-4 sm:px-6 py-4 border-b bg-gray-50">
               <h2 className="text-base font-semibold text-gray-900">
                 Nouvelle consultation
               </h2>
@@ -219,7 +223,7 @@ export function NouvelleConsultationDialog({
             </div>
 
             {/* Contenu scrollable */}
-            <div className="overflow-y-auto p-6 space-y-6 max-h-[70vh]">
+            <div className="overflow-y-auto p-4 sm:p-6 space-y-6 max-h-[60vh] sm:max-h-[70vh]">
 
               {errors.global && (
                 <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
@@ -234,7 +238,7 @@ export function NouvelleConsultationDialog({
                   Informations générales
                 </p>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
                     <Label>Patient <span className="text-red-500">*</span></Label>
                     <select
@@ -275,7 +279,20 @@ export function NouvelleConsultationDialog({
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                {/* Nature de l'acte — CDC §5.5 */}
+                <div className="space-y-1.5">
+                  <Label>Nature de l&apos;acte</Label>
+                  <select
+                    value={typeActe}
+                    onChange={(e) => setTypeActe(e.target.value)}
+                    className={selectClass}
+                  >
+                    <option value="CONSULTATION">Consultation médicale</option>
+                    <option value="SOIN">Soin</option>
+                  </select>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
                     <Label>Motif <span className="text-red-500">*</span></Label>
                     <Input
@@ -303,7 +320,7 @@ export function NouvelleConsultationDialog({
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5 col-span-2 sm:col-span-1">
                     <Label>Statut</Label>
                     <select

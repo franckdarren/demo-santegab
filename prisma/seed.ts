@@ -153,6 +153,7 @@ const PERMISSIONS_DEFAUT: Array<{
   // MEDECIN
   { role: "MEDECIN", module: "PATIENT",         peut_voir: true,  peut_creer: true,  peut_modifier: true,  peut_supprimer: false },
   { role: "MEDECIN", module: "CONSULTATION",    peut_voir: true,  peut_creer: true,  peut_modifier: true,  peut_supprimer: false },
+  { role: "MEDECIN", module: "RENDEZ_VOUS",     peut_voir: true,  peut_creer: true,  peut_modifier: true,  peut_supprimer: false },
   { role: "MEDECIN", module: "LABORATOIRE",     peut_voir: true,  peut_creer: true,  peut_modifier: false, peut_supprimer: false },
   { role: "MEDECIN", module: "IMAGERIE",        peut_voir: true,  peut_creer: true,  peut_modifier: false, peut_supprimer: false },
   { role: "MEDECIN", module: "HOSPITALISATION", peut_voir: true,  peut_creer: true,  peut_modifier: true,  peut_supprimer: false },
@@ -165,6 +166,7 @@ const PERMISSIONS_DEFAUT: Array<{
   // INFIRMIER
   { role: "INFIRMIER", module: "PATIENT",         peut_voir: true,  peut_creer: false, peut_modifier: false, peut_supprimer: false },
   { role: "INFIRMIER", module: "CONSULTATION",    peut_voir: true,  peut_creer: false, peut_modifier: false, peut_supprimer: false },
+  { role: "INFIRMIER", module: "RENDEZ_VOUS",     peut_voir: true,  peut_creer: true,  peut_modifier: true,  peut_supprimer: false },
   { role: "INFIRMIER", module: "LABORATOIRE",     peut_voir: true,  peut_creer: false, peut_modifier: false, peut_supprimer: false },
   { role: "INFIRMIER", module: "IMAGERIE",        peut_voir: true,  peut_creer: false, peut_modifier: false, peut_supprimer: false },
   { role: "INFIRMIER", module: "HOSPITALISATION", peut_voir: true,  peut_creer: false, peut_modifier: true,  peut_supprimer: false },
@@ -177,6 +179,7 @@ const PERMISSIONS_DEFAUT: Array<{
   // LABORANTIN
   { role: "LABORANTIN", module: "PATIENT",         peut_voir: true,  peut_creer: false, peut_modifier: false, peut_supprimer: false },
   { role: "LABORANTIN", module: "CONSULTATION",    peut_voir: true,  peut_creer: false, peut_modifier: false, peut_supprimer: false },
+  { role: "LABORANTIN", module: "RENDEZ_VOUS",     peut_voir: false, peut_creer: false, peut_modifier: false, peut_supprimer: false },
   { role: "LABORANTIN", module: "LABORATOIRE",     peut_voir: true,  peut_creer: true,  peut_modifier: true,  peut_supprimer: false },
   { role: "LABORANTIN", module: "IMAGERIE",        peut_voir: false, peut_creer: false, peut_modifier: false, peut_supprimer: false },
   { role: "LABORANTIN", module: "HOSPITALISATION", peut_voir: true,  peut_creer: false, peut_modifier: false, peut_supprimer: false },
@@ -189,6 +192,7 @@ const PERMISSIONS_DEFAUT: Array<{
   // RADIOLOGUE
   { role: "RADIOLOGUE", module: "PATIENT",         peut_voir: true,  peut_creer: false, peut_modifier: false, peut_supprimer: false },
   { role: "RADIOLOGUE", module: "CONSULTATION",    peut_voir: true,  peut_creer: false, peut_modifier: false, peut_supprimer: false },
+  { role: "RADIOLOGUE", module: "RENDEZ_VOUS",     peut_voir: false, peut_creer: false, peut_modifier: false, peut_supprimer: false },
   { role: "RADIOLOGUE", module: "LABORATOIRE",     peut_voir: false, peut_creer: false, peut_modifier: false, peut_supprimer: false },
   { role: "RADIOLOGUE", module: "IMAGERIE",        peut_voir: true,  peut_creer: true,  peut_modifier: true,  peut_supprimer: false },
   { role: "RADIOLOGUE", module: "HOSPITALISATION", peut_voir: true,  peut_creer: false, peut_modifier: false, peut_supprimer: false },
@@ -201,6 +205,7 @@ const PERMISSIONS_DEFAUT: Array<{
   // PHARMACIEN
   { role: "PHARMACIEN", module: "PATIENT",         peut_voir: true,  peut_creer: false, peut_modifier: false, peut_supprimer: false },
   { role: "PHARMACIEN", module: "CONSULTATION",    peut_voir: true,  peut_creer: false, peut_modifier: false, peut_supprimer: false },
+  { role: "PHARMACIEN", module: "RENDEZ_VOUS",     peut_voir: false, peut_creer: false, peut_modifier: false, peut_supprimer: false },
   { role: "PHARMACIEN", module: "LABORATOIRE",     peut_voir: false, peut_creer: false, peut_modifier: false, peut_supprimer: false },
   { role: "PHARMACIEN", module: "IMAGERIE",        peut_voir: false, peut_creer: false, peut_modifier: false, peut_supprimer: false },
   { role: "PHARMACIEN", module: "HOSPITALISATION", peut_voir: true,  peut_creer: false, peut_modifier: false, peut_supprimer: false },
@@ -213,6 +218,7 @@ const PERMISSIONS_DEFAUT: Array<{
   // COMPTABLE
   { role: "COMPTABLE", module: "PATIENT",         peut_voir: false, peut_creer: false, peut_modifier: false, peut_supprimer: false },
   { role: "COMPTABLE", module: "CONSULTATION",    peut_voir: false, peut_creer: false, peut_modifier: false, peut_supprimer: false },
+  { role: "COMPTABLE", module: "RENDEZ_VOUS",     peut_voir: false, peut_creer: false, peut_modifier: false, peut_supprimer: false },
   { role: "COMPTABLE", module: "LABORATOIRE",     peut_voir: false, peut_creer: false, peut_modifier: false, peut_supprimer: false },
   { role: "COMPTABLE", module: "IMAGERIE",        peut_voir: false, peut_creer: false, peut_modifier: false, peut_supprimer: false },
   { role: "COMPTABLE", module: "HOSPITALISATION", peut_voir: false, peut_creer: false, peut_modifier: false, peut_supprimer: false },
@@ -225,6 +231,8 @@ const PERMISSIONS_DEFAUT: Array<{
   // ADMINISTRATIF
   { role: "ADMINISTRATIF", module: "PATIENT",         peut_voir: true,  peut_creer: true,  peut_modifier: true,  peut_supprimer: false },
   { role: "ADMINISTRATIF", module: "CONSULTATION",    peut_voir: true,  peut_creer: false, peut_modifier: false, peut_supprimer: false },
+  // L'accueil est le principal gestionnaire des rendez-vous
+  { role: "ADMINISTRATIF", module: "RENDEZ_VOUS",     peut_voir: true,  peut_creer: true,  peut_modifier: true,  peut_supprimer: true  },
   { role: "ADMINISTRATIF", module: "LABORATOIRE",     peut_voir: false, peut_creer: false, peut_modifier: false, peut_supprimer: false },
   { role: "ADMINISTRATIF", module: "IMAGERIE",        peut_voir: false, peut_creer: false, peut_modifier: false, peut_supprimer: false },
   { role: "ADMINISTRATIF", module: "HOSPITALISATION", peut_voir: true,  peut_creer: false, peut_modifier: false, peut_supprimer: false },

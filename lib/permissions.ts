@@ -12,6 +12,7 @@ import { Role } from "@/app/generated/prisma/client";
 export const MODULES = [
   "PATIENT",
   "CONSULTATION",
+  "RENDEZ_VOUS",
   "LABORATOIRE",
   "IMAGERIE",
   "PHARMACIE",
@@ -31,6 +32,7 @@ export type Module = typeof MODULES[number];
 export const MODULE_LABELS: Record<Module, string> = {
   PATIENT:          "Patients",
   CONSULTATION:     "Consultations",
+  RENDEZ_VOUS:      "Rendez-vous",
   LABORATOIRE:      "Laboratoire",
   IMAGERIE:         "Imagerie",
   PHARMACIE:        "Pharmacie & Stocks",

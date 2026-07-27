@@ -5,6 +5,7 @@ import { PatientHeader } from "@/components/patients/PatientHeader";
 import { PatientTabs } from "@/components/patients/PatientTabs";
 import { withPermission } from "@/lib/withPermission";
 import { getPermissionsModule } from "@/lib/permissions.server";
+import { enregistrerConsultationDossier } from "@/lib/audit";
 
 interface PatientPageProps {
   params: Promise<{ id: string }>;
@@ -24,6 +25,24 @@ export default async function PatientPage({ params }: PatientPageProps) {
 
   if (!patient) notFound();
 
+  // ----------------------------------------------------------
+  // Traçabilité de la lecture du dossier (CDC KIMBA §8)
+  //
+  // Placé APRÈS le notFound : on ne trace que les accès aboutis,
+  // à un dossier réellement rattaché à cet établissement.
+  //
+  // L'appel ne bloque jamais l'affichage — en cas d'erreur,
+  // enregistrerConsultationDossier se contente de logger.
+  // ----------------------------------------------------------
+  await enregistrerConsultationDossier({
+    hospitalId:     utilisateur.hospital_id,
+    utilisateurId:  utilisateur.id,
+    utilisateurNom: `${utilisateur.prenom} ${utilisateur.nom}`,
+    patientId:      patient.id,
+    patientNom:     `${patient.prenom} ${patient.nom}`,
+    numeroDossier:  patient.numero_dossier,
+  });
+
   return (
     <div className="space-y-6">
       <PatientHeader
@@ -38,7 +57,15 @@ export default async function PatientPage({ params }: PatientPageProps) {
         peutSupprimer={permsPatient.peut_supprimer}
         peutCreerConsultation={permsConsultation.peut_creer}
       />
-      <PatientTabs patient={patient} />
+      <PatientTabs
+        patient={patient}
+        hospitalId={utilisateur.hospital_id}
+        patientId={patient.id}
+        utilisateurId={utilisateur.id}
+        utilisateurNom={`${utilisateur.prenom} ${utilisateur.nom}`}
+        peutModifier={permsPatient.peut_modifier}
+        peutSupprimer={permsPatient.peut_supprimer}
+      />
     </div>
   );
 }

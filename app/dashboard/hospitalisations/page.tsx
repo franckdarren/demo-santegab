@@ -2,8 +2,10 @@
 // PAGE HOSPITALISATIONS — Vue kanban des séjours
 // ============================================================
 
+import { redirect } from "next/navigation";
 import { withPermission } from "@/lib/withPermission";
 import { getPermissionsModule } from "@/lib/permissions.server";
+import { MASQUAGE_KIMBA_ACTIF } from "@/lib/kimba-scope";
 import {
   getHospitalisations,
   getStatsHospitalisations,
@@ -15,6 +17,9 @@ import { HospitalisationsStats } from "@/components/hospitalisations/Hospitalisa
 import { KanbanHospitalisations } from "@/components/hospitalisations/KanbanHospitalisations";
 
 export default async function HospitalisationsPage() {
+  // Module hors périmètre du cahier des charges KIMBA → accès URL direct bloqué
+  if (MASQUAGE_KIMBA_ACTIF) redirect("/dashboard");
+
   const utilisateur = await withPermission("HOSPITALISATION", "peut_voir");
 
   const [

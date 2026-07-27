@@ -137,6 +137,7 @@ enum ModuleAction {
   CARNET_SANTE
   AUTHENTIFICATION
   HOSPITALISATION
+  RENDEZ_VOUS
 }
 
 enum StatutHospitalisation {
@@ -157,6 +158,49 @@ enum TypeLigneHospitalisation {
   ACTE_INFIRMIER
   EXAMEN
   AUTRE
+}
+
+// ============================================================
+// Statuts d'un rendez-vous (CDC KIMBA §5.7)
+//
+// PLANIFIE  → créé, pas encore confirmé par le patient
+// CONFIRME  → le patient a confirmé sa venue
+// HONORE    → le patient est venu (RDV passé et réalisé)
+// ANNULE    → annulé (par le patient ou l'établissement)
+// ABSENT    → le patient n'est pas venu sans prévenir
+// ============================================================
+enum StatutRendezVous {
+  PLANIFIE
+  CONFIRME
+  HONORE
+  ANNULE
+  ABSENT
+}
+
+// ============================================================
+// Types d'antécédents médicaux (CDC KIMBA §5.6)
+//
+// TRAITEMENT_CHRONIQUE + est_actif = true couvre l'exigence
+// « traitements en cours » du CDC §5.1.
+// ============================================================
+enum TypeAntecedent {
+  PATHOLOGIE
+  HOSPITALISATION
+  CHIRURGIE
+  ALLERGIE
+  TRAITEMENT_CHRONIQUE
+}
+
+// ============================================================
+// Nature d'un acte médical (CDC KIMBA §5.5)
+//
+// Permet de distinguer une consultation médicale d'un simple
+// soin infirmier, sans créer de table supplémentaire :
+// Consultation porte déjà medecin_id + date + service_id.
+// ============================================================
+enum TypeActe {
+  CONSULTATION
+  SOIN
 }
 
 // ============================================================
@@ -192,6 +236,8 @@ model Hospital {
   hospitalisations     Hospitalisation[]   @relation("HospitalHospitalisations")
   permissions          Permission[]        @relation("HospitalPermissions")
   roles_personnalises  RolePersonnalise[]  @relation("HospitalRolesPersonnalises")
+  rendez_vous          RendezVous[]        @relation("HospitalRendezVous")
+  antecedents          AntecedentMedical[] @relation("HospitalAntecedents")
 
   @@map("hospitals")
 }
@@ -219,6 +265,7 @@ model Utilisateur {
   examens_labo_prescrits       ExamenLabo[]      @relation("MedecinExamensLabo")
   examens_imagerie_prescrits   ExamenImagerie[]  @relation("MedecinExamensImagerie")
   hospitalisations_responsable Hospitalisation[] @relation("MedecinHospitalisations")
+  rendez_vous                  RendezVous[]      @relation("MedecinRendezVous")
   role_personnalise            RolePersonnalise? @relation("UtilisateurRolePersonnalise", fields: [role_personnalise_id], references: [id])
 
   @@index([hospital_id])
@@ -252,6 +299,8 @@ model Patient {
   examens_imagerie ExamenImagerie[]  @relation("PatientExamensImagerie")
   qr_tokens        QrToken[]         @relation("PatientQrTokens")
   sejours          Hospitalisation[] @relation("PatientHospitalisations")
+  rendez_vous      RendezVous[]      @relation("PatientRendezVous")
+  antecedents_med  AntecedentMedical[] @relation("PatientAntecedents")
 
   @@map("patients")
 }
@@ -287,6 +336,9 @@ model Consultation {
   patient_id        String
   medecin_id        String
   statut            StatutConsultation @default(EN_ATTENTE)
+  // Nature de l'acte (CDC §5.5) — défaut CONSULTATION pour ne pas
+  // impacter les lignes existantes
+  type_acte         TypeActe           @default(CONSULTATION)
   motif             String?
   diagnostic        String?
   notes             String?
@@ -819,8 +871,86 @@ model Service {
   hospital         Hospital           @relation("HospitalServices", fields: [hospital_id], references: [id], onDelete: Cascade)
   consultations    Consultation[]     @relation("ServiceConsultations")
   hospitalisations Hospitalisation[]  @relation("ServiceHospitalisations")
+  rendez_vous      RendezVous[]       @relation("ServiceRendezVous")
 
   @@unique([hospital_id, nom])
   @@index([hospital_id])
   @@map("services")
+}
+
+// ============================================================
+// TABLE : rendez_vous
+//
+// Répond à l'exigence §5.7 du cahier des charges KIMBA
+// (« Prise de rendez-vous et calendrier médical »).
+//
+// Le service est optionnel : un rendez-vous peut être pris
+// avec un médecin sans rattachement à un service précis.
+// ============================================================
+model RendezVous {
+  id          String           @id @default(uuid())
+  hospital_id String
+  patient_id  String
+  medecin_id  String
+  service_id  String?
+  date_heure  DateTime
+  duree_min   Int              @default(30)
+  statut      StatutRendezVous @default(PLANIFIE)
+  motif       String?
+  notes       String?
+  created_at  DateTime         @default(now())
+  updated_at  DateTime         @updatedAt
+
+  hospital Hospital    @relation("HospitalRendezVous", fields: [hospital_id], references: [id], onDelete: Cascade)
+  patient  Patient     @relation("PatientRendezVous", fields: [patient_id], references: [id])
+  medecin  Utilisateur @relation("MedecinRendezVous", fields: [medecin_id], references: [id])
+  service  Service?    @relation("ServiceRendezVous", fields: [service_id], references: [id])
+
+  @@index([hospital_id])
+  @@index([patient_id])
+  @@index([medecin_id])
+  // Index sur la date : le calendrier filtre en permanence sur une plage
+  @@index([hospital_id, date_heure])
+  @@map("rendez_vous")
+}
+
+// ============================================================
+// TABLE : antecedents_medicaux
+//
+// Répond aux exigences §5.6 (antécédents structurés) et §5.1
+// (traitements en cours) du cahier des charges KIMBA.
+//
+// Remplace progressivement le champ texte libre Patient.antecedents,
+// qui est CONSERVÉ comme repli : les données déjà saisies restent
+// lisibles tant qu'elles n'ont pas été reprises une par une.
+//
+// Portée multi-tenant : comme les consultations et les factures,
+// un antécédent est rattaché à l'établissement qui l'a saisi.
+// Un antécédent enregistré à l'hôpital A n'est donc pas visible
+// à l'hôpital B — cohérent avec le reste de l'application.
+// ============================================================
+model AntecedentMedical {
+  id          String         @id @default(uuid())
+  hospital_id String
+  patient_id  String
+  type        TypeAntecedent
+  libelle     String
+  date_debut  DateTime?
+  date_fin    DateTime?
+  // Pour un TRAITEMENT_CHRONIQUE, est_actif = true signifie
+  // « traitement en cours » (CDC §5.1)
+  est_actif   Boolean        @default(true)
+  notes       String?
+  created_at  DateTime       @default(now())
+  updated_at  DateTime       @updatedAt
+
+  hospital Hospital @relation("HospitalAntecedents", fields: [hospital_id], references: [id], onDelete: Cascade)
+  patient  Patient  @relation("PatientAntecedents", fields: [patient_id], references: [id], onDelete: Cascade)
+
+  @@index([hospital_id])
+  @@index([patient_id])
+  // La fiche patient charge toujours les antécédents d'un patient
+  // pour un établissement donné
+  @@index([patient_id, hospital_id])
+  @@map("antecedents_medicaux")
 }

@@ -138,6 +138,16 @@ export type RolePersonnalise = $Result.DefaultSelection<Prisma.$RolePersonnalise
  * 
  */
 export type Service = $Result.DefaultSelection<Prisma.$ServicePayload>
+/**
+ * Model RendezVous
+ * 
+ */
+export type RendezVous = $Result.DefaultSelection<Prisma.$RendezVousPayload>
+/**
+ * Model AntecedentMedical
+ * 
+ */
+export type AntecedentMedical = $Result.DefaultSelection<Prisma.$AntecedentMedicalPayload>
 
 /**
  * Enums
@@ -306,7 +316,8 @@ export const ModuleAction: {
   UTILISATEUR: 'UTILISATEUR',
   CARNET_SANTE: 'CARNET_SANTE',
   AUTHENTIFICATION: 'AUTHENTIFICATION',
-  HOSPITALISATION: 'HOSPITALISATION'
+  HOSPITALISATION: 'HOSPITALISATION',
+  RENDEZ_VOUS: 'RENDEZ_VOUS'
 };
 
 export type ModuleAction = (typeof ModuleAction)[keyof typeof ModuleAction]
@@ -339,6 +350,36 @@ export const TypeLigneHospitalisation: {
 };
 
 export type TypeLigneHospitalisation = (typeof TypeLigneHospitalisation)[keyof typeof TypeLigneHospitalisation]
+
+
+export const StatutRendezVous: {
+  PLANIFIE: 'PLANIFIE',
+  CONFIRME: 'CONFIRME',
+  HONORE: 'HONORE',
+  ANNULE: 'ANNULE',
+  ABSENT: 'ABSENT'
+};
+
+export type StatutRendezVous = (typeof StatutRendezVous)[keyof typeof StatutRendezVous]
+
+
+export const TypeAntecedent: {
+  PATHOLOGIE: 'PATHOLOGIE',
+  HOSPITALISATION: 'HOSPITALISATION',
+  CHIRURGIE: 'CHIRURGIE',
+  ALLERGIE: 'ALLERGIE',
+  TRAITEMENT_CHRONIQUE: 'TRAITEMENT_CHRONIQUE'
+};
+
+export type TypeAntecedent = (typeof TypeAntecedent)[keyof typeof TypeAntecedent]
+
+
+export const TypeActe: {
+  CONSULTATION: 'CONSULTATION',
+  SOIN: 'SOIN'
+};
+
+export type TypeActe = (typeof TypeActe)[keyof typeof TypeActe]
 
 }
 
@@ -409,6 +450,18 @@ export const StatutLigneHospitalisation: typeof $Enums.StatutLigneHospitalisatio
 export type TypeLigneHospitalisation = $Enums.TypeLigneHospitalisation
 
 export const TypeLigneHospitalisation: typeof $Enums.TypeLigneHospitalisation
+
+export type StatutRendezVous = $Enums.StatutRendezVous
+
+export const StatutRendezVous: typeof $Enums.StatutRendezVous
+
+export type TypeAntecedent = $Enums.TypeAntecedent
+
+export const TypeAntecedent: typeof $Enums.TypeAntecedent
+
+export type TypeActe = $Enums.TypeActe
+
+export const TypeActe: typeof $Enums.TypeActe
 
 /**
  * ##  Prisma Client ʲˢ
@@ -780,6 +833,26 @@ export class PrismaClient<
     * ```
     */
   get service(): Prisma.ServiceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.rendezVous`: Exposes CRUD operations for the **RendezVous** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RendezVous
+    * const rendezVous = await prisma.rendezVous.findMany()
+    * ```
+    */
+  get rendezVous(): Prisma.RendezVousDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.antecedentMedical`: Exposes CRUD operations for the **AntecedentMedical** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AntecedentMedicals
+    * const antecedentMedicals = await prisma.antecedentMedical.findMany()
+    * ```
+    */
+  get antecedentMedical(): Prisma.AntecedentMedicalDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1238,7 +1311,9 @@ export namespace Prisma {
     LigneHospitalisation: 'LigneHospitalisation',
     Permission: 'Permission',
     RolePersonnalise: 'RolePersonnalise',
-    Service: 'Service'
+    Service: 'Service',
+    RendezVous: 'RendezVous',
+    AntecedentMedical: 'AntecedentMedical'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1254,7 +1329,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "hospital" | "utilisateur" | "patient" | "patientHospital" | "consultation" | "prescription" | "facture" | "ligneFacture" | "examenLabo" | "examenCatalogue" | "examenLaboExamen" | "examenImagerie" | "articleStock" | "mouvementStock" | "ecritureComptable" | "qrToken" | "auditLogCarnet" | "auditTrail" | "chambre" | "lit" | "hospitalisation" | "ligneHospitalisation" | "permission" | "rolePersonnalise" | "service"
+      modelProps: "hospital" | "utilisateur" | "patient" | "patientHospital" | "consultation" | "prescription" | "facture" | "ligneFacture" | "examenLabo" | "examenCatalogue" | "examenLaboExamen" | "examenImagerie" | "articleStock" | "mouvementStock" | "ecritureComptable" | "qrToken" | "auditLogCarnet" | "auditTrail" | "chambre" | "lit" | "hospitalisation" | "ligneHospitalisation" | "permission" | "rolePersonnalise" | "service" | "rendezVous" | "antecedentMedical"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3108,6 +3183,154 @@ export namespace Prisma {
           }
         }
       }
+      RendezVous: {
+        payload: Prisma.$RendezVousPayload<ExtArgs>
+        fields: Prisma.RendezVousFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RendezVousFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RendezVousPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RendezVousFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RendezVousPayload>
+          }
+          findFirst: {
+            args: Prisma.RendezVousFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RendezVousPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RendezVousFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RendezVousPayload>
+          }
+          findMany: {
+            args: Prisma.RendezVousFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RendezVousPayload>[]
+          }
+          create: {
+            args: Prisma.RendezVousCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RendezVousPayload>
+          }
+          createMany: {
+            args: Prisma.RendezVousCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RendezVousCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RendezVousPayload>[]
+          }
+          delete: {
+            args: Prisma.RendezVousDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RendezVousPayload>
+          }
+          update: {
+            args: Prisma.RendezVousUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RendezVousPayload>
+          }
+          deleteMany: {
+            args: Prisma.RendezVousDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RendezVousUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RendezVousUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RendezVousPayload>[]
+          }
+          upsert: {
+            args: Prisma.RendezVousUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RendezVousPayload>
+          }
+          aggregate: {
+            args: Prisma.RendezVousAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRendezVous>
+          }
+          groupBy: {
+            args: Prisma.RendezVousGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RendezVousGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RendezVousCountArgs<ExtArgs>
+            result: $Utils.Optional<RendezVousCountAggregateOutputType> | number
+          }
+        }
+      }
+      AntecedentMedical: {
+        payload: Prisma.$AntecedentMedicalPayload<ExtArgs>
+        fields: Prisma.AntecedentMedicalFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AntecedentMedicalFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AntecedentMedicalPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AntecedentMedicalFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AntecedentMedicalPayload>
+          }
+          findFirst: {
+            args: Prisma.AntecedentMedicalFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AntecedentMedicalPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AntecedentMedicalFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AntecedentMedicalPayload>
+          }
+          findMany: {
+            args: Prisma.AntecedentMedicalFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AntecedentMedicalPayload>[]
+          }
+          create: {
+            args: Prisma.AntecedentMedicalCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AntecedentMedicalPayload>
+          }
+          createMany: {
+            args: Prisma.AntecedentMedicalCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AntecedentMedicalCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AntecedentMedicalPayload>[]
+          }
+          delete: {
+            args: Prisma.AntecedentMedicalDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AntecedentMedicalPayload>
+          }
+          update: {
+            args: Prisma.AntecedentMedicalUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AntecedentMedicalPayload>
+          }
+          deleteMany: {
+            args: Prisma.AntecedentMedicalDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AntecedentMedicalUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AntecedentMedicalUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AntecedentMedicalPayload>[]
+          }
+          upsert: {
+            args: Prisma.AntecedentMedicalUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AntecedentMedicalPayload>
+          }
+          aggregate: {
+            args: Prisma.AntecedentMedicalAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAntecedentMedical>
+          }
+          groupBy: {
+            args: Prisma.AntecedentMedicalGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AntecedentMedicalGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AntecedentMedicalCountArgs<ExtArgs>
+            result: $Utils.Optional<AntecedentMedicalCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3241,6 +3464,8 @@ export namespace Prisma {
     permission?: PermissionOmit
     rolePersonnalise?: RolePersonnaliseOmit
     service?: ServiceOmit
+    rendezVous?: RendezVousOmit
+    antecedentMedical?: AntecedentMedicalOmit
   }
 
   /* Types for Logging */
@@ -3339,6 +3564,8 @@ export namespace Prisma {
     hospitalisations: number
     permissions: number
     roles_personnalises: number
+    rendez_vous: number
+    antecedents: number
   }
 
   export type HospitalCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3360,6 +3587,8 @@ export namespace Prisma {
     hospitalisations?: boolean | HospitalCountOutputTypeCountHospitalisationsArgs
     permissions?: boolean | HospitalCountOutputTypeCountPermissionsArgs
     roles_personnalises?: boolean | HospitalCountOutputTypeCountRoles_personnalisesArgs
+    rendez_vous?: boolean | HospitalCountOutputTypeCountRendez_vousArgs
+    antecedents?: boolean | HospitalCountOutputTypeCountAntecedentsArgs
   }
 
   // Custom InputTypes
@@ -3499,6 +3728,20 @@ export namespace Prisma {
     where?: RolePersonnaliseWhereInput
   }
 
+  /**
+   * HospitalCountOutputType without action
+   */
+  export type HospitalCountOutputTypeCountRendez_vousArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RendezVousWhereInput
+  }
+
+  /**
+   * HospitalCountOutputType without action
+   */
+  export type HospitalCountOutputTypeCountAntecedentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AntecedentMedicalWhereInput
+  }
+
 
   /**
    * Count Type UtilisateurCountOutputType
@@ -3509,6 +3752,7 @@ export namespace Prisma {
     examens_labo_prescrits: number
     examens_imagerie_prescrits: number
     hospitalisations_responsable: number
+    rendez_vous: number
   }
 
   export type UtilisateurCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3516,6 +3760,7 @@ export namespace Prisma {
     examens_labo_prescrits?: boolean | UtilisateurCountOutputTypeCountExamens_labo_prescritsArgs
     examens_imagerie_prescrits?: boolean | UtilisateurCountOutputTypeCountExamens_imagerie_prescritsArgs
     hospitalisations_responsable?: boolean | UtilisateurCountOutputTypeCountHospitalisations_responsableArgs
+    rendez_vous?: boolean | UtilisateurCountOutputTypeCountRendez_vousArgs
   }
 
   // Custom InputTypes
@@ -3557,6 +3802,13 @@ export namespace Prisma {
     where?: HospitalisationWhereInput
   }
 
+  /**
+   * UtilisateurCountOutputType without action
+   */
+  export type UtilisateurCountOutputTypeCountRendez_vousArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RendezVousWhereInput
+  }
+
 
   /**
    * Count Type PatientCountOutputType
@@ -3570,6 +3822,8 @@ export namespace Prisma {
     examens_imagerie: number
     qr_tokens: number
     sejours: number
+    rendez_vous: number
+    antecedents_med: number
   }
 
   export type PatientCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3580,6 +3834,8 @@ export namespace Prisma {
     examens_imagerie?: boolean | PatientCountOutputTypeCountExamens_imagerieArgs
     qr_tokens?: boolean | PatientCountOutputTypeCountQr_tokensArgs
     sejours?: boolean | PatientCountOutputTypeCountSejoursArgs
+    rendez_vous?: boolean | PatientCountOutputTypeCountRendez_vousArgs
+    antecedents_med?: boolean | PatientCountOutputTypeCountAntecedents_medArgs
   }
 
   // Custom InputTypes
@@ -3640,6 +3896,20 @@ export namespace Prisma {
    */
   export type PatientCountOutputTypeCountSejoursArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: HospitalisationWhereInput
+  }
+
+  /**
+   * PatientCountOutputType without action
+   */
+  export type PatientCountOutputTypeCountRendez_vousArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RendezVousWhereInput
+  }
+
+  /**
+   * PatientCountOutputType without action
+   */
+  export type PatientCountOutputTypeCountAntecedents_medArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AntecedentMedicalWhereInput
   }
 
 
@@ -3974,11 +4244,13 @@ export namespace Prisma {
   export type ServiceCountOutputType = {
     consultations: number
     hospitalisations: number
+    rendez_vous: number
   }
 
   export type ServiceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     consultations?: boolean | ServiceCountOutputTypeCountConsultationsArgs
     hospitalisations?: boolean | ServiceCountOutputTypeCountHospitalisationsArgs
+    rendez_vous?: boolean | ServiceCountOutputTypeCountRendez_vousArgs
   }
 
   // Custom InputTypes
@@ -4004,6 +4276,13 @@ export namespace Prisma {
    */
   export type ServiceCountOutputTypeCountHospitalisationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: HospitalisationWhereInput
+  }
+
+  /**
+   * ServiceCountOutputType without action
+   */
+  export type ServiceCountOutputTypeCountRendez_vousArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RendezVousWhereInput
   }
 
 
@@ -4233,6 +4512,8 @@ export namespace Prisma {
     hospitalisations?: boolean | Hospital$hospitalisationsArgs<ExtArgs>
     permissions?: boolean | Hospital$permissionsArgs<ExtArgs>
     roles_personnalises?: boolean | Hospital$roles_personnalisesArgs<ExtArgs>
+    rendez_vous?: boolean | Hospital$rendez_vousArgs<ExtArgs>
+    antecedents?: boolean | Hospital$antecedentsArgs<ExtArgs>
     _count?: boolean | HospitalCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["hospital"]>
 
@@ -4295,6 +4576,8 @@ export namespace Prisma {
     hospitalisations?: boolean | Hospital$hospitalisationsArgs<ExtArgs>
     permissions?: boolean | Hospital$permissionsArgs<ExtArgs>
     roles_personnalises?: boolean | Hospital$roles_personnalisesArgs<ExtArgs>
+    rendez_vous?: boolean | Hospital$rendez_vousArgs<ExtArgs>
+    antecedents?: boolean | Hospital$antecedentsArgs<ExtArgs>
     _count?: boolean | HospitalCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type HospitalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4321,6 +4604,8 @@ export namespace Prisma {
       hospitalisations: Prisma.$HospitalisationPayload<ExtArgs>[]
       permissions: Prisma.$PermissionPayload<ExtArgs>[]
       roles_personnalises: Prisma.$RolePersonnalisePayload<ExtArgs>[]
+      rendez_vous: Prisma.$RendezVousPayload<ExtArgs>[]
+      antecedents: Prisma.$AntecedentMedicalPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4745,6 +5030,8 @@ export namespace Prisma {
     hospitalisations<T extends Hospital$hospitalisationsArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$hospitalisationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HospitalisationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     permissions<T extends Hospital$permissionsArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$permissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     roles_personnalises<T extends Hospital$roles_personnalisesArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$roles_personnalisesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePersonnalisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    rendez_vous<T extends Hospital$rendez_vousArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$rendez_vousArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RendezVousPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    antecedents<T extends Hospital$antecedentsArgs<ExtArgs> = {}>(args?: Subset<T, Hospital$antecedentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AntecedentMedicalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5609,6 +5896,54 @@ export namespace Prisma {
   }
 
   /**
+   * Hospital.rendez_vous
+   */
+  export type Hospital$rendez_vousArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RendezVous
+     */
+    select?: RendezVousSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RendezVous
+     */
+    omit?: RendezVousOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RendezVousInclude<ExtArgs> | null
+    where?: RendezVousWhereInput
+    orderBy?: RendezVousOrderByWithRelationInput | RendezVousOrderByWithRelationInput[]
+    cursor?: RendezVousWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RendezVousScalarFieldEnum | RendezVousScalarFieldEnum[]
+  }
+
+  /**
+   * Hospital.antecedents
+   */
+  export type Hospital$antecedentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AntecedentMedical
+     */
+    select?: AntecedentMedicalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AntecedentMedical
+     */
+    omit?: AntecedentMedicalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AntecedentMedicalInclude<ExtArgs> | null
+    where?: AntecedentMedicalWhereInput
+    orderBy?: AntecedentMedicalOrderByWithRelationInput | AntecedentMedicalOrderByWithRelationInput[]
+    cursor?: AntecedentMedicalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AntecedentMedicalScalarFieldEnum | AntecedentMedicalScalarFieldEnum[]
+  }
+
+  /**
    * Hospital without action
    */
   export type HospitalDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5860,6 +6195,7 @@ export namespace Prisma {
     examens_labo_prescrits?: boolean | Utilisateur$examens_labo_prescritsArgs<ExtArgs>
     examens_imagerie_prescrits?: boolean | Utilisateur$examens_imagerie_prescritsArgs<ExtArgs>
     hospitalisations_responsable?: boolean | Utilisateur$hospitalisations_responsableArgs<ExtArgs>
+    rendez_vous?: boolean | Utilisateur$rendez_vousArgs<ExtArgs>
     role_personnalise?: boolean | Utilisateur$role_personnaliseArgs<ExtArgs>
     _count?: boolean | UtilisateurCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["utilisateur"]>
@@ -5923,6 +6259,7 @@ export namespace Prisma {
     examens_labo_prescrits?: boolean | Utilisateur$examens_labo_prescritsArgs<ExtArgs>
     examens_imagerie_prescrits?: boolean | Utilisateur$examens_imagerie_prescritsArgs<ExtArgs>
     hospitalisations_responsable?: boolean | Utilisateur$hospitalisations_responsableArgs<ExtArgs>
+    rendez_vous?: boolean | Utilisateur$rendez_vousArgs<ExtArgs>
     role_personnalise?: boolean | Utilisateur$role_personnaliseArgs<ExtArgs>
     _count?: boolean | UtilisateurCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -5943,6 +6280,7 @@ export namespace Prisma {
       examens_labo_prescrits: Prisma.$ExamenLaboPayload<ExtArgs>[]
       examens_imagerie_prescrits: Prisma.$ExamenImageriePayload<ExtArgs>[]
       hospitalisations_responsable: Prisma.$HospitalisationPayload<ExtArgs>[]
+      rendez_vous: Prisma.$RendezVousPayload<ExtArgs>[]
       role_personnalise: Prisma.$RolePersonnalisePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -6358,6 +6696,7 @@ export namespace Prisma {
     examens_labo_prescrits<T extends Utilisateur$examens_labo_prescritsArgs<ExtArgs> = {}>(args?: Subset<T, Utilisateur$examens_labo_prescritsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenLaboPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     examens_imagerie_prescrits<T extends Utilisateur$examens_imagerie_prescritsArgs<ExtArgs> = {}>(args?: Subset<T, Utilisateur$examens_imagerie_prescritsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenImageriePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     hospitalisations_responsable<T extends Utilisateur$hospitalisations_responsableArgs<ExtArgs> = {}>(args?: Subset<T, Utilisateur$hospitalisations_responsableArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HospitalisationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    rendez_vous<T extends Utilisateur$rendez_vousArgs<ExtArgs> = {}>(args?: Subset<T, Utilisateur$rendez_vousArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RendezVousPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     role_personnalise<T extends Utilisateur$role_personnaliseArgs<ExtArgs> = {}>(args?: Subset<T, Utilisateur$role_personnaliseArgs<ExtArgs>>): Prisma__RolePersonnaliseClient<$Result.GetResult<Prisma.$RolePersonnalisePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -6898,6 +7237,30 @@ export namespace Prisma {
   }
 
   /**
+   * Utilisateur.rendez_vous
+   */
+  export type Utilisateur$rendez_vousArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RendezVous
+     */
+    select?: RendezVousSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RendezVous
+     */
+    omit?: RendezVousOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RendezVousInclude<ExtArgs> | null
+    where?: RendezVousWhereInput
+    orderBy?: RendezVousOrderByWithRelationInput | RendezVousOrderByWithRelationInput[]
+    cursor?: RendezVousWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RendezVousScalarFieldEnum | RendezVousScalarFieldEnum[]
+  }
+
+  /**
    * Utilisateur.role_personnalise
    */
   export type Utilisateur$role_personnaliseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7186,6 +7549,8 @@ export namespace Prisma {
     examens_imagerie?: boolean | Patient$examens_imagerieArgs<ExtArgs>
     qr_tokens?: boolean | Patient$qr_tokensArgs<ExtArgs>
     sejours?: boolean | Patient$sejoursArgs<ExtArgs>
+    rendez_vous?: boolean | Patient$rendez_vousArgs<ExtArgs>
+    antecedents_med?: boolean | Patient$antecedents_medArgs<ExtArgs>
     _count?: boolean | PatientCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["patient"]>
 
@@ -7252,6 +7617,8 @@ export namespace Prisma {
     examens_imagerie?: boolean | Patient$examens_imagerieArgs<ExtArgs>
     qr_tokens?: boolean | Patient$qr_tokensArgs<ExtArgs>
     sejours?: boolean | Patient$sejoursArgs<ExtArgs>
+    rendez_vous?: boolean | Patient$rendez_vousArgs<ExtArgs>
+    antecedents_med?: boolean | Patient$antecedents_medArgs<ExtArgs>
     _count?: boolean | PatientCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PatientIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -7267,6 +7634,8 @@ export namespace Prisma {
       examens_imagerie: Prisma.$ExamenImageriePayload<ExtArgs>[]
       qr_tokens: Prisma.$QrTokenPayload<ExtArgs>[]
       sejours: Prisma.$HospitalisationPayload<ExtArgs>[]
+      rendez_vous: Prisma.$RendezVousPayload<ExtArgs>[]
+      antecedents_med: Prisma.$AntecedentMedicalPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7685,6 +8054,8 @@ export namespace Prisma {
     examens_imagerie<T extends Patient$examens_imagerieArgs<ExtArgs> = {}>(args?: Subset<T, Patient$examens_imagerieArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExamenImageriePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     qr_tokens<T extends Patient$qr_tokensArgs<ExtArgs> = {}>(args?: Subset<T, Patient$qr_tokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QrTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sejours<T extends Patient$sejoursArgs<ExtArgs> = {}>(args?: Subset<T, Patient$sejoursArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HospitalisationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    rendez_vous<T extends Patient$rendez_vousArgs<ExtArgs> = {}>(args?: Subset<T, Patient$rendez_vousArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RendezVousPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    antecedents_med<T extends Patient$antecedents_medArgs<ExtArgs> = {}>(args?: Subset<T, Patient$antecedents_medArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AntecedentMedicalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8287,6 +8658,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: HospitalisationScalarFieldEnum | HospitalisationScalarFieldEnum[]
+  }
+
+  /**
+   * Patient.rendez_vous
+   */
+  export type Patient$rendez_vousArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RendezVous
+     */
+    select?: RendezVousSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RendezVous
+     */
+    omit?: RendezVousOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RendezVousInclude<ExtArgs> | null
+    where?: RendezVousWhereInput
+    orderBy?: RendezVousOrderByWithRelationInput | RendezVousOrderByWithRelationInput[]
+    cursor?: RendezVousWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RendezVousScalarFieldEnum | RendezVousScalarFieldEnum[]
+  }
+
+  /**
+   * Patient.antecedents_med
+   */
+  export type Patient$antecedents_medArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AntecedentMedical
+     */
+    select?: AntecedentMedicalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AntecedentMedical
+     */
+    omit?: AntecedentMedicalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AntecedentMedicalInclude<ExtArgs> | null
+    where?: AntecedentMedicalWhereInput
+    orderBy?: AntecedentMedicalOrderByWithRelationInput | AntecedentMedicalOrderByWithRelationInput[]
+    cursor?: AntecedentMedicalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AntecedentMedicalScalarFieldEnum | AntecedentMedicalScalarFieldEnum[]
   }
 
   /**
@@ -9495,6 +9914,7 @@ export namespace Prisma {
     patient_id: string | null
     medecin_id: string | null
     statut: $Enums.StatutConsultation | null
+    type_acte: $Enums.TypeActe | null
     motif: string | null
     diagnostic: string | null
     notes: string | null
@@ -9514,6 +9934,7 @@ export namespace Prisma {
     patient_id: string | null
     medecin_id: string | null
     statut: $Enums.StatutConsultation | null
+    type_acte: $Enums.TypeActe | null
     motif: string | null
     diagnostic: string | null
     notes: string | null
@@ -9533,6 +9954,7 @@ export namespace Prisma {
     patient_id: number
     medecin_id: number
     statut: number
+    type_acte: number
     motif: number
     diagnostic: number
     notes: number
@@ -9566,6 +9988,7 @@ export namespace Prisma {
     patient_id?: true
     medecin_id?: true
     statut?: true
+    type_acte?: true
     motif?: true
     diagnostic?: true
     notes?: true
@@ -9585,6 +10008,7 @@ export namespace Prisma {
     patient_id?: true
     medecin_id?: true
     statut?: true
+    type_acte?: true
     motif?: true
     diagnostic?: true
     notes?: true
@@ -9604,6 +10028,7 @@ export namespace Prisma {
     patient_id?: true
     medecin_id?: true
     statut?: true
+    type_acte?: true
     motif?: true
     diagnostic?: true
     notes?: true
@@ -9710,6 +10135,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     statut: $Enums.StatutConsultation
+    type_acte: $Enums.TypeActe
     motif: string | null
     diagnostic: string | null
     notes: string | null
@@ -9748,6 +10174,7 @@ export namespace Prisma {
     patient_id?: boolean
     medecin_id?: boolean
     statut?: boolean
+    type_acte?: boolean
     motif?: boolean
     diagnostic?: boolean
     notes?: boolean
@@ -9774,6 +10201,7 @@ export namespace Prisma {
     patient_id?: boolean
     medecin_id?: boolean
     statut?: boolean
+    type_acte?: boolean
     motif?: boolean
     diagnostic?: boolean
     notes?: boolean
@@ -9797,6 +10225,7 @@ export namespace Prisma {
     patient_id?: boolean
     medecin_id?: boolean
     statut?: boolean
+    type_acte?: boolean
     motif?: boolean
     diagnostic?: boolean
     notes?: boolean
@@ -9820,6 +10249,7 @@ export namespace Prisma {
     patient_id?: boolean
     medecin_id?: boolean
     statut?: boolean
+    type_acte?: boolean
     motif?: boolean
     diagnostic?: boolean
     notes?: boolean
@@ -9833,7 +10263,7 @@ export namespace Prisma {
     service_id?: boolean
   }
 
-  export type ConsultationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "patient_id" | "medecin_id" | "statut" | "motif" | "diagnostic" | "notes" | "poids_kg" | "taille_cm" | "tension" | "temperature" | "date_consultation" | "created_at" | "updated_at" | "service_id", ExtArgs["result"]["consultation"]>
+  export type ConsultationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "patient_id" | "medecin_id" | "statut" | "type_acte" | "motif" | "diagnostic" | "notes" | "poids_kg" | "taille_cm" | "tension" | "temperature" | "date_consultation" | "created_at" | "updated_at" | "service_id", ExtArgs["result"]["consultation"]>
   export type ConsultationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     patient?: boolean | PatientDefaultArgs<ExtArgs>
@@ -9872,6 +10302,7 @@ export namespace Prisma {
       patient_id: string
       medecin_id: string
       statut: $Enums.StatutConsultation
+      type_acte: $Enums.TypeActe
       motif: string | null
       diagnostic: string | null
       notes: string | null
@@ -10317,6 +10748,7 @@ export namespace Prisma {
     readonly patient_id: FieldRef<"Consultation", 'String'>
     readonly medecin_id: FieldRef<"Consultation", 'String'>
     readonly statut: FieldRef<"Consultation", 'StatutConsultation'>
+    readonly type_acte: FieldRef<"Consultation", 'TypeActe'>
     readonly motif: FieldRef<"Consultation", 'String'>
     readonly diagnostic: FieldRef<"Consultation", 'String'>
     readonly notes: FieldRef<"Consultation", 'String'>
@@ -33764,6 +34196,7 @@ export namespace Prisma {
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     consultations?: boolean | Service$consultationsArgs<ExtArgs>
     hospitalisations?: boolean | Service$hospitalisationsArgs<ExtArgs>
+    rendez_vous?: boolean | Service$rendez_vousArgs<ExtArgs>
     _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["service"]>
 
@@ -33807,6 +34240,7 @@ export namespace Prisma {
     hospital?: boolean | HospitalDefaultArgs<ExtArgs>
     consultations?: boolean | Service$consultationsArgs<ExtArgs>
     hospitalisations?: boolean | Service$hospitalisationsArgs<ExtArgs>
+    rendez_vous?: boolean | Service$rendez_vousArgs<ExtArgs>
     _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ServiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -33822,6 +34256,7 @@ export namespace Prisma {
       hospital: Prisma.$HospitalPayload<ExtArgs>
       consultations: Prisma.$ConsultationPayload<ExtArgs>[]
       hospitalisations: Prisma.$HospitalisationPayload<ExtArgs>[]
+      rendez_vous: Prisma.$RendezVousPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -34229,6 +34664,7 @@ export namespace Prisma {
     hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     consultations<T extends Service$consultationsArgs<ExtArgs> = {}>(args?: Subset<T, Service$consultationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConsultationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     hospitalisations<T extends Service$hospitalisationsArgs<ExtArgs> = {}>(args?: Subset<T, Service$hospitalisationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HospitalisationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    rendez_vous<T extends Service$rendez_vousArgs<ExtArgs> = {}>(args?: Subset<T, Service$rendez_vousArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RendezVousPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -34715,6 +35151,30 @@ export namespace Prisma {
   }
 
   /**
+   * Service.rendez_vous
+   */
+  export type Service$rendez_vousArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RendezVous
+     */
+    select?: RendezVousSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RendezVous
+     */
+    omit?: RendezVousOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RendezVousInclude<ExtArgs> | null
+    where?: RendezVousWhereInput
+    orderBy?: RendezVousOrderByWithRelationInput | RendezVousOrderByWithRelationInput[]
+    cursor?: RendezVousWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RendezVousScalarFieldEnum | RendezVousScalarFieldEnum[]
+  }
+
+  /**
    * Service without action
    */
   export type ServiceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -34730,6 +35190,2386 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ServiceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RendezVous
+   */
+
+  export type AggregateRendezVous = {
+    _count: RendezVousCountAggregateOutputType | null
+    _avg: RendezVousAvgAggregateOutputType | null
+    _sum: RendezVousSumAggregateOutputType | null
+    _min: RendezVousMinAggregateOutputType | null
+    _max: RendezVousMaxAggregateOutputType | null
+  }
+
+  export type RendezVousAvgAggregateOutputType = {
+    duree_min: number | null
+  }
+
+  export type RendezVousSumAggregateOutputType = {
+    duree_min: number | null
+  }
+
+  export type RendezVousMinAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    patient_id: string | null
+    medecin_id: string | null
+    service_id: string | null
+    date_heure: Date | null
+    duree_min: number | null
+    statut: $Enums.StatutRendezVous | null
+    motif: string | null
+    notes: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type RendezVousMaxAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    patient_id: string | null
+    medecin_id: string | null
+    service_id: string | null
+    date_heure: Date | null
+    duree_min: number | null
+    statut: $Enums.StatutRendezVous | null
+    motif: string | null
+    notes: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type RendezVousCountAggregateOutputType = {
+    id: number
+    hospital_id: number
+    patient_id: number
+    medecin_id: number
+    service_id: number
+    date_heure: number
+    duree_min: number
+    statut: number
+    motif: number
+    notes: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type RendezVousAvgAggregateInputType = {
+    duree_min?: true
+  }
+
+  export type RendezVousSumAggregateInputType = {
+    duree_min?: true
+  }
+
+  export type RendezVousMinAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    patient_id?: true
+    medecin_id?: true
+    service_id?: true
+    date_heure?: true
+    duree_min?: true
+    statut?: true
+    motif?: true
+    notes?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type RendezVousMaxAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    patient_id?: true
+    medecin_id?: true
+    service_id?: true
+    date_heure?: true
+    duree_min?: true
+    statut?: true
+    motif?: true
+    notes?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type RendezVousCountAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    patient_id?: true
+    medecin_id?: true
+    service_id?: true
+    date_heure?: true
+    duree_min?: true
+    statut?: true
+    motif?: true
+    notes?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type RendezVousAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RendezVous to aggregate.
+     */
+    where?: RendezVousWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RendezVous to fetch.
+     */
+    orderBy?: RendezVousOrderByWithRelationInput | RendezVousOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RendezVousWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RendezVous from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RendezVous.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RendezVous
+    **/
+    _count?: true | RendezVousCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RendezVousAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RendezVousSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RendezVousMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RendezVousMaxAggregateInputType
+  }
+
+  export type GetRendezVousAggregateType<T extends RendezVousAggregateArgs> = {
+        [P in keyof T & keyof AggregateRendezVous]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRendezVous[P]>
+      : GetScalarType<T[P], AggregateRendezVous[P]>
+  }
+
+
+
+
+  export type RendezVousGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RendezVousWhereInput
+    orderBy?: RendezVousOrderByWithAggregationInput | RendezVousOrderByWithAggregationInput[]
+    by: RendezVousScalarFieldEnum[] | RendezVousScalarFieldEnum
+    having?: RendezVousScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RendezVousCountAggregateInputType | true
+    _avg?: RendezVousAvgAggregateInputType
+    _sum?: RendezVousSumAggregateInputType
+    _min?: RendezVousMinAggregateInputType
+    _max?: RendezVousMaxAggregateInputType
+  }
+
+  export type RendezVousGroupByOutputType = {
+    id: string
+    hospital_id: string
+    patient_id: string
+    medecin_id: string
+    service_id: string | null
+    date_heure: Date
+    duree_min: number
+    statut: $Enums.StatutRendezVous
+    motif: string | null
+    notes: string | null
+    created_at: Date
+    updated_at: Date
+    _count: RendezVousCountAggregateOutputType | null
+    _avg: RendezVousAvgAggregateOutputType | null
+    _sum: RendezVousSumAggregateOutputType | null
+    _min: RendezVousMinAggregateOutputType | null
+    _max: RendezVousMaxAggregateOutputType | null
+  }
+
+  type GetRendezVousGroupByPayload<T extends RendezVousGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RendezVousGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RendezVousGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RendezVousGroupByOutputType[P]>
+            : GetScalarType<T[P], RendezVousGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RendezVousSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    patient_id?: boolean
+    medecin_id?: boolean
+    service_id?: boolean
+    date_heure?: boolean
+    duree_min?: boolean
+    statut?: boolean
+    motif?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+    medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    service?: boolean | RendezVous$serviceArgs<ExtArgs>
+  }, ExtArgs["result"]["rendezVous"]>
+
+  export type RendezVousSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    patient_id?: boolean
+    medecin_id?: boolean
+    service_id?: boolean
+    date_heure?: boolean
+    duree_min?: boolean
+    statut?: boolean
+    motif?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+    medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    service?: boolean | RendezVous$serviceArgs<ExtArgs>
+  }, ExtArgs["result"]["rendezVous"]>
+
+  export type RendezVousSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    patient_id?: boolean
+    medecin_id?: boolean
+    service_id?: boolean
+    date_heure?: boolean
+    duree_min?: boolean
+    statut?: boolean
+    motif?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+    medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    service?: boolean | RendezVous$serviceArgs<ExtArgs>
+  }, ExtArgs["result"]["rendezVous"]>
+
+  export type RendezVousSelectScalar = {
+    id?: boolean
+    hospital_id?: boolean
+    patient_id?: boolean
+    medecin_id?: boolean
+    service_id?: boolean
+    date_heure?: boolean
+    duree_min?: boolean
+    statut?: boolean
+    motif?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type RendezVousOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "patient_id" | "medecin_id" | "service_id" | "date_heure" | "duree_min" | "statut" | "motif" | "notes" | "created_at" | "updated_at", ExtArgs["result"]["rendezVous"]>
+  export type RendezVousInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+    medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    service?: boolean | RendezVous$serviceArgs<ExtArgs>
+  }
+  export type RendezVousIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+    medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    service?: boolean | RendezVous$serviceArgs<ExtArgs>
+  }
+  export type RendezVousIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+    medecin?: boolean | UtilisateurDefaultArgs<ExtArgs>
+    service?: boolean | RendezVous$serviceArgs<ExtArgs>
+  }
+
+  export type $RendezVousPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RendezVous"
+    objects: {
+      hospital: Prisma.$HospitalPayload<ExtArgs>
+      patient: Prisma.$PatientPayload<ExtArgs>
+      medecin: Prisma.$UtilisateurPayload<ExtArgs>
+      service: Prisma.$ServicePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      hospital_id: string
+      patient_id: string
+      medecin_id: string
+      service_id: string | null
+      date_heure: Date
+      duree_min: number
+      statut: $Enums.StatutRendezVous
+      motif: string | null
+      notes: string | null
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["rendezVous"]>
+    composites: {}
+  }
+
+  type RendezVousGetPayload<S extends boolean | null | undefined | RendezVousDefaultArgs> = $Result.GetResult<Prisma.$RendezVousPayload, S>
+
+  type RendezVousCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RendezVousFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RendezVousCountAggregateInputType | true
+    }
+
+  export interface RendezVousDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RendezVous'], meta: { name: 'RendezVous' } }
+    /**
+     * Find zero or one RendezVous that matches the filter.
+     * @param {RendezVousFindUniqueArgs} args - Arguments to find a RendezVous
+     * @example
+     * // Get one RendezVous
+     * const rendezVous = await prisma.rendezVous.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RendezVousFindUniqueArgs>(args: SelectSubset<T, RendezVousFindUniqueArgs<ExtArgs>>): Prisma__RendezVousClient<$Result.GetResult<Prisma.$RendezVousPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one RendezVous that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RendezVousFindUniqueOrThrowArgs} args - Arguments to find a RendezVous
+     * @example
+     * // Get one RendezVous
+     * const rendezVous = await prisma.rendezVous.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RendezVousFindUniqueOrThrowArgs>(args: SelectSubset<T, RendezVousFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RendezVousClient<$Result.GetResult<Prisma.$RendezVousPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RendezVous that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RendezVousFindFirstArgs} args - Arguments to find a RendezVous
+     * @example
+     * // Get one RendezVous
+     * const rendezVous = await prisma.rendezVous.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RendezVousFindFirstArgs>(args?: SelectSubset<T, RendezVousFindFirstArgs<ExtArgs>>): Prisma__RendezVousClient<$Result.GetResult<Prisma.$RendezVousPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RendezVous that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RendezVousFindFirstOrThrowArgs} args - Arguments to find a RendezVous
+     * @example
+     * // Get one RendezVous
+     * const rendezVous = await prisma.rendezVous.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RendezVousFindFirstOrThrowArgs>(args?: SelectSubset<T, RendezVousFindFirstOrThrowArgs<ExtArgs>>): Prisma__RendezVousClient<$Result.GetResult<Prisma.$RendezVousPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RendezVous that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RendezVousFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RendezVous
+     * const rendezVous = await prisma.rendezVous.findMany()
+     * 
+     * // Get first 10 RendezVous
+     * const rendezVous = await prisma.rendezVous.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const rendezVousWithIdOnly = await prisma.rendezVous.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RendezVousFindManyArgs>(args?: SelectSubset<T, RendezVousFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RendezVousPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a RendezVous.
+     * @param {RendezVousCreateArgs} args - Arguments to create a RendezVous.
+     * @example
+     * // Create one RendezVous
+     * const RendezVous = await prisma.rendezVous.create({
+     *   data: {
+     *     // ... data to create a RendezVous
+     *   }
+     * })
+     * 
+     */
+    create<T extends RendezVousCreateArgs>(args: SelectSubset<T, RendezVousCreateArgs<ExtArgs>>): Prisma__RendezVousClient<$Result.GetResult<Prisma.$RendezVousPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many RendezVous.
+     * @param {RendezVousCreateManyArgs} args - Arguments to create many RendezVous.
+     * @example
+     * // Create many RendezVous
+     * const rendezVous = await prisma.rendezVous.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RendezVousCreateManyArgs>(args?: SelectSubset<T, RendezVousCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RendezVous and returns the data saved in the database.
+     * @param {RendezVousCreateManyAndReturnArgs} args - Arguments to create many RendezVous.
+     * @example
+     * // Create many RendezVous
+     * const rendezVous = await prisma.rendezVous.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RendezVous and only return the `id`
+     * const rendezVousWithIdOnly = await prisma.rendezVous.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RendezVousCreateManyAndReturnArgs>(args?: SelectSubset<T, RendezVousCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RendezVousPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a RendezVous.
+     * @param {RendezVousDeleteArgs} args - Arguments to delete one RendezVous.
+     * @example
+     * // Delete one RendezVous
+     * const RendezVous = await prisma.rendezVous.delete({
+     *   where: {
+     *     // ... filter to delete one RendezVous
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RendezVousDeleteArgs>(args: SelectSubset<T, RendezVousDeleteArgs<ExtArgs>>): Prisma__RendezVousClient<$Result.GetResult<Prisma.$RendezVousPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one RendezVous.
+     * @param {RendezVousUpdateArgs} args - Arguments to update one RendezVous.
+     * @example
+     * // Update one RendezVous
+     * const rendezVous = await prisma.rendezVous.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RendezVousUpdateArgs>(args: SelectSubset<T, RendezVousUpdateArgs<ExtArgs>>): Prisma__RendezVousClient<$Result.GetResult<Prisma.$RendezVousPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more RendezVous.
+     * @param {RendezVousDeleteManyArgs} args - Arguments to filter RendezVous to delete.
+     * @example
+     * // Delete a few RendezVous
+     * const { count } = await prisma.rendezVous.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RendezVousDeleteManyArgs>(args?: SelectSubset<T, RendezVousDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RendezVous.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RendezVousUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RendezVous
+     * const rendezVous = await prisma.rendezVous.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RendezVousUpdateManyArgs>(args: SelectSubset<T, RendezVousUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RendezVous and returns the data updated in the database.
+     * @param {RendezVousUpdateManyAndReturnArgs} args - Arguments to update many RendezVous.
+     * @example
+     * // Update many RendezVous
+     * const rendezVous = await prisma.rendezVous.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more RendezVous and only return the `id`
+     * const rendezVousWithIdOnly = await prisma.rendezVous.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RendezVousUpdateManyAndReturnArgs>(args: SelectSubset<T, RendezVousUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RendezVousPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one RendezVous.
+     * @param {RendezVousUpsertArgs} args - Arguments to update or create a RendezVous.
+     * @example
+     * // Update or create a RendezVous
+     * const rendezVous = await prisma.rendezVous.upsert({
+     *   create: {
+     *     // ... data to create a RendezVous
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RendezVous we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RendezVousUpsertArgs>(args: SelectSubset<T, RendezVousUpsertArgs<ExtArgs>>): Prisma__RendezVousClient<$Result.GetResult<Prisma.$RendezVousPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of RendezVous.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RendezVousCountArgs} args - Arguments to filter RendezVous to count.
+     * @example
+     * // Count the number of RendezVous
+     * const count = await prisma.rendezVous.count({
+     *   where: {
+     *     // ... the filter for the RendezVous we want to count
+     *   }
+     * })
+    **/
+    count<T extends RendezVousCountArgs>(
+      args?: Subset<T, RendezVousCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RendezVousCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RendezVous.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RendezVousAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RendezVousAggregateArgs>(args: Subset<T, RendezVousAggregateArgs>): Prisma.PrismaPromise<GetRendezVousAggregateType<T>>
+
+    /**
+     * Group by RendezVous.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RendezVousGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RendezVousGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RendezVousGroupByArgs['orderBy'] }
+        : { orderBy?: RendezVousGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RendezVousGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRendezVousGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RendezVous model
+   */
+  readonly fields: RendezVousFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RendezVous.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RendezVousClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    patient<T extends PatientDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PatientDefaultArgs<ExtArgs>>): Prisma__PatientClient<$Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    medecin<T extends UtilisateurDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UtilisateurDefaultArgs<ExtArgs>>): Prisma__UtilisateurClient<$Result.GetResult<Prisma.$UtilisateurPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    service<T extends RendezVous$serviceArgs<ExtArgs> = {}>(args?: Subset<T, RendezVous$serviceArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RendezVous model
+   */
+  interface RendezVousFieldRefs {
+    readonly id: FieldRef<"RendezVous", 'String'>
+    readonly hospital_id: FieldRef<"RendezVous", 'String'>
+    readonly patient_id: FieldRef<"RendezVous", 'String'>
+    readonly medecin_id: FieldRef<"RendezVous", 'String'>
+    readonly service_id: FieldRef<"RendezVous", 'String'>
+    readonly date_heure: FieldRef<"RendezVous", 'DateTime'>
+    readonly duree_min: FieldRef<"RendezVous", 'Int'>
+    readonly statut: FieldRef<"RendezVous", 'StatutRendezVous'>
+    readonly motif: FieldRef<"RendezVous", 'String'>
+    readonly notes: FieldRef<"RendezVous", 'String'>
+    readonly created_at: FieldRef<"RendezVous", 'DateTime'>
+    readonly updated_at: FieldRef<"RendezVous", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RendezVous findUnique
+   */
+  export type RendezVousFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RendezVous
+     */
+    select?: RendezVousSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RendezVous
+     */
+    omit?: RendezVousOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RendezVousInclude<ExtArgs> | null
+    /**
+     * Filter, which RendezVous to fetch.
+     */
+    where: RendezVousWhereUniqueInput
+  }
+
+  /**
+   * RendezVous findUniqueOrThrow
+   */
+  export type RendezVousFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RendezVous
+     */
+    select?: RendezVousSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RendezVous
+     */
+    omit?: RendezVousOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RendezVousInclude<ExtArgs> | null
+    /**
+     * Filter, which RendezVous to fetch.
+     */
+    where: RendezVousWhereUniqueInput
+  }
+
+  /**
+   * RendezVous findFirst
+   */
+  export type RendezVousFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RendezVous
+     */
+    select?: RendezVousSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RendezVous
+     */
+    omit?: RendezVousOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RendezVousInclude<ExtArgs> | null
+    /**
+     * Filter, which RendezVous to fetch.
+     */
+    where?: RendezVousWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RendezVous to fetch.
+     */
+    orderBy?: RendezVousOrderByWithRelationInput | RendezVousOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RendezVous.
+     */
+    cursor?: RendezVousWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RendezVous from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RendezVous.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RendezVous.
+     */
+    distinct?: RendezVousScalarFieldEnum | RendezVousScalarFieldEnum[]
+  }
+
+  /**
+   * RendezVous findFirstOrThrow
+   */
+  export type RendezVousFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RendezVous
+     */
+    select?: RendezVousSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RendezVous
+     */
+    omit?: RendezVousOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RendezVousInclude<ExtArgs> | null
+    /**
+     * Filter, which RendezVous to fetch.
+     */
+    where?: RendezVousWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RendezVous to fetch.
+     */
+    orderBy?: RendezVousOrderByWithRelationInput | RendezVousOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RendezVous.
+     */
+    cursor?: RendezVousWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RendezVous from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RendezVous.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RendezVous.
+     */
+    distinct?: RendezVousScalarFieldEnum | RendezVousScalarFieldEnum[]
+  }
+
+  /**
+   * RendezVous findMany
+   */
+  export type RendezVousFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RendezVous
+     */
+    select?: RendezVousSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RendezVous
+     */
+    omit?: RendezVousOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RendezVousInclude<ExtArgs> | null
+    /**
+     * Filter, which RendezVous to fetch.
+     */
+    where?: RendezVousWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RendezVous to fetch.
+     */
+    orderBy?: RendezVousOrderByWithRelationInput | RendezVousOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RendezVous.
+     */
+    cursor?: RendezVousWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RendezVous from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RendezVous.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RendezVous.
+     */
+    distinct?: RendezVousScalarFieldEnum | RendezVousScalarFieldEnum[]
+  }
+
+  /**
+   * RendezVous create
+   */
+  export type RendezVousCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RendezVous
+     */
+    select?: RendezVousSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RendezVous
+     */
+    omit?: RendezVousOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RendezVousInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RendezVous.
+     */
+    data: XOR<RendezVousCreateInput, RendezVousUncheckedCreateInput>
+  }
+
+  /**
+   * RendezVous createMany
+   */
+  export type RendezVousCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RendezVous.
+     */
+    data: RendezVousCreateManyInput | RendezVousCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RendezVous createManyAndReturn
+   */
+  export type RendezVousCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RendezVous
+     */
+    select?: RendezVousSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RendezVous
+     */
+    omit?: RendezVousOmit<ExtArgs> | null
+    /**
+     * The data used to create many RendezVous.
+     */
+    data: RendezVousCreateManyInput | RendezVousCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RendezVousIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RendezVous update
+   */
+  export type RendezVousUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RendezVous
+     */
+    select?: RendezVousSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RendezVous
+     */
+    omit?: RendezVousOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RendezVousInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RendezVous.
+     */
+    data: XOR<RendezVousUpdateInput, RendezVousUncheckedUpdateInput>
+    /**
+     * Choose, which RendezVous to update.
+     */
+    where: RendezVousWhereUniqueInput
+  }
+
+  /**
+   * RendezVous updateMany
+   */
+  export type RendezVousUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RendezVous.
+     */
+    data: XOR<RendezVousUpdateManyMutationInput, RendezVousUncheckedUpdateManyInput>
+    /**
+     * Filter which RendezVous to update
+     */
+    where?: RendezVousWhereInput
+    /**
+     * Limit how many RendezVous to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RendezVous updateManyAndReturn
+   */
+  export type RendezVousUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RendezVous
+     */
+    select?: RendezVousSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RendezVous
+     */
+    omit?: RendezVousOmit<ExtArgs> | null
+    /**
+     * The data used to update RendezVous.
+     */
+    data: XOR<RendezVousUpdateManyMutationInput, RendezVousUncheckedUpdateManyInput>
+    /**
+     * Filter which RendezVous to update
+     */
+    where?: RendezVousWhereInput
+    /**
+     * Limit how many RendezVous to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RendezVousIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RendezVous upsert
+   */
+  export type RendezVousUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RendezVous
+     */
+    select?: RendezVousSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RendezVous
+     */
+    omit?: RendezVousOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RendezVousInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RendezVous to update in case it exists.
+     */
+    where: RendezVousWhereUniqueInput
+    /**
+     * In case the RendezVous found by the `where` argument doesn't exist, create a new RendezVous with this data.
+     */
+    create: XOR<RendezVousCreateInput, RendezVousUncheckedCreateInput>
+    /**
+     * In case the RendezVous was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RendezVousUpdateInput, RendezVousUncheckedUpdateInput>
+  }
+
+  /**
+   * RendezVous delete
+   */
+  export type RendezVousDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RendezVous
+     */
+    select?: RendezVousSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RendezVous
+     */
+    omit?: RendezVousOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RendezVousInclude<ExtArgs> | null
+    /**
+     * Filter which RendezVous to delete.
+     */
+    where: RendezVousWhereUniqueInput
+  }
+
+  /**
+   * RendezVous deleteMany
+   */
+  export type RendezVousDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RendezVous to delete
+     */
+    where?: RendezVousWhereInput
+    /**
+     * Limit how many RendezVous to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * RendezVous.service
+   */
+  export type RendezVous$serviceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    where?: ServiceWhereInput
+  }
+
+  /**
+   * RendezVous without action
+   */
+  export type RendezVousDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RendezVous
+     */
+    select?: RendezVousSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RendezVous
+     */
+    omit?: RendezVousOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RendezVousInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AntecedentMedical
+   */
+
+  export type AggregateAntecedentMedical = {
+    _count: AntecedentMedicalCountAggregateOutputType | null
+    _min: AntecedentMedicalMinAggregateOutputType | null
+    _max: AntecedentMedicalMaxAggregateOutputType | null
+  }
+
+  export type AntecedentMedicalMinAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    patient_id: string | null
+    type: $Enums.TypeAntecedent | null
+    libelle: string | null
+    date_debut: Date | null
+    date_fin: Date | null
+    est_actif: boolean | null
+    notes: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type AntecedentMedicalMaxAggregateOutputType = {
+    id: string | null
+    hospital_id: string | null
+    patient_id: string | null
+    type: $Enums.TypeAntecedent | null
+    libelle: string | null
+    date_debut: Date | null
+    date_fin: Date | null
+    est_actif: boolean | null
+    notes: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type AntecedentMedicalCountAggregateOutputType = {
+    id: number
+    hospital_id: number
+    patient_id: number
+    type: number
+    libelle: number
+    date_debut: number
+    date_fin: number
+    est_actif: number
+    notes: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type AntecedentMedicalMinAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    patient_id?: true
+    type?: true
+    libelle?: true
+    date_debut?: true
+    date_fin?: true
+    est_actif?: true
+    notes?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type AntecedentMedicalMaxAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    patient_id?: true
+    type?: true
+    libelle?: true
+    date_debut?: true
+    date_fin?: true
+    est_actif?: true
+    notes?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type AntecedentMedicalCountAggregateInputType = {
+    id?: true
+    hospital_id?: true
+    patient_id?: true
+    type?: true
+    libelle?: true
+    date_debut?: true
+    date_fin?: true
+    est_actif?: true
+    notes?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type AntecedentMedicalAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AntecedentMedical to aggregate.
+     */
+    where?: AntecedentMedicalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AntecedentMedicals to fetch.
+     */
+    orderBy?: AntecedentMedicalOrderByWithRelationInput | AntecedentMedicalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AntecedentMedicalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AntecedentMedicals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AntecedentMedicals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AntecedentMedicals
+    **/
+    _count?: true | AntecedentMedicalCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AntecedentMedicalMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AntecedentMedicalMaxAggregateInputType
+  }
+
+  export type GetAntecedentMedicalAggregateType<T extends AntecedentMedicalAggregateArgs> = {
+        [P in keyof T & keyof AggregateAntecedentMedical]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAntecedentMedical[P]>
+      : GetScalarType<T[P], AggregateAntecedentMedical[P]>
+  }
+
+
+
+
+  export type AntecedentMedicalGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AntecedentMedicalWhereInput
+    orderBy?: AntecedentMedicalOrderByWithAggregationInput | AntecedentMedicalOrderByWithAggregationInput[]
+    by: AntecedentMedicalScalarFieldEnum[] | AntecedentMedicalScalarFieldEnum
+    having?: AntecedentMedicalScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AntecedentMedicalCountAggregateInputType | true
+    _min?: AntecedentMedicalMinAggregateInputType
+    _max?: AntecedentMedicalMaxAggregateInputType
+  }
+
+  export type AntecedentMedicalGroupByOutputType = {
+    id: string
+    hospital_id: string
+    patient_id: string
+    type: $Enums.TypeAntecedent
+    libelle: string
+    date_debut: Date | null
+    date_fin: Date | null
+    est_actif: boolean
+    notes: string | null
+    created_at: Date
+    updated_at: Date
+    _count: AntecedentMedicalCountAggregateOutputType | null
+    _min: AntecedentMedicalMinAggregateOutputType | null
+    _max: AntecedentMedicalMaxAggregateOutputType | null
+  }
+
+  type GetAntecedentMedicalGroupByPayload<T extends AntecedentMedicalGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AntecedentMedicalGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AntecedentMedicalGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AntecedentMedicalGroupByOutputType[P]>
+            : GetScalarType<T[P], AntecedentMedicalGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AntecedentMedicalSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    patient_id?: boolean
+    type?: boolean
+    libelle?: boolean
+    date_debut?: boolean
+    date_fin?: boolean
+    est_actif?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["antecedentMedical"]>
+
+  export type AntecedentMedicalSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    patient_id?: boolean
+    type?: boolean
+    libelle?: boolean
+    date_debut?: boolean
+    date_fin?: boolean
+    est_actif?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["antecedentMedical"]>
+
+  export type AntecedentMedicalSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hospital_id?: boolean
+    patient_id?: boolean
+    type?: boolean
+    libelle?: boolean
+    date_debut?: boolean
+    date_fin?: boolean
+    est_actif?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["antecedentMedical"]>
+
+  export type AntecedentMedicalSelectScalar = {
+    id?: boolean
+    hospital_id?: boolean
+    patient_id?: boolean
+    type?: boolean
+    libelle?: boolean
+    date_debut?: boolean
+    date_fin?: boolean
+    est_actif?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type AntecedentMedicalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hospital_id" | "patient_id" | "type" | "libelle" | "date_debut" | "date_fin" | "est_actif" | "notes" | "created_at" | "updated_at", ExtArgs["result"]["antecedentMedical"]>
+  export type AntecedentMedicalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+  }
+  export type AntecedentMedicalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+  }
+  export type AntecedentMedicalIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalDefaultArgs<ExtArgs>
+    patient?: boolean | PatientDefaultArgs<ExtArgs>
+  }
+
+  export type $AntecedentMedicalPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AntecedentMedical"
+    objects: {
+      hospital: Prisma.$HospitalPayload<ExtArgs>
+      patient: Prisma.$PatientPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      hospital_id: string
+      patient_id: string
+      type: $Enums.TypeAntecedent
+      libelle: string
+      date_debut: Date | null
+      date_fin: Date | null
+      est_actif: boolean
+      notes: string | null
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["antecedentMedical"]>
+    composites: {}
+  }
+
+  type AntecedentMedicalGetPayload<S extends boolean | null | undefined | AntecedentMedicalDefaultArgs> = $Result.GetResult<Prisma.$AntecedentMedicalPayload, S>
+
+  type AntecedentMedicalCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AntecedentMedicalFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AntecedentMedicalCountAggregateInputType | true
+    }
+
+  export interface AntecedentMedicalDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AntecedentMedical'], meta: { name: 'AntecedentMedical' } }
+    /**
+     * Find zero or one AntecedentMedical that matches the filter.
+     * @param {AntecedentMedicalFindUniqueArgs} args - Arguments to find a AntecedentMedical
+     * @example
+     * // Get one AntecedentMedical
+     * const antecedentMedical = await prisma.antecedentMedical.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AntecedentMedicalFindUniqueArgs>(args: SelectSubset<T, AntecedentMedicalFindUniqueArgs<ExtArgs>>): Prisma__AntecedentMedicalClient<$Result.GetResult<Prisma.$AntecedentMedicalPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AntecedentMedical that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AntecedentMedicalFindUniqueOrThrowArgs} args - Arguments to find a AntecedentMedical
+     * @example
+     * // Get one AntecedentMedical
+     * const antecedentMedical = await prisma.antecedentMedical.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AntecedentMedicalFindUniqueOrThrowArgs>(args: SelectSubset<T, AntecedentMedicalFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AntecedentMedicalClient<$Result.GetResult<Prisma.$AntecedentMedicalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AntecedentMedical that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AntecedentMedicalFindFirstArgs} args - Arguments to find a AntecedentMedical
+     * @example
+     * // Get one AntecedentMedical
+     * const antecedentMedical = await prisma.antecedentMedical.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AntecedentMedicalFindFirstArgs>(args?: SelectSubset<T, AntecedentMedicalFindFirstArgs<ExtArgs>>): Prisma__AntecedentMedicalClient<$Result.GetResult<Prisma.$AntecedentMedicalPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AntecedentMedical that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AntecedentMedicalFindFirstOrThrowArgs} args - Arguments to find a AntecedentMedical
+     * @example
+     * // Get one AntecedentMedical
+     * const antecedentMedical = await prisma.antecedentMedical.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AntecedentMedicalFindFirstOrThrowArgs>(args?: SelectSubset<T, AntecedentMedicalFindFirstOrThrowArgs<ExtArgs>>): Prisma__AntecedentMedicalClient<$Result.GetResult<Prisma.$AntecedentMedicalPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AntecedentMedicals that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AntecedentMedicalFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AntecedentMedicals
+     * const antecedentMedicals = await prisma.antecedentMedical.findMany()
+     * 
+     * // Get first 10 AntecedentMedicals
+     * const antecedentMedicals = await prisma.antecedentMedical.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const antecedentMedicalWithIdOnly = await prisma.antecedentMedical.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AntecedentMedicalFindManyArgs>(args?: SelectSubset<T, AntecedentMedicalFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AntecedentMedicalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AntecedentMedical.
+     * @param {AntecedentMedicalCreateArgs} args - Arguments to create a AntecedentMedical.
+     * @example
+     * // Create one AntecedentMedical
+     * const AntecedentMedical = await prisma.antecedentMedical.create({
+     *   data: {
+     *     // ... data to create a AntecedentMedical
+     *   }
+     * })
+     * 
+     */
+    create<T extends AntecedentMedicalCreateArgs>(args: SelectSubset<T, AntecedentMedicalCreateArgs<ExtArgs>>): Prisma__AntecedentMedicalClient<$Result.GetResult<Prisma.$AntecedentMedicalPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AntecedentMedicals.
+     * @param {AntecedentMedicalCreateManyArgs} args - Arguments to create many AntecedentMedicals.
+     * @example
+     * // Create many AntecedentMedicals
+     * const antecedentMedical = await prisma.antecedentMedical.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AntecedentMedicalCreateManyArgs>(args?: SelectSubset<T, AntecedentMedicalCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AntecedentMedicals and returns the data saved in the database.
+     * @param {AntecedentMedicalCreateManyAndReturnArgs} args - Arguments to create many AntecedentMedicals.
+     * @example
+     * // Create many AntecedentMedicals
+     * const antecedentMedical = await prisma.antecedentMedical.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AntecedentMedicals and only return the `id`
+     * const antecedentMedicalWithIdOnly = await prisma.antecedentMedical.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AntecedentMedicalCreateManyAndReturnArgs>(args?: SelectSubset<T, AntecedentMedicalCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AntecedentMedicalPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AntecedentMedical.
+     * @param {AntecedentMedicalDeleteArgs} args - Arguments to delete one AntecedentMedical.
+     * @example
+     * // Delete one AntecedentMedical
+     * const AntecedentMedical = await prisma.antecedentMedical.delete({
+     *   where: {
+     *     // ... filter to delete one AntecedentMedical
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AntecedentMedicalDeleteArgs>(args: SelectSubset<T, AntecedentMedicalDeleteArgs<ExtArgs>>): Prisma__AntecedentMedicalClient<$Result.GetResult<Prisma.$AntecedentMedicalPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AntecedentMedical.
+     * @param {AntecedentMedicalUpdateArgs} args - Arguments to update one AntecedentMedical.
+     * @example
+     * // Update one AntecedentMedical
+     * const antecedentMedical = await prisma.antecedentMedical.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AntecedentMedicalUpdateArgs>(args: SelectSubset<T, AntecedentMedicalUpdateArgs<ExtArgs>>): Prisma__AntecedentMedicalClient<$Result.GetResult<Prisma.$AntecedentMedicalPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AntecedentMedicals.
+     * @param {AntecedentMedicalDeleteManyArgs} args - Arguments to filter AntecedentMedicals to delete.
+     * @example
+     * // Delete a few AntecedentMedicals
+     * const { count } = await prisma.antecedentMedical.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AntecedentMedicalDeleteManyArgs>(args?: SelectSubset<T, AntecedentMedicalDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AntecedentMedicals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AntecedentMedicalUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AntecedentMedicals
+     * const antecedentMedical = await prisma.antecedentMedical.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AntecedentMedicalUpdateManyArgs>(args: SelectSubset<T, AntecedentMedicalUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AntecedentMedicals and returns the data updated in the database.
+     * @param {AntecedentMedicalUpdateManyAndReturnArgs} args - Arguments to update many AntecedentMedicals.
+     * @example
+     * // Update many AntecedentMedicals
+     * const antecedentMedical = await prisma.antecedentMedical.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AntecedentMedicals and only return the `id`
+     * const antecedentMedicalWithIdOnly = await prisma.antecedentMedical.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AntecedentMedicalUpdateManyAndReturnArgs>(args: SelectSubset<T, AntecedentMedicalUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AntecedentMedicalPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AntecedentMedical.
+     * @param {AntecedentMedicalUpsertArgs} args - Arguments to update or create a AntecedentMedical.
+     * @example
+     * // Update or create a AntecedentMedical
+     * const antecedentMedical = await prisma.antecedentMedical.upsert({
+     *   create: {
+     *     // ... data to create a AntecedentMedical
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AntecedentMedical we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AntecedentMedicalUpsertArgs>(args: SelectSubset<T, AntecedentMedicalUpsertArgs<ExtArgs>>): Prisma__AntecedentMedicalClient<$Result.GetResult<Prisma.$AntecedentMedicalPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AntecedentMedicals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AntecedentMedicalCountArgs} args - Arguments to filter AntecedentMedicals to count.
+     * @example
+     * // Count the number of AntecedentMedicals
+     * const count = await prisma.antecedentMedical.count({
+     *   where: {
+     *     // ... the filter for the AntecedentMedicals we want to count
+     *   }
+     * })
+    **/
+    count<T extends AntecedentMedicalCountArgs>(
+      args?: Subset<T, AntecedentMedicalCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AntecedentMedicalCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AntecedentMedical.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AntecedentMedicalAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AntecedentMedicalAggregateArgs>(args: Subset<T, AntecedentMedicalAggregateArgs>): Prisma.PrismaPromise<GetAntecedentMedicalAggregateType<T>>
+
+    /**
+     * Group by AntecedentMedical.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AntecedentMedicalGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AntecedentMedicalGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AntecedentMedicalGroupByArgs['orderBy'] }
+        : { orderBy?: AntecedentMedicalGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AntecedentMedicalGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAntecedentMedicalGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AntecedentMedical model
+   */
+  readonly fields: AntecedentMedicalFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AntecedentMedical.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AntecedentMedicalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    hospital<T extends HospitalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalDefaultArgs<ExtArgs>>): Prisma__HospitalClient<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    patient<T extends PatientDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PatientDefaultArgs<ExtArgs>>): Prisma__PatientClient<$Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AntecedentMedical model
+   */
+  interface AntecedentMedicalFieldRefs {
+    readonly id: FieldRef<"AntecedentMedical", 'String'>
+    readonly hospital_id: FieldRef<"AntecedentMedical", 'String'>
+    readonly patient_id: FieldRef<"AntecedentMedical", 'String'>
+    readonly type: FieldRef<"AntecedentMedical", 'TypeAntecedent'>
+    readonly libelle: FieldRef<"AntecedentMedical", 'String'>
+    readonly date_debut: FieldRef<"AntecedentMedical", 'DateTime'>
+    readonly date_fin: FieldRef<"AntecedentMedical", 'DateTime'>
+    readonly est_actif: FieldRef<"AntecedentMedical", 'Boolean'>
+    readonly notes: FieldRef<"AntecedentMedical", 'String'>
+    readonly created_at: FieldRef<"AntecedentMedical", 'DateTime'>
+    readonly updated_at: FieldRef<"AntecedentMedical", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AntecedentMedical findUnique
+   */
+  export type AntecedentMedicalFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AntecedentMedical
+     */
+    select?: AntecedentMedicalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AntecedentMedical
+     */
+    omit?: AntecedentMedicalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AntecedentMedicalInclude<ExtArgs> | null
+    /**
+     * Filter, which AntecedentMedical to fetch.
+     */
+    where: AntecedentMedicalWhereUniqueInput
+  }
+
+  /**
+   * AntecedentMedical findUniqueOrThrow
+   */
+  export type AntecedentMedicalFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AntecedentMedical
+     */
+    select?: AntecedentMedicalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AntecedentMedical
+     */
+    omit?: AntecedentMedicalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AntecedentMedicalInclude<ExtArgs> | null
+    /**
+     * Filter, which AntecedentMedical to fetch.
+     */
+    where: AntecedentMedicalWhereUniqueInput
+  }
+
+  /**
+   * AntecedentMedical findFirst
+   */
+  export type AntecedentMedicalFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AntecedentMedical
+     */
+    select?: AntecedentMedicalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AntecedentMedical
+     */
+    omit?: AntecedentMedicalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AntecedentMedicalInclude<ExtArgs> | null
+    /**
+     * Filter, which AntecedentMedical to fetch.
+     */
+    where?: AntecedentMedicalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AntecedentMedicals to fetch.
+     */
+    orderBy?: AntecedentMedicalOrderByWithRelationInput | AntecedentMedicalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AntecedentMedicals.
+     */
+    cursor?: AntecedentMedicalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AntecedentMedicals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AntecedentMedicals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AntecedentMedicals.
+     */
+    distinct?: AntecedentMedicalScalarFieldEnum | AntecedentMedicalScalarFieldEnum[]
+  }
+
+  /**
+   * AntecedentMedical findFirstOrThrow
+   */
+  export type AntecedentMedicalFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AntecedentMedical
+     */
+    select?: AntecedentMedicalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AntecedentMedical
+     */
+    omit?: AntecedentMedicalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AntecedentMedicalInclude<ExtArgs> | null
+    /**
+     * Filter, which AntecedentMedical to fetch.
+     */
+    where?: AntecedentMedicalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AntecedentMedicals to fetch.
+     */
+    orderBy?: AntecedentMedicalOrderByWithRelationInput | AntecedentMedicalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AntecedentMedicals.
+     */
+    cursor?: AntecedentMedicalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AntecedentMedicals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AntecedentMedicals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AntecedentMedicals.
+     */
+    distinct?: AntecedentMedicalScalarFieldEnum | AntecedentMedicalScalarFieldEnum[]
+  }
+
+  /**
+   * AntecedentMedical findMany
+   */
+  export type AntecedentMedicalFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AntecedentMedical
+     */
+    select?: AntecedentMedicalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AntecedentMedical
+     */
+    omit?: AntecedentMedicalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AntecedentMedicalInclude<ExtArgs> | null
+    /**
+     * Filter, which AntecedentMedicals to fetch.
+     */
+    where?: AntecedentMedicalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AntecedentMedicals to fetch.
+     */
+    orderBy?: AntecedentMedicalOrderByWithRelationInput | AntecedentMedicalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AntecedentMedicals.
+     */
+    cursor?: AntecedentMedicalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AntecedentMedicals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AntecedentMedicals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AntecedentMedicals.
+     */
+    distinct?: AntecedentMedicalScalarFieldEnum | AntecedentMedicalScalarFieldEnum[]
+  }
+
+  /**
+   * AntecedentMedical create
+   */
+  export type AntecedentMedicalCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AntecedentMedical
+     */
+    select?: AntecedentMedicalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AntecedentMedical
+     */
+    omit?: AntecedentMedicalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AntecedentMedicalInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AntecedentMedical.
+     */
+    data: XOR<AntecedentMedicalCreateInput, AntecedentMedicalUncheckedCreateInput>
+  }
+
+  /**
+   * AntecedentMedical createMany
+   */
+  export type AntecedentMedicalCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AntecedentMedicals.
+     */
+    data: AntecedentMedicalCreateManyInput | AntecedentMedicalCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AntecedentMedical createManyAndReturn
+   */
+  export type AntecedentMedicalCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AntecedentMedical
+     */
+    select?: AntecedentMedicalSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AntecedentMedical
+     */
+    omit?: AntecedentMedicalOmit<ExtArgs> | null
+    /**
+     * The data used to create many AntecedentMedicals.
+     */
+    data: AntecedentMedicalCreateManyInput | AntecedentMedicalCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AntecedentMedicalIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AntecedentMedical update
+   */
+  export type AntecedentMedicalUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AntecedentMedical
+     */
+    select?: AntecedentMedicalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AntecedentMedical
+     */
+    omit?: AntecedentMedicalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AntecedentMedicalInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AntecedentMedical.
+     */
+    data: XOR<AntecedentMedicalUpdateInput, AntecedentMedicalUncheckedUpdateInput>
+    /**
+     * Choose, which AntecedentMedical to update.
+     */
+    where: AntecedentMedicalWhereUniqueInput
+  }
+
+  /**
+   * AntecedentMedical updateMany
+   */
+  export type AntecedentMedicalUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AntecedentMedicals.
+     */
+    data: XOR<AntecedentMedicalUpdateManyMutationInput, AntecedentMedicalUncheckedUpdateManyInput>
+    /**
+     * Filter which AntecedentMedicals to update
+     */
+    where?: AntecedentMedicalWhereInput
+    /**
+     * Limit how many AntecedentMedicals to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AntecedentMedical updateManyAndReturn
+   */
+  export type AntecedentMedicalUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AntecedentMedical
+     */
+    select?: AntecedentMedicalSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AntecedentMedical
+     */
+    omit?: AntecedentMedicalOmit<ExtArgs> | null
+    /**
+     * The data used to update AntecedentMedicals.
+     */
+    data: XOR<AntecedentMedicalUpdateManyMutationInput, AntecedentMedicalUncheckedUpdateManyInput>
+    /**
+     * Filter which AntecedentMedicals to update
+     */
+    where?: AntecedentMedicalWhereInput
+    /**
+     * Limit how many AntecedentMedicals to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AntecedentMedicalIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AntecedentMedical upsert
+   */
+  export type AntecedentMedicalUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AntecedentMedical
+     */
+    select?: AntecedentMedicalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AntecedentMedical
+     */
+    omit?: AntecedentMedicalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AntecedentMedicalInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AntecedentMedical to update in case it exists.
+     */
+    where: AntecedentMedicalWhereUniqueInput
+    /**
+     * In case the AntecedentMedical found by the `where` argument doesn't exist, create a new AntecedentMedical with this data.
+     */
+    create: XOR<AntecedentMedicalCreateInput, AntecedentMedicalUncheckedCreateInput>
+    /**
+     * In case the AntecedentMedical was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AntecedentMedicalUpdateInput, AntecedentMedicalUncheckedUpdateInput>
+  }
+
+  /**
+   * AntecedentMedical delete
+   */
+  export type AntecedentMedicalDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AntecedentMedical
+     */
+    select?: AntecedentMedicalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AntecedentMedical
+     */
+    omit?: AntecedentMedicalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AntecedentMedicalInclude<ExtArgs> | null
+    /**
+     * Filter which AntecedentMedical to delete.
+     */
+    where: AntecedentMedicalWhereUniqueInput
+  }
+
+  /**
+   * AntecedentMedical deleteMany
+   */
+  export type AntecedentMedicalDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AntecedentMedicals to delete
+     */
+    where?: AntecedentMedicalWhereInput
+    /**
+     * Limit how many AntecedentMedicals to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AntecedentMedical without action
+   */
+  export type AntecedentMedicalDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AntecedentMedical
+     */
+    select?: AntecedentMedicalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AntecedentMedical
+     */
+    omit?: AntecedentMedicalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AntecedentMedicalInclude<ExtArgs> | null
   }
 
 
@@ -34824,6 +37664,7 @@ export namespace Prisma {
     patient_id: 'patient_id',
     medecin_id: 'medecin_id',
     statut: 'statut',
+    type_acte: 'type_acte',
     motif: 'motif',
     diagnostic: 'diagnostic',
     notes: 'notes',
@@ -35177,6 +38018,41 @@ export namespace Prisma {
   export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
 
 
+  export const RendezVousScalarFieldEnum: {
+    id: 'id',
+    hospital_id: 'hospital_id',
+    patient_id: 'patient_id',
+    medecin_id: 'medecin_id',
+    service_id: 'service_id',
+    date_heure: 'date_heure',
+    duree_min: 'duree_min',
+    statut: 'statut',
+    motif: 'motif',
+    notes: 'notes',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type RendezVousScalarFieldEnum = (typeof RendezVousScalarFieldEnum)[keyof typeof RendezVousScalarFieldEnum]
+
+
+  export const AntecedentMedicalScalarFieldEnum: {
+    id: 'id',
+    hospital_id: 'hospital_id',
+    patient_id: 'patient_id',
+    type: 'type',
+    libelle: 'libelle',
+    date_debut: 'date_debut',
+    date_fin: 'date_fin',
+    est_actif: 'est_actif',
+    notes: 'notes',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type AntecedentMedicalScalarFieldEnum = (typeof AntecedentMedicalScalarFieldEnum)[keyof typeof AntecedentMedicalScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -35311,6 +38187,20 @@ export namespace Prisma {
    * Reference to a field of type 'StatutConsultation[]'
    */
   export type ListEnumStatutConsultationFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatutConsultation[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TypeActe'
+   */
+  export type EnumTypeActeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TypeActe'>
+    
+
+
+  /**
+   * Reference to a field of type 'TypeActe[]'
+   */
+  export type ListEnumTypeActeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TypeActe[]'>
     
 
 
@@ -35536,6 +38426,34 @@ export namespace Prisma {
    */
   export type ListEnumStatutLigneHospitalisationFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatutLigneHospitalisation[]'>
     
+
+
+  /**
+   * Reference to a field of type 'StatutRendezVous'
+   */
+  export type EnumStatutRendezVousFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatutRendezVous'>
+    
+
+
+  /**
+   * Reference to a field of type 'StatutRendezVous[]'
+   */
+  export type ListEnumStatutRendezVousFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatutRendezVous[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TypeAntecedent'
+   */
+  export type EnumTypeAntecedentFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TypeAntecedent'>
+    
+
+
+  /**
+   * Reference to a field of type 'TypeAntecedent[]'
+   */
+  export type ListEnumTypeAntecedentFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TypeAntecedent[]'>
+    
   /**
    * Deep Input Types
    */
@@ -35573,6 +38491,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationListRelationFilter
     permissions?: PermissionListRelationFilter
     roles_personnalises?: RolePersonnaliseListRelationFilter
+    rendez_vous?: RendezVousListRelationFilter
+    antecedents?: AntecedentMedicalListRelationFilter
   }
 
   export type HospitalOrderByWithRelationInput = {
@@ -35604,6 +38524,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationOrderByRelationAggregateInput
     permissions?: PermissionOrderByRelationAggregateInput
     roles_personnalises?: RolePersonnaliseOrderByRelationAggregateInput
+    rendez_vous?: RendezVousOrderByRelationAggregateInput
+    antecedents?: AntecedentMedicalOrderByRelationAggregateInput
   }
 
   export type HospitalWhereUniqueInput = Prisma.AtLeast<{
@@ -35638,6 +38560,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationListRelationFilter
     permissions?: PermissionListRelationFilter
     roles_personnalises?: RolePersonnaliseListRelationFilter
+    rendez_vous?: RendezVousListRelationFilter
+    antecedents?: AntecedentMedicalListRelationFilter
   }, "id">
 
   export type HospitalOrderByWithAggregationInput = {
@@ -35694,6 +38618,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboListRelationFilter
     examens_imagerie_prescrits?: ExamenImagerieListRelationFilter
     hospitalisations_responsable?: HospitalisationListRelationFilter
+    rendez_vous?: RendezVousListRelationFilter
     role_personnalise?: XOR<RolePersonnaliseNullableScalarRelationFilter, RolePersonnaliseWhereInput> | null
   }
 
@@ -35716,6 +38641,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboOrderByRelationAggregateInput
     examens_imagerie_prescrits?: ExamenImagerieOrderByRelationAggregateInput
     hospitalisations_responsable?: HospitalisationOrderByRelationAggregateInput
+    rendez_vous?: RendezVousOrderByRelationAggregateInput
     role_personnalise?: RolePersonnaliseOrderByWithRelationInput
   }
 
@@ -35741,6 +38667,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboListRelationFilter
     examens_imagerie_prescrits?: ExamenImagerieListRelationFilter
     hospitalisations_responsable?: HospitalisationListRelationFilter
+    rendez_vous?: RendezVousListRelationFilter
     role_personnalise?: XOR<RolePersonnaliseNullableScalarRelationFilter, RolePersonnaliseWhereInput> | null
   }, "id" | "supabase_uid" | "email">
 
@@ -35808,6 +38735,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieListRelationFilter
     qr_tokens?: QrTokenListRelationFilter
     sejours?: HospitalisationListRelationFilter
+    rendez_vous?: RendezVousListRelationFilter
+    antecedents_med?: AntecedentMedicalListRelationFilter
   }
 
   export type PatientOrderByWithRelationInput = {
@@ -35833,6 +38762,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieOrderByRelationAggregateInput
     qr_tokens?: QrTokenOrderByRelationAggregateInput
     sejours?: HospitalisationOrderByRelationAggregateInput
+    rendez_vous?: RendezVousOrderByRelationAggregateInput
+    antecedents_med?: AntecedentMedicalOrderByRelationAggregateInput
   }
 
   export type PatientWhereUniqueInput = Prisma.AtLeast<{
@@ -35861,6 +38792,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieListRelationFilter
     qr_tokens?: QrTokenListRelationFilter
     sejours?: HospitalisationListRelationFilter
+    rendez_vous?: RendezVousListRelationFilter
+    antecedents_med?: AntecedentMedicalListRelationFilter
   }, "id" | "numero_dossier">
 
   export type PatientOrderByWithAggregationInput = {
@@ -35995,6 +38928,7 @@ export namespace Prisma {
     patient_id?: StringFilter<"Consultation"> | string
     medecin_id?: StringFilter<"Consultation"> | string
     statut?: EnumStatutConsultationFilter<"Consultation"> | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFilter<"Consultation"> | $Enums.TypeActe
     motif?: StringNullableFilter<"Consultation"> | string | null
     diagnostic?: StringNullableFilter<"Consultation"> | string | null
     notes?: StringNullableFilter<"Consultation"> | string | null
@@ -36020,6 +38954,7 @@ export namespace Prisma {
     patient_id?: SortOrder
     medecin_id?: SortOrder
     statut?: SortOrder
+    type_acte?: SortOrder
     motif?: SortOrderInput | SortOrder
     diagnostic?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
@@ -36048,6 +38983,7 @@ export namespace Prisma {
     patient_id?: StringFilter<"Consultation"> | string
     medecin_id?: StringFilter<"Consultation"> | string
     statut?: EnumStatutConsultationFilter<"Consultation"> | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFilter<"Consultation"> | $Enums.TypeActe
     motif?: StringNullableFilter<"Consultation"> | string | null
     diagnostic?: StringNullableFilter<"Consultation"> | string | null
     notes?: StringNullableFilter<"Consultation"> | string | null
@@ -36073,6 +39009,7 @@ export namespace Prisma {
     patient_id?: SortOrder
     medecin_id?: SortOrder
     statut?: SortOrder
+    type_acte?: SortOrder
     motif?: SortOrderInput | SortOrder
     diagnostic?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
@@ -36100,6 +39037,7 @@ export namespace Prisma {
     patient_id?: StringWithAggregatesFilter<"Consultation"> | string
     medecin_id?: StringWithAggregatesFilter<"Consultation"> | string
     statut?: EnumStatutConsultationWithAggregatesFilter<"Consultation"> | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeWithAggregatesFilter<"Consultation"> | $Enums.TypeActe
     motif?: StringNullableWithAggregatesFilter<"Consultation"> | string | null
     diagnostic?: StringNullableWithAggregatesFilter<"Consultation"> | string | null
     notes?: StringNullableWithAggregatesFilter<"Consultation"> | string | null
@@ -37867,6 +40805,7 @@ export namespace Prisma {
     hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
     consultations?: ConsultationListRelationFilter
     hospitalisations?: HospitalisationListRelationFilter
+    rendez_vous?: RendezVousListRelationFilter
   }
 
   export type ServiceOrderByWithRelationInput = {
@@ -37881,6 +40820,7 @@ export namespace Prisma {
     hospital?: HospitalOrderByWithRelationInput
     consultations?: ConsultationOrderByRelationAggregateInput
     hospitalisations?: HospitalisationOrderByRelationAggregateInput
+    rendez_vous?: RendezVousOrderByRelationAggregateInput
   }
 
   export type ServiceWhereUniqueInput = Prisma.AtLeast<{
@@ -37899,6 +40839,7 @@ export namespace Prisma {
     hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
     consultations?: ConsultationListRelationFilter
     hospitalisations?: HospitalisationListRelationFilter
+    rendez_vous?: RendezVousListRelationFilter
   }, "id" | "hospital_id_nom">
 
   export type ServiceOrderByWithAggregationInput = {
@@ -37927,6 +40868,195 @@ export namespace Prisma {
     est_actif?: BoolWithAggregatesFilter<"Service"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"Service"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Service"> | Date | string
+  }
+
+  export type RendezVousWhereInput = {
+    AND?: RendezVousWhereInput | RendezVousWhereInput[]
+    OR?: RendezVousWhereInput[]
+    NOT?: RendezVousWhereInput | RendezVousWhereInput[]
+    id?: StringFilter<"RendezVous"> | string
+    hospital_id?: StringFilter<"RendezVous"> | string
+    patient_id?: StringFilter<"RendezVous"> | string
+    medecin_id?: StringFilter<"RendezVous"> | string
+    service_id?: StringNullableFilter<"RendezVous"> | string | null
+    date_heure?: DateTimeFilter<"RendezVous"> | Date | string
+    duree_min?: IntFilter<"RendezVous"> | number
+    statut?: EnumStatutRendezVousFilter<"RendezVous"> | $Enums.StatutRendezVous
+    motif?: StringNullableFilter<"RendezVous"> | string | null
+    notes?: StringNullableFilter<"RendezVous"> | string | null
+    created_at?: DateTimeFilter<"RendezVous"> | Date | string
+    updated_at?: DateTimeFilter<"RendezVous"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+    patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
+    medecin?: XOR<UtilisateurScalarRelationFilter, UtilisateurWhereInput>
+    service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
+  }
+
+  export type RendezVousOrderByWithRelationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    patient_id?: SortOrder
+    medecin_id?: SortOrder
+    service_id?: SortOrderInput | SortOrder
+    date_heure?: SortOrder
+    duree_min?: SortOrder
+    statut?: SortOrder
+    motif?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    hospital?: HospitalOrderByWithRelationInput
+    patient?: PatientOrderByWithRelationInput
+    medecin?: UtilisateurOrderByWithRelationInput
+    service?: ServiceOrderByWithRelationInput
+  }
+
+  export type RendezVousWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RendezVousWhereInput | RendezVousWhereInput[]
+    OR?: RendezVousWhereInput[]
+    NOT?: RendezVousWhereInput | RendezVousWhereInput[]
+    hospital_id?: StringFilter<"RendezVous"> | string
+    patient_id?: StringFilter<"RendezVous"> | string
+    medecin_id?: StringFilter<"RendezVous"> | string
+    service_id?: StringNullableFilter<"RendezVous"> | string | null
+    date_heure?: DateTimeFilter<"RendezVous"> | Date | string
+    duree_min?: IntFilter<"RendezVous"> | number
+    statut?: EnumStatutRendezVousFilter<"RendezVous"> | $Enums.StatutRendezVous
+    motif?: StringNullableFilter<"RendezVous"> | string | null
+    notes?: StringNullableFilter<"RendezVous"> | string | null
+    created_at?: DateTimeFilter<"RendezVous"> | Date | string
+    updated_at?: DateTimeFilter<"RendezVous"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+    patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
+    medecin?: XOR<UtilisateurScalarRelationFilter, UtilisateurWhereInput>
+    service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
+  }, "id">
+
+  export type RendezVousOrderByWithAggregationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    patient_id?: SortOrder
+    medecin_id?: SortOrder
+    service_id?: SortOrderInput | SortOrder
+    date_heure?: SortOrder
+    duree_min?: SortOrder
+    statut?: SortOrder
+    motif?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: RendezVousCountOrderByAggregateInput
+    _avg?: RendezVousAvgOrderByAggregateInput
+    _max?: RendezVousMaxOrderByAggregateInput
+    _min?: RendezVousMinOrderByAggregateInput
+    _sum?: RendezVousSumOrderByAggregateInput
+  }
+
+  export type RendezVousScalarWhereWithAggregatesInput = {
+    AND?: RendezVousScalarWhereWithAggregatesInput | RendezVousScalarWhereWithAggregatesInput[]
+    OR?: RendezVousScalarWhereWithAggregatesInput[]
+    NOT?: RendezVousScalarWhereWithAggregatesInput | RendezVousScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RendezVous"> | string
+    hospital_id?: StringWithAggregatesFilter<"RendezVous"> | string
+    patient_id?: StringWithAggregatesFilter<"RendezVous"> | string
+    medecin_id?: StringWithAggregatesFilter<"RendezVous"> | string
+    service_id?: StringNullableWithAggregatesFilter<"RendezVous"> | string | null
+    date_heure?: DateTimeWithAggregatesFilter<"RendezVous"> | Date | string
+    duree_min?: IntWithAggregatesFilter<"RendezVous"> | number
+    statut?: EnumStatutRendezVousWithAggregatesFilter<"RendezVous"> | $Enums.StatutRendezVous
+    motif?: StringNullableWithAggregatesFilter<"RendezVous"> | string | null
+    notes?: StringNullableWithAggregatesFilter<"RendezVous"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"RendezVous"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"RendezVous"> | Date | string
+  }
+
+  export type AntecedentMedicalWhereInput = {
+    AND?: AntecedentMedicalWhereInput | AntecedentMedicalWhereInput[]
+    OR?: AntecedentMedicalWhereInput[]
+    NOT?: AntecedentMedicalWhereInput | AntecedentMedicalWhereInput[]
+    id?: StringFilter<"AntecedentMedical"> | string
+    hospital_id?: StringFilter<"AntecedentMedical"> | string
+    patient_id?: StringFilter<"AntecedentMedical"> | string
+    type?: EnumTypeAntecedentFilter<"AntecedentMedical"> | $Enums.TypeAntecedent
+    libelle?: StringFilter<"AntecedentMedical"> | string
+    date_debut?: DateTimeNullableFilter<"AntecedentMedical"> | Date | string | null
+    date_fin?: DateTimeNullableFilter<"AntecedentMedical"> | Date | string | null
+    est_actif?: BoolFilter<"AntecedentMedical"> | boolean
+    notes?: StringNullableFilter<"AntecedentMedical"> | string | null
+    created_at?: DateTimeFilter<"AntecedentMedical"> | Date | string
+    updated_at?: DateTimeFilter<"AntecedentMedical"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+    patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
+  }
+
+  export type AntecedentMedicalOrderByWithRelationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    patient_id?: SortOrder
+    type?: SortOrder
+    libelle?: SortOrder
+    date_debut?: SortOrderInput | SortOrder
+    date_fin?: SortOrderInput | SortOrder
+    est_actif?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    hospital?: HospitalOrderByWithRelationInput
+    patient?: PatientOrderByWithRelationInput
+  }
+
+  export type AntecedentMedicalWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AntecedentMedicalWhereInput | AntecedentMedicalWhereInput[]
+    OR?: AntecedentMedicalWhereInput[]
+    NOT?: AntecedentMedicalWhereInput | AntecedentMedicalWhereInput[]
+    hospital_id?: StringFilter<"AntecedentMedical"> | string
+    patient_id?: StringFilter<"AntecedentMedical"> | string
+    type?: EnumTypeAntecedentFilter<"AntecedentMedical"> | $Enums.TypeAntecedent
+    libelle?: StringFilter<"AntecedentMedical"> | string
+    date_debut?: DateTimeNullableFilter<"AntecedentMedical"> | Date | string | null
+    date_fin?: DateTimeNullableFilter<"AntecedentMedical"> | Date | string | null
+    est_actif?: BoolFilter<"AntecedentMedical"> | boolean
+    notes?: StringNullableFilter<"AntecedentMedical"> | string | null
+    created_at?: DateTimeFilter<"AntecedentMedical"> | Date | string
+    updated_at?: DateTimeFilter<"AntecedentMedical"> | Date | string
+    hospital?: XOR<HospitalScalarRelationFilter, HospitalWhereInput>
+    patient?: XOR<PatientScalarRelationFilter, PatientWhereInput>
+  }, "id">
+
+  export type AntecedentMedicalOrderByWithAggregationInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    patient_id?: SortOrder
+    type?: SortOrder
+    libelle?: SortOrder
+    date_debut?: SortOrderInput | SortOrder
+    date_fin?: SortOrderInput | SortOrder
+    est_actif?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: AntecedentMedicalCountOrderByAggregateInput
+    _max?: AntecedentMedicalMaxOrderByAggregateInput
+    _min?: AntecedentMedicalMinOrderByAggregateInput
+  }
+
+  export type AntecedentMedicalScalarWhereWithAggregatesInput = {
+    AND?: AntecedentMedicalScalarWhereWithAggregatesInput | AntecedentMedicalScalarWhereWithAggregatesInput[]
+    OR?: AntecedentMedicalScalarWhereWithAggregatesInput[]
+    NOT?: AntecedentMedicalScalarWhereWithAggregatesInput | AntecedentMedicalScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AntecedentMedical"> | string
+    hospital_id?: StringWithAggregatesFilter<"AntecedentMedical"> | string
+    patient_id?: StringWithAggregatesFilter<"AntecedentMedical"> | string
+    type?: EnumTypeAntecedentWithAggregatesFilter<"AntecedentMedical"> | $Enums.TypeAntecedent
+    libelle?: StringWithAggregatesFilter<"AntecedentMedical"> | string
+    date_debut?: DateTimeNullableWithAggregatesFilter<"AntecedentMedical"> | Date | string | null
+    date_fin?: DateTimeNullableWithAggregatesFilter<"AntecedentMedical"> | Date | string | null
+    est_actif?: BoolWithAggregatesFilter<"AntecedentMedical"> | boolean
+    notes?: StringNullableWithAggregatesFilter<"AntecedentMedical"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"AntecedentMedical"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"AntecedentMedical"> | Date | string
   }
 
   export type HospitalCreateInput = {
@@ -37958,6 +41088,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateInput = {
@@ -37989,6 +41121,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUpdateInput = {
@@ -38020,6 +41154,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateInput = {
@@ -38051,6 +41187,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalCreateManyInput = {
@@ -38109,6 +41247,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboCreateNestedManyWithoutMedecinInput
     examens_imagerie_prescrits?: ExamenImagerieCreateNestedManyWithoutMedecinInput
     hospitalisations_responsable?: HospitalisationCreateNestedManyWithoutMedecinInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutMedecinInput
     role_personnalise?: RolePersonnaliseCreateNestedOneWithoutUtilisateursInput
   }
 
@@ -38130,6 +41269,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboUncheckedCreateNestedManyWithoutMedecinInput
     examens_imagerie_prescrits?: ExamenImagerieUncheckedCreateNestedManyWithoutMedecinInput
     hospitalisations_responsable?: HospitalisationUncheckedCreateNestedManyWithoutMedecinInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutMedecinInput
   }
 
   export type UtilisateurUpdateInput = {
@@ -38149,6 +41289,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboUpdateManyWithoutMedecinNestedInput
     examens_imagerie_prescrits?: ExamenImagerieUpdateManyWithoutMedecinNestedInput
     hospitalisations_responsable?: HospitalisationUpdateManyWithoutMedecinNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutMedecinNestedInput
     role_personnalise?: RolePersonnaliseUpdateOneWithoutUtilisateursNestedInput
   }
 
@@ -38170,6 +41311,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboUncheckedUpdateManyWithoutMedecinNestedInput
     examens_imagerie_prescrits?: ExamenImagerieUncheckedUpdateManyWithoutMedecinNestedInput
     hospitalisations_responsable?: HospitalisationUncheckedUpdateManyWithoutMedecinNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutMedecinNestedInput
   }
 
   export type UtilisateurCreateManyInput = {
@@ -38241,6 +41383,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutPatientInput
     qr_tokens?: QrTokenCreateNestedManyWithoutPatientInput
     sejours?: HospitalisationCreateNestedManyWithoutPatientInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutPatientInput
+    antecedents_med?: AntecedentMedicalCreateNestedManyWithoutPatientInput
   }
 
   export type PatientUncheckedCreateInput = {
@@ -38266,6 +41410,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutPatientInput
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutPatientInput
     sejours?: HospitalisationUncheckedCreateNestedManyWithoutPatientInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutPatientInput
+    antecedents_med?: AntecedentMedicalUncheckedCreateNestedManyWithoutPatientInput
   }
 
   export type PatientUpdateInput = {
@@ -38291,6 +41437,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUpdateManyWithoutPatientNestedInput
     qr_tokens?: QrTokenUpdateManyWithoutPatientNestedInput
     sejours?: HospitalisationUpdateManyWithoutPatientNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutPatientNestedInput
+    antecedents_med?: AntecedentMedicalUpdateManyWithoutPatientNestedInput
   }
 
   export type PatientUncheckedUpdateInput = {
@@ -38316,6 +41464,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutPatientNestedInput
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutPatientNestedInput
     sejours?: HospitalisationUncheckedUpdateManyWithoutPatientNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutPatientNestedInput
+    antecedents_med?: AntecedentMedicalUncheckedUpdateManyWithoutPatientNestedInput
   }
 
   export type PatientCreateManyInput = {
@@ -38457,6 +41607,7 @@ export namespace Prisma {
   export type ConsultationCreateInput = {
     id?: string
     statut?: $Enums.StatutConsultation
+    type_acte?: $Enums.TypeActe
     motif?: string | null
     diagnostic?: string | null
     notes?: string | null
@@ -38481,6 +41632,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     statut?: $Enums.StatutConsultation
+    type_acte?: $Enums.TypeActe
     motif?: string | null
     diagnostic?: string | null
     notes?: string | null
@@ -38499,6 +41651,7 @@ export namespace Prisma {
   export type ConsultationUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFieldUpdateOperationsInput | $Enums.TypeActe
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -38523,6 +41676,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFieldUpdateOperationsInput | $Enums.TypeActe
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -38544,6 +41698,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     statut?: $Enums.StatutConsultation
+    type_acte?: $Enums.TypeActe
     motif?: string | null
     diagnostic?: string | null
     notes?: string | null
@@ -38560,6 +41715,7 @@ export namespace Prisma {
   export type ConsultationUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFieldUpdateOperationsInput | $Enums.TypeActe
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -38578,6 +41734,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFieldUpdateOperationsInput | $Enums.TypeActe
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -40482,6 +43639,7 @@ export namespace Prisma {
     hospital: HospitalCreateNestedOneWithoutServicesInput
     consultations?: ConsultationCreateNestedManyWithoutServiceInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutServiceInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateInput = {
@@ -40495,6 +43653,7 @@ export namespace Prisma {
     updated_at?: Date | string
     consultations?: ConsultationUncheckedCreateNestedManyWithoutServiceInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutServiceInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUpdateInput = {
@@ -40508,6 +43667,7 @@ export namespace Prisma {
     hospital?: HospitalUpdateOneRequiredWithoutServicesNestedInput
     consultations?: ConsultationUpdateManyWithoutServiceNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutServiceNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateInput = {
@@ -40521,6 +43681,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     consultations?: ConsultationUncheckedUpdateManyWithoutServiceNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutServiceNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceCreateManyInput = {
@@ -40551,6 +43712,203 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     couleur?: StringFieldUpdateOperationsInput | string
     est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RendezVousCreateInput = {
+    id?: string
+    date_heure: Date | string
+    duree_min?: number
+    statut?: $Enums.StatutRendezVous
+    motif?: string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutRendez_vousInput
+    patient: PatientCreateNestedOneWithoutRendez_vousInput
+    medecin: UtilisateurCreateNestedOneWithoutRendez_vousInput
+    service?: ServiceCreateNestedOneWithoutRendez_vousInput
+  }
+
+  export type RendezVousUncheckedCreateInput = {
+    id?: string
+    hospital_id: string
+    patient_id: string
+    medecin_id: string
+    service_id?: string | null
+    date_heure: Date | string
+    duree_min?: number
+    statut?: $Enums.StatutRendezVous
+    motif?: string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type RendezVousUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date_heure?: DateTimeFieldUpdateOperationsInput | Date | string
+    duree_min?: IntFieldUpdateOperationsInput | number
+    statut?: EnumStatutRendezVousFieldUpdateOperationsInput | $Enums.StatutRendezVous
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutRendez_vousNestedInput
+    patient?: PatientUpdateOneRequiredWithoutRendez_vousNestedInput
+    medecin?: UtilisateurUpdateOneRequiredWithoutRendez_vousNestedInput
+    service?: ServiceUpdateOneWithoutRendez_vousNestedInput
+  }
+
+  export type RendezVousUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    medecin_id?: StringFieldUpdateOperationsInput | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
+    date_heure?: DateTimeFieldUpdateOperationsInput | Date | string
+    duree_min?: IntFieldUpdateOperationsInput | number
+    statut?: EnumStatutRendezVousFieldUpdateOperationsInput | $Enums.StatutRendezVous
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RendezVousCreateManyInput = {
+    id?: string
+    hospital_id: string
+    patient_id: string
+    medecin_id: string
+    service_id?: string | null
+    date_heure: Date | string
+    duree_min?: number
+    statut?: $Enums.StatutRendezVous
+    motif?: string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type RendezVousUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date_heure?: DateTimeFieldUpdateOperationsInput | Date | string
+    duree_min?: IntFieldUpdateOperationsInput | number
+    statut?: EnumStatutRendezVousFieldUpdateOperationsInput | $Enums.StatutRendezVous
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RendezVousUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    medecin_id?: StringFieldUpdateOperationsInput | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
+    date_heure?: DateTimeFieldUpdateOperationsInput | Date | string
+    duree_min?: IntFieldUpdateOperationsInput | number
+    statut?: EnumStatutRendezVousFieldUpdateOperationsInput | $Enums.StatutRendezVous
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AntecedentMedicalCreateInput = {
+    id?: string
+    type: $Enums.TypeAntecedent
+    libelle: string
+    date_debut?: Date | string | null
+    date_fin?: Date | string | null
+    est_actif?: boolean
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutAntecedentsInput
+    patient: PatientCreateNestedOneWithoutAntecedents_medInput
+  }
+
+  export type AntecedentMedicalUncheckedCreateInput = {
+    id?: string
+    hospital_id: string
+    patient_id: string
+    type: $Enums.TypeAntecedent
+    libelle: string
+    date_debut?: Date | string | null
+    date_fin?: Date | string | null
+    est_actif?: boolean
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AntecedentMedicalUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTypeAntecedentFieldUpdateOperationsInput | $Enums.TypeAntecedent
+    libelle?: StringFieldUpdateOperationsInput | string
+    date_debut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    date_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutAntecedentsNestedInput
+    patient?: PatientUpdateOneRequiredWithoutAntecedents_medNestedInput
+  }
+
+  export type AntecedentMedicalUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTypeAntecedentFieldUpdateOperationsInput | $Enums.TypeAntecedent
+    libelle?: StringFieldUpdateOperationsInput | string
+    date_debut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    date_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AntecedentMedicalCreateManyInput = {
+    id?: string
+    hospital_id: string
+    patient_id: string
+    type: $Enums.TypeAntecedent
+    libelle: string
+    date_debut?: Date | string | null
+    date_fin?: Date | string | null
+    est_actif?: boolean
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AntecedentMedicalUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTypeAntecedentFieldUpdateOperationsInput | $Enums.TypeAntecedent
+    libelle?: StringFieldUpdateOperationsInput | string
+    date_debut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    date_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AntecedentMedicalUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTypeAntecedentFieldUpdateOperationsInput | $Enums.TypeAntecedent
+    libelle?: StringFieldUpdateOperationsInput | string
+    date_debut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    date_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -40709,6 +44067,18 @@ export namespace Prisma {
     none?: RolePersonnaliseWhereInput
   }
 
+  export type RendezVousListRelationFilter = {
+    every?: RendezVousWhereInput
+    some?: RendezVousWhereInput
+    none?: RendezVousWhereInput
+  }
+
+  export type AntecedentMedicalListRelationFilter = {
+    every?: AntecedentMedicalWhereInput
+    some?: AntecedentMedicalWhereInput
+    none?: AntecedentMedicalWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -40783,6 +44153,14 @@ export namespace Prisma {
   }
 
   export type RolePersonnaliseOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RendezVousOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AntecedentMedicalOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -41142,6 +44520,13 @@ export namespace Prisma {
     not?: NestedEnumStatutConsultationFilter<$PrismaModel> | $Enums.StatutConsultation
   }
 
+  export type EnumTypeActeFilter<$PrismaModel = never> = {
+    equals?: $Enums.TypeActe | EnumTypeActeFieldRefInput<$PrismaModel>
+    in?: $Enums.TypeActe[] | ListEnumTypeActeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TypeActe[] | ListEnumTypeActeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeActeFilter<$PrismaModel> | $Enums.TypeActe
+  }
+
   export type UtilisateurScalarRelationFilter = {
     is?: UtilisateurWhereInput
     isNot?: UtilisateurWhereInput
@@ -41173,6 +44558,7 @@ export namespace Prisma {
     patient_id?: SortOrder
     medecin_id?: SortOrder
     statut?: SortOrder
+    type_acte?: SortOrder
     motif?: SortOrder
     diagnostic?: SortOrder
     notes?: SortOrder
@@ -41198,6 +44584,7 @@ export namespace Prisma {
     patient_id?: SortOrder
     medecin_id?: SortOrder
     statut?: SortOrder
+    type_acte?: SortOrder
     motif?: SortOrder
     diagnostic?: SortOrder
     notes?: SortOrder
@@ -41217,6 +44604,7 @@ export namespace Prisma {
     patient_id?: SortOrder
     medecin_id?: SortOrder
     statut?: SortOrder
+    type_acte?: SortOrder
     motif?: SortOrder
     diagnostic?: SortOrder
     notes?: SortOrder
@@ -41244,6 +44632,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumStatutConsultationFilter<$PrismaModel>
     _max?: NestedEnumStatutConsultationFilter<$PrismaModel>
+  }
+
+  export type EnumTypeActeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TypeActe | EnumTypeActeFieldRefInput<$PrismaModel>
+    in?: $Enums.TypeActe[] | ListEnumTypeActeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TypeActe[] | ListEnumTypeActeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeActeWithAggregatesFilter<$PrismaModel> | $Enums.TypeActe
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTypeActeFilter<$PrismaModel>
+    _max?: NestedEnumTypeActeFilter<$PrismaModel>
   }
 
   export type ConsultationScalarRelationFilter = {
@@ -42655,6 +46053,135 @@ export namespace Prisma {
     updated_at?: SortOrder
   }
 
+  export type EnumStatutRendezVousFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatutRendezVous | EnumStatutRendezVousFieldRefInput<$PrismaModel>
+    in?: $Enums.StatutRendezVous[] | ListEnumStatutRendezVousFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatutRendezVous[] | ListEnumStatutRendezVousFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatutRendezVousFilter<$PrismaModel> | $Enums.StatutRendezVous
+  }
+
+  export type RendezVousCountOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    patient_id?: SortOrder
+    medecin_id?: SortOrder
+    service_id?: SortOrder
+    date_heure?: SortOrder
+    duree_min?: SortOrder
+    statut?: SortOrder
+    motif?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type RendezVousAvgOrderByAggregateInput = {
+    duree_min?: SortOrder
+  }
+
+  export type RendezVousMaxOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    patient_id?: SortOrder
+    medecin_id?: SortOrder
+    service_id?: SortOrder
+    date_heure?: SortOrder
+    duree_min?: SortOrder
+    statut?: SortOrder
+    motif?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type RendezVousMinOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    patient_id?: SortOrder
+    medecin_id?: SortOrder
+    service_id?: SortOrder
+    date_heure?: SortOrder
+    duree_min?: SortOrder
+    statut?: SortOrder
+    motif?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type RendezVousSumOrderByAggregateInput = {
+    duree_min?: SortOrder
+  }
+
+  export type EnumStatutRendezVousWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatutRendezVous | EnumStatutRendezVousFieldRefInput<$PrismaModel>
+    in?: $Enums.StatutRendezVous[] | ListEnumStatutRendezVousFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatutRendezVous[] | ListEnumStatutRendezVousFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatutRendezVousWithAggregatesFilter<$PrismaModel> | $Enums.StatutRendezVous
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatutRendezVousFilter<$PrismaModel>
+    _max?: NestedEnumStatutRendezVousFilter<$PrismaModel>
+  }
+
+  export type EnumTypeAntecedentFilter<$PrismaModel = never> = {
+    equals?: $Enums.TypeAntecedent | EnumTypeAntecedentFieldRefInput<$PrismaModel>
+    in?: $Enums.TypeAntecedent[] | ListEnumTypeAntecedentFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TypeAntecedent[] | ListEnumTypeAntecedentFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeAntecedentFilter<$PrismaModel> | $Enums.TypeAntecedent
+  }
+
+  export type AntecedentMedicalCountOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    patient_id?: SortOrder
+    type?: SortOrder
+    libelle?: SortOrder
+    date_debut?: SortOrder
+    date_fin?: SortOrder
+    est_actif?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type AntecedentMedicalMaxOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    patient_id?: SortOrder
+    type?: SortOrder
+    libelle?: SortOrder
+    date_debut?: SortOrder
+    date_fin?: SortOrder
+    est_actif?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type AntecedentMedicalMinOrderByAggregateInput = {
+    id?: SortOrder
+    hospital_id?: SortOrder
+    patient_id?: SortOrder
+    type?: SortOrder
+    libelle?: SortOrder
+    date_debut?: SortOrder
+    date_fin?: SortOrder
+    est_actif?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type EnumTypeAntecedentWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TypeAntecedent | EnumTypeAntecedentFieldRefInput<$PrismaModel>
+    in?: $Enums.TypeAntecedent[] | ListEnumTypeAntecedentFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TypeAntecedent[] | ListEnumTypeAntecedentFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeAntecedentWithAggregatesFilter<$PrismaModel> | $Enums.TypeAntecedent
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTypeAntecedentFilter<$PrismaModel>
+    _max?: NestedEnumTypeAntecedentFilter<$PrismaModel>
+  }
+
   export type UtilisateurCreateNestedManyWithoutHospitalInput = {
     create?: XOR<UtilisateurCreateWithoutHospitalInput, UtilisateurUncheckedCreateWithoutHospitalInput> | UtilisateurCreateWithoutHospitalInput[] | UtilisateurUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: UtilisateurCreateOrConnectWithoutHospitalInput | UtilisateurCreateOrConnectWithoutHospitalInput[]
@@ -42781,6 +46308,20 @@ export namespace Prisma {
     connect?: RolePersonnaliseWhereUniqueInput | RolePersonnaliseWhereUniqueInput[]
   }
 
+  export type RendezVousCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<RendezVousCreateWithoutHospitalInput, RendezVousUncheckedCreateWithoutHospitalInput> | RendezVousCreateWithoutHospitalInput[] | RendezVousUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: RendezVousCreateOrConnectWithoutHospitalInput | RendezVousCreateOrConnectWithoutHospitalInput[]
+    createMany?: RendezVousCreateManyHospitalInputEnvelope
+    connect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+  }
+
+  export type AntecedentMedicalCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<AntecedentMedicalCreateWithoutHospitalInput, AntecedentMedicalUncheckedCreateWithoutHospitalInput> | AntecedentMedicalCreateWithoutHospitalInput[] | AntecedentMedicalUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: AntecedentMedicalCreateOrConnectWithoutHospitalInput | AntecedentMedicalCreateOrConnectWithoutHospitalInput[]
+    createMany?: AntecedentMedicalCreateManyHospitalInputEnvelope
+    connect?: AntecedentMedicalWhereUniqueInput | AntecedentMedicalWhereUniqueInput[]
+  }
+
   export type UtilisateurUncheckedCreateNestedManyWithoutHospitalInput = {
     create?: XOR<UtilisateurCreateWithoutHospitalInput, UtilisateurUncheckedCreateWithoutHospitalInput> | UtilisateurCreateWithoutHospitalInput[] | UtilisateurUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: UtilisateurCreateOrConnectWithoutHospitalInput | UtilisateurCreateOrConnectWithoutHospitalInput[]
@@ -42905,6 +46446,20 @@ export namespace Prisma {
     connectOrCreate?: RolePersonnaliseCreateOrConnectWithoutHospitalInput | RolePersonnaliseCreateOrConnectWithoutHospitalInput[]
     createMany?: RolePersonnaliseCreateManyHospitalInputEnvelope
     connect?: RolePersonnaliseWhereUniqueInput | RolePersonnaliseWhereUniqueInput[]
+  }
+
+  export type RendezVousUncheckedCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<RendezVousCreateWithoutHospitalInput, RendezVousUncheckedCreateWithoutHospitalInput> | RendezVousCreateWithoutHospitalInput[] | RendezVousUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: RendezVousCreateOrConnectWithoutHospitalInput | RendezVousCreateOrConnectWithoutHospitalInput[]
+    createMany?: RendezVousCreateManyHospitalInputEnvelope
+    connect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+  }
+
+  export type AntecedentMedicalUncheckedCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<AntecedentMedicalCreateWithoutHospitalInput, AntecedentMedicalUncheckedCreateWithoutHospitalInput> | AntecedentMedicalCreateWithoutHospitalInput[] | AntecedentMedicalUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: AntecedentMedicalCreateOrConnectWithoutHospitalInput | AntecedentMedicalCreateOrConnectWithoutHospitalInput[]
+    createMany?: AntecedentMedicalCreateManyHospitalInputEnvelope
+    connect?: AntecedentMedicalWhereUniqueInput | AntecedentMedicalWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -43175,6 +46730,34 @@ export namespace Prisma {
     deleteMany?: RolePersonnaliseScalarWhereInput | RolePersonnaliseScalarWhereInput[]
   }
 
+  export type RendezVousUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<RendezVousCreateWithoutHospitalInput, RendezVousUncheckedCreateWithoutHospitalInput> | RendezVousCreateWithoutHospitalInput[] | RendezVousUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: RendezVousCreateOrConnectWithoutHospitalInput | RendezVousCreateOrConnectWithoutHospitalInput[]
+    upsert?: RendezVousUpsertWithWhereUniqueWithoutHospitalInput | RendezVousUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: RendezVousCreateManyHospitalInputEnvelope
+    set?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    disconnect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    delete?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    connect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    update?: RendezVousUpdateWithWhereUniqueWithoutHospitalInput | RendezVousUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: RendezVousUpdateManyWithWhereWithoutHospitalInput | RendezVousUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: RendezVousScalarWhereInput | RendezVousScalarWhereInput[]
+  }
+
+  export type AntecedentMedicalUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<AntecedentMedicalCreateWithoutHospitalInput, AntecedentMedicalUncheckedCreateWithoutHospitalInput> | AntecedentMedicalCreateWithoutHospitalInput[] | AntecedentMedicalUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: AntecedentMedicalCreateOrConnectWithoutHospitalInput | AntecedentMedicalCreateOrConnectWithoutHospitalInput[]
+    upsert?: AntecedentMedicalUpsertWithWhereUniqueWithoutHospitalInput | AntecedentMedicalUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: AntecedentMedicalCreateManyHospitalInputEnvelope
+    set?: AntecedentMedicalWhereUniqueInput | AntecedentMedicalWhereUniqueInput[]
+    disconnect?: AntecedentMedicalWhereUniqueInput | AntecedentMedicalWhereUniqueInput[]
+    delete?: AntecedentMedicalWhereUniqueInput | AntecedentMedicalWhereUniqueInput[]
+    connect?: AntecedentMedicalWhereUniqueInput | AntecedentMedicalWhereUniqueInput[]
+    update?: AntecedentMedicalUpdateWithWhereUniqueWithoutHospitalInput | AntecedentMedicalUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: AntecedentMedicalUpdateManyWithWhereWithoutHospitalInput | AntecedentMedicalUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: AntecedentMedicalScalarWhereInput | AntecedentMedicalScalarWhereInput[]
+  }
+
   export type UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput = {
     create?: XOR<UtilisateurCreateWithoutHospitalInput, UtilisateurUncheckedCreateWithoutHospitalInput> | UtilisateurCreateWithoutHospitalInput[] | UtilisateurUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: UtilisateurCreateOrConnectWithoutHospitalInput | UtilisateurCreateOrConnectWithoutHospitalInput[]
@@ -43427,6 +47010,34 @@ export namespace Prisma {
     deleteMany?: RolePersonnaliseScalarWhereInput | RolePersonnaliseScalarWhereInput[]
   }
 
+  export type RendezVousUncheckedUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<RendezVousCreateWithoutHospitalInput, RendezVousUncheckedCreateWithoutHospitalInput> | RendezVousCreateWithoutHospitalInput[] | RendezVousUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: RendezVousCreateOrConnectWithoutHospitalInput | RendezVousCreateOrConnectWithoutHospitalInput[]
+    upsert?: RendezVousUpsertWithWhereUniqueWithoutHospitalInput | RendezVousUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: RendezVousCreateManyHospitalInputEnvelope
+    set?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    disconnect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    delete?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    connect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    update?: RendezVousUpdateWithWhereUniqueWithoutHospitalInput | RendezVousUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: RendezVousUpdateManyWithWhereWithoutHospitalInput | RendezVousUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: RendezVousScalarWhereInput | RendezVousScalarWhereInput[]
+  }
+
+  export type AntecedentMedicalUncheckedUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<AntecedentMedicalCreateWithoutHospitalInput, AntecedentMedicalUncheckedCreateWithoutHospitalInput> | AntecedentMedicalCreateWithoutHospitalInput[] | AntecedentMedicalUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: AntecedentMedicalCreateOrConnectWithoutHospitalInput | AntecedentMedicalCreateOrConnectWithoutHospitalInput[]
+    upsert?: AntecedentMedicalUpsertWithWhereUniqueWithoutHospitalInput | AntecedentMedicalUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: AntecedentMedicalCreateManyHospitalInputEnvelope
+    set?: AntecedentMedicalWhereUniqueInput | AntecedentMedicalWhereUniqueInput[]
+    disconnect?: AntecedentMedicalWhereUniqueInput | AntecedentMedicalWhereUniqueInput[]
+    delete?: AntecedentMedicalWhereUniqueInput | AntecedentMedicalWhereUniqueInput[]
+    connect?: AntecedentMedicalWhereUniqueInput | AntecedentMedicalWhereUniqueInput[]
+    update?: AntecedentMedicalUpdateWithWhereUniqueWithoutHospitalInput | AntecedentMedicalUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: AntecedentMedicalUpdateManyWithWhereWithoutHospitalInput | AntecedentMedicalUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: AntecedentMedicalScalarWhereInput | AntecedentMedicalScalarWhereInput[]
+  }
+
   export type HospitalCreateNestedOneWithoutUtilisateursInput = {
     create?: XOR<HospitalCreateWithoutUtilisateursInput, HospitalUncheckedCreateWithoutUtilisateursInput>
     connectOrCreate?: HospitalCreateOrConnectWithoutUtilisateursInput
@@ -43461,6 +47072,13 @@ export namespace Prisma {
     connect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
   }
 
+  export type RendezVousCreateNestedManyWithoutMedecinInput = {
+    create?: XOR<RendezVousCreateWithoutMedecinInput, RendezVousUncheckedCreateWithoutMedecinInput> | RendezVousCreateWithoutMedecinInput[] | RendezVousUncheckedCreateWithoutMedecinInput[]
+    connectOrCreate?: RendezVousCreateOrConnectWithoutMedecinInput | RendezVousCreateOrConnectWithoutMedecinInput[]
+    createMany?: RendezVousCreateManyMedecinInputEnvelope
+    connect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+  }
+
   export type RolePersonnaliseCreateNestedOneWithoutUtilisateursInput = {
     create?: XOR<RolePersonnaliseCreateWithoutUtilisateursInput, RolePersonnaliseUncheckedCreateWithoutUtilisateursInput>
     connectOrCreate?: RolePersonnaliseCreateOrConnectWithoutUtilisateursInput
@@ -43493,6 +47111,13 @@ export namespace Prisma {
     connectOrCreate?: HospitalisationCreateOrConnectWithoutMedecinInput | HospitalisationCreateOrConnectWithoutMedecinInput[]
     createMany?: HospitalisationCreateManyMedecinInputEnvelope
     connect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+  }
+
+  export type RendezVousUncheckedCreateNestedManyWithoutMedecinInput = {
+    create?: XOR<RendezVousCreateWithoutMedecinInput, RendezVousUncheckedCreateWithoutMedecinInput> | RendezVousCreateWithoutMedecinInput[] | RendezVousUncheckedCreateWithoutMedecinInput[]
+    connectOrCreate?: RendezVousCreateOrConnectWithoutMedecinInput | RendezVousCreateOrConnectWithoutMedecinInput[]
+    createMany?: RendezVousCreateManyMedecinInputEnvelope
+    connect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
   }
 
   export type EnumRoleFieldUpdateOperationsInput = {
@@ -43563,6 +47188,20 @@ export namespace Prisma {
     deleteMany?: HospitalisationScalarWhereInput | HospitalisationScalarWhereInput[]
   }
 
+  export type RendezVousUpdateManyWithoutMedecinNestedInput = {
+    create?: XOR<RendezVousCreateWithoutMedecinInput, RendezVousUncheckedCreateWithoutMedecinInput> | RendezVousCreateWithoutMedecinInput[] | RendezVousUncheckedCreateWithoutMedecinInput[]
+    connectOrCreate?: RendezVousCreateOrConnectWithoutMedecinInput | RendezVousCreateOrConnectWithoutMedecinInput[]
+    upsert?: RendezVousUpsertWithWhereUniqueWithoutMedecinInput | RendezVousUpsertWithWhereUniqueWithoutMedecinInput[]
+    createMany?: RendezVousCreateManyMedecinInputEnvelope
+    set?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    disconnect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    delete?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    connect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    update?: RendezVousUpdateWithWhereUniqueWithoutMedecinInput | RendezVousUpdateWithWhereUniqueWithoutMedecinInput[]
+    updateMany?: RendezVousUpdateManyWithWhereWithoutMedecinInput | RendezVousUpdateManyWithWhereWithoutMedecinInput[]
+    deleteMany?: RendezVousScalarWhereInput | RendezVousScalarWhereInput[]
+  }
+
   export type RolePersonnaliseUpdateOneWithoutUtilisateursNestedInput = {
     create?: XOR<RolePersonnaliseCreateWithoutUtilisateursInput, RolePersonnaliseUncheckedCreateWithoutUtilisateursInput>
     connectOrCreate?: RolePersonnaliseCreateOrConnectWithoutUtilisateursInput
@@ -43629,6 +47268,20 @@ export namespace Prisma {
     deleteMany?: HospitalisationScalarWhereInput | HospitalisationScalarWhereInput[]
   }
 
+  export type RendezVousUncheckedUpdateManyWithoutMedecinNestedInput = {
+    create?: XOR<RendezVousCreateWithoutMedecinInput, RendezVousUncheckedCreateWithoutMedecinInput> | RendezVousCreateWithoutMedecinInput[] | RendezVousUncheckedCreateWithoutMedecinInput[]
+    connectOrCreate?: RendezVousCreateOrConnectWithoutMedecinInput | RendezVousCreateOrConnectWithoutMedecinInput[]
+    upsert?: RendezVousUpsertWithWhereUniqueWithoutMedecinInput | RendezVousUpsertWithWhereUniqueWithoutMedecinInput[]
+    createMany?: RendezVousCreateManyMedecinInputEnvelope
+    set?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    disconnect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    delete?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    connect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    update?: RendezVousUpdateWithWhereUniqueWithoutMedecinInput | RendezVousUpdateWithWhereUniqueWithoutMedecinInput[]
+    updateMany?: RendezVousUpdateManyWithWhereWithoutMedecinInput | RendezVousUpdateManyWithWhereWithoutMedecinInput[]
+    deleteMany?: RendezVousScalarWhereInput | RendezVousScalarWhereInput[]
+  }
+
   export type PatientHospitalCreateNestedManyWithoutPatientInput = {
     create?: XOR<PatientHospitalCreateWithoutPatientInput, PatientHospitalUncheckedCreateWithoutPatientInput> | PatientHospitalCreateWithoutPatientInput[] | PatientHospitalUncheckedCreateWithoutPatientInput[]
     connectOrCreate?: PatientHospitalCreateOrConnectWithoutPatientInput | PatientHospitalCreateOrConnectWithoutPatientInput[]
@@ -43678,6 +47331,20 @@ export namespace Prisma {
     connect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
   }
 
+  export type RendezVousCreateNestedManyWithoutPatientInput = {
+    create?: XOR<RendezVousCreateWithoutPatientInput, RendezVousUncheckedCreateWithoutPatientInput> | RendezVousCreateWithoutPatientInput[] | RendezVousUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: RendezVousCreateOrConnectWithoutPatientInput | RendezVousCreateOrConnectWithoutPatientInput[]
+    createMany?: RendezVousCreateManyPatientInputEnvelope
+    connect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+  }
+
+  export type AntecedentMedicalCreateNestedManyWithoutPatientInput = {
+    create?: XOR<AntecedentMedicalCreateWithoutPatientInput, AntecedentMedicalUncheckedCreateWithoutPatientInput> | AntecedentMedicalCreateWithoutPatientInput[] | AntecedentMedicalUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: AntecedentMedicalCreateOrConnectWithoutPatientInput | AntecedentMedicalCreateOrConnectWithoutPatientInput[]
+    createMany?: AntecedentMedicalCreateManyPatientInputEnvelope
+    connect?: AntecedentMedicalWhereUniqueInput | AntecedentMedicalWhereUniqueInput[]
+  }
+
   export type PatientHospitalUncheckedCreateNestedManyWithoutPatientInput = {
     create?: XOR<PatientHospitalCreateWithoutPatientInput, PatientHospitalUncheckedCreateWithoutPatientInput> | PatientHospitalCreateWithoutPatientInput[] | PatientHospitalUncheckedCreateWithoutPatientInput[]
     connectOrCreate?: PatientHospitalCreateOrConnectWithoutPatientInput | PatientHospitalCreateOrConnectWithoutPatientInput[]
@@ -43725,6 +47392,20 @@ export namespace Prisma {
     connectOrCreate?: HospitalisationCreateOrConnectWithoutPatientInput | HospitalisationCreateOrConnectWithoutPatientInput[]
     createMany?: HospitalisationCreateManyPatientInputEnvelope
     connect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+  }
+
+  export type RendezVousUncheckedCreateNestedManyWithoutPatientInput = {
+    create?: XOR<RendezVousCreateWithoutPatientInput, RendezVousUncheckedCreateWithoutPatientInput> | RendezVousCreateWithoutPatientInput[] | RendezVousUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: RendezVousCreateOrConnectWithoutPatientInput | RendezVousCreateOrConnectWithoutPatientInput[]
+    createMany?: RendezVousCreateManyPatientInputEnvelope
+    connect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+  }
+
+  export type AntecedentMedicalUncheckedCreateNestedManyWithoutPatientInput = {
+    create?: XOR<AntecedentMedicalCreateWithoutPatientInput, AntecedentMedicalUncheckedCreateWithoutPatientInput> | AntecedentMedicalCreateWithoutPatientInput[] | AntecedentMedicalUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: AntecedentMedicalCreateOrConnectWithoutPatientInput | AntecedentMedicalCreateOrConnectWithoutPatientInput[]
+    createMany?: AntecedentMedicalCreateManyPatientInputEnvelope
+    connect?: AntecedentMedicalWhereUniqueInput | AntecedentMedicalWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -43833,6 +47514,34 @@ export namespace Prisma {
     deleteMany?: HospitalisationScalarWhereInput | HospitalisationScalarWhereInput[]
   }
 
+  export type RendezVousUpdateManyWithoutPatientNestedInput = {
+    create?: XOR<RendezVousCreateWithoutPatientInput, RendezVousUncheckedCreateWithoutPatientInput> | RendezVousCreateWithoutPatientInput[] | RendezVousUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: RendezVousCreateOrConnectWithoutPatientInput | RendezVousCreateOrConnectWithoutPatientInput[]
+    upsert?: RendezVousUpsertWithWhereUniqueWithoutPatientInput | RendezVousUpsertWithWhereUniqueWithoutPatientInput[]
+    createMany?: RendezVousCreateManyPatientInputEnvelope
+    set?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    disconnect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    delete?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    connect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    update?: RendezVousUpdateWithWhereUniqueWithoutPatientInput | RendezVousUpdateWithWhereUniqueWithoutPatientInput[]
+    updateMany?: RendezVousUpdateManyWithWhereWithoutPatientInput | RendezVousUpdateManyWithWhereWithoutPatientInput[]
+    deleteMany?: RendezVousScalarWhereInput | RendezVousScalarWhereInput[]
+  }
+
+  export type AntecedentMedicalUpdateManyWithoutPatientNestedInput = {
+    create?: XOR<AntecedentMedicalCreateWithoutPatientInput, AntecedentMedicalUncheckedCreateWithoutPatientInput> | AntecedentMedicalCreateWithoutPatientInput[] | AntecedentMedicalUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: AntecedentMedicalCreateOrConnectWithoutPatientInput | AntecedentMedicalCreateOrConnectWithoutPatientInput[]
+    upsert?: AntecedentMedicalUpsertWithWhereUniqueWithoutPatientInput | AntecedentMedicalUpsertWithWhereUniqueWithoutPatientInput[]
+    createMany?: AntecedentMedicalCreateManyPatientInputEnvelope
+    set?: AntecedentMedicalWhereUniqueInput | AntecedentMedicalWhereUniqueInput[]
+    disconnect?: AntecedentMedicalWhereUniqueInput | AntecedentMedicalWhereUniqueInput[]
+    delete?: AntecedentMedicalWhereUniqueInput | AntecedentMedicalWhereUniqueInput[]
+    connect?: AntecedentMedicalWhereUniqueInput | AntecedentMedicalWhereUniqueInput[]
+    update?: AntecedentMedicalUpdateWithWhereUniqueWithoutPatientInput | AntecedentMedicalUpdateWithWhereUniqueWithoutPatientInput[]
+    updateMany?: AntecedentMedicalUpdateManyWithWhereWithoutPatientInput | AntecedentMedicalUpdateManyWithWhereWithoutPatientInput[]
+    deleteMany?: AntecedentMedicalScalarWhereInput | AntecedentMedicalScalarWhereInput[]
+  }
+
   export type PatientHospitalUncheckedUpdateManyWithoutPatientNestedInput = {
     create?: XOR<PatientHospitalCreateWithoutPatientInput, PatientHospitalUncheckedCreateWithoutPatientInput> | PatientHospitalCreateWithoutPatientInput[] | PatientHospitalUncheckedCreateWithoutPatientInput[]
     connectOrCreate?: PatientHospitalCreateOrConnectWithoutPatientInput | PatientHospitalCreateOrConnectWithoutPatientInput[]
@@ -43931,6 +47640,34 @@ export namespace Prisma {
     deleteMany?: HospitalisationScalarWhereInput | HospitalisationScalarWhereInput[]
   }
 
+  export type RendezVousUncheckedUpdateManyWithoutPatientNestedInput = {
+    create?: XOR<RendezVousCreateWithoutPatientInput, RendezVousUncheckedCreateWithoutPatientInput> | RendezVousCreateWithoutPatientInput[] | RendezVousUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: RendezVousCreateOrConnectWithoutPatientInput | RendezVousCreateOrConnectWithoutPatientInput[]
+    upsert?: RendezVousUpsertWithWhereUniqueWithoutPatientInput | RendezVousUpsertWithWhereUniqueWithoutPatientInput[]
+    createMany?: RendezVousCreateManyPatientInputEnvelope
+    set?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    disconnect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    delete?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    connect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    update?: RendezVousUpdateWithWhereUniqueWithoutPatientInput | RendezVousUpdateWithWhereUniqueWithoutPatientInput[]
+    updateMany?: RendezVousUpdateManyWithWhereWithoutPatientInput | RendezVousUpdateManyWithWhereWithoutPatientInput[]
+    deleteMany?: RendezVousScalarWhereInput | RendezVousScalarWhereInput[]
+  }
+
+  export type AntecedentMedicalUncheckedUpdateManyWithoutPatientNestedInput = {
+    create?: XOR<AntecedentMedicalCreateWithoutPatientInput, AntecedentMedicalUncheckedCreateWithoutPatientInput> | AntecedentMedicalCreateWithoutPatientInput[] | AntecedentMedicalUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: AntecedentMedicalCreateOrConnectWithoutPatientInput | AntecedentMedicalCreateOrConnectWithoutPatientInput[]
+    upsert?: AntecedentMedicalUpsertWithWhereUniqueWithoutPatientInput | AntecedentMedicalUpsertWithWhereUniqueWithoutPatientInput[]
+    createMany?: AntecedentMedicalCreateManyPatientInputEnvelope
+    set?: AntecedentMedicalWhereUniqueInput | AntecedentMedicalWhereUniqueInput[]
+    disconnect?: AntecedentMedicalWhereUniqueInput | AntecedentMedicalWhereUniqueInput[]
+    delete?: AntecedentMedicalWhereUniqueInput | AntecedentMedicalWhereUniqueInput[]
+    connect?: AntecedentMedicalWhereUniqueInput | AntecedentMedicalWhereUniqueInput[]
+    update?: AntecedentMedicalUpdateWithWhereUniqueWithoutPatientInput | AntecedentMedicalUpdateWithWhereUniqueWithoutPatientInput[]
+    updateMany?: AntecedentMedicalUpdateManyWithWhereWithoutPatientInput | AntecedentMedicalUpdateManyWithWhereWithoutPatientInput[]
+    deleteMany?: AntecedentMedicalScalarWhereInput | AntecedentMedicalScalarWhereInput[]
+  }
+
   export type PatientCreateNestedOneWithoutHospitalisationsInput = {
     create?: XOR<PatientCreateWithoutHospitalisationsInput, PatientUncheckedCreateWithoutHospitalisationsInput>
     connectOrCreate?: PatientCreateOrConnectWithoutHospitalisationsInput
@@ -44019,6 +47756,10 @@ export namespace Prisma {
 
   export type EnumStatutConsultationFieldUpdateOperationsInput = {
     set?: $Enums.StatutConsultation
+  }
+
+  export type EnumTypeActeFieldUpdateOperationsInput = {
+    set?: $Enums.TypeActe
   }
 
   export type HospitalUpdateOneRequiredWithoutConsultationsNestedInput = {
@@ -45327,6 +49068,13 @@ export namespace Prisma {
     connect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
   }
 
+  export type RendezVousCreateNestedManyWithoutServiceInput = {
+    create?: XOR<RendezVousCreateWithoutServiceInput, RendezVousUncheckedCreateWithoutServiceInput> | RendezVousCreateWithoutServiceInput[] | RendezVousUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: RendezVousCreateOrConnectWithoutServiceInput | RendezVousCreateOrConnectWithoutServiceInput[]
+    createMany?: RendezVousCreateManyServiceInputEnvelope
+    connect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+  }
+
   export type ConsultationUncheckedCreateNestedManyWithoutServiceInput = {
     create?: XOR<ConsultationCreateWithoutServiceInput, ConsultationUncheckedCreateWithoutServiceInput> | ConsultationCreateWithoutServiceInput[] | ConsultationUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: ConsultationCreateOrConnectWithoutServiceInput | ConsultationCreateOrConnectWithoutServiceInput[]
@@ -45339,6 +49087,13 @@ export namespace Prisma {
     connectOrCreate?: HospitalisationCreateOrConnectWithoutServiceInput | HospitalisationCreateOrConnectWithoutServiceInput[]
     createMany?: HospitalisationCreateManyServiceInputEnvelope
     connect?: HospitalisationWhereUniqueInput | HospitalisationWhereUniqueInput[]
+  }
+
+  export type RendezVousUncheckedCreateNestedManyWithoutServiceInput = {
+    create?: XOR<RendezVousCreateWithoutServiceInput, RendezVousUncheckedCreateWithoutServiceInput> | RendezVousCreateWithoutServiceInput[] | RendezVousUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: RendezVousCreateOrConnectWithoutServiceInput | RendezVousCreateOrConnectWithoutServiceInput[]
+    createMany?: RendezVousCreateManyServiceInputEnvelope
+    connect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
   }
 
   export type HospitalUpdateOneRequiredWithoutServicesNestedInput = {
@@ -45377,6 +49132,20 @@ export namespace Prisma {
     deleteMany?: HospitalisationScalarWhereInput | HospitalisationScalarWhereInput[]
   }
 
+  export type RendezVousUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<RendezVousCreateWithoutServiceInput, RendezVousUncheckedCreateWithoutServiceInput> | RendezVousCreateWithoutServiceInput[] | RendezVousUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: RendezVousCreateOrConnectWithoutServiceInput | RendezVousCreateOrConnectWithoutServiceInput[]
+    upsert?: RendezVousUpsertWithWhereUniqueWithoutServiceInput | RendezVousUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: RendezVousCreateManyServiceInputEnvelope
+    set?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    disconnect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    delete?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    connect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    update?: RendezVousUpdateWithWhereUniqueWithoutServiceInput | RendezVousUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: RendezVousUpdateManyWithWhereWithoutServiceInput | RendezVousUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: RendezVousScalarWhereInput | RendezVousScalarWhereInput[]
+  }
+
   export type ConsultationUncheckedUpdateManyWithoutServiceNestedInput = {
     create?: XOR<ConsultationCreateWithoutServiceInput, ConsultationUncheckedCreateWithoutServiceInput> | ConsultationCreateWithoutServiceInput[] | ConsultationUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: ConsultationCreateOrConnectWithoutServiceInput | ConsultationCreateOrConnectWithoutServiceInput[]
@@ -45403,6 +49172,114 @@ export namespace Prisma {
     update?: HospitalisationUpdateWithWhereUniqueWithoutServiceInput | HospitalisationUpdateWithWhereUniqueWithoutServiceInput[]
     updateMany?: HospitalisationUpdateManyWithWhereWithoutServiceInput | HospitalisationUpdateManyWithWhereWithoutServiceInput[]
     deleteMany?: HospitalisationScalarWhereInput | HospitalisationScalarWhereInput[]
+  }
+
+  export type RendezVousUncheckedUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<RendezVousCreateWithoutServiceInput, RendezVousUncheckedCreateWithoutServiceInput> | RendezVousCreateWithoutServiceInput[] | RendezVousUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: RendezVousCreateOrConnectWithoutServiceInput | RendezVousCreateOrConnectWithoutServiceInput[]
+    upsert?: RendezVousUpsertWithWhereUniqueWithoutServiceInput | RendezVousUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: RendezVousCreateManyServiceInputEnvelope
+    set?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    disconnect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    delete?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    connect?: RendezVousWhereUniqueInput | RendezVousWhereUniqueInput[]
+    update?: RendezVousUpdateWithWhereUniqueWithoutServiceInput | RendezVousUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: RendezVousUpdateManyWithWhereWithoutServiceInput | RendezVousUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: RendezVousScalarWhereInput | RendezVousScalarWhereInput[]
+  }
+
+  export type HospitalCreateNestedOneWithoutRendez_vousInput = {
+    create?: XOR<HospitalCreateWithoutRendez_vousInput, HospitalUncheckedCreateWithoutRendez_vousInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutRendez_vousInput
+    connect?: HospitalWhereUniqueInput
+  }
+
+  export type PatientCreateNestedOneWithoutRendez_vousInput = {
+    create?: XOR<PatientCreateWithoutRendez_vousInput, PatientUncheckedCreateWithoutRendez_vousInput>
+    connectOrCreate?: PatientCreateOrConnectWithoutRendez_vousInput
+    connect?: PatientWhereUniqueInput
+  }
+
+  export type UtilisateurCreateNestedOneWithoutRendez_vousInput = {
+    create?: XOR<UtilisateurCreateWithoutRendez_vousInput, UtilisateurUncheckedCreateWithoutRendez_vousInput>
+    connectOrCreate?: UtilisateurCreateOrConnectWithoutRendez_vousInput
+    connect?: UtilisateurWhereUniqueInput
+  }
+
+  export type ServiceCreateNestedOneWithoutRendez_vousInput = {
+    create?: XOR<ServiceCreateWithoutRendez_vousInput, ServiceUncheckedCreateWithoutRendez_vousInput>
+    connectOrCreate?: ServiceCreateOrConnectWithoutRendez_vousInput
+    connect?: ServiceWhereUniqueInput
+  }
+
+  export type EnumStatutRendezVousFieldUpdateOperationsInput = {
+    set?: $Enums.StatutRendezVous
+  }
+
+  export type HospitalUpdateOneRequiredWithoutRendez_vousNestedInput = {
+    create?: XOR<HospitalCreateWithoutRendez_vousInput, HospitalUncheckedCreateWithoutRendez_vousInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutRendez_vousInput
+    upsert?: HospitalUpsertWithoutRendez_vousInput
+    connect?: HospitalWhereUniqueInput
+    update?: XOR<XOR<HospitalUpdateToOneWithWhereWithoutRendez_vousInput, HospitalUpdateWithoutRendez_vousInput>, HospitalUncheckedUpdateWithoutRendez_vousInput>
+  }
+
+  export type PatientUpdateOneRequiredWithoutRendez_vousNestedInput = {
+    create?: XOR<PatientCreateWithoutRendez_vousInput, PatientUncheckedCreateWithoutRendez_vousInput>
+    connectOrCreate?: PatientCreateOrConnectWithoutRendez_vousInput
+    upsert?: PatientUpsertWithoutRendez_vousInput
+    connect?: PatientWhereUniqueInput
+    update?: XOR<XOR<PatientUpdateToOneWithWhereWithoutRendez_vousInput, PatientUpdateWithoutRendez_vousInput>, PatientUncheckedUpdateWithoutRendez_vousInput>
+  }
+
+  export type UtilisateurUpdateOneRequiredWithoutRendez_vousNestedInput = {
+    create?: XOR<UtilisateurCreateWithoutRendez_vousInput, UtilisateurUncheckedCreateWithoutRendez_vousInput>
+    connectOrCreate?: UtilisateurCreateOrConnectWithoutRendez_vousInput
+    upsert?: UtilisateurUpsertWithoutRendez_vousInput
+    connect?: UtilisateurWhereUniqueInput
+    update?: XOR<XOR<UtilisateurUpdateToOneWithWhereWithoutRendez_vousInput, UtilisateurUpdateWithoutRendez_vousInput>, UtilisateurUncheckedUpdateWithoutRendez_vousInput>
+  }
+
+  export type ServiceUpdateOneWithoutRendez_vousNestedInput = {
+    create?: XOR<ServiceCreateWithoutRendez_vousInput, ServiceUncheckedCreateWithoutRendez_vousInput>
+    connectOrCreate?: ServiceCreateOrConnectWithoutRendez_vousInput
+    upsert?: ServiceUpsertWithoutRendez_vousInput
+    disconnect?: ServiceWhereInput | boolean
+    delete?: ServiceWhereInput | boolean
+    connect?: ServiceWhereUniqueInput
+    update?: XOR<XOR<ServiceUpdateToOneWithWhereWithoutRendez_vousInput, ServiceUpdateWithoutRendez_vousInput>, ServiceUncheckedUpdateWithoutRendez_vousInput>
+  }
+
+  export type HospitalCreateNestedOneWithoutAntecedentsInput = {
+    create?: XOR<HospitalCreateWithoutAntecedentsInput, HospitalUncheckedCreateWithoutAntecedentsInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutAntecedentsInput
+    connect?: HospitalWhereUniqueInput
+  }
+
+  export type PatientCreateNestedOneWithoutAntecedents_medInput = {
+    create?: XOR<PatientCreateWithoutAntecedents_medInput, PatientUncheckedCreateWithoutAntecedents_medInput>
+    connectOrCreate?: PatientCreateOrConnectWithoutAntecedents_medInput
+    connect?: PatientWhereUniqueInput
+  }
+
+  export type EnumTypeAntecedentFieldUpdateOperationsInput = {
+    set?: $Enums.TypeAntecedent
+  }
+
+  export type HospitalUpdateOneRequiredWithoutAntecedentsNestedInput = {
+    create?: XOR<HospitalCreateWithoutAntecedentsInput, HospitalUncheckedCreateWithoutAntecedentsInput>
+    connectOrCreate?: HospitalCreateOrConnectWithoutAntecedentsInput
+    upsert?: HospitalUpsertWithoutAntecedentsInput
+    connect?: HospitalWhereUniqueInput
+    update?: XOR<XOR<HospitalUpdateToOneWithWhereWithoutAntecedentsInput, HospitalUpdateWithoutAntecedentsInput>, HospitalUncheckedUpdateWithoutAntecedentsInput>
+  }
+
+  export type PatientUpdateOneRequiredWithoutAntecedents_medNestedInput = {
+    create?: XOR<PatientCreateWithoutAntecedents_medInput, PatientUncheckedCreateWithoutAntecedents_medInput>
+    connectOrCreate?: PatientCreateOrConnectWithoutAntecedents_medInput
+    upsert?: PatientUpsertWithoutAntecedents_medInput
+    connect?: PatientWhereUniqueInput
+    update?: XOR<XOR<PatientUpdateToOneWithWhereWithoutAntecedents_medInput, PatientUpdateWithoutAntecedents_medInput>, PatientUncheckedUpdateWithoutAntecedents_medInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -45620,6 +49497,13 @@ export namespace Prisma {
     not?: NestedEnumStatutConsultationFilter<$PrismaModel> | $Enums.StatutConsultation
   }
 
+  export type NestedEnumTypeActeFilter<$PrismaModel = never> = {
+    equals?: $Enums.TypeActe | EnumTypeActeFieldRefInput<$PrismaModel>
+    in?: $Enums.TypeActe[] | ListEnumTypeActeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TypeActe[] | ListEnumTypeActeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeActeFilter<$PrismaModel> | $Enums.TypeActe
+  }
+
   export type NestedEnumStatutConsultationWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.StatutConsultation | EnumStatutConsultationFieldRefInput<$PrismaModel>
     in?: $Enums.StatutConsultation[] | ListEnumStatutConsultationFieldRefInput<$PrismaModel>
@@ -45628,6 +49512,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumStatutConsultationFilter<$PrismaModel>
     _max?: NestedEnumStatutConsultationFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTypeActeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TypeActe | EnumTypeActeFieldRefInput<$PrismaModel>
+    in?: $Enums.TypeActe[] | ListEnumTypeActeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TypeActe[] | ListEnumTypeActeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeActeWithAggregatesFilter<$PrismaModel> | $Enums.TypeActe
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTypeActeFilter<$PrismaModel>
+    _max?: NestedEnumTypeActeFilter<$PrismaModel>
   }
 
   export type NestedEnumStatutFactureFilter<$PrismaModel = never> = {
@@ -45951,6 +49845,40 @@ export namespace Prisma {
     _max?: NestedEnumRoleNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumStatutRendezVousFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatutRendezVous | EnumStatutRendezVousFieldRefInput<$PrismaModel>
+    in?: $Enums.StatutRendezVous[] | ListEnumStatutRendezVousFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatutRendezVous[] | ListEnumStatutRendezVousFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatutRendezVousFilter<$PrismaModel> | $Enums.StatutRendezVous
+  }
+
+  export type NestedEnumStatutRendezVousWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatutRendezVous | EnumStatutRendezVousFieldRefInput<$PrismaModel>
+    in?: $Enums.StatutRendezVous[] | ListEnumStatutRendezVousFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatutRendezVous[] | ListEnumStatutRendezVousFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatutRendezVousWithAggregatesFilter<$PrismaModel> | $Enums.StatutRendezVous
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatutRendezVousFilter<$PrismaModel>
+    _max?: NestedEnumStatutRendezVousFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTypeAntecedentFilter<$PrismaModel = never> = {
+    equals?: $Enums.TypeAntecedent | EnumTypeAntecedentFieldRefInput<$PrismaModel>
+    in?: $Enums.TypeAntecedent[] | ListEnumTypeAntecedentFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TypeAntecedent[] | ListEnumTypeAntecedentFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeAntecedentFilter<$PrismaModel> | $Enums.TypeAntecedent
+  }
+
+  export type NestedEnumTypeAntecedentWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TypeAntecedent | EnumTypeAntecedentFieldRefInput<$PrismaModel>
+    in?: $Enums.TypeAntecedent[] | ListEnumTypeAntecedentFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TypeAntecedent[] | ListEnumTypeAntecedentFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeAntecedentWithAggregatesFilter<$PrismaModel> | $Enums.TypeAntecedent
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTypeAntecedentFilter<$PrismaModel>
+    _max?: NestedEnumTypeAntecedentFilter<$PrismaModel>
+  }
+
   export type UtilisateurCreateWithoutHospitalInput = {
     id?: string
     supabase_uid?: string | null
@@ -45967,6 +49895,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboCreateNestedManyWithoutMedecinInput
     examens_imagerie_prescrits?: ExamenImagerieCreateNestedManyWithoutMedecinInput
     hospitalisations_responsable?: HospitalisationCreateNestedManyWithoutMedecinInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutMedecinInput
     role_personnalise?: RolePersonnaliseCreateNestedOneWithoutUtilisateursInput
   }
 
@@ -45987,6 +49916,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboUncheckedCreateNestedManyWithoutMedecinInput
     examens_imagerie_prescrits?: ExamenImagerieUncheckedCreateNestedManyWithoutMedecinInput
     hospitalisations_responsable?: HospitalisationUncheckedCreateNestedManyWithoutMedecinInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutMedecinInput
   }
 
   export type UtilisateurCreateOrConnectWithoutHospitalInput = {
@@ -46034,6 +49964,7 @@ export namespace Prisma {
   export type ConsultationCreateWithoutHospitalInput = {
     id?: string
     statut?: $Enums.StatutConsultation
+    type_acte?: $Enums.TypeActe
     motif?: string | null
     diagnostic?: string | null
     notes?: string | null
@@ -46056,6 +49987,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     statut?: $Enums.StatutConsultation
+    type_acte?: $Enums.TypeActe
     motif?: string | null
     diagnostic?: string | null
     notes?: string | null
@@ -46091,6 +50023,7 @@ export namespace Prisma {
     updated_at?: Date | string
     consultations?: ConsultationCreateNestedManyWithoutServiceInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutServiceInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutHospitalInput = {
@@ -46103,6 +50036,7 @@ export namespace Prisma {
     updated_at?: Date | string
     consultations?: ConsultationUncheckedCreateNestedManyWithoutServiceInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutServiceInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutHospitalInput = {
@@ -46675,6 +50609,80 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type RendezVousCreateWithoutHospitalInput = {
+    id?: string
+    date_heure: Date | string
+    duree_min?: number
+    statut?: $Enums.StatutRendezVous
+    motif?: string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    patient: PatientCreateNestedOneWithoutRendez_vousInput
+    medecin: UtilisateurCreateNestedOneWithoutRendez_vousInput
+    service?: ServiceCreateNestedOneWithoutRendez_vousInput
+  }
+
+  export type RendezVousUncheckedCreateWithoutHospitalInput = {
+    id?: string
+    patient_id: string
+    medecin_id: string
+    service_id?: string | null
+    date_heure: Date | string
+    duree_min?: number
+    statut?: $Enums.StatutRendezVous
+    motif?: string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type RendezVousCreateOrConnectWithoutHospitalInput = {
+    where: RendezVousWhereUniqueInput
+    create: XOR<RendezVousCreateWithoutHospitalInput, RendezVousUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type RendezVousCreateManyHospitalInputEnvelope = {
+    data: RendezVousCreateManyHospitalInput | RendezVousCreateManyHospitalInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AntecedentMedicalCreateWithoutHospitalInput = {
+    id?: string
+    type: $Enums.TypeAntecedent
+    libelle: string
+    date_debut?: Date | string | null
+    date_fin?: Date | string | null
+    est_actif?: boolean
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    patient: PatientCreateNestedOneWithoutAntecedents_medInput
+  }
+
+  export type AntecedentMedicalUncheckedCreateWithoutHospitalInput = {
+    id?: string
+    patient_id: string
+    type: $Enums.TypeAntecedent
+    libelle: string
+    date_debut?: Date | string | null
+    date_fin?: Date | string | null
+    est_actif?: boolean
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AntecedentMedicalCreateOrConnectWithoutHospitalInput = {
+    where: AntecedentMedicalWhereUniqueInput
+    create: XOR<AntecedentMedicalCreateWithoutHospitalInput, AntecedentMedicalUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type AntecedentMedicalCreateManyHospitalInputEnvelope = {
+    data: AntecedentMedicalCreateManyHospitalInput | AntecedentMedicalCreateManyHospitalInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UtilisateurUpsertWithWhereUniqueWithoutHospitalInput = {
     where: UtilisateurWhereUniqueInput
     update: XOR<UtilisateurUpdateWithoutHospitalInput, UtilisateurUncheckedUpdateWithoutHospitalInput>
@@ -46766,6 +50774,7 @@ export namespace Prisma {
     patient_id?: StringFilter<"Consultation"> | string
     medecin_id?: StringFilter<"Consultation"> | string
     statut?: EnumStatutConsultationFilter<"Consultation"> | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFilter<"Consultation"> | $Enums.TypeActe
     motif?: StringNullableFilter<"Consultation"> | string | null
     diagnostic?: StringNullableFilter<"Consultation"> | string | null
     notes?: StringNullableFilter<"Consultation"> | string | null
@@ -47285,6 +51294,73 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"RolePersonnalise"> | Date | string
   }
 
+  export type RendezVousUpsertWithWhereUniqueWithoutHospitalInput = {
+    where: RendezVousWhereUniqueInput
+    update: XOR<RendezVousUpdateWithoutHospitalInput, RendezVousUncheckedUpdateWithoutHospitalInput>
+    create: XOR<RendezVousCreateWithoutHospitalInput, RendezVousUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type RendezVousUpdateWithWhereUniqueWithoutHospitalInput = {
+    where: RendezVousWhereUniqueInput
+    data: XOR<RendezVousUpdateWithoutHospitalInput, RendezVousUncheckedUpdateWithoutHospitalInput>
+  }
+
+  export type RendezVousUpdateManyWithWhereWithoutHospitalInput = {
+    where: RendezVousScalarWhereInput
+    data: XOR<RendezVousUpdateManyMutationInput, RendezVousUncheckedUpdateManyWithoutHospitalInput>
+  }
+
+  export type RendezVousScalarWhereInput = {
+    AND?: RendezVousScalarWhereInput | RendezVousScalarWhereInput[]
+    OR?: RendezVousScalarWhereInput[]
+    NOT?: RendezVousScalarWhereInput | RendezVousScalarWhereInput[]
+    id?: StringFilter<"RendezVous"> | string
+    hospital_id?: StringFilter<"RendezVous"> | string
+    patient_id?: StringFilter<"RendezVous"> | string
+    medecin_id?: StringFilter<"RendezVous"> | string
+    service_id?: StringNullableFilter<"RendezVous"> | string | null
+    date_heure?: DateTimeFilter<"RendezVous"> | Date | string
+    duree_min?: IntFilter<"RendezVous"> | number
+    statut?: EnumStatutRendezVousFilter<"RendezVous"> | $Enums.StatutRendezVous
+    motif?: StringNullableFilter<"RendezVous"> | string | null
+    notes?: StringNullableFilter<"RendezVous"> | string | null
+    created_at?: DateTimeFilter<"RendezVous"> | Date | string
+    updated_at?: DateTimeFilter<"RendezVous"> | Date | string
+  }
+
+  export type AntecedentMedicalUpsertWithWhereUniqueWithoutHospitalInput = {
+    where: AntecedentMedicalWhereUniqueInput
+    update: XOR<AntecedentMedicalUpdateWithoutHospitalInput, AntecedentMedicalUncheckedUpdateWithoutHospitalInput>
+    create: XOR<AntecedentMedicalCreateWithoutHospitalInput, AntecedentMedicalUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type AntecedentMedicalUpdateWithWhereUniqueWithoutHospitalInput = {
+    where: AntecedentMedicalWhereUniqueInput
+    data: XOR<AntecedentMedicalUpdateWithoutHospitalInput, AntecedentMedicalUncheckedUpdateWithoutHospitalInput>
+  }
+
+  export type AntecedentMedicalUpdateManyWithWhereWithoutHospitalInput = {
+    where: AntecedentMedicalScalarWhereInput
+    data: XOR<AntecedentMedicalUpdateManyMutationInput, AntecedentMedicalUncheckedUpdateManyWithoutHospitalInput>
+  }
+
+  export type AntecedentMedicalScalarWhereInput = {
+    AND?: AntecedentMedicalScalarWhereInput | AntecedentMedicalScalarWhereInput[]
+    OR?: AntecedentMedicalScalarWhereInput[]
+    NOT?: AntecedentMedicalScalarWhereInput | AntecedentMedicalScalarWhereInput[]
+    id?: StringFilter<"AntecedentMedical"> | string
+    hospital_id?: StringFilter<"AntecedentMedical"> | string
+    patient_id?: StringFilter<"AntecedentMedical"> | string
+    type?: EnumTypeAntecedentFilter<"AntecedentMedical"> | $Enums.TypeAntecedent
+    libelle?: StringFilter<"AntecedentMedical"> | string
+    date_debut?: DateTimeNullableFilter<"AntecedentMedical"> | Date | string | null
+    date_fin?: DateTimeNullableFilter<"AntecedentMedical"> | Date | string | null
+    est_actif?: BoolFilter<"AntecedentMedical"> | boolean
+    notes?: StringNullableFilter<"AntecedentMedical"> | string | null
+    created_at?: DateTimeFilter<"AntecedentMedical"> | Date | string
+    updated_at?: DateTimeFilter<"AntecedentMedical"> | Date | string
+  }
+
   export type HospitalCreateWithoutUtilisateursInput = {
     id?: string
     nom: string
@@ -47313,6 +51389,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutUtilisateursInput = {
@@ -47343,6 +51421,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutUtilisateursInput = {
@@ -47353,6 +51433,7 @@ export namespace Prisma {
   export type ConsultationCreateWithoutMedecinInput = {
     id?: string
     statut?: $Enums.StatutConsultation
+    type_acte?: $Enums.TypeActe
     motif?: string | null
     diagnostic?: string | null
     notes?: string | null
@@ -47375,6 +51456,7 @@ export namespace Prisma {
     hospital_id: string
     patient_id: string
     statut?: $Enums.StatutConsultation
+    type_acte?: $Enums.TypeActe
     motif?: string | null
     diagnostic?: string | null
     notes?: string | null
@@ -47548,6 +51630,44 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type RendezVousCreateWithoutMedecinInput = {
+    id?: string
+    date_heure: Date | string
+    duree_min?: number
+    statut?: $Enums.StatutRendezVous
+    motif?: string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutRendez_vousInput
+    patient: PatientCreateNestedOneWithoutRendez_vousInput
+    service?: ServiceCreateNestedOneWithoutRendez_vousInput
+  }
+
+  export type RendezVousUncheckedCreateWithoutMedecinInput = {
+    id?: string
+    hospital_id: string
+    patient_id: string
+    service_id?: string | null
+    date_heure: Date | string
+    duree_min?: number
+    statut?: $Enums.StatutRendezVous
+    motif?: string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type RendezVousCreateOrConnectWithoutMedecinInput = {
+    where: RendezVousWhereUniqueInput
+    create: XOR<RendezVousCreateWithoutMedecinInput, RendezVousUncheckedCreateWithoutMedecinInput>
+  }
+
+  export type RendezVousCreateManyMedecinInputEnvelope = {
+    data: RendezVousCreateManyMedecinInput | RendezVousCreateManyMedecinInput[]
+    skipDuplicates?: boolean
+  }
+
   export type RolePersonnaliseCreateWithoutUtilisateursInput = {
     id?: string
     nom: string
@@ -47616,6 +51736,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutUtilisateursInput = {
@@ -47646,6 +51768,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type ConsultationUpsertWithWhereUniqueWithoutMedecinInput = {
@@ -47710,6 +51834,22 @@ export namespace Prisma {
   export type HospitalisationUpdateManyWithWhereWithoutMedecinInput = {
     where: HospitalisationScalarWhereInput
     data: XOR<HospitalisationUpdateManyMutationInput, HospitalisationUncheckedUpdateManyWithoutMedecinInput>
+  }
+
+  export type RendezVousUpsertWithWhereUniqueWithoutMedecinInput = {
+    where: RendezVousWhereUniqueInput
+    update: XOR<RendezVousUpdateWithoutMedecinInput, RendezVousUncheckedUpdateWithoutMedecinInput>
+    create: XOR<RendezVousCreateWithoutMedecinInput, RendezVousUncheckedCreateWithoutMedecinInput>
+  }
+
+  export type RendezVousUpdateWithWhereUniqueWithoutMedecinInput = {
+    where: RendezVousWhereUniqueInput
+    data: XOR<RendezVousUpdateWithoutMedecinInput, RendezVousUncheckedUpdateWithoutMedecinInput>
+  }
+
+  export type RendezVousUpdateManyWithWhereWithoutMedecinInput = {
+    where: RendezVousScalarWhereInput
+    data: XOR<RendezVousUpdateManyMutationInput, RendezVousUncheckedUpdateManyWithoutMedecinInput>
   }
 
   export type RolePersonnaliseUpsertWithoutUtilisateursInput = {
@@ -47782,6 +51922,7 @@ export namespace Prisma {
   export type ConsultationCreateWithoutPatientInput = {
     id?: string
     statut?: $Enums.StatutConsultation
+    type_acte?: $Enums.TypeActe
     motif?: string | null
     diagnostic?: string | null
     notes?: string | null
@@ -47804,6 +51945,7 @@ export namespace Prisma {
     hospital_id: string
     medecin_id: string
     statut?: $Enums.StatutConsultation
+    type_acte?: $Enums.TypeActe
     motif?: string | null
     diagnostic?: string | null
     notes?: string | null
@@ -48057,6 +52199,80 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type RendezVousCreateWithoutPatientInput = {
+    id?: string
+    date_heure: Date | string
+    duree_min?: number
+    statut?: $Enums.StatutRendezVous
+    motif?: string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutRendez_vousInput
+    medecin: UtilisateurCreateNestedOneWithoutRendez_vousInput
+    service?: ServiceCreateNestedOneWithoutRendez_vousInput
+  }
+
+  export type RendezVousUncheckedCreateWithoutPatientInput = {
+    id?: string
+    hospital_id: string
+    medecin_id: string
+    service_id?: string | null
+    date_heure: Date | string
+    duree_min?: number
+    statut?: $Enums.StatutRendezVous
+    motif?: string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type RendezVousCreateOrConnectWithoutPatientInput = {
+    where: RendezVousWhereUniqueInput
+    create: XOR<RendezVousCreateWithoutPatientInput, RendezVousUncheckedCreateWithoutPatientInput>
+  }
+
+  export type RendezVousCreateManyPatientInputEnvelope = {
+    data: RendezVousCreateManyPatientInput | RendezVousCreateManyPatientInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AntecedentMedicalCreateWithoutPatientInput = {
+    id?: string
+    type: $Enums.TypeAntecedent
+    libelle: string
+    date_debut?: Date | string | null
+    date_fin?: Date | string | null
+    est_actif?: boolean
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutAntecedentsInput
+  }
+
+  export type AntecedentMedicalUncheckedCreateWithoutPatientInput = {
+    id?: string
+    hospital_id: string
+    type: $Enums.TypeAntecedent
+    libelle: string
+    date_debut?: Date | string | null
+    date_fin?: Date | string | null
+    est_actif?: boolean
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AntecedentMedicalCreateOrConnectWithoutPatientInput = {
+    where: AntecedentMedicalWhereUniqueInput
+    create: XOR<AntecedentMedicalCreateWithoutPatientInput, AntecedentMedicalUncheckedCreateWithoutPatientInput>
+  }
+
+  export type AntecedentMedicalCreateManyPatientInputEnvelope = {
+    data: AntecedentMedicalCreateManyPatientInput | AntecedentMedicalCreateManyPatientInput[]
+    skipDuplicates?: boolean
+  }
+
   export type PatientHospitalUpsertWithWhereUniqueWithoutPatientInput = {
     where: PatientHospitalWhereUniqueInput
     update: XOR<PatientHospitalUpdateWithoutPatientInput, PatientHospitalUncheckedUpdateWithoutPatientInput>
@@ -48169,6 +52385,38 @@ export namespace Prisma {
     data: XOR<HospitalisationUpdateManyMutationInput, HospitalisationUncheckedUpdateManyWithoutPatientInput>
   }
 
+  export type RendezVousUpsertWithWhereUniqueWithoutPatientInput = {
+    where: RendezVousWhereUniqueInput
+    update: XOR<RendezVousUpdateWithoutPatientInput, RendezVousUncheckedUpdateWithoutPatientInput>
+    create: XOR<RendezVousCreateWithoutPatientInput, RendezVousUncheckedCreateWithoutPatientInput>
+  }
+
+  export type RendezVousUpdateWithWhereUniqueWithoutPatientInput = {
+    where: RendezVousWhereUniqueInput
+    data: XOR<RendezVousUpdateWithoutPatientInput, RendezVousUncheckedUpdateWithoutPatientInput>
+  }
+
+  export type RendezVousUpdateManyWithWhereWithoutPatientInput = {
+    where: RendezVousScalarWhereInput
+    data: XOR<RendezVousUpdateManyMutationInput, RendezVousUncheckedUpdateManyWithoutPatientInput>
+  }
+
+  export type AntecedentMedicalUpsertWithWhereUniqueWithoutPatientInput = {
+    where: AntecedentMedicalWhereUniqueInput
+    update: XOR<AntecedentMedicalUpdateWithoutPatientInput, AntecedentMedicalUncheckedUpdateWithoutPatientInput>
+    create: XOR<AntecedentMedicalCreateWithoutPatientInput, AntecedentMedicalUncheckedCreateWithoutPatientInput>
+  }
+
+  export type AntecedentMedicalUpdateWithWhereUniqueWithoutPatientInput = {
+    where: AntecedentMedicalWhereUniqueInput
+    data: XOR<AntecedentMedicalUpdateWithoutPatientInput, AntecedentMedicalUncheckedUpdateWithoutPatientInput>
+  }
+
+  export type AntecedentMedicalUpdateManyWithWhereWithoutPatientInput = {
+    where: AntecedentMedicalScalarWhereInput
+    data: XOR<AntecedentMedicalUpdateManyMutationInput, AntecedentMedicalUncheckedUpdateManyWithoutPatientInput>
+  }
+
   export type PatientCreateWithoutHospitalisationsInput = {
     id?: string
     numero_dossier: string
@@ -48191,6 +52439,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutPatientInput
     qr_tokens?: QrTokenCreateNestedManyWithoutPatientInput
     sejours?: HospitalisationCreateNestedManyWithoutPatientInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutPatientInput
+    antecedents_med?: AntecedentMedicalCreateNestedManyWithoutPatientInput
   }
 
   export type PatientUncheckedCreateWithoutHospitalisationsInput = {
@@ -48215,6 +52465,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutPatientInput
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutPatientInput
     sejours?: HospitalisationUncheckedCreateNestedManyWithoutPatientInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutPatientInput
+    antecedents_med?: AntecedentMedicalUncheckedCreateNestedManyWithoutPatientInput
   }
 
   export type PatientCreateOrConnectWithoutHospitalisationsInput = {
@@ -48250,6 +52502,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutPatientsInput = {
@@ -48280,6 +52534,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutPatientsInput = {
@@ -48320,6 +52576,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUpdateManyWithoutPatientNestedInput
     qr_tokens?: QrTokenUpdateManyWithoutPatientNestedInput
     sejours?: HospitalisationUpdateManyWithoutPatientNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutPatientNestedInput
+    antecedents_med?: AntecedentMedicalUpdateManyWithoutPatientNestedInput
   }
 
   export type PatientUncheckedUpdateWithoutHospitalisationsInput = {
@@ -48344,6 +52602,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutPatientNestedInput
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutPatientNestedInput
     sejours?: HospitalisationUncheckedUpdateManyWithoutPatientNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutPatientNestedInput
+    antecedents_med?: AntecedentMedicalUncheckedUpdateManyWithoutPatientNestedInput
   }
 
   export type HospitalUpsertWithoutPatientsInput = {
@@ -48385,6 +52645,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutPatientsInput = {
@@ -48415,6 +52677,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalCreateWithoutConsultationsInput = {
@@ -48445,6 +52709,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutConsultationsInput = {
@@ -48475,6 +52741,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutConsultationsInput = {
@@ -48504,6 +52772,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutPatientInput
     qr_tokens?: QrTokenCreateNestedManyWithoutPatientInput
     sejours?: HospitalisationCreateNestedManyWithoutPatientInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutPatientInput
+    antecedents_med?: AntecedentMedicalCreateNestedManyWithoutPatientInput
   }
 
   export type PatientUncheckedCreateWithoutConsultationsInput = {
@@ -48528,6 +52798,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutPatientInput
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutPatientInput
     sejours?: HospitalisationUncheckedCreateNestedManyWithoutPatientInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutPatientInput
+    antecedents_med?: AntecedentMedicalUncheckedCreateNestedManyWithoutPatientInput
   }
 
   export type PatientCreateOrConnectWithoutConsultationsInput = {
@@ -48551,6 +52823,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboCreateNestedManyWithoutMedecinInput
     examens_imagerie_prescrits?: ExamenImagerieCreateNestedManyWithoutMedecinInput
     hospitalisations_responsable?: HospitalisationCreateNestedManyWithoutMedecinInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutMedecinInput
     role_personnalise?: RolePersonnaliseCreateNestedOneWithoutUtilisateursInput
   }
 
@@ -48571,6 +52844,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboUncheckedCreateNestedManyWithoutMedecinInput
     examens_imagerie_prescrits?: ExamenImagerieUncheckedCreateNestedManyWithoutMedecinInput
     hospitalisations_responsable?: HospitalisationUncheckedCreateNestedManyWithoutMedecinInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutMedecinInput
   }
 
   export type UtilisateurCreateOrConnectWithoutConsultationsInput = {
@@ -48588,6 +52862,7 @@ export namespace Prisma {
     updated_at?: Date | string
     hospital: HospitalCreateNestedOneWithoutServicesInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutServiceInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutConsultationsInput = {
@@ -48600,6 +52875,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutServiceInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutConsultationsInput = {
@@ -48721,6 +52997,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutConsultationsInput = {
@@ -48751,6 +53029,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutConsultationsInput = {
@@ -48786,6 +53066,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUpdateManyWithoutPatientNestedInput
     qr_tokens?: QrTokenUpdateManyWithoutPatientNestedInput
     sejours?: HospitalisationUpdateManyWithoutPatientNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutPatientNestedInput
+    antecedents_med?: AntecedentMedicalUpdateManyWithoutPatientNestedInput
   }
 
   export type PatientUncheckedUpdateWithoutConsultationsInput = {
@@ -48810,6 +53092,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutPatientNestedInput
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutPatientNestedInput
     sejours?: HospitalisationUncheckedUpdateManyWithoutPatientNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutPatientNestedInput
+    antecedents_med?: AntecedentMedicalUncheckedUpdateManyWithoutPatientNestedInput
   }
 
   export type UtilisateurUpsertWithoutConsultationsInput = {
@@ -48839,6 +53123,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboUpdateManyWithoutMedecinNestedInput
     examens_imagerie_prescrits?: ExamenImagerieUpdateManyWithoutMedecinNestedInput
     hospitalisations_responsable?: HospitalisationUpdateManyWithoutMedecinNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutMedecinNestedInput
     role_personnalise?: RolePersonnaliseUpdateOneWithoutUtilisateursNestedInput
   }
 
@@ -48859,6 +53144,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboUncheckedUpdateManyWithoutMedecinNestedInput
     examens_imagerie_prescrits?: ExamenImagerieUncheckedUpdateManyWithoutMedecinNestedInput
     hospitalisations_responsable?: HospitalisationUncheckedUpdateManyWithoutMedecinNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutMedecinNestedInput
   }
 
   export type ServiceUpsertWithoutConsultationsInput = {
@@ -48882,6 +53168,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     hospital?: HospitalUpdateOneRequiredWithoutServicesNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutServiceNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutConsultationsInput = {
@@ -48894,6 +53181,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutServiceNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type PrescriptionUpsertWithWhereUniqueWithoutConsultationInput = {
@@ -48980,6 +53268,7 @@ export namespace Prisma {
   export type ConsultationCreateWithoutPrescriptionsInput = {
     id?: string
     statut?: $Enums.StatutConsultation
+    type_acte?: $Enums.TypeActe
     motif?: string | null
     diagnostic?: string | null
     notes?: string | null
@@ -49003,6 +53292,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     statut?: $Enums.StatutConsultation
+    type_acte?: $Enums.TypeActe
     motif?: string | null
     diagnostic?: string | null
     notes?: string | null
@@ -49036,6 +53326,7 @@ export namespace Prisma {
   export type ConsultationUpdateWithoutPrescriptionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFieldUpdateOperationsInput | $Enums.TypeActe
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49059,6 +53350,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFieldUpdateOperationsInput | $Enums.TypeActe
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49101,6 +53393,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutFacturesInput = {
@@ -49131,6 +53425,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutFacturesInput = {
@@ -49160,6 +53456,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutPatientInput
     qr_tokens?: QrTokenCreateNestedManyWithoutPatientInput
     sejours?: HospitalisationCreateNestedManyWithoutPatientInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutPatientInput
+    antecedents_med?: AntecedentMedicalCreateNestedManyWithoutPatientInput
   }
 
   export type PatientUncheckedCreateWithoutFacturesInput = {
@@ -49184,6 +53482,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutPatientInput
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutPatientInput
     sejours?: HospitalisationUncheckedCreateNestedManyWithoutPatientInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutPatientInput
+    antecedents_med?: AntecedentMedicalUncheckedCreateNestedManyWithoutPatientInput
   }
 
   export type PatientCreateOrConnectWithoutFacturesInput = {
@@ -49194,6 +53494,7 @@ export namespace Prisma {
   export type ConsultationCreateWithoutFactureInput = {
     id?: string
     statut?: $Enums.StatutConsultation
+    type_acte?: $Enums.TypeActe
     motif?: string | null
     diagnostic?: string | null
     notes?: string | null
@@ -49217,6 +53518,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     statut?: $Enums.StatutConsultation
+    type_acte?: $Enums.TypeActe
     motif?: string | null
     diagnostic?: string | null
     notes?: string | null
@@ -49446,6 +53748,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutFacturesInput = {
@@ -49476,6 +53780,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutFacturesInput = {
@@ -49511,6 +53817,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUpdateManyWithoutPatientNestedInput
     qr_tokens?: QrTokenUpdateManyWithoutPatientNestedInput
     sejours?: HospitalisationUpdateManyWithoutPatientNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutPatientNestedInput
+    antecedents_med?: AntecedentMedicalUpdateManyWithoutPatientNestedInput
   }
 
   export type PatientUncheckedUpdateWithoutFacturesInput = {
@@ -49535,6 +53843,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutPatientNestedInput
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutPatientNestedInput
     sejours?: HospitalisationUncheckedUpdateManyWithoutPatientNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutPatientNestedInput
+    antecedents_med?: AntecedentMedicalUncheckedUpdateManyWithoutPatientNestedInput
   }
 
   export type ConsultationUpsertWithoutFactureInput = {
@@ -49551,6 +53861,7 @@ export namespace Prisma {
   export type ConsultationUpdateWithoutFactureInput = {
     id?: StringFieldUpdateOperationsInput | string
     statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFieldUpdateOperationsInput | $Enums.TypeActe
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49574,6 +53885,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFieldUpdateOperationsInput | $Enums.TypeActe
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49822,6 +54134,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutExamens_laboInput = {
@@ -49852,6 +54166,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutExamens_laboInput = {
@@ -49881,6 +54197,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutPatientInput
     qr_tokens?: QrTokenCreateNestedManyWithoutPatientInput
     sejours?: HospitalisationCreateNestedManyWithoutPatientInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutPatientInput
+    antecedents_med?: AntecedentMedicalCreateNestedManyWithoutPatientInput
   }
 
   export type PatientUncheckedCreateWithoutExamens_laboInput = {
@@ -49905,6 +54223,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutPatientInput
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutPatientInput
     sejours?: HospitalisationUncheckedCreateNestedManyWithoutPatientInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutPatientInput
+    antecedents_med?: AntecedentMedicalUncheckedCreateNestedManyWithoutPatientInput
   }
 
   export type PatientCreateOrConnectWithoutExamens_laboInput = {
@@ -49928,6 +54248,7 @@ export namespace Prisma {
     consultations?: ConsultationCreateNestedManyWithoutMedecinInput
     examens_imagerie_prescrits?: ExamenImagerieCreateNestedManyWithoutMedecinInput
     hospitalisations_responsable?: HospitalisationCreateNestedManyWithoutMedecinInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutMedecinInput
     role_personnalise?: RolePersonnaliseCreateNestedOneWithoutUtilisateursInput
   }
 
@@ -49948,6 +54269,7 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedCreateNestedManyWithoutMedecinInput
     examens_imagerie_prescrits?: ExamenImagerieUncheckedCreateNestedManyWithoutMedecinInput
     hospitalisations_responsable?: HospitalisationUncheckedCreateNestedManyWithoutMedecinInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutMedecinInput
   }
 
   export type UtilisateurCreateOrConnectWithoutExamens_labo_prescritsInput = {
@@ -50063,6 +54385,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutExamens_laboInput = {
@@ -50093,6 +54417,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutExamens_laboInput = {
@@ -50128,6 +54454,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUpdateManyWithoutPatientNestedInput
     qr_tokens?: QrTokenUpdateManyWithoutPatientNestedInput
     sejours?: HospitalisationUpdateManyWithoutPatientNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutPatientNestedInput
+    antecedents_med?: AntecedentMedicalUpdateManyWithoutPatientNestedInput
   }
 
   export type PatientUncheckedUpdateWithoutExamens_laboInput = {
@@ -50152,6 +54480,8 @@ export namespace Prisma {
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutPatientNestedInput
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutPatientNestedInput
     sejours?: HospitalisationUncheckedUpdateManyWithoutPatientNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutPatientNestedInput
+    antecedents_med?: AntecedentMedicalUncheckedUpdateManyWithoutPatientNestedInput
   }
 
   export type UtilisateurUpsertWithoutExamens_labo_prescritsInput = {
@@ -50181,6 +54511,7 @@ export namespace Prisma {
     consultations?: ConsultationUpdateManyWithoutMedecinNestedInput
     examens_imagerie_prescrits?: ExamenImagerieUpdateManyWithoutMedecinNestedInput
     hospitalisations_responsable?: HospitalisationUpdateManyWithoutMedecinNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutMedecinNestedInput
     role_personnalise?: RolePersonnaliseUpdateOneWithoutUtilisateursNestedInput
   }
 
@@ -50201,6 +54532,7 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedUpdateManyWithoutMedecinNestedInput
     examens_imagerie_prescrits?: ExamenImagerieUncheckedUpdateManyWithoutMedecinNestedInput
     hospitalisations_responsable?: HospitalisationUncheckedUpdateManyWithoutMedecinNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutMedecinNestedInput
   }
 
   export type FactureUpsertWithoutExamens_laboInput = {
@@ -50309,6 +54641,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutExamens_catalogueInput = {
@@ -50339,6 +54673,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutExamens_catalogueInput = {
@@ -50409,6 +54745,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutExamens_catalogueInput = {
@@ -50439,6 +54777,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type ExamenLaboExamenUpsertWithWhereUniqueWithoutCatalogueInput = {
@@ -50649,6 +54989,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutExamens_imagerieInput = {
@@ -50679,6 +55021,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutExamens_imagerieInput = {
@@ -50708,6 +55052,8 @@ export namespace Prisma {
     examens_labo?: ExamenLaboCreateNestedManyWithoutPatientInput
     qr_tokens?: QrTokenCreateNestedManyWithoutPatientInput
     sejours?: HospitalisationCreateNestedManyWithoutPatientInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutPatientInput
+    antecedents_med?: AntecedentMedicalCreateNestedManyWithoutPatientInput
   }
 
   export type PatientUncheckedCreateWithoutExamens_imagerieInput = {
@@ -50732,6 +55078,8 @@ export namespace Prisma {
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutPatientInput
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutPatientInput
     sejours?: HospitalisationUncheckedCreateNestedManyWithoutPatientInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutPatientInput
+    antecedents_med?: AntecedentMedicalUncheckedCreateNestedManyWithoutPatientInput
   }
 
   export type PatientCreateOrConnectWithoutExamens_imagerieInput = {
@@ -50755,6 +55103,7 @@ export namespace Prisma {
     consultations?: ConsultationCreateNestedManyWithoutMedecinInput
     examens_labo_prescrits?: ExamenLaboCreateNestedManyWithoutMedecinInput
     hospitalisations_responsable?: HospitalisationCreateNestedManyWithoutMedecinInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutMedecinInput
     role_personnalise?: RolePersonnaliseCreateNestedOneWithoutUtilisateursInput
   }
 
@@ -50775,6 +55124,7 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedCreateNestedManyWithoutMedecinInput
     examens_labo_prescrits?: ExamenLaboUncheckedCreateNestedManyWithoutMedecinInput
     hospitalisations_responsable?: HospitalisationUncheckedCreateNestedManyWithoutMedecinInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutMedecinInput
   }
 
   export type UtilisateurCreateOrConnectWithoutExamens_imagerie_prescritsInput = {
@@ -50866,6 +55216,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutExamens_imagerieInput = {
@@ -50896,6 +55248,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutExamens_imagerieInput = {
@@ -50931,6 +55285,8 @@ export namespace Prisma {
     examens_labo?: ExamenLaboUpdateManyWithoutPatientNestedInput
     qr_tokens?: QrTokenUpdateManyWithoutPatientNestedInput
     sejours?: HospitalisationUpdateManyWithoutPatientNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutPatientNestedInput
+    antecedents_med?: AntecedentMedicalUpdateManyWithoutPatientNestedInput
   }
 
   export type PatientUncheckedUpdateWithoutExamens_imagerieInput = {
@@ -50955,6 +55311,8 @@ export namespace Prisma {
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutPatientNestedInput
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutPatientNestedInput
     sejours?: HospitalisationUncheckedUpdateManyWithoutPatientNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutPatientNestedInput
+    antecedents_med?: AntecedentMedicalUncheckedUpdateManyWithoutPatientNestedInput
   }
 
   export type UtilisateurUpsertWithoutExamens_imagerie_prescritsInput = {
@@ -50984,6 +55342,7 @@ export namespace Prisma {
     consultations?: ConsultationUpdateManyWithoutMedecinNestedInput
     examens_labo_prescrits?: ExamenLaboUpdateManyWithoutMedecinNestedInput
     hospitalisations_responsable?: HospitalisationUpdateManyWithoutMedecinNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutMedecinNestedInput
     role_personnalise?: RolePersonnaliseUpdateOneWithoutUtilisateursNestedInput
   }
 
@@ -51004,6 +55363,7 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedUpdateManyWithoutMedecinNestedInput
     examens_labo_prescrits?: ExamenLaboUncheckedUpdateManyWithoutMedecinNestedInput
     hospitalisations_responsable?: HospitalisationUncheckedUpdateManyWithoutMedecinNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutMedecinNestedInput
   }
 
   export type FactureUpsertWithoutExamens_imagerieInput = {
@@ -51085,6 +55445,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutArticles_stockInput = {
@@ -51115,6 +55477,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutArticles_stockInput = {
@@ -51235,6 +55599,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutArticles_stockInput = {
@@ -51265,6 +55631,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type MouvementStockUpsertWithWhereUniqueWithoutArticleInput = {
@@ -51346,6 +55714,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutMouvements_stockInput = {
@@ -51376,6 +55746,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutMouvements_stockInput = {
@@ -51463,6 +55835,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutMouvements_stockInput = {
@@ -51493,6 +55867,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type ArticleStockUpsertWithoutMouvementsInput = {
@@ -51570,6 +55946,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutEcritures_comptablesInput = {
@@ -51600,6 +55978,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutEcritures_comptablesInput = {
@@ -51646,6 +56026,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutEcritures_comptablesInput = {
@@ -51676,6 +56058,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientCreateWithoutQr_tokensInput = {
@@ -51700,6 +56084,8 @@ export namespace Prisma {
     examens_labo?: ExamenLaboCreateNestedManyWithoutPatientInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutPatientInput
     sejours?: HospitalisationCreateNestedManyWithoutPatientInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutPatientInput
+    antecedents_med?: AntecedentMedicalCreateNestedManyWithoutPatientInput
   }
 
   export type PatientUncheckedCreateWithoutQr_tokensInput = {
@@ -51724,6 +56110,8 @@ export namespace Prisma {
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutPatientInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutPatientInput
     sejours?: HospitalisationUncheckedCreateNestedManyWithoutPatientInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutPatientInput
+    antecedents_med?: AntecedentMedicalUncheckedCreateNestedManyWithoutPatientInput
   }
 
   export type PatientCreateOrConnectWithoutQr_tokensInput = {
@@ -51759,6 +56147,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutQr_tokensInput = {
@@ -51789,6 +56179,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutQr_tokensInput = {
@@ -51829,6 +56221,8 @@ export namespace Prisma {
     examens_labo?: ExamenLaboUpdateManyWithoutPatientNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutPatientNestedInput
     sejours?: HospitalisationUpdateManyWithoutPatientNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutPatientNestedInput
+    antecedents_med?: AntecedentMedicalUpdateManyWithoutPatientNestedInput
   }
 
   export type PatientUncheckedUpdateWithoutQr_tokensInput = {
@@ -51853,6 +56247,8 @@ export namespace Prisma {
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutPatientNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutPatientNestedInput
     sejours?: HospitalisationUncheckedUpdateManyWithoutPatientNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutPatientNestedInput
+    antecedents_med?: AntecedentMedicalUncheckedUpdateManyWithoutPatientNestedInput
   }
 
   export type HospitalUpsertWithoutQr_tokensInput = {
@@ -51894,6 +56290,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutQr_tokensInput = {
@@ -51924,6 +56322,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalCreateWithoutAudit_trailInput = {
@@ -51954,6 +56354,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutAudit_trailInput = {
@@ -51984,6 +56386,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutAudit_trailInput = {
@@ -52030,6 +56434,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutAudit_trailInput = {
@@ -52060,6 +56466,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalCreateWithoutChambresInput = {
@@ -52090,6 +56498,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutChambresInput = {
@@ -52120,6 +56530,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutChambresInput = {
@@ -52244,6 +56656,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutChambresInput = {
@@ -52274,6 +56688,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type LitUpsertWithWhereUniqueWithoutChambreInput = {
@@ -52336,6 +56752,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutLitsInput = {
@@ -52366,6 +56784,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutLitsInput = {
@@ -52493,6 +56913,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutLitsInput = {
@@ -52523,6 +56945,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type ChambreUpsertWithoutLitsInput = {
@@ -52608,6 +57032,8 @@ export namespace Prisma {
     lits?: LitCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutHospitalisationsInput = {
@@ -52638,6 +57064,8 @@ export namespace Prisma {
     lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutHospitalisationsInput = {
@@ -52667,6 +57095,8 @@ export namespace Prisma {
     examens_labo?: ExamenLaboCreateNestedManyWithoutPatientInput
     examens_imagerie?: ExamenImagerieCreateNestedManyWithoutPatientInput
     qr_tokens?: QrTokenCreateNestedManyWithoutPatientInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutPatientInput
+    antecedents_med?: AntecedentMedicalCreateNestedManyWithoutPatientInput
   }
 
   export type PatientUncheckedCreateWithoutSejoursInput = {
@@ -52691,6 +57121,8 @@ export namespace Prisma {
     examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutPatientInput
     examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutPatientInput
     qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutPatientInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutPatientInput
+    antecedents_med?: AntecedentMedicalUncheckedCreateNestedManyWithoutPatientInput
   }
 
   export type PatientCreateOrConnectWithoutSejoursInput = {
@@ -52714,6 +57146,7 @@ export namespace Prisma {
     consultations?: ConsultationCreateNestedManyWithoutMedecinInput
     examens_labo_prescrits?: ExamenLaboCreateNestedManyWithoutMedecinInput
     examens_imagerie_prescrits?: ExamenImagerieCreateNestedManyWithoutMedecinInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutMedecinInput
     role_personnalise?: RolePersonnaliseCreateNestedOneWithoutUtilisateursInput
   }
 
@@ -52734,6 +57167,7 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedCreateNestedManyWithoutMedecinInput
     examens_labo_prescrits?: ExamenLaboUncheckedCreateNestedManyWithoutMedecinInput
     examens_imagerie_prescrits?: ExamenImagerieUncheckedCreateNestedManyWithoutMedecinInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutMedecinInput
   }
 
   export type UtilisateurCreateOrConnectWithoutHospitalisations_responsableInput = {
@@ -52809,6 +57243,7 @@ export namespace Prisma {
     updated_at?: Date | string
     hospital: HospitalCreateNestedOneWithoutServicesInput
     consultations?: ConsultationCreateNestedManyWithoutServiceInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutHospitalisationsInput = {
@@ -52821,6 +57256,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     consultations?: ConsultationUncheckedCreateNestedManyWithoutServiceInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutHospitalisationsInput = {
@@ -52952,6 +57388,8 @@ export namespace Prisma {
     lits?: LitUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutHospitalisationsInput = {
@@ -52982,6 +57420,8 @@ export namespace Prisma {
     lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type PatientUpsertWithoutSejoursInput = {
@@ -53017,6 +57457,8 @@ export namespace Prisma {
     examens_labo?: ExamenLaboUpdateManyWithoutPatientNestedInput
     examens_imagerie?: ExamenImagerieUpdateManyWithoutPatientNestedInput
     qr_tokens?: QrTokenUpdateManyWithoutPatientNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutPatientNestedInput
+    antecedents_med?: AntecedentMedicalUpdateManyWithoutPatientNestedInput
   }
 
   export type PatientUncheckedUpdateWithoutSejoursInput = {
@@ -53041,6 +57483,8 @@ export namespace Prisma {
     examens_labo?: ExamenLaboUncheckedUpdateManyWithoutPatientNestedInput
     examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutPatientNestedInput
     qr_tokens?: QrTokenUncheckedUpdateManyWithoutPatientNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutPatientNestedInput
+    antecedents_med?: AntecedentMedicalUncheckedUpdateManyWithoutPatientNestedInput
   }
 
   export type UtilisateurUpsertWithoutHospitalisations_responsableInput = {
@@ -53070,6 +57514,7 @@ export namespace Prisma {
     consultations?: ConsultationUpdateManyWithoutMedecinNestedInput
     examens_labo_prescrits?: ExamenLaboUpdateManyWithoutMedecinNestedInput
     examens_imagerie_prescrits?: ExamenImagerieUpdateManyWithoutMedecinNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutMedecinNestedInput
     role_personnalise?: RolePersonnaliseUpdateOneWithoutUtilisateursNestedInput
   }
 
@@ -53090,6 +57535,7 @@ export namespace Prisma {
     consultations?: ConsultationUncheckedUpdateManyWithoutMedecinNestedInput
     examens_labo_prescrits?: ExamenLaboUncheckedUpdateManyWithoutMedecinNestedInput
     examens_imagerie_prescrits?: ExamenImagerieUncheckedUpdateManyWithoutMedecinNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutMedecinNestedInput
   }
 
   export type ChambreUpsertWithoutHospitalisationsInput = {
@@ -53183,6 +57629,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     hospital?: HospitalUpdateOneRequiredWithoutServicesNestedInput
     consultations?: ConsultationUpdateManyWithoutServiceNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutHospitalisationsInput = {
@@ -53195,6 +57642,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     consultations?: ConsultationUncheckedUpdateManyWithoutServiceNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type FactureUpsertWithoutHospitalisationInput = {
@@ -53472,6 +57920,8 @@ export namespace Prisma {
     lits?: LitCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutPermissionsInput = {
@@ -53502,6 +57952,8 @@ export namespace Prisma {
     lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutPermissionsInput = {
@@ -53577,6 +58029,8 @@ export namespace Prisma {
     lits?: LitUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutPermissionsInput = {
@@ -53607,6 +58061,8 @@ export namespace Prisma {
     lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type RolePersonnaliseUpsertWithoutPermissionsInput = {
@@ -53672,6 +58128,8 @@ export namespace Prisma {
     lits?: LitCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutRoles_personnalisesInput = {
@@ -53702,6 +58160,8 @@ export namespace Prisma {
     lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutRoles_personnalisesInput = {
@@ -53726,6 +58186,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboCreateNestedManyWithoutMedecinInput
     examens_imagerie_prescrits?: ExamenImagerieCreateNestedManyWithoutMedecinInput
     hospitalisations_responsable?: HospitalisationCreateNestedManyWithoutMedecinInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutMedecinInput
   }
 
   export type UtilisateurUncheckedCreateWithoutRole_personnaliseInput = {
@@ -53745,6 +58206,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboUncheckedCreateNestedManyWithoutMedecinInput
     examens_imagerie_prescrits?: ExamenImagerieUncheckedCreateNestedManyWithoutMedecinInput
     hospitalisations_responsable?: HospitalisationUncheckedCreateNestedManyWithoutMedecinInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutMedecinInput
   }
 
   export type UtilisateurCreateOrConnectWithoutRole_personnaliseInput = {
@@ -53832,6 +58294,8 @@ export namespace Prisma {
     lits?: LitUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutRoles_personnalisesInput = {
@@ -53862,6 +58326,8 @@ export namespace Prisma {
     lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type UtilisateurUpsertWithWhereUniqueWithoutRole_personnaliseInput = {
@@ -53924,6 +58390,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
     permissions?: PermissionCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutServicesInput = {
@@ -53954,6 +58422,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
     roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalCreateOrConnectWithoutServicesInput = {
@@ -53964,6 +58434,7 @@ export namespace Prisma {
   export type ConsultationCreateWithoutServiceInput = {
     id?: string
     statut?: $Enums.StatutConsultation
+    type_acte?: $Enums.TypeActe
     motif?: string | null
     diagnostic?: string | null
     notes?: string | null
@@ -53987,6 +58458,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     statut?: $Enums.StatutConsultation
+    type_acte?: $Enums.TypeActe
     motif?: string | null
     diagnostic?: string | null
     notes?: string | null
@@ -54059,6 +58531,44 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type RendezVousCreateWithoutServiceInput = {
+    id?: string
+    date_heure: Date | string
+    duree_min?: number
+    statut?: $Enums.StatutRendezVous
+    motif?: string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutRendez_vousInput
+    patient: PatientCreateNestedOneWithoutRendez_vousInput
+    medecin: UtilisateurCreateNestedOneWithoutRendez_vousInput
+  }
+
+  export type RendezVousUncheckedCreateWithoutServiceInput = {
+    id?: string
+    hospital_id: string
+    patient_id: string
+    medecin_id: string
+    date_heure: Date | string
+    duree_min?: number
+    statut?: $Enums.StatutRendezVous
+    motif?: string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type RendezVousCreateOrConnectWithoutServiceInput = {
+    where: RendezVousWhereUniqueInput
+    create: XOR<RendezVousCreateWithoutServiceInput, RendezVousUncheckedCreateWithoutServiceInput>
+  }
+
+  export type RendezVousCreateManyServiceInputEnvelope = {
+    data: RendezVousCreateManyServiceInput | RendezVousCreateManyServiceInput[]
+    skipDuplicates?: boolean
+  }
+
   export type HospitalUpsertWithoutServicesInput = {
     update: XOR<HospitalUpdateWithoutServicesInput, HospitalUncheckedUpdateWithoutServicesInput>
     create: XOR<HospitalCreateWithoutServicesInput, HospitalUncheckedCreateWithoutServicesInput>
@@ -54098,6 +58608,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutServicesInput = {
@@ -54128,6 +58640,8 @@ export namespace Prisma {
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
     roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type ConsultationUpsertWithWhereUniqueWithoutServiceInput = {
@@ -54162,6 +58676,714 @@ export namespace Prisma {
     data: XOR<HospitalisationUpdateManyMutationInput, HospitalisationUncheckedUpdateManyWithoutServiceInput>
   }
 
+  export type RendezVousUpsertWithWhereUniqueWithoutServiceInput = {
+    where: RendezVousWhereUniqueInput
+    update: XOR<RendezVousUpdateWithoutServiceInput, RendezVousUncheckedUpdateWithoutServiceInput>
+    create: XOR<RendezVousCreateWithoutServiceInput, RendezVousUncheckedCreateWithoutServiceInput>
+  }
+
+  export type RendezVousUpdateWithWhereUniqueWithoutServiceInput = {
+    where: RendezVousWhereUniqueInput
+    data: XOR<RendezVousUpdateWithoutServiceInput, RendezVousUncheckedUpdateWithoutServiceInput>
+  }
+
+  export type RendezVousUpdateManyWithWhereWithoutServiceInput = {
+    where: RendezVousScalarWhereInput
+    data: XOR<RendezVousUpdateManyMutationInput, RendezVousUncheckedUpdateManyWithoutServiceInput>
+  }
+
+  export type HospitalCreateWithoutRendez_vousInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    services?: ServiceCreateNestedManyWithoutHospitalInput
+    factures?: FactureCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
+    audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
+    chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    lits?: LitCreateNestedManyWithoutHospitalInput
+    hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalUncheckedCreateWithoutRendez_vousInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
+    factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueUncheckedCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
+    audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
+    chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
+    hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+    antecedents?: AntecedentMedicalUncheckedCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalCreateOrConnectWithoutRendez_vousInput = {
+    where: HospitalWhereUniqueInput
+    create: XOR<HospitalCreateWithoutRendez_vousInput, HospitalUncheckedCreateWithoutRendez_vousInput>
+  }
+
+  export type PatientCreateWithoutRendez_vousInput = {
+    id?: string
+    numero_dossier: string
+    nom: string
+    prenom: string
+    date_naissance?: Date | string | null
+    sexe?: $Enums.Sexe | null
+    telephone?: string | null
+    email?: string | null
+    adresse?: string | null
+    ville?: string | null
+    groupe_sanguin?: string | null
+    allergies?: string | null
+    antecedents?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospitalisations?: PatientHospitalCreateNestedManyWithoutPatientInput
+    consultations?: ConsultationCreateNestedManyWithoutPatientInput
+    factures?: FactureCreateNestedManyWithoutPatientInput
+    examens_labo?: ExamenLaboCreateNestedManyWithoutPatientInput
+    examens_imagerie?: ExamenImagerieCreateNestedManyWithoutPatientInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutPatientInput
+    sejours?: HospitalisationCreateNestedManyWithoutPatientInput
+    antecedents_med?: AntecedentMedicalCreateNestedManyWithoutPatientInput
+  }
+
+  export type PatientUncheckedCreateWithoutRendez_vousInput = {
+    id?: string
+    numero_dossier: string
+    nom: string
+    prenom: string
+    date_naissance?: Date | string | null
+    sexe?: $Enums.Sexe | null
+    telephone?: string | null
+    email?: string | null
+    adresse?: string | null
+    ville?: string | null
+    groupe_sanguin?: string | null
+    allergies?: string | null
+    antecedents?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospitalisations?: PatientHospitalUncheckedCreateNestedManyWithoutPatientInput
+    consultations?: ConsultationUncheckedCreateNestedManyWithoutPatientInput
+    factures?: FactureUncheckedCreateNestedManyWithoutPatientInput
+    examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutPatientInput
+    examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutPatientInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutPatientInput
+    sejours?: HospitalisationUncheckedCreateNestedManyWithoutPatientInput
+    antecedents_med?: AntecedentMedicalUncheckedCreateNestedManyWithoutPatientInput
+  }
+
+  export type PatientCreateOrConnectWithoutRendez_vousInput = {
+    where: PatientWhereUniqueInput
+    create: XOR<PatientCreateWithoutRendez_vousInput, PatientUncheckedCreateWithoutRendez_vousInput>
+  }
+
+  export type UtilisateurCreateWithoutRendez_vousInput = {
+    id?: string
+    supabase_uid?: string | null
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    role?: $Enums.Role
+    est_actif?: boolean
+    avatar_url?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutUtilisateursInput
+    consultations?: ConsultationCreateNestedManyWithoutMedecinInput
+    examens_labo_prescrits?: ExamenLaboCreateNestedManyWithoutMedecinInput
+    examens_imagerie_prescrits?: ExamenImagerieCreateNestedManyWithoutMedecinInput
+    hospitalisations_responsable?: HospitalisationCreateNestedManyWithoutMedecinInput
+    role_personnalise?: RolePersonnaliseCreateNestedOneWithoutUtilisateursInput
+  }
+
+  export type UtilisateurUncheckedCreateWithoutRendez_vousInput = {
+    id?: string
+    hospital_id: string
+    supabase_uid?: string | null
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    role?: $Enums.Role
+    est_actif?: boolean
+    avatar_url?: string | null
+    role_personnalise_id?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    consultations?: ConsultationUncheckedCreateNestedManyWithoutMedecinInput
+    examens_labo_prescrits?: ExamenLaboUncheckedCreateNestedManyWithoutMedecinInput
+    examens_imagerie_prescrits?: ExamenImagerieUncheckedCreateNestedManyWithoutMedecinInput
+    hospitalisations_responsable?: HospitalisationUncheckedCreateNestedManyWithoutMedecinInput
+  }
+
+  export type UtilisateurCreateOrConnectWithoutRendez_vousInput = {
+    where: UtilisateurWhereUniqueInput
+    create: XOR<UtilisateurCreateWithoutRendez_vousInput, UtilisateurUncheckedCreateWithoutRendez_vousInput>
+  }
+
+  export type ServiceCreateWithoutRendez_vousInput = {
+    id?: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospital: HospitalCreateNestedOneWithoutServicesInput
+    consultations?: ConsultationCreateNestedManyWithoutServiceInput
+    hospitalisations?: HospitalisationCreateNestedManyWithoutServiceInput
+  }
+
+  export type ServiceUncheckedCreateWithoutRendez_vousInput = {
+    id?: string
+    hospital_id: string
+    nom: string
+    description?: string | null
+    couleur?: string
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    consultations?: ConsultationUncheckedCreateNestedManyWithoutServiceInput
+    hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutServiceInput
+  }
+
+  export type ServiceCreateOrConnectWithoutRendez_vousInput = {
+    where: ServiceWhereUniqueInput
+    create: XOR<ServiceCreateWithoutRendez_vousInput, ServiceUncheckedCreateWithoutRendez_vousInput>
+  }
+
+  export type HospitalUpsertWithoutRendez_vousInput = {
+    update: XOR<HospitalUpdateWithoutRendez_vousInput, HospitalUncheckedUpdateWithoutRendez_vousInput>
+    create: XOR<HospitalCreateWithoutRendez_vousInput, HospitalUncheckedCreateWithoutRendez_vousInput>
+    where?: HospitalWhereInput
+  }
+
+  export type HospitalUpdateToOneWithWhereWithoutRendez_vousInput = {
+    where?: HospitalWhereInput
+    data: XOR<HospitalUpdateWithoutRendez_vousInput, HospitalUncheckedUpdateWithoutRendez_vousInput>
+  }
+
+  export type HospitalUpdateWithoutRendez_vousInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
+    audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
+    chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    lits?: LitUpdateManyWithoutHospitalNestedInput
+    hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type HospitalUncheckedUpdateWithoutRendez_vousInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
+    audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
+    chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
+    hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+    antecedents?: AntecedentMedicalUncheckedUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type PatientUpsertWithoutRendez_vousInput = {
+    update: XOR<PatientUpdateWithoutRendez_vousInput, PatientUncheckedUpdateWithoutRendez_vousInput>
+    create: XOR<PatientCreateWithoutRendez_vousInput, PatientUncheckedCreateWithoutRendez_vousInput>
+    where?: PatientWhereInput
+  }
+
+  export type PatientUpdateToOneWithWhereWithoutRendez_vousInput = {
+    where?: PatientWhereInput
+    data: XOR<PatientUpdateWithoutRendez_vousInput, PatientUncheckedUpdateWithoutRendez_vousInput>
+  }
+
+  export type PatientUpdateWithoutRendez_vousInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero_dossier?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    date_naissance?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sexe?: NullableEnumSexeFieldUpdateOperationsInput | $Enums.Sexe | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    groupe_sanguin?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    antecedents?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospitalisations?: PatientHospitalUpdateManyWithoutPatientNestedInput
+    consultations?: ConsultationUpdateManyWithoutPatientNestedInput
+    factures?: FactureUpdateManyWithoutPatientNestedInput
+    examens_labo?: ExamenLaboUpdateManyWithoutPatientNestedInput
+    examens_imagerie?: ExamenImagerieUpdateManyWithoutPatientNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutPatientNestedInput
+    sejours?: HospitalisationUpdateManyWithoutPatientNestedInput
+    antecedents_med?: AntecedentMedicalUpdateManyWithoutPatientNestedInput
+  }
+
+  export type PatientUncheckedUpdateWithoutRendez_vousInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero_dossier?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    date_naissance?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sexe?: NullableEnumSexeFieldUpdateOperationsInput | $Enums.Sexe | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    groupe_sanguin?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    antecedents?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospitalisations?: PatientHospitalUncheckedUpdateManyWithoutPatientNestedInput
+    consultations?: ConsultationUncheckedUpdateManyWithoutPatientNestedInput
+    factures?: FactureUncheckedUpdateManyWithoutPatientNestedInput
+    examens_labo?: ExamenLaboUncheckedUpdateManyWithoutPatientNestedInput
+    examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutPatientNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutPatientNestedInput
+    sejours?: HospitalisationUncheckedUpdateManyWithoutPatientNestedInput
+    antecedents_med?: AntecedentMedicalUncheckedUpdateManyWithoutPatientNestedInput
+  }
+
+  export type UtilisateurUpsertWithoutRendez_vousInput = {
+    update: XOR<UtilisateurUpdateWithoutRendez_vousInput, UtilisateurUncheckedUpdateWithoutRendez_vousInput>
+    create: XOR<UtilisateurCreateWithoutRendez_vousInput, UtilisateurUncheckedCreateWithoutRendez_vousInput>
+    where?: UtilisateurWhereInput
+  }
+
+  export type UtilisateurUpdateToOneWithWhereWithoutRendez_vousInput = {
+    where?: UtilisateurWhereInput
+    data: XOR<UtilisateurUpdateWithoutRendez_vousInput, UtilisateurUncheckedUpdateWithoutRendez_vousInput>
+  }
+
+  export type UtilisateurUpdateWithoutRendez_vousInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    supabase_uid?: NullableStringFieldUpdateOperationsInput | string | null
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutUtilisateursNestedInput
+    consultations?: ConsultationUpdateManyWithoutMedecinNestedInput
+    examens_labo_prescrits?: ExamenLaboUpdateManyWithoutMedecinNestedInput
+    examens_imagerie_prescrits?: ExamenImagerieUpdateManyWithoutMedecinNestedInput
+    hospitalisations_responsable?: HospitalisationUpdateManyWithoutMedecinNestedInput
+    role_personnalise?: RolePersonnaliseUpdateOneWithoutUtilisateursNestedInput
+  }
+
+  export type UtilisateurUncheckedUpdateWithoutRendez_vousInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    supabase_uid?: NullableStringFieldUpdateOperationsInput | string | null
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    role_personnalise_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    consultations?: ConsultationUncheckedUpdateManyWithoutMedecinNestedInput
+    examens_labo_prescrits?: ExamenLaboUncheckedUpdateManyWithoutMedecinNestedInput
+    examens_imagerie_prescrits?: ExamenImagerieUncheckedUpdateManyWithoutMedecinNestedInput
+    hospitalisations_responsable?: HospitalisationUncheckedUpdateManyWithoutMedecinNestedInput
+  }
+
+  export type ServiceUpsertWithoutRendez_vousInput = {
+    update: XOR<ServiceUpdateWithoutRendez_vousInput, ServiceUncheckedUpdateWithoutRendez_vousInput>
+    create: XOR<ServiceCreateWithoutRendez_vousInput, ServiceUncheckedCreateWithoutRendez_vousInput>
+    where?: ServiceWhereInput
+  }
+
+  export type ServiceUpdateToOneWithWhereWithoutRendez_vousInput = {
+    where?: ServiceWhereInput
+    data: XOR<ServiceUpdateWithoutRendez_vousInput, ServiceUncheckedUpdateWithoutRendez_vousInput>
+  }
+
+  export type ServiceUpdateWithoutRendez_vousInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutServicesNestedInput
+    consultations?: ConsultationUpdateManyWithoutServiceNestedInput
+    hospitalisations?: HospitalisationUpdateManyWithoutServiceNestedInput
+  }
+
+  export type ServiceUncheckedUpdateWithoutRendez_vousInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    couleur?: StringFieldUpdateOperationsInput | string
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    consultations?: ConsultationUncheckedUpdateManyWithoutServiceNestedInput
+    hospitalisations?: HospitalisationUncheckedUpdateManyWithoutServiceNestedInput
+  }
+
+  export type HospitalCreateWithoutAntecedentsInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationCreateNestedManyWithoutHospitalInput
+    services?: ServiceCreateNestedManyWithoutHospitalInput
+    factures?: FactureCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutHospitalInput
+    audit_trail?: AuditTrailCreateNestedManyWithoutHospitalInput
+    chambres?: ChambreCreateNestedManyWithoutHospitalInput
+    lits?: LitCreateNestedManyWithoutHospitalInput
+    hospitalisations?: HospitalisationCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalUncheckedCreateWithoutAntecedentsInput = {
+    id?: string
+    nom: string
+    adresse?: string | null
+    ville?: string | null
+    telephone?: string | null
+    email?: string | null
+    logo_url?: string | null
+    est_actif?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    utilisateurs?: UtilisateurUncheckedCreateNestedManyWithoutHospitalInput
+    patients?: PatientHospitalUncheckedCreateNestedManyWithoutHospitalInput
+    consultations?: ConsultationUncheckedCreateNestedManyWithoutHospitalInput
+    services?: ServiceUncheckedCreateNestedManyWithoutHospitalInput
+    factures?: FactureUncheckedCreateNestedManyWithoutHospitalInput
+    examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutHospitalInput
+    examens_catalogue?: ExamenCatalogueUncheckedCreateNestedManyWithoutHospitalInput
+    examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutHospitalInput
+    articles_stock?: ArticleStockUncheckedCreateNestedManyWithoutHospitalInput
+    mouvements_stock?: MouvementStockUncheckedCreateNestedManyWithoutHospitalInput
+    ecritures_comptables?: EcritureComptableUncheckedCreateNestedManyWithoutHospitalInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutHospitalInput
+    audit_trail?: AuditTrailUncheckedCreateNestedManyWithoutHospitalInput
+    chambres?: ChambreUncheckedCreateNestedManyWithoutHospitalInput
+    lits?: LitUncheckedCreateNestedManyWithoutHospitalInput
+    hospitalisations?: HospitalisationUncheckedCreateNestedManyWithoutHospitalInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutHospitalInput
+    roles_personnalises?: RolePersonnaliseUncheckedCreateNestedManyWithoutHospitalInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalCreateOrConnectWithoutAntecedentsInput = {
+    where: HospitalWhereUniqueInput
+    create: XOR<HospitalCreateWithoutAntecedentsInput, HospitalUncheckedCreateWithoutAntecedentsInput>
+  }
+
+  export type PatientCreateWithoutAntecedents_medInput = {
+    id?: string
+    numero_dossier: string
+    nom: string
+    prenom: string
+    date_naissance?: Date | string | null
+    sexe?: $Enums.Sexe | null
+    telephone?: string | null
+    email?: string | null
+    adresse?: string | null
+    ville?: string | null
+    groupe_sanguin?: string | null
+    allergies?: string | null
+    antecedents?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospitalisations?: PatientHospitalCreateNestedManyWithoutPatientInput
+    consultations?: ConsultationCreateNestedManyWithoutPatientInput
+    factures?: FactureCreateNestedManyWithoutPatientInput
+    examens_labo?: ExamenLaboCreateNestedManyWithoutPatientInput
+    examens_imagerie?: ExamenImagerieCreateNestedManyWithoutPatientInput
+    qr_tokens?: QrTokenCreateNestedManyWithoutPatientInput
+    sejours?: HospitalisationCreateNestedManyWithoutPatientInput
+    rendez_vous?: RendezVousCreateNestedManyWithoutPatientInput
+  }
+
+  export type PatientUncheckedCreateWithoutAntecedents_medInput = {
+    id?: string
+    numero_dossier: string
+    nom: string
+    prenom: string
+    date_naissance?: Date | string | null
+    sexe?: $Enums.Sexe | null
+    telephone?: string | null
+    email?: string | null
+    adresse?: string | null
+    ville?: string | null
+    groupe_sanguin?: string | null
+    allergies?: string | null
+    antecedents?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    hospitalisations?: PatientHospitalUncheckedCreateNestedManyWithoutPatientInput
+    consultations?: ConsultationUncheckedCreateNestedManyWithoutPatientInput
+    factures?: FactureUncheckedCreateNestedManyWithoutPatientInput
+    examens_labo?: ExamenLaboUncheckedCreateNestedManyWithoutPatientInput
+    examens_imagerie?: ExamenImagerieUncheckedCreateNestedManyWithoutPatientInput
+    qr_tokens?: QrTokenUncheckedCreateNestedManyWithoutPatientInput
+    sejours?: HospitalisationUncheckedCreateNestedManyWithoutPatientInput
+    rendez_vous?: RendezVousUncheckedCreateNestedManyWithoutPatientInput
+  }
+
+  export type PatientCreateOrConnectWithoutAntecedents_medInput = {
+    where: PatientWhereUniqueInput
+    create: XOR<PatientCreateWithoutAntecedents_medInput, PatientUncheckedCreateWithoutAntecedents_medInput>
+  }
+
+  export type HospitalUpsertWithoutAntecedentsInput = {
+    update: XOR<HospitalUpdateWithoutAntecedentsInput, HospitalUncheckedUpdateWithoutAntecedentsInput>
+    create: XOR<HospitalCreateWithoutAntecedentsInput, HospitalUncheckedCreateWithoutAntecedentsInput>
+    where?: HospitalWhereInput
+  }
+
+  export type HospitalUpdateToOneWithWhereWithoutAntecedentsInput = {
+    where?: HospitalWhereInput
+    data: XOR<HospitalUpdateWithoutAntecedentsInput, HospitalUncheckedUpdateWithoutAntecedentsInput>
+  }
+
+  export type HospitalUpdateWithoutAntecedentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutHospitalNestedInput
+    audit_trail?: AuditTrailUpdateManyWithoutHospitalNestedInput
+    chambres?: ChambreUpdateManyWithoutHospitalNestedInput
+    lits?: LitUpdateManyWithoutHospitalNestedInput
+    hospitalisations?: HospitalisationUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type HospitalUncheckedUpdateWithoutAntecedentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_url?: NullableStringFieldUpdateOperationsInput | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    utilisateurs?: UtilisateurUncheckedUpdateManyWithoutHospitalNestedInput
+    patients?: PatientHospitalUncheckedUpdateManyWithoutHospitalNestedInput
+    consultations?: ConsultationUncheckedUpdateManyWithoutHospitalNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutHospitalNestedInput
+    factures?: FactureUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_labo?: ExamenLaboUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_catalogue?: ExamenCatalogueUncheckedUpdateManyWithoutHospitalNestedInput
+    examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutHospitalNestedInput
+    articles_stock?: ArticleStockUncheckedUpdateManyWithoutHospitalNestedInput
+    mouvements_stock?: MouvementStockUncheckedUpdateManyWithoutHospitalNestedInput
+    ecritures_comptables?: EcritureComptableUncheckedUpdateManyWithoutHospitalNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutHospitalNestedInput
+    audit_trail?: AuditTrailUncheckedUpdateManyWithoutHospitalNestedInput
+    chambres?: ChambreUncheckedUpdateManyWithoutHospitalNestedInput
+    lits?: LitUncheckedUpdateManyWithoutHospitalNestedInput
+    hospitalisations?: HospitalisationUncheckedUpdateManyWithoutHospitalNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutHospitalNestedInput
+    roles_personnalises?: RolePersonnaliseUncheckedUpdateManyWithoutHospitalNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type PatientUpsertWithoutAntecedents_medInput = {
+    update: XOR<PatientUpdateWithoutAntecedents_medInput, PatientUncheckedUpdateWithoutAntecedents_medInput>
+    create: XOR<PatientCreateWithoutAntecedents_medInput, PatientUncheckedCreateWithoutAntecedents_medInput>
+    where?: PatientWhereInput
+  }
+
+  export type PatientUpdateToOneWithWhereWithoutAntecedents_medInput = {
+    where?: PatientWhereInput
+    data: XOR<PatientUpdateWithoutAntecedents_medInput, PatientUncheckedUpdateWithoutAntecedents_medInput>
+  }
+
+  export type PatientUpdateWithoutAntecedents_medInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero_dossier?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    date_naissance?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sexe?: NullableEnumSexeFieldUpdateOperationsInput | $Enums.Sexe | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    groupe_sanguin?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    antecedents?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospitalisations?: PatientHospitalUpdateManyWithoutPatientNestedInput
+    consultations?: ConsultationUpdateManyWithoutPatientNestedInput
+    factures?: FactureUpdateManyWithoutPatientNestedInput
+    examens_labo?: ExamenLaboUpdateManyWithoutPatientNestedInput
+    examens_imagerie?: ExamenImagerieUpdateManyWithoutPatientNestedInput
+    qr_tokens?: QrTokenUpdateManyWithoutPatientNestedInput
+    sejours?: HospitalisationUpdateManyWithoutPatientNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutPatientNestedInput
+  }
+
+  export type PatientUncheckedUpdateWithoutAntecedents_medInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero_dossier?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    date_naissance?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sexe?: NullableEnumSexeFieldUpdateOperationsInput | $Enums.Sexe | null
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    adresse?: NullableStringFieldUpdateOperationsInput | string | null
+    ville?: NullableStringFieldUpdateOperationsInput | string | null
+    groupe_sanguin?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    antecedents?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospitalisations?: PatientHospitalUncheckedUpdateManyWithoutPatientNestedInput
+    consultations?: ConsultationUncheckedUpdateManyWithoutPatientNestedInput
+    factures?: FactureUncheckedUpdateManyWithoutPatientNestedInput
+    examens_labo?: ExamenLaboUncheckedUpdateManyWithoutPatientNestedInput
+    examens_imagerie?: ExamenImagerieUncheckedUpdateManyWithoutPatientNestedInput
+    qr_tokens?: QrTokenUncheckedUpdateManyWithoutPatientNestedInput
+    sejours?: HospitalisationUncheckedUpdateManyWithoutPatientNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutPatientNestedInput
+  }
+
   export type UtilisateurCreateManyHospitalInput = {
     id?: string
     supabase_uid?: string | null
@@ -54193,6 +59415,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     statut?: $Enums.StatutConsultation
+    type_acte?: $Enums.TypeActe
     motif?: string | null
     diagnostic?: string | null
     notes?: string | null
@@ -54412,6 +59635,33 @@ export namespace Prisma {
     updated_at?: Date | string
   }
 
+  export type RendezVousCreateManyHospitalInput = {
+    id?: string
+    patient_id: string
+    medecin_id: string
+    service_id?: string | null
+    date_heure: Date | string
+    duree_min?: number
+    statut?: $Enums.StatutRendezVous
+    motif?: string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AntecedentMedicalCreateManyHospitalInput = {
+    id?: string
+    patient_id: string
+    type: $Enums.TypeAntecedent
+    libelle: string
+    date_debut?: Date | string | null
+    date_fin?: Date | string | null
+    est_actif?: boolean
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
   export type UtilisateurUpdateWithoutHospitalInput = {
     id?: StringFieldUpdateOperationsInput | string
     supabase_uid?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54428,6 +59678,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboUpdateManyWithoutMedecinNestedInput
     examens_imagerie_prescrits?: ExamenImagerieUpdateManyWithoutMedecinNestedInput
     hospitalisations_responsable?: HospitalisationUpdateManyWithoutMedecinNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutMedecinNestedInput
     role_personnalise?: RolePersonnaliseUpdateOneWithoutUtilisateursNestedInput
   }
 
@@ -54448,6 +59699,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboUncheckedUpdateManyWithoutMedecinNestedInput
     examens_imagerie_prescrits?: ExamenImagerieUncheckedUpdateManyWithoutMedecinNestedInput
     hospitalisations_responsable?: HospitalisationUncheckedUpdateManyWithoutMedecinNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutMedecinNestedInput
   }
 
   export type UtilisateurUncheckedUpdateManyWithoutHospitalInput = {
@@ -54501,6 +59753,7 @@ export namespace Prisma {
   export type ConsultationUpdateWithoutHospitalInput = {
     id?: StringFieldUpdateOperationsInput | string
     statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFieldUpdateOperationsInput | $Enums.TypeActe
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54523,6 +59776,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFieldUpdateOperationsInput | $Enums.TypeActe
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54543,6 +59797,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFieldUpdateOperationsInput | $Enums.TypeActe
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54566,6 +59821,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     consultations?: ConsultationUpdateManyWithoutServiceNestedInput
     hospitalisations?: HospitalisationUpdateManyWithoutServiceNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutHospitalInput = {
@@ -54578,6 +59834,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     consultations?: ConsultationUncheckedUpdateManyWithoutServiceNestedInput
     hospitalisations?: HospitalisationUncheckedUpdateManyWithoutServiceNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateManyWithoutHospitalInput = {
@@ -55206,11 +60463,93 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RendezVousUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date_heure?: DateTimeFieldUpdateOperationsInput | Date | string
+    duree_min?: IntFieldUpdateOperationsInput | number
+    statut?: EnumStatutRendezVousFieldUpdateOperationsInput | $Enums.StatutRendezVous
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    patient?: PatientUpdateOneRequiredWithoutRendez_vousNestedInput
+    medecin?: UtilisateurUpdateOneRequiredWithoutRendez_vousNestedInput
+    service?: ServiceUpdateOneWithoutRendez_vousNestedInput
+  }
+
+  export type RendezVousUncheckedUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    medecin_id?: StringFieldUpdateOperationsInput | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
+    date_heure?: DateTimeFieldUpdateOperationsInput | Date | string
+    duree_min?: IntFieldUpdateOperationsInput | number
+    statut?: EnumStatutRendezVousFieldUpdateOperationsInput | $Enums.StatutRendezVous
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RendezVousUncheckedUpdateManyWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    medecin_id?: StringFieldUpdateOperationsInput | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
+    date_heure?: DateTimeFieldUpdateOperationsInput | Date | string
+    duree_min?: IntFieldUpdateOperationsInput | number
+    statut?: EnumStatutRendezVousFieldUpdateOperationsInput | $Enums.StatutRendezVous
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AntecedentMedicalUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTypeAntecedentFieldUpdateOperationsInput | $Enums.TypeAntecedent
+    libelle?: StringFieldUpdateOperationsInput | string
+    date_debut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    date_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    patient?: PatientUpdateOneRequiredWithoutAntecedents_medNestedInput
+  }
+
+  export type AntecedentMedicalUncheckedUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTypeAntecedentFieldUpdateOperationsInput | $Enums.TypeAntecedent
+    libelle?: StringFieldUpdateOperationsInput | string
+    date_debut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    date_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AntecedentMedicalUncheckedUpdateManyWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTypeAntecedentFieldUpdateOperationsInput | $Enums.TypeAntecedent
+    libelle?: StringFieldUpdateOperationsInput | string
+    date_debut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    date_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ConsultationCreateManyMedecinInput = {
     id?: string
     hospital_id: string
     patient_id: string
     statut?: $Enums.StatutConsultation
+    type_acte?: $Enums.TypeActe
     motif?: string | null
     diagnostic?: string | null
     notes?: string | null
@@ -55281,9 +60620,24 @@ export namespace Prisma {
     updated_at?: Date | string
   }
 
+  export type RendezVousCreateManyMedecinInput = {
+    id?: string
+    hospital_id: string
+    patient_id: string
+    service_id?: string | null
+    date_heure: Date | string
+    duree_min?: number
+    statut?: $Enums.StatutRendezVous
+    motif?: string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
   export type ConsultationUpdateWithoutMedecinInput = {
     id?: StringFieldUpdateOperationsInput | string
     statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFieldUpdateOperationsInput | $Enums.TypeActe
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55306,6 +60660,7 @@ export namespace Prisma {
     hospital_id?: StringFieldUpdateOperationsInput | string
     patient_id?: StringFieldUpdateOperationsInput | string
     statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFieldUpdateOperationsInput | $Enums.TypeActe
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55326,6 +60681,7 @@ export namespace Prisma {
     hospital_id?: StringFieldUpdateOperationsInput | string
     patient_id?: StringFieldUpdateOperationsInput | string
     statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFieldUpdateOperationsInput | $Enums.TypeActe
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55514,6 +60870,48 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RendezVousUpdateWithoutMedecinInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date_heure?: DateTimeFieldUpdateOperationsInput | Date | string
+    duree_min?: IntFieldUpdateOperationsInput | number
+    statut?: EnumStatutRendezVousFieldUpdateOperationsInput | $Enums.StatutRendezVous
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutRendez_vousNestedInput
+    patient?: PatientUpdateOneRequiredWithoutRendez_vousNestedInput
+    service?: ServiceUpdateOneWithoutRendez_vousNestedInput
+  }
+
+  export type RendezVousUncheckedUpdateWithoutMedecinInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
+    date_heure?: DateTimeFieldUpdateOperationsInput | Date | string
+    duree_min?: IntFieldUpdateOperationsInput | number
+    statut?: EnumStatutRendezVousFieldUpdateOperationsInput | $Enums.StatutRendezVous
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RendezVousUncheckedUpdateManyWithoutMedecinInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
+    date_heure?: DateTimeFieldUpdateOperationsInput | Date | string
+    duree_min?: IntFieldUpdateOperationsInput | number
+    statut?: EnumStatutRendezVousFieldUpdateOperationsInput | $Enums.StatutRendezVous
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PatientHospitalCreateManyPatientInput = {
     id?: string
     hospital_id: string
@@ -55530,6 +60928,7 @@ export namespace Prisma {
     hospital_id: string
     medecin_id: string
     statut?: $Enums.StatutConsultation
+    type_acte?: $Enums.TypeActe
     motif?: string | null
     diagnostic?: string | null
     notes?: string | null
@@ -55626,6 +61025,33 @@ export namespace Prisma {
     updated_at?: Date | string
   }
 
+  export type RendezVousCreateManyPatientInput = {
+    id?: string
+    hospital_id: string
+    medecin_id: string
+    service_id?: string | null
+    date_heure: Date | string
+    duree_min?: number
+    statut?: $Enums.StatutRendezVous
+    motif?: string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AntecedentMedicalCreateManyPatientInput = {
+    id?: string
+    hospital_id: string
+    type: $Enums.TypeAntecedent
+    libelle: string
+    date_debut?: Date | string | null
+    date_fin?: Date | string | null
+    est_actif?: boolean
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
   export type PatientHospitalUpdateWithoutPatientInput = {
     id?: StringFieldUpdateOperationsInput | string
     assurance_nom?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55662,6 +61088,7 @@ export namespace Prisma {
   export type ConsultationUpdateWithoutPatientInput = {
     id?: StringFieldUpdateOperationsInput | string
     statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFieldUpdateOperationsInput | $Enums.TypeActe
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55684,6 +61111,7 @@ export namespace Prisma {
     hospital_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFieldUpdateOperationsInput | $Enums.TypeActe
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55704,6 +61132,7 @@ export namespace Prisma {
     hospital_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFieldUpdateOperationsInput | $Enums.TypeActe
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55974,6 +61403,87 @@ export namespace Prisma {
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     facture_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RendezVousUpdateWithoutPatientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date_heure?: DateTimeFieldUpdateOperationsInput | Date | string
+    duree_min?: IntFieldUpdateOperationsInput | number
+    statut?: EnumStatutRendezVousFieldUpdateOperationsInput | $Enums.StatutRendezVous
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutRendez_vousNestedInput
+    medecin?: UtilisateurUpdateOneRequiredWithoutRendez_vousNestedInput
+    service?: ServiceUpdateOneWithoutRendez_vousNestedInput
+  }
+
+  export type RendezVousUncheckedUpdateWithoutPatientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    medecin_id?: StringFieldUpdateOperationsInput | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
+    date_heure?: DateTimeFieldUpdateOperationsInput | Date | string
+    duree_min?: IntFieldUpdateOperationsInput | number
+    statut?: EnumStatutRendezVousFieldUpdateOperationsInput | $Enums.StatutRendezVous
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RendezVousUncheckedUpdateManyWithoutPatientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    medecin_id?: StringFieldUpdateOperationsInput | string
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
+    date_heure?: DateTimeFieldUpdateOperationsInput | Date | string
+    duree_min?: IntFieldUpdateOperationsInput | number
+    statut?: EnumStatutRendezVousFieldUpdateOperationsInput | $Enums.StatutRendezVous
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AntecedentMedicalUpdateWithoutPatientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTypeAntecedentFieldUpdateOperationsInput | $Enums.TypeAntecedent
+    libelle?: StringFieldUpdateOperationsInput | string
+    date_debut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    date_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutAntecedentsNestedInput
+  }
+
+  export type AntecedentMedicalUncheckedUpdateWithoutPatientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTypeAntecedentFieldUpdateOperationsInput | $Enums.TypeAntecedent
+    libelle?: StringFieldUpdateOperationsInput | string
+    date_debut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    date_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AntecedentMedicalUncheckedUpdateManyWithoutPatientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTypeAntecedentFieldUpdateOperationsInput | $Enums.TypeAntecedent
+    libelle?: StringFieldUpdateOperationsInput | string
+    date_debut?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    date_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    est_actif?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -56667,6 +62177,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboUpdateManyWithoutMedecinNestedInput
     examens_imagerie_prescrits?: ExamenImagerieUpdateManyWithoutMedecinNestedInput
     hospitalisations_responsable?: HospitalisationUpdateManyWithoutMedecinNestedInput
+    rendez_vous?: RendezVousUpdateManyWithoutMedecinNestedInput
   }
 
   export type UtilisateurUncheckedUpdateWithoutRole_personnaliseInput = {
@@ -56686,6 +62197,7 @@ export namespace Prisma {
     examens_labo_prescrits?: ExamenLaboUncheckedUpdateManyWithoutMedecinNestedInput
     examens_imagerie_prescrits?: ExamenImagerieUncheckedUpdateManyWithoutMedecinNestedInput
     hospitalisations_responsable?: HospitalisationUncheckedUpdateManyWithoutMedecinNestedInput
+    rendez_vous?: RendezVousUncheckedUpdateManyWithoutMedecinNestedInput
   }
 
   export type UtilisateurUncheckedUpdateManyWithoutRole_personnaliseInput = {
@@ -56748,6 +62260,7 @@ export namespace Prisma {
     patient_id: string
     medecin_id: string
     statut?: $Enums.StatutConsultation
+    type_acte?: $Enums.TypeActe
     motif?: string | null
     diagnostic?: string | null
     notes?: string | null
@@ -56778,9 +62291,24 @@ export namespace Prisma {
     updated_at?: Date | string
   }
 
+  export type RendezVousCreateManyServiceInput = {
+    id?: string
+    hospital_id: string
+    patient_id: string
+    medecin_id: string
+    date_heure: Date | string
+    duree_min?: number
+    statut?: $Enums.StatutRendezVous
+    motif?: string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
   export type ConsultationUpdateWithoutServiceInput = {
     id?: StringFieldUpdateOperationsInput | string
     statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFieldUpdateOperationsInput | $Enums.TypeActe
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -56804,6 +62332,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFieldUpdateOperationsInput | $Enums.TypeActe
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -56824,6 +62353,7 @@ export namespace Prisma {
     patient_id?: StringFieldUpdateOperationsInput | string
     medecin_id?: StringFieldUpdateOperationsInput | string
     statut?: EnumStatutConsultationFieldUpdateOperationsInput | $Enums.StatutConsultation
+    type_acte?: EnumTypeActeFieldUpdateOperationsInput | $Enums.TypeActe
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -56888,6 +62418,48 @@ export namespace Prisma {
     diagnostic?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     facture_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RendezVousUpdateWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date_heure?: DateTimeFieldUpdateOperationsInput | Date | string
+    duree_min?: IntFieldUpdateOperationsInput | number
+    statut?: EnumStatutRendezVousFieldUpdateOperationsInput | $Enums.StatutRendezVous
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalUpdateOneRequiredWithoutRendez_vousNestedInput
+    patient?: PatientUpdateOneRequiredWithoutRendez_vousNestedInput
+    medecin?: UtilisateurUpdateOneRequiredWithoutRendez_vousNestedInput
+  }
+
+  export type RendezVousUncheckedUpdateWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    medecin_id?: StringFieldUpdateOperationsInput | string
+    date_heure?: DateTimeFieldUpdateOperationsInput | Date | string
+    duree_min?: IntFieldUpdateOperationsInput | number
+    statut?: EnumStatutRendezVousFieldUpdateOperationsInput | $Enums.StatutRendezVous
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RendezVousUncheckedUpdateManyWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hospital_id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    medecin_id?: StringFieldUpdateOperationsInput | string
+    date_heure?: DateTimeFieldUpdateOperationsInput | Date | string
+    duree_min?: IntFieldUpdateOperationsInput | number
+    statut?: EnumStatutRendezVousFieldUpdateOperationsInput | $Enums.StatutRendezVous
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

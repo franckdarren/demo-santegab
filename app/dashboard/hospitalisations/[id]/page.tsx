@@ -2,9 +2,10 @@
 // PAGE FICHE HOSPITALISATION — Détail d'un séjour
 // ============================================================
 
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { withPermission } from "@/lib/withPermission";
 import { getPermissionsModule } from "@/lib/permissions.server";
+import { MASQUAGE_KIMBA_ACTIF } from "@/lib/kimba-scope";
 import { getHospitalisationById } from "@/app/dashboard/hospitalisations/actions";
 import { getArticlesStock } from "@/app/dashboard/pharmacy/actions";
 import { FicheHospitalisation } from "@/components/hospitalisations/FicheHospitalisation";
@@ -16,6 +17,9 @@ interface HospitalisationPageProps {
 export default async function HospitalisationPage({
   params,
 }: HospitalisationPageProps) {
+  // Module hors périmètre du cahier des charges KIMBA → accès URL direct bloqué
+  if (MASQUAGE_KIMBA_ACTIF) redirect("/dashboard");
+
   const utilisateur = await withPermission("HOSPITALISATION", "peut_voir");
 
   const { id } = await params;

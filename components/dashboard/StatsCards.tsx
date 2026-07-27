@@ -16,6 +16,7 @@ import {
   Clock,
 } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
+import { MASQUAGE_KIMBA_ACTIF } from "@/lib/kimba-scope";
 
 interface StatsCardsProps {
   stats: {
@@ -61,19 +62,28 @@ export function StatsCards({ stats }: StatsCardsProps) {
         ? { label: "Affluence", color: "bg-orange-100 text-orange-700" }
         : null,
     },
-    {
-      titre: "Revenus du mois",
-      valeur: formatCurrency(stats.revenusMois),
-      description: "Part patient encaissée",
-      icon: Receipt,
-      couleur: "text-purple-600",
-      bg: "bg-purple-50",
-      badge: null,
-    },
+    // ------------------------------------------------------
+    // KPI « Revenus du mois » — donnée financière, donc hors
+    // périmètre du cahier des charges KIMBA.
+    // ------------------------------------------------------
+    ...(MASQUAGE_KIMBA_ACTIF
+      ? []
+      : [{
+          titre: "Revenus du mois",
+          valeur: formatCurrency(stats.revenusMois),
+          description: "Part patient encaissée",
+          icon: Receipt,
+          couleur: "text-purple-600",
+          bg: "bg-purple-50",
+          badge: null,
+        }]),
   ];
 
+  // La grille s'adapte au nombre réel de KPIs affichés
+  const colonnes = MASQUAGE_KIMBA_ACTIF ? "xl:grid-cols-3" : "xl:grid-cols-4";
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+    <div className={`grid grid-cols-1 sm:grid-cols-2 ${colonnes} gap-4`}>
       {cards.map((card) => {
         const Icon = card.icon;
         return (

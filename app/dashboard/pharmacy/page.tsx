@@ -1,5 +1,7 @@
+import { redirect } from "next/navigation";
 import { withPermission } from "@/lib/withPermission";
 import { getPermissionsModule } from "@/lib/permissions.server";
+import { MASQUAGE_KIMBA_ACTIF } from "@/lib/kimba-scope";
 import {
   getArticlesStock,
   getStatsPharmacieAction,
@@ -13,6 +15,9 @@ interface PharmacyPageProps {
 }
 
 export default async function PharmacyPage({ searchParams }: PharmacyPageProps) {
+  // Module hors périmètre du cahier des charges KIMBA → accès URL direct bloqué
+  if (MASQUAGE_KIMBA_ACTIF) redirect("/dashboard");
+
   const utilisateur = await withPermission("PHARMACIE", "peut_voir");
 
   const { q } = await searchParams;

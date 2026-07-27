@@ -59,34 +59,36 @@ export function QrCodeButton({
 
   return (
     <>
+      {/* px réduit sur mobile : les 3 boutons secondaires partagent */}
+      {/* la largeur de l'écran, le libellé doit tenir              */}
       <Button
         type="button"
         variant="outline"
-        size="sm"
         onClick={handleOuvrir}
-        className="border-blue-200 text-blue-700 hover:bg-blue-50 text-xs"
+        className="border-blue-200 text-blue-700 hover:bg-blue-50 text-xs sm:text-sm px-2 sm:px-4"
       >
-        <QrCode className="h-3.5 w-3.5 mr-1.5" />
+        <QrCode className="h-4 w-4 mr-1.5" />
         QR Code
       </Button>
 
       <Dialog open={open} onOpenChange={handleFermer}>
-        <DialogContent className="max-w-sm! w-full p-0 overflow-hidden gap-0 [&>button:first-of-type]:hidden">
+        {/* max-w préfixé sm: pour conserver la marge mobile de DialogContent */}
+        <DialogContent className="sm:max-w-sm! w-full p-0 overflow-hidden gap-0 [&>button:first-of-type]:hidden">
           <DialogTitle className="sr-only">QR Code carnet de santé</DialogTitle>
 
           <div className="flex flex-col">
 
             {/* Header */}
-            <div className="px-6 py-4 border-b bg-gray-50">
+            <div className="px-4 sm:px-6 py-4 border-b bg-gray-50">
               <h2 className="text-base font-semibold text-gray-900">
                 Dossier médical
               </h2>
-              <p className="text-xs text-gray-400 mt-0.5">
+              <p className="text-xs text-gray-400 mt-0.5 wrap-break-word">
                 {nomPatient}
               </p>
             </div>
 
-            <div className="p-6 space-y-4">
+            <div className="p-4 sm:p-6 space-y-4">
               {isPending ? (
                 <div className="flex flex-col items-center justify-center py-8 gap-3">
                   <Loader2 className="h-8 w-8 text-blue-600 animate-spin" />
@@ -139,7 +141,7 @@ export function QrCodeButton({
               ) : null}
             </div>
 
-            <div className="px-6 py-4 border-t bg-gray-50">
+            <div className="px-4 sm:px-6 py-4 border-t bg-gray-50">
               <Button
                 type="button"
                 variant="ghost"

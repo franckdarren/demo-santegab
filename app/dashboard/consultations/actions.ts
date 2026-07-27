@@ -105,6 +105,7 @@ export async function creerConsultation(
     taille_cm?:    number;
     temperature?:  number;
     statut?:       "EN_ATTENTE" | "EN_COURS" | "TERMINEE" | "ANNULEE";
+    type_acte?:    "CONSULTATION" | "SOIN";
     prescriptions?: Array<{
       medicament:    string;
       dosage?:       string;
@@ -133,6 +134,8 @@ export async function creerConsultation(
       medecin_id:   medecinId,
       service_id:   data.service_id   ?? null,
       statut:       data.statut ?? "EN_ATTENTE",
+      // Nature de l'acte (CDC §5.5) — consultation médicale ou soin
+      type_acte:    data.type_acte ?? "CONSULTATION",
       motif:        data.motif        ?? null,
       diagnostic:   data.diagnostic   ?? null,
       notes:        data.notes        ?? null,
@@ -202,6 +205,7 @@ export async function creerConsultation(
     metadonnees: {
       motif:            data.motif ?? null,
       statut:           data.statut ?? "EN_ATTENTE",
+      type_acte:        data.type_acte ?? "CONSULTATION",
       nb_prescriptions: (data.prescriptions ?? []).length,
       facture_generee:  numeroFacture,
       montant_patient:  montantPatient,

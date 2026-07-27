@@ -4,10 +4,14 @@
 
 import { getUtilisateurConnecte } from "@/lib/withPermission";
 import { redirect } from "next/navigation";
+import { MASQUAGE_KIMBA_ACTIF } from "@/lib/kimba-scope";
 import { getChambres } from "./actions";
 import { ChambresGrid } from "@/components/chambres/ChambresGrid";
 
 export default async function ChambresPage() {
+  // Module hors périmètre du cahier des charges KIMBA → accès URL direct bloqué
+  if (MASQUAGE_KIMBA_ACTIF) redirect("/dashboard");
+
   const utilisateur = await getUtilisateurConnecte();
 
   // Page réservée aux admins

@@ -2,8 +2,10 @@
 // PAGE FACTURATION — Liste avec KPIs et actions
 // ============================================================
 
+import { redirect } from "next/navigation";
 import { withPermission } from "@/lib/withPermission";
 import { getPermissionsModule } from "@/lib/permissions.server";
+import { MASQUAGE_KIMBA_ACTIF } from "@/lib/kimba-scope";
 import { prisma } from "@/lib/prisma";
 import { getFactures, getStatsFacturation } from "./actions";
 import { getPatientsHospital } from "@/app/dashboard/consultations/actions";
@@ -15,6 +17,9 @@ interface BillingPageProps {
 }
 
 export default async function BillingPage({ searchParams }: BillingPageProps) {
+  // Module hors périmètre du cahier des charges KIMBA → accès URL direct bloqué
+  if (MASQUAGE_KIMBA_ACTIF) redirect("/dashboard");
+
   const utilisateur = await withPermission("FACTURATION", "peut_voir");
 
   const { q } = await searchParams;

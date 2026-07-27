@@ -42,8 +42,10 @@ import {
   DoorOpen,
   ShieldCheck,
   LayoutGrid,
+  CalendarDays,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { routeHorsPerimetre } from "@/lib/kimba-scope";
 
 // ============================================================
 // Type d'un lien de navigation
@@ -80,6 +82,12 @@ const NAVIGATION: NavItem[] = [
     href:   "/dashboard/consultations",
     icon:   Stethoscope,
     module: "CONSULTATION",
+  },
+  {
+    label:  "Rendez-vous",
+    href:   "/dashboard/rendez-vous",
+    icon:   CalendarDays,
+    module: "RENDEZ_VOUS",
   },
   {
     label:  "Hospitalisations",
@@ -191,6 +199,14 @@ export function AppSidebar({
   // Filtre les liens selon les permissions
   // --------------------------------------------------------
   function estVisible(item: NavItem): boolean {
+    // ------------------------------------------------------
+    // Périmètre KIMBA — DOIT rester le tout premier test.
+    // ADMIN/SUPER_ADMIN bypassent les permissions plus bas :
+    // ce filtre doit donc s'appliquer AVANT, sinon les modules
+    // hors cahier des charges resteraient visibles pour eux.
+    // ------------------------------------------------------
+    if (routeHorsPerimetre(item.href)) return false;
+
     // Liens admin uniquement
     if (item.adminSeulement && !estAdmin) return false;
 

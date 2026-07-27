@@ -161,6 +161,17 @@ export async function getCarnetParToken(token: string) {
           },
         },
       },
+      // ------------------------------------------------------
+      // Antécédents structurés (CDC §5.6)
+      //
+      // PAS de filtre hospital_id, contrairement aux blocs
+      // ci-dessus : allergies, pathologies et traitements
+      // chroniques suivent le patient. C'est précisément ce que
+      // doit montrer un carnet de santé présenté en urgence.
+      // ------------------------------------------------------
+      antecedents_med: {
+        orderBy: [{ est_actif: "desc" }, { date_debut: "desc" }],
+      },
     },
   });
 

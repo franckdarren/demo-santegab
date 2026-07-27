@@ -221,7 +221,7 @@ export function NouveauPatientDialog({
 
   return (
     <Dialog open={open} onOpenChange={close}>
-      <DialogContent className="max-w-3xl! w-full p-0 overflow-hidden gap-0">
+      <DialogContent className="sm:max-w-3xl! w-full p-0 overflow-hidden gap-0">
         <DialogTitle className="sr-only">Nouveau patient</DialogTitle>
 
         <div className="flex min-h-135">
@@ -328,7 +328,7 @@ export function NouveauPatientDialog({
                         </p>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-1.5">
                           <Label>
                             Nom <span className="text-red-500">*</span>
@@ -363,7 +363,7 @@ export function NouveauPatientDialog({
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-1.5">
                           <Label>Sexe</Label>
                           <select
@@ -504,7 +504,7 @@ export function NouveauPatientDialog({
                           Assurance maladie
                         </p>
 
-                        <div className="grid grid-cols-2 gap-3">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                           <div className="space-y-1.5">
                             <Label>Organisme</Label>
                             <select

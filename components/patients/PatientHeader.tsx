@@ -3,11 +3,12 @@
 import { useState } from "react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Phone, Calendar, Droplets, Shield,
   ArrowLeft, Stethoscope,
+  type LucideIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { formatDate, getInitials } from "@/lib/utils";
@@ -47,6 +48,35 @@ interface PatientHeaderProps {
   peutCreerConsultation: boolean;
 }
 
+// ============================================================
+// SOUS-COMPOSANT — Une ligne d'information secondaire
+//
+// Déclaré EN DEHORS du composant parent (règle du projet).
+//
+// Mobile  : libellé à gauche, valeur alignée à droite — beaucoup
+//           plus lisible qu'un empilement dans une colonne étroite.
+// sm et + : valeur sous le libellé, en colonnes.
+// ============================================================
+interface LigneDetailProps {
+  icone: LucideIcon;
+  libelle: string;
+  valeur: string;
+}
+
+function LigneDetail({ icone: Icone, libelle, valeur }: LigneDetailProps) {
+  return (
+    <div className="flex items-start gap-2 py-2.5 sm:py-0">
+      <Icone className="h-3.5 w-3.5 text-gray-400 shrink-0 mt-0.5" />
+      <div className="min-w-0 flex-1 flex items-start justify-between gap-3 sm:block">
+        <p className="text-xs text-gray-400 shrink-0">{libelle}</p>
+        <p className="min-w-0 text-sm font-medium text-gray-700 text-right sm:text-left wrap-break-word">
+          {valeur}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export function PatientHeader({
   patient,
   hospitalId,
@@ -80,148 +110,149 @@ export function PatientHeader({
       </Link>
 
       <Card className="border border-gray-200 shadow-sm">
-        <CardContent className="p-5">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+        <CardContent className="space-y-4 sm:px-5">
 
-            {/* Avatar + nom */}
-            <div className="flex items-center gap-4 flex-1">
-              <Avatar className="h-14 w-14 shrink-0">
-                <AvatarFallback className="bg-blue-700 text-white text-lg font-bold">
-                  {getInitials(nomComplet)}
-                </AvatarFallback>
-              </Avatar>
-              <div>
-                <div className="flex items-center gap-2 flex-wrap">
-                  <h1 className="text-xl font-bold text-gray-900">
-                    {nomComplet}
-                  </h1>
-                  {patient.groupe_sanguin && (
-                    <Badge className="bg-red-50 text-red-600 border-0 text-xs">
-                      <Droplets className="h-3 w-3 mr-1" />
-                      {patient.groupe_sanguin}
-                    </Badge>
-                  )}
-                  {patient.allergies && (
-                    <Badge className="bg-orange-50 text-orange-600 border-0 text-xs">
-                      ⚠️ Allergies
-                    </Badge>
-                  )}
-                </div>
-                <p className="text-sm text-gray-500 mt-0.5">
-                  {patient.numero_dossier}
-                  {patient.sexe && ` · ${patient.sexe === "MASCULIN" ? "Homme" : "Femme"}`}
-                  {age && ` · ${age} ans`}
-                </p>
+          {/* ------------------------------------------------ */}
+          {/* IDENTITÉ                                          */}
+          {/* ------------------------------------------------ */}
+          <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+            <Avatar className="h-12 w-12 sm:h-14 sm:w-14 shrink-0">
+              <AvatarFallback className="bg-blue-700 text-white text-base sm:text-lg font-bold">
+                {getInitials(nomComplet)}
+              </AvatarFallback>
+            </Avatar>
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h1 className="text-lg sm:text-xl font-bold text-gray-900 wrap-break-word">
+                  {nomComplet}
+                </h1>
+                {patient.groupe_sanguin && (
+                  <Badge className="bg-red-50 text-red-600 border-0 text-xs">
+                    <Droplets className="h-3 w-3 mr-1" />
+                    {patient.groupe_sanguin}
+                  </Badge>
+                )}
+                {patient.allergies && (
+                  <Badge className="bg-orange-50 text-orange-600 border-0 text-xs">
+                    ⚠️ Allergies
+                  </Badge>
+                )}
               </div>
-            </div>
-
-            {/* ------------------------------------------------ */}
-            {/* ACTIONS                                           */}
-            {/* ------------------------------------------------ */}
-            <div className="flex gap-2 shrink-0 flex-wrap">
-
-              {/* Nouvelle consultation */}
-              {peutCreerConsultation && (
-                <Button
-                  type="button"
-                  onClick={() => setDialogConsultation(true)}
-                  className="bg-blue-700 hover:bg-blue-800 text-white text-sm"
-                >
-                  <Stethoscope className="h-4 w-4 mr-1.5" />
-                  Nouvelle consultation
-                </Button>
-              )}
-
-              {/* QR Code carnet de santé */}
-              <QrCodeButton
-                patientId={patient.id}
-                hospitalId={hospitalId}
-                utilisateurId={medecinConnecteId}
-                utilisateurNom={medecinConnecteNom}
-                nomPatient={nomComplet}
-              />
-
-              {/* Modifier patient — avec audit */}
-              {peutModifier && (
-                <ModifierPatientDialog
-                  patient={patient}
-                  hospitalId={hospitalId}
-                  utilisateurId={utilisateurId}
-                  utilisateurNom={utilisateurNom}
-                />
-              )}
-
-              {/* Supprimer patient — avec audit */}
-              {peutSupprimer && (
-                <SupprimerPatientDialog
-                  patientId={patient.id}
-                  nomPatient={nomComplet}
-                  hospitalId={hospitalId}
-                  utilisateurId={utilisateurId}
-                  utilisateurNom={utilisateurNom}
-                />
-              )}
+              <p className="text-sm text-gray-500 mt-0.5">
+                {patient.numero_dossier}
+                {patient.sexe && ` · ${patient.sexe === "MASCULIN" ? "Homme" : "Femme"}`}
+                {age && ` · ${age} ans`}
+              </p>
             </div>
           </div>
 
-          {/* Infos secondaires */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-5 pt-5 border-t border-gray-100">
+          {/* ------------------------------------------------ */}
+          {/* INFOS SECONDAIRES                                 */}
+          {/* Mobile : liste séparée par des filets.            */}
+          {/* sm : 2 colonnes — lg : 4 colonnes.                */}
+          {/* ------------------------------------------------ */}
+          <div className="grid grid-cols-1 divide-y divide-gray-100 border-t border-gray-100 pt-1 sm:grid-cols-2 lg:grid-cols-4 sm:gap-4 sm:divide-y-0 sm:pt-4">
             {patient.telephone && (
-              <div className="flex items-center gap-2">
-                <Phone className="h-3.5 w-3.5 text-gray-400 shrink-0" />
-                <div>
-                  <p className="text-xs text-gray-400">Téléphone</p>
-                  <p className="text-sm font-medium text-gray-700">
-                    {patient.telephone}
-                  </p>
-                </div>
-              </div>
+              <LigneDetail
+                icone={Phone}
+                libelle="Téléphone"
+                valeur={patient.telephone}
+              />
             )}
             {patient.date_naissance && (
-              <div className="flex items-center gap-2">
-                <Calendar className="h-3.5 w-3.5 text-gray-400 shrink-0" />
-                <div>
-                  <p className="text-xs text-gray-400">Date de naissance</p>
-                  <p className="text-sm font-medium text-gray-700">
-                    {formatDate(patient.date_naissance)}
-                  </p>
-                </div>
-              </div>
+              <LigneDetail
+                icone={Calendar}
+                libelle="Date de naissance"
+                valeur={formatDate(patient.date_naissance)}
+              />
             )}
             {patient.assurance_nom && (
-              <div className="flex items-center gap-2">
-                <Shield className="h-3.5 w-3.5 text-gray-400 shrink-0" />
-                <div>
-                  <p className="text-xs text-gray-400">Assurance</p>
-                  <p className="text-sm font-medium text-gray-700">
-                    {patient.assurance_nom} · {patient.taux_couverture}%
-                  </p>
-                </div>
-              </div>
+              <LigneDetail
+                icone={Shield}
+                libelle="Assurance"
+                valeur={`${patient.assurance_nom} · ${patient.taux_couverture}%`}
+              />
             )}
             {patient.medecin_traitant && (
-              <div className="flex items-center gap-2">
-                <Stethoscope className="h-3.5 w-3.5 text-gray-400 shrink-0" />
-                <div>
-                  <p className="text-xs text-gray-400">Médecin traitant</p>
-                  <p className="text-sm font-medium text-gray-700">
-                    {patient.medecin_traitant}
-                  </p>
-                </div>
-              </div>
+              <LigneDetail
+                icone={Stethoscope}
+                libelle="Médecin traitant"
+                valeur={patient.medecin_traitant}
+              />
             )}
           </div>
 
-          {/* Allergies */}
+          {/* Allergies — détail complet */}
           {patient.allergies && (
-            <div className="mt-3 p-3 bg-orange-50 rounded-lg border border-orange-100">
+            <div className="p-3 bg-orange-50 rounded-lg border border-orange-100">
               <p className="text-xs font-semibold text-orange-700 mb-0.5">
                 ⚠️ Allergies connues
               </p>
-              <p className="text-sm text-orange-600">{patient.allergies}</p>
+              <p className="text-sm text-orange-600 wrap-break-word">
+                {patient.allergies}
+              </p>
             </div>
           )}
         </CardContent>
+
+        {/* ------------------------------------------------ */}
+        {/* ACTIONS — barre en pied de carte                  */}
+        {/*                                                   */}
+        {/* Regroupées ici plutôt qu'au milieu de la carte :  */}
+        {/* sur mobile elles coupaient l'identité de ses      */}
+        {/* informations. CardFooter fournit déjà le filet et */}
+        {/* le fond gris, et Card retire son padding bas dès  */}
+        {/* qu'un footer est présent.                         */}
+        {/*                                                   */}
+        {/* items-stretch : en colonne, les boutons prennent  */}
+        {/* toute la largeur sans avoir à leur passer w-full. */}
+        {/* ------------------------------------------------ */}
+        <CardFooter className="flex-col items-stretch gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-end sm:px-5">
+
+          {/* Action principale */}
+          {peutCreerConsultation && (
+            <Button
+              type="button"
+              onClick={() => setDialogConsultation(true)}
+              className="bg-blue-700 hover:bg-blue-800 text-white text-sm sm:w-auto"
+            >
+              <Stethoscope className="h-4 w-4 mr-1.5" />
+              Nouvelle consultation
+            </Button>
+          )}
+
+          {/* Actions secondaires — colonnes de largeur égale sur   */}
+          {/* mobile quel que soit leur nombre (auto-cols-fr), donc */}
+          {/* la rangée reste équilibrée si une permission manque.  */}
+          <div className="grid grid-flow-col auto-cols-fr gap-2 sm:flex sm:gap-2">
+            <QrCodeButton
+              patientId={patient.id}
+              hospitalId={hospitalId}
+              utilisateurId={medecinConnecteId}
+              utilisateurNom={medecinConnecteNom}
+              nomPatient={nomComplet}
+            />
+
+            {peutModifier && (
+              <ModifierPatientDialog
+                patient={patient}
+                hospitalId={hospitalId}
+                utilisateurId={utilisateurId}
+                utilisateurNom={utilisateurNom}
+              />
+            )}
+
+            {peutSupprimer && (
+              <SupprimerPatientDialog
+                patientId={patient.id}
+                nomPatient={nomComplet}
+                hospitalId={hospitalId}
+                utilisateurId={utilisateurId}
+                utilisateurNom={utilisateurNom}
+              />
+            )}
+          </div>
+        </CardFooter>
       </Card>
 
       {/* Dialog nouvelle consultation — avec audit */}

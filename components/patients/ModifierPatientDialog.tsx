@@ -151,14 +151,16 @@ export function ModifierPatientDialog({
         type="button"
         variant="outline"
         onClick={() => setOpen(true)}
-        className="border-gray-200 text-gray-600 hover:text-blue-700 hover:border-blue-300"
+        className="border-gray-200 text-gray-600 hover:text-blue-700 hover:border-blue-300 text-xs sm:text-sm px-2 sm:px-4"
       >
         <Pencil className="h-4 w-4 mr-1.5" />
         Modifier
       </Button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-2xl! w-full p-0 overflow-hidden gap-0">
+        {/* max-w préfixé sm: pour ne PAS écraser le max-w-[calc(100%-2rem)] */}
+        {/* de DialogContent : sans ça le dialog colle aux bords sur mobile   */}
+        <DialogContent className="sm:max-w-2xl! w-full p-0 overflow-hidden gap-0">
           <DialogTitle className="sr-only">Modifier le patient</DialogTitle>
 
           {succes ? (
@@ -176,17 +178,17 @@ export function ModifierPatientDialog({
             <div className="flex flex-col">
 
               {/* Header du dialog */}
-              <div className="px-6 py-4 border-b bg-gray-50">
+              <div className="px-4 sm:px-6 py-4 border-b bg-gray-50">
                 <h2 className="text-base font-semibold text-gray-900">
                   Modifier le dossier patient
                 </h2>
-                <p className="text-xs text-gray-400 mt-0.5">
+                <p className="text-xs text-gray-400 mt-0.5 wrap-break-word">
                   {patient.prenom} {patient.nom} · {patient.id.slice(0, 8)}
                 </p>
               </div>
 
               {/* Contenu scrollable */}
-              <div className="overflow-y-auto p-6 space-y-6 max-h-[70vh]">
+              <div className="overflow-y-auto p-4 sm:p-6 space-y-6 max-h-[60vh] sm:max-h-[70vh]">
 
                 {errors.global && (
                   <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
@@ -200,7 +202,7 @@ export function ModifierPatientDialog({
                   <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
                     Identité
                   </p>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
                       <Label>Nom <span className="text-red-500">*</span></Label>
                       <Input
@@ -226,7 +228,7 @@ export function ModifierPatientDialog({
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
                       <Label>Sexe</Label>
                       <select
@@ -256,7 +258,7 @@ export function ModifierPatientDialog({
                   <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
                     Contact
                   </p>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
                       <Label>Téléphone</Label>
                       <Input
@@ -345,7 +347,7 @@ export function ModifierPatientDialog({
                   <p className="text-xs font-semibold text-blue-700 uppercase tracking-wide">
                     Assurance maladie
                   </p>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="space-y-1.5">
                       <Label>Organisme</Label>
                       <select
@@ -390,7 +392,7 @@ export function ModifierPatientDialog({
               </div>
 
               {/* Footer */}
-              <div className="flex justify-between items-center px-6 py-4 border-t bg-gray-50">
+              <div className="flex justify-between items-center px-4 sm:px-6 py-4 border-t bg-gray-50">
                 <Button
                   type="button"
                   variant="ghost"

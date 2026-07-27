@@ -8,6 +8,7 @@
 
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { destinationApresConnexion } from "@/lib/redirection";
 
 export async function middleware(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -49,14 +50,19 @@ export async function middleware(request: NextRequest) {
   // Si non connecté et route protégée → redirige vers /login avec l'URL d'origine
   if (!user && !estPublique) {
     const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set("next", pathname);
+    // On ne mémorise pas la racine : elle ne contient aucune page utile,
+    // sinon la connexion renverrait sur "/" au lieu du dashboard
+    if (pathname !== "/") {
+      loginUrl.searchParams.set("next", pathname);
+    }
     return NextResponse.redirect(loginUrl);
   }
 
-  // Si connecté et sur /login → redirige vers /dashboard (ou next si présent)
+  // Si connecté et sur /login → redirige vers /dashboard (ou next si valide)
   if (user && pathname === "/login") {
-    const next = request.nextUrl.searchParams.get("next");
-    const destination = next && next.startsWith("/") ? next : "/dashboard";
+    const destination = destinationApresConnexion(
+      request.nextUrl.searchParams.get("next")
+    );
     return NextResponse.redirect(new URL(destination, request.url));
   }
 

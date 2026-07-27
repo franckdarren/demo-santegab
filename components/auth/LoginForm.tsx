@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { destinationApresConnexion } from "@/lib/redirection";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -40,8 +41,8 @@ export function LoginForm() {
     }
 
     // Redirige vers l'URL d'origine (QR Code, etc.) ou le dashboard par défaut
-    const next = searchParams.get("next");
-    const destination = next && next.startsWith("/") ? next : "/dashboard";
+    // destinationApresConnexion() rejette les URLs externes et la racine "/"
+    const destination = destinationApresConnexion(searchParams.get("next"));
     router.push(destination);
     router.refresh();
   }

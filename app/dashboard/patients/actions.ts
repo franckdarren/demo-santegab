@@ -64,6 +64,27 @@ export async function getPatientById(patientId: string, hospitalId: string) {
     orderBy: { created_at: "desc" },
   });
 
+  // ----------------------------------------------------------
+  // Antécédents structurés (CDC §5.6)
+  //
+  // ⚠️ VOLONTAIREMENT filtrés sur patient_id SEUL, sans hospital_id.
+  //
+  // Une allergie ou un traitement chronique est une caractéristique
+  // du PATIENT, pas un événement appartenant à l'établissement.
+  // Ils suivent donc le patient d'une structure à l'autre, comme
+  // le groupe sanguin et les allergies portés par le modèle Patient.
+  //
+  // hospital_id reste stocké sur chaque ligne : il indique QUI a
+  // saisi l'antécédent (traçabilité) et conditionne le droit de le
+  // modifier, mais pas celui de le lire.
+  //
+  // Les traitements en cours et pathologies actives remontent en premier.
+  // ----------------------------------------------------------
+  const antecedents = await prisma.antecedentMedical.findMany({
+    where:   { patient_id: patientId },
+    orderBy: [{ est_actif: "desc" }, { date_debut: "desc" }],
+  });
+
   return {
     ...patientHospital.patient,
     assurance_nom:    patientHospital.assurance_nom,
@@ -72,6 +93,7 @@ export async function getPatientById(patientId: string, hospitalId: string) {
     medecin_traitant: patientHospital.medecin_traitant,
     consultations,
     factures,
+    antecedents_structures: antecedents,
   };
 }
 
@@ -295,5 +317,185 @@ export async function supprimerPatient(
       nb_consultations_supprimees: consultationIds.length,
       nb_factures_supprimees:      factureIds.length,
     },
+  });
+}
+// ============================================================
+// ANTÉCÉDENTS MÉDICAUX STRUCTURÉS (CDC KIMBA §5.6)
+//
+// Remplacent progressivement le champ texte libre
+// Patient.antecedents, conservé comme repli.
+//
+// Le module d'audit utilisé est PATIENT : un antécédent fait
+// partie du dossier patient, aucune valeur d'enum à ajouter.
+// ============================================================
+
+// Types d'antécédents acceptés — repris de l'enum Prisma
+type TypeAntecedentSaisi =
+  | "PATHOLOGIE"
+  | "HOSPITALISATION"
+  | "CHIRURGIE"
+  | "ALLERGIE"
+  | "TRAITEMENT_CHRONIQUE";
+
+// ============================================================
+// Ajouter un antécédent
+// ============================================================
+export async function creerAntecedent(
+  hospitalId: string,
+  utilisateurId: string,
+  utilisateurNom: string,
+  data: {
+    patient_id: string;
+    type:       TypeAntecedentSaisi;
+    libelle:    string;
+    date_debut?: Date | null;
+    date_fin?:   Date | null;
+    est_actif?:  boolean;
+    notes?:      string;
+  }
+) {
+  await verifierPermissionAction(hospitalId, "PATIENT", "peut_modifier");
+
+  // Le patient doit être rattaché à cet établissement (multi-tenant)
+  const patientHospital = await prisma.patientHospital.findFirst({
+    where:   { hospital_id: hospitalId, patient_id: data.patient_id },
+    include: { patient: true },
+  });
+  if (!patientHospital) {
+    throw new Error("Patient introuvable dans cet établissement");
+  }
+
+  const antecedent = await prisma.antecedentMedical.create({
+    data: {
+      hospital_id: hospitalId,
+      patient_id:  data.patient_id,
+      type:        data.type,
+      libelle:     data.libelle,
+      date_debut:  data.date_debut ?? null,
+      date_fin:    data.date_fin ?? null,
+      est_actif:   data.est_actif ?? true,
+      notes:       data.notes ?? null,
+    },
+  });
+
+  const nomPatient = `${patientHospital.patient.prenom} ${patientHospital.patient.nom}`;
+
+  await enregistrerAudit({
+    hospitalId,
+    utilisateurId,
+    utilisateurNom,
+    typeAction:  "CREATION",
+    module:      "PATIENT",
+    description: `Ajout antécédent (${data.type}) — ${nomPatient} : ${data.libelle}`,
+    entiteId:    antecedent.id,
+    entiteNom:   nomPatient,
+    metadonnees: {
+      type:      data.type,
+      libelle:   data.libelle,
+      est_actif: data.est_actif ?? true,
+    },
+  });
+
+  return antecedent;
+}
+
+// ============================================================
+// Modifier un antécédent
+//
+// Sert notamment à clôturer un traitement chronique :
+// est_actif = false + date_fin renseignée.
+// ============================================================
+export async function modifierAntecedent(
+  antecedentId: string,
+  hospitalId: string,
+  utilisateurId: string,
+  utilisateurNom: string,
+  data: {
+    type?:       TypeAntecedentSaisi;
+    libelle?:    string;
+    date_debut?: Date | null;
+    date_fin?:   Date | null;
+    est_actif?:  boolean;
+    notes?:      string;
+  }
+) {
+  await verifierPermissionAction(hospitalId, "PATIENT", "peut_modifier");
+
+  // Double filtre id + hospital_id (multi-tenant)
+  const existant = await prisma.antecedentMedical.findFirst({
+    where:   { id: antecedentId, hospital_id: hospitalId },
+    include: { patient: true },
+  });
+  if (!existant) {
+    throw new Error("Antécédent introuvable");
+  }
+
+  const antecedent = await prisma.antecedentMedical.update({
+    where: { id: antecedentId },
+    data: {
+      ...(data.type       !== undefined && { type:       data.type }),
+      ...(data.libelle    !== undefined && { libelle:    data.libelle }),
+      ...(data.date_debut !== undefined && { date_debut: data.date_debut }),
+      ...(data.date_fin   !== undefined && { date_fin:   data.date_fin }),
+      ...(data.est_actif  !== undefined && { est_actif:  data.est_actif }),
+      ...(data.notes      !== undefined && { notes:      data.notes }),
+    },
+  });
+
+  const nomPatient = `${existant.patient.prenom} ${existant.patient.nom}`;
+
+  await enregistrerAudit({
+    hospitalId,
+    utilisateurId,
+    utilisateurNom,
+    typeAction:  "MODIFICATION",
+    module:      "PATIENT",
+    description: `Modification antécédent — ${nomPatient} : ${antecedent.libelle}`,
+    entiteId:    antecedentId,
+    entiteNom:   nomPatient,
+    metadonnees: {
+      ancien_libelle:   existant.libelle,
+      nouveau_libelle:  antecedent.libelle,
+      ancien_est_actif: existant.est_actif,
+      nouvel_est_actif: antecedent.est_actif,
+    },
+  });
+
+  return antecedent;
+}
+
+// ============================================================
+// Supprimer un antécédent (erreur de saisie)
+// ============================================================
+export async function supprimerAntecedent(
+  antecedentId: string,
+  hospitalId: string,
+  utilisateurId: string,
+  utilisateurNom: string
+) {
+  await verifierPermissionAction(hospitalId, "PATIENT", "peut_supprimer");
+
+  const existant = await prisma.antecedentMedical.findFirst({
+    where:   { id: antecedentId, hospital_id: hospitalId },
+    include: { patient: true },
+  });
+  if (!existant) {
+    throw new Error("Antécédent introuvable");
+  }
+
+  await prisma.antecedentMedical.delete({ where: { id: antecedentId } });
+
+  const nomPatient = `${existant.patient.prenom} ${existant.patient.nom}`;
+
+  await enregistrerAudit({
+    hospitalId,
+    utilisateurId,
+    utilisateurNom,
+    typeAction:  "SUPPRESSION",
+    module:      "PATIENT",
+    description: `Suppression antécédent — ${nomPatient} : ${existant.libelle}`,
+    entiteId:    antecedentId,
+    entiteNom:   nomPatient,
+    metadonnees: { type: existant.type, libelle: existant.libelle },
   });
 }

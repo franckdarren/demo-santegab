@@ -185,6 +185,7 @@ exports.Prisma.ConsultationScalarFieldEnum = {
   patient_id: 'patient_id',
   medecin_id: 'medecin_id',
   statut: 'statut',
+  type_acte: 'type_acte',
   motif: 'motif',
   diagnostic: 'diagnostic',
   notes: 'notes',
@@ -475,6 +476,35 @@ exports.Prisma.ServiceScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.RendezVousScalarFieldEnum = {
+  id: 'id',
+  hospital_id: 'hospital_id',
+  patient_id: 'patient_id',
+  medecin_id: 'medecin_id',
+  service_id: 'service_id',
+  date_heure: 'date_heure',
+  duree_min: 'duree_min',
+  statut: 'statut',
+  motif: 'motif',
+  notes: 'notes',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.AntecedentMedicalScalarFieldEnum = {
+  id: 'id',
+  hospital_id: 'hospital_id',
+  patient_id: 'patient_id',
+  type: 'type',
+  libelle: 'libelle',
+  date_debut: 'date_debut',
+  date_fin: 'date_fin',
+  est_actif: 'est_actif',
+  notes: 'notes',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -522,6 +552,11 @@ exports.StatutConsultation = exports.$Enums.StatutConsultation = {
   EN_COURS: 'EN_COURS',
   TERMINEE: 'TERMINEE',
   ANNULEE: 'ANNULEE'
+};
+
+exports.TypeActe = exports.$Enums.TypeActe = {
+  CONSULTATION: 'CONSULTATION',
+  SOIN: 'SOIN'
 };
 
 exports.StatutFacture = exports.$Enums.StatutFacture = {
@@ -624,7 +659,8 @@ exports.ModuleAction = exports.$Enums.ModuleAction = {
   UTILISATEUR: 'UTILISATEUR',
   CARNET_SANTE: 'CARNET_SANTE',
   AUTHENTIFICATION: 'AUTHENTIFICATION',
-  HOSPITALISATION: 'HOSPITALISATION'
+  HOSPITALISATION: 'HOSPITALISATION',
+  RENDEZ_VOUS: 'RENDEZ_VOUS'
 };
 
 exports.StatutHospitalisation = exports.$Enums.StatutHospitalisation = {
@@ -645,6 +681,22 @@ exports.StatutLigneHospitalisation = exports.$Enums.StatutLigneHospitalisation =
   SERVI: 'SERVI',
   EN_ATTENTE: 'EN_ATTENTE',
   ANNULE: 'ANNULE'
+};
+
+exports.StatutRendezVous = exports.$Enums.StatutRendezVous = {
+  PLANIFIE: 'PLANIFIE',
+  CONFIRME: 'CONFIRME',
+  HONORE: 'HONORE',
+  ANNULE: 'ANNULE',
+  ABSENT: 'ABSENT'
+};
+
+exports.TypeAntecedent = exports.$Enums.TypeAntecedent = {
+  PATHOLOGIE: 'PATHOLOGIE',
+  HOSPITALISATION: 'HOSPITALISATION',
+  CHIRURGIE: 'CHIRURGIE',
+  ALLERGIE: 'ALLERGIE',
+  TRAITEMENT_CHRONIQUE: 'TRAITEMENT_CHRONIQUE'
 };
 
 exports.Prisma.ModelName = {
@@ -672,7 +724,9 @@ exports.Prisma.ModelName = {
   LigneHospitalisation: 'LigneHospitalisation',
   Permission: 'Permission',
   RolePersonnalise: 'RolePersonnalise',
-  Service: 'Service'
+  Service: 'Service',
+  RendezVous: 'RendezVous',
+  AntecedentMedical: 'AntecedentMedical'
 };
 
 /**

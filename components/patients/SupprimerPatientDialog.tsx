@@ -76,17 +76,19 @@ export function SupprimerPatientDialog({
         type="button"
         variant="outline"
         onClick={() => setOpen(true)}
-        className="border-gray-200 text-gray-600 hover:text-red-600 hover:border-red-300"
+        className="border-gray-200 text-gray-600 hover:text-red-600 hover:border-red-300 text-xs sm:text-sm px-2 sm:px-4"
       >
         <Trash2 className="h-4 w-4 mr-1.5" />
         Supprimer
       </Button>
 
       <Dialog open={open} onOpenChange={handleClose}>
-        <DialogContent className="max-w-md">
+        {/* sm: obligatoire, sinon ce max-w écrase la marge mobile */}
+        {/* de DialogContent et le sm:max-w-sm de base le neutralise */}
+        <DialogContent className="sm:max-w-md!">
 
           {/* Titre avec icône d'alerte */}
-          <DialogTitle className="flex items-center gap-3 text-gray-900">
+          <DialogTitle className="flex items-center gap-3 pr-8 text-gray-900">
             <div className="w-9 h-9 rounded-full bg-red-100 flex items-center justify-center shrink-0">
               <AlertTriangle className="h-5 w-5 text-red-600" />
             </div>
@@ -125,8 +127,9 @@ export function SupprimerPatientDialog({
             </div>
           )}
 
-          {/* Boutons d'action */}
-          <div className="flex gap-3 justify-end pt-2">
+          {/* Boutons d'action — empilés sur mobile, le libellé */}
+          {/* « Confirmer la suppression » ne tient pas à côté d'« Annuler » */}
+          <div className="flex flex-col-reverse sm:flex-row gap-2 sm:gap-3 sm:justify-end pt-2">
             <Button
               type="button"
               variant="outline"

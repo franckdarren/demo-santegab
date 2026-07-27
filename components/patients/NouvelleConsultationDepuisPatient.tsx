@@ -76,6 +76,8 @@ export function NouvelleConsultationDepuisPatient({
 
     const [medecinId, setMedecinId] = useState(medecinConnecteId);
     const [statut, setStatut] = useState("EN_ATTENTE");
+    // Nature de l'acte (CDC §5.5) — consultation médicale ou soin
+    const [typeActe, setTypeActe] = useState("CONSULTATION");
     const [prescriptions, setPrescriptions] = useState<Prescription[]>([]);
     const [formData, setFormData] = useState({
         motif: "",
@@ -111,6 +113,7 @@ export function NouvelleConsultationDepuisPatient({
         setSucces(false);
         setMedecinId(medecinConnecteId);
         setStatut("EN_ATTENTE");
+        setTypeActe("CONSULTATION");
         setPrescriptions([]);
         setFormData({
             motif: "", diagnostic: "", notes: "",
@@ -135,6 +138,7 @@ export function NouvelleConsultationDepuisPatient({
                     taille_cm: formData.taille_cm ? Number(formData.taille_cm) : undefined,
                     temperature: formData.temperature ? Number(formData.temperature) : undefined,
                     statut: statut as "EN_ATTENTE" | "EN_COURS" | "TERMINEE" | "ANNULEE",
+                    type_acte: typeActe as "CONSULTATION" | "SOIN",
                     prescriptions: prescriptions.filter((p) => p.medicament.trim()),
                 });
                 setSucces(true);
@@ -149,7 +153,7 @@ export function NouvelleConsultationDepuisPatient({
 
     return (
         <Dialog open={open} onOpenChange={close}>
-            <DialogContent className="max-w-2xl! w-full p-0 overflow-hidden gap-0">
+            <DialogContent className="sm:max-w-2xl! w-full p-0 overflow-hidden gap-0">
                 <DialogTitle className="sr-only">Nouvelle consultation</DialogTitle>
 
                 {succes ? (
@@ -167,16 +171,16 @@ export function NouvelleConsultationDepuisPatient({
                     <div className="flex flex-col">
 
                         {/* Header */}
-                        <div className="px-6 py-4 border-b bg-gray-50">
+                        <div className="px-4 sm:px-6 py-4 border-b bg-gray-50">
                             <h2 className="text-base font-semibold text-gray-900">
                                 Nouvelle consultation
                             </h2>
-                            <p className="text-xs text-gray-400 mt-0.5">
+                            <p className="text-xs text-gray-400 mt-0.5 wrap-break-word">
                                 Patient : {patient.prenom} {patient.nom} · {patient.numero_dossier}
                             </p>
                         </div>
 
-                        <div className="overflow-y-auto p-6 space-y-6 max-h-[70vh]">
+                        <div className="overflow-y-auto p-4 sm:p-6 space-y-6 max-h-[60vh] sm:max-h-[70vh]">
 
                             {errors.global && (
                                 <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
@@ -197,12 +201,14 @@ export function NouvelleConsultationDepuisPatient({
                                         Patient
                                         <Lock className="h-3 w-3 text-gray-400" />
                                     </Label>
-                                    <div className="flex h-9 w-full rounded-md border border-input bg-gray-50 px-3 py-1 text-sm items-center text-gray-600">
+                                    {/* min-h plutôt que h fixe : un nom long doit */}
+                                    {/* pouvoir passer sur deux lignes sur mobile   */}
+                                    <div className="flex min-h-9 w-full rounded-md border border-input bg-gray-50 px-3 py-2 text-sm items-center text-gray-600 wrap-break-word">
                                         {patient.prenom} {patient.nom} — {patient.numero_dossier}
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div className="space-y-1.5">
                                         <Label>Médecin</Label>
                                         <select
@@ -230,6 +236,19 @@ export function NouvelleConsultationDepuisPatient({
                                             <option value="TERMINEE">Terminée</option>
                                         </select>
                                     </div>
+                                </div>
+
+                                {/* Nature de l'acte — CDC §5.5 */}
+                                <div className="space-y-1.5">
+                                    <Label>Nature de l&apos;acte</Label>
+                                    <select
+                                        value={typeActe}
+                                        onChange={(e) => setTypeActe(e.target.value)}
+                                        className={selectClass}
+                                    >
+                                        <option value="CONSULTATION">Consultation médicale</option>
+                                        <option value="SOIN">Soin</option>
+                                    </select>
                                 </div>
 
                                 <div className="space-y-1.5">
@@ -302,7 +321,7 @@ export function NouvelleConsultationDepuisPatient({
 
                             {/* Prescriptions */}
                             <div className="space-y-3">
-                                <div className="flex items-center justify-between">
+                                <div className="flex items-center justify-between gap-2 flex-wrap">
                                     <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
                                         Prescriptions ({prescriptions.length})
                                     </p>
@@ -370,7 +389,7 @@ export function NouvelleConsultationDepuisPatient({
                                                     />
                                                     <FieldError message={errors[`prescription_${index}`]} />
                                                 </div>
-                                                <div className="grid grid-cols-3 gap-2">
+                                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                                                     <Input
                                                         placeholder="Dosage"
                                                         value={p.dosage}
@@ -422,7 +441,7 @@ export function NouvelleConsultationDepuisPatient({
                         </div>
 
                         {/* Footer */}
-                        <div className="flex justify-between items-center px-6 py-4 border-t bg-gray-50">
+                        <div className="flex justify-between items-center gap-2 px-4 sm:px-6 py-4 border-t bg-gray-50">
                             <Button
                                 type="button"
                                 variant="ghost"

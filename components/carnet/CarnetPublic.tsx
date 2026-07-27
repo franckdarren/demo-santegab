@@ -11,6 +11,16 @@ import {
   Calendar, User, Clock, Shield,
 } from "lucide-react";
 import { formatDate, cn } from "@/lib/utils";
+import { TypeAntecedent } from "@/app/generated/prisma/client";
+
+// Libellés courts des types d'antécédents
+const TYPE_LABELS: Record<TypeAntecedent, string> = {
+  PATHOLOGIE:           "Pathologie",
+  HOSPITALISATION:      "Hospitalisation",
+  CHIRURGIE:            "Chirurgie",
+  ALLERGIE:             "Allergie",
+  TRAITEMENT_CHRONIQUE: "Traitement",
+};
 
 interface CarnetPublicProps {
   patient: {
@@ -21,6 +31,14 @@ interface CarnetPublicProps {
     groupe_sanguin: string | null;
     allergies: string | null;
     antecedents: string | null;
+    // Antécédents structurés — suivent le patient entre établissements
+    antecedents_med: Array<{
+      id: string;
+      type: TypeAntecedent;
+      libelle: string;
+      est_actif: boolean;
+      notes: string | null;
+    }>;
     consultations: Array<{
       id: string;
       date_consultation: Date;
@@ -163,8 +181,8 @@ export function CarnetPublic({
           </CardContent>
         </Card>
 
-        {/* Antécédents */}
-        {patient.antecedents && (
+        {/* Antécédents structurés (CDC §5.6) — suivent le patient */}
+        {(patient.antecedents_med.length > 0 || patient.antecedents) && (
           <Card className="border border-gray-200 shadow-sm">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
@@ -172,10 +190,44 @@ export function CarnetPublic({
                 Antécédents médicaux
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-sm text-gray-700 leading-relaxed">
-                {patient.antecedents}
-              </p>
+            <CardContent className="space-y-3">
+
+              {patient.antecedents_med.map((a) => (
+                <div
+                  key={a.id}
+                  className="flex items-start gap-2 pb-3 border-b border-gray-100 last:border-0 last:pb-0"
+                >
+                  <span
+                    className={`text-[10px] font-semibold px-1.5 py-0.5 rounded shrink-0 ${
+                      a.est_actif
+                        ? "bg-red-100 text-red-700"
+                        : "bg-gray-100 text-gray-500"
+                    }`}
+                  >
+                    {TYPE_LABELS[a.type]}
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-sm text-gray-800 font-medium">
+                      {a.libelle}
+                      {!a.est_actif && (
+                        <span className="text-xs text-gray-400 font-normal">
+                          {" "}— terminé
+                        </span>
+                      )}
+                    </p>
+                    {a.notes && (
+                      <p className="text-xs text-gray-500 mt-0.5">{a.notes}</p>
+                    )}
+                  </div>
+                </div>
+              ))}
+
+              {/* Ancien format texte libre, conservé tant qu'il subsiste */}
+              {patient.antecedents && (
+                <p className="text-sm text-gray-700 leading-relaxed">
+                  {patient.antecedents}
+                </p>
+              )}
             </CardContent>
           </Card>
         )}
